@@ -1,0 +1,2 @@
+<!ENTITY spamnessColumn.label "Spam Rating">
+<!ENTITY spamnessColumnToolTip.label "Click to sort by SpamAssassin spam rating">
