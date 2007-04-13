@@ -1,0 +1,14 @@
+NEW FEATURES
+- Incorporate into message display, preferably as actual score vs. threshhold
+- Change column display to be just graphic with score vs. threshhold as tooltip
+
+EVALUATE
+- Logarithmic categorization - good enough or too coarse?  Is it possible
+  to manipulate the size+opacity within TB to avoid having to make those
+  graphics?
+- Anything worth turning into user preferences?
+
+MARKETING
+- Better representative graphics instead of circles
+- Finalize a logo
+- Add a column header graphic instead of a column label

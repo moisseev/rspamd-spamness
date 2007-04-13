@@ -4,7 +4,7 @@ SpamnessColumn.handler = {
 	getCellText:         function(row, col) {
 		var key = gDBView.getKeyAt(row);
 		var hdr = gDBView.db.GetMsgHdrForKey(key);
-		var txt = SpamnessColumn.handler.getSortLongForRow(hdr);
+		var txt = SpamnessColumn.handler.getSortLongForRow(hdr) / 10.0;
 		return (isNaN(txt)) ? "" : txt;
 	},
 
@@ -23,7 +23,7 @@ SpamnessColumn.handler = {
 	getImageSrc:         function(row, col) {
 		var key = gDBView.getKeyAt(row);
 		var hdr = gDBView.db.GetMsgHdrForKey(key);
-		var normalized = SpamnessColumn.handler.getSortLongForRow(hdr);
+		var normalized = SpamnessColumn.handler.getSortLongForRow(hdr) / 10.0;
 		var img;
 		if (isNaN(normalized)) {
 			img = "chrome://spamness/skin/neutral.png";
@@ -53,7 +53,7 @@ SpamnessColumn.handler = {
 		var thresh = parseFloat(spamreport.substring(threshIdx + "required=".length, endThreshIdx));
 		//dump("thresh: " + thresh);
 
-		return Math.round((score - thresh) * 100) / 100.0;
+		return Math.round((score - thresh) * 100) / 10.0;
 	}
 };
 
