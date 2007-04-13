@@ -1,0 +1,6 @@
+treecol.spamnessCol {
+  list-style-image: url("chrome://spamness/skin/spamness-column-header.png");
+  padding-right: 3px;
+  padding-left: 2px;
+  padding-top: 1px;
+}

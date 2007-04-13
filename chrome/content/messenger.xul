@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<?xml-stylesheet href="chrome://spamness/skin/messenger.css" type="text/css"?>
 
 <!DOCTYPE overlay SYSTEM "chrome://spamness/locale/messenger.dtd">
 
@@ -17,7 +18,8 @@
     <treecols id="threadCols">
       <splitter class="tree-splitter" />
       <treecol id="colSpamStatus" persist="hidden ordinal width" 
-           currentView="unthreaded" flex="2"
+           currentView="unthreaded"
+           class="treecol-image spamnessCol"
            label="&spamnessColumn.label;"
            tooltiptext="&spamnessColumnToolTip.label;" />
     </treecols>
