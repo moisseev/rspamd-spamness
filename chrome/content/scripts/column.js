@@ -26,7 +26,7 @@ SpamnessColumn.handler = {
 		var normalized = SpamnessColumn.handler.getSortLongForRow(hdr) / 10.0;
 		var img;
 		if (isNaN(normalized)) {
-			img = "chrome://spamness/skin/neutral.png";
+			img = "chrome://messenger/skin/icons/symbol-null.png";
 		} else if (normalized < 0) {
 			level = Math.round(Math.log(Math.abs(normalized) + 1));
 			level = (level >= 5) ? 4 : level;
