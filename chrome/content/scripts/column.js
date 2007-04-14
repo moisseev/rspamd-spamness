@@ -43,13 +43,22 @@ SpamnessColumn.handler = {
 		var spamreport = hdr.getStringProperty("x-spam-status");
 		//dump("report: " + spamreport);
 
+		var scoreprefix = "score=";
 		var scoreIdx = spamreport.indexOf("score=");
+		if (scoreIdx < 0) {
+			scoreprefix = "hits=";
+			scoreIdx = spamreport.indexOf("hits=");
+		}
 		var endScoreIdx = spamreport.indexOf(" ", scoreIdx);
-		var score = parseFloat(spamreport.substring(scoreIdx + "score=".length, endScoreIdx));
+		var score = parseFloat(spamreport.substring(scoreIdx + scoreprefix.length, endScoreIdx));
 		//dump("score: " + score);
 
 		var threshIdx = spamreport.indexOf("required=");
 		var endThreshIdx = spamreport.indexOf(" ", threshIdx);
+		if (endThreshIdx <  0) {
+			var lines = spamreport.split(/\n/);
+			endThreshIdx = lines[0].length - 1;
+		}
 		var thresh = parseFloat(spamreport.substring(threshIdx + "required=".length, endThreshIdx));
 		//dump("thresh: " + thresh);
 
