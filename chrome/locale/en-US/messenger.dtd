@@ -1,2 +1,8 @@
 <!ENTITY spamnessColumn.label "Spam Rating">
 <!ENTITY spamnessColumnToolTip.label "Click to sort by SpamAssassin spam rating">
+
+<!ENTITY spamnessJunkScoreColumn.label "Junk Score">
+<!ENTITY spamnessJunkScoreColumnToolTip.label "Click to sort by junk score">
+
+<!ENTITY spamnessJunkScoreOriginColumn.label "Junk Score Origin">
+<!ENTITY spamnessJunkScoreOriginColumnToolTip.label "Click to sort by junk score origin">
