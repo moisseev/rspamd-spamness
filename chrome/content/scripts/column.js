@@ -40,8 +40,11 @@ SpamnessColumn.handler = {
 	},
 
 	getSortLongForRow:   function(hdr) {
-		var spamreport = hdr.getStringProperty("x-spam-status");
-		//dump("report: " + spamreport);
+        var prefs = Component.classes["@mozilla.org/preferences-service;1"]
+                        .getService(Components.interfaces.nsIPrefBranch);
+        var header = prefs.getCharPref("extensions.org.ryanlee.spamness.SAHeader");
+		var spamreport = hdr.getStringProperty(header);
+        //dump("spamreport: " + spamreport);
 
 		var scoreprefix = "score=";
 		var scoreIdx = spamreport.indexOf("score=");
