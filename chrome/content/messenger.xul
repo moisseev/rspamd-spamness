@@ -6,10 +6,10 @@
 <overlay id="spamness-messenger-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript"
+  <script type="application/javascript"
+          src="chrome://spamness/content/scripts/spamness.js" />
+  <script type="application/javascript"
           src="chrome://spamness/content/scripts/column.js" />
-  <script type="application/x-javascript"
-          src="chrome://spamness/content/scripts/junkcolumns.js" />
 
   <stringbundleset id="stringbundleset">
     <stringbundle id="bundle_spamness"
@@ -25,19 +25,6 @@
            label="&spamnessColumn.label;"
            tooltiptext="&spamnessColumnToolTip.label;" />
       <splitter class="tree-splitter" />
-      <treecol id="colJunkScore" persist="hidden ordinal width" 
-           hidden="true"
-           currentView="unthreaded"
-           class="junkScoreCol"
-           label="&spamnessJunkScoreColumn.label;"
-           tooltiptext="&spamnessJunkScoreColumnToolTip.label;" />
-      <splitter class="tree-splitter" />
-      <treecol id="colJunkScoreOrigin" persist="hidden ordinal width" 
-           hidden="true"
-           currentView="unthreaded"
-           class="junkScoreOriginCol"
-           label="&spamnessJunkScoreOriginColumn.label;"
-           tooltiptext="&spamnessJunkScoreOriginColumnToolTip.label;" />
     </treecols>
   </tree>
 

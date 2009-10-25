@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet href="chrome://spamness/skin/options.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://spamness/locale/options.dtd">
+
+<prefwindow id="spamnessOptionsWindow"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        type="prefwindow"
+        windowtype="spamness:pref"
+        title="&spamnessOptions.title;"
+        ondialogaccept="SpamnessOptions.accept"
+        ondialogcancel="SpamnessOptions.cancel"
+        buttons="accept,cancel"
+        defaultButton="accept"
+        buttonalign="end"
+        buttonorient="horizontal"
+        buttonpack="end"
+        height="290"
+        width="300">
+
+  <prefpane id="paneGeneral"
+            onpaneload="SpamnessOptions.onLoad();"
+            label="&spamnessOptions.paneGeneral.label;">
+
+    <stringbundleset id="stringbundleset">
+      <stringbundle id="bundle_spamness"
+                    src="chrome://spamness/locale/spamness.properties" />
+    </stringbundleset>
+
+    <script type="application/x-javascript"
+            src="chrome://global/content/globalOverlay.js"/>
+    <script type="application/x-javascript"
+            src="chrome://spamness/content/scripts/spamness.js"/>
+    <script type="application/x-javascript"
+            src="chrome://spamness/content/scripts/options.js"/>
+
+    <preferences>
+      <preference id="headerName"
+                  name="extensions.org.ryanlee.spamness.SAHeader"
+                  type="string" />
+      <preference id="columnDisplay"
+                  name="extensions.org.ryanlee.spamness.columnDisplay"
+                  type="int" />
+    </preferences>
+
+    <groupbox>
+      <caption control="columnDisplayForm"
+               label="&spamnessOptions.prefColumnDisplay.label;" />
+      <menulist id="columnDisplayForm" 
+                preference="columnDisplay">
+        <menupopup id="columnDisplayFormOptions">
+          <menuitem value="0" label="&spamnessOptions.prefShowBoth.label;" />
+          <menuitem value="1" label="&spamnessOptions.prefShowText.label;" />
+          <menuitem value="2" label="&spamnessOptions.prefShowImage.label;" />
+        </menupopup>
+      </menulist>
+    </groupbox>
+
+    <groupbox>
+      <caption label="&spamnessOptions.captionHeaderGroup.label;" />
+      <label control="headerNameForm"
+             value="&spamnessOptions.prefHeaderName.label;" />
+      <textbox id="headerNameForm"
+               preference="headerName" />
+      <description class="caveat">&spamnessOptions.prefHeaderName.explain;</description>
+      <button label="&spamnessOptions.buttonReIndex.label;" />
+    </groupbox>
+  </prefpane>
+
+</prefwindow>
