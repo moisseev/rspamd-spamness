@@ -1,4 +1,76 @@
 .caveat {
     font-size: 80%;
-    padding: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+prefpane {
+    padding: 12px;
+}
+
+prefpane > vbox {
+    padding-bottom: 20px;
+}
+
+preferences, stringbundleset, script {
+    display: none;
+}
+
+prefwindow:not([type="child"]) {
+    padding: 0 !important;
+}
+
+caption {
+    padding: 4px 4px 0px 0px !important;
+}
+
+.paneSelector {
+    list-style-image: url("chrome://messenger/skin/preferences/mail-options.png");
+    padding: 0 5px;
+    border-bottom: 1px solid #a3a3a3;
+    background-image: url("chrome://messenger/skin/icons/top-toolbar-background.gif");
+    background-repeat: repeat-x;
+    background-position: top right;
+    background-color: #e1e1e1;
+    margin: 0;
+}
+
+.paneSelector radio {
+    border-right: 1px solid transparent;
+    border-left: 1px transparent;
+    padding: 3px 0 3px 0;
+    margin: 0;
+    -moz-appearance: none !important;
+}
+
+radio[pane][selected="true"] {
+    background-color: #DDDDDD;
+    background-image: none;
+    border-right: 1px solid #b9b9b9;
+    border-left: 1px solid #b9b9b9;
+    color: ButtonText !important;
+}
+
+radio[pane=paneDisplay] {
+    -moz-image-region: rect(0px, 64px, 32px, 32px)
+}
+
+radio[pane=paneDisplay]:active {
+    -moz-image-region: rect(32px, 64px, 64px, 32px)
+}
+
+radio[pane=paneAdvanced] {
+    -moz-image-region: rect(0px, 256px, 32px, 224px)
+}
+
+radio[pane=paneAdvanced]:active {
+    -moz-image-region: rect(32px, 256px, 64px, 224px)
+}
+
+prefpane#paneAdvanced {
+    max-height: 150px;
+}
+
+prefpane#paneDisplay {
+    max-height: 250px;
 }

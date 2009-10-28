@@ -23,7 +23,7 @@ SpamnessColumn.handler = {
     getImageSrc:         function(row, col) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefBranch);
-        var showImage = prefs.getIntPref("extensions.org.ryanlee.spamness.columnDisplay");
+        var showImage = prefs.getIntPref("extensions.spamness.display.column");
 
 	if (showImage == Spamness.settings.COLUMN_NO_IMAGE_SHOW_TEXT.value)
 	    return null;
@@ -49,30 +49,15 @@ SpamnessColumn.handler = {
     getSortLongForRow:   function(hdr) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefBranch);
-        var header = prefs.getCharPref("extensions.org.ryanlee.spamness.SAHeader");
+        var header = prefs.getCharPref("extensions.spamness.header");
         var spamreport = hdr.getStringProperty(header);
-        //dump("spamreport: " + spamreport);
-
-        var scoreprefix = "score=";
-        var scoreIdx = spamreport.indexOf("score=");
-        if (scoreIdx < 0) {
-            scoreprefix = "hits=";
-            scoreIdx = spamreport.indexOf("hits=");
-        }
-        var endScoreIdx = spamreport.indexOf(" ", scoreIdx);
-        var score = parseFloat(spamreport.substring(scoreIdx + scoreprefix.length, endScoreIdx));
-        //dump("score: " + score);
-
-        var threshIdx = spamreport.indexOf("required=");
-        var endThreshIdx = spamreport.indexOf(" ", threshIdx);
-        if (endThreshIdx <  0) {
-            var lines = spamreport.split(/\n/);
-            endThreshIdx = lines[0].length - 1;
-        }
-        var thresh = parseFloat(spamreport.substring(threshIdx + "required=".length, endThreshIdx));
-        //dump("thresh: " + thresh);
-
-        return Math.round((score - thresh) * 100) / 10.0;
+	if (spamreport != null) {
+            var parsed = Spamness.parseHeader(spamreport);
+	    if (parsed != null) {
+		return parsed.getNormalScore() * 10.0;
+	    }
+	}
+	return Number.NaN;
     }
 };
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?> 
+
+<!DOCTYPE overlay SYSTEM "chrome://spamness/locale/messageHeader.dtd">
+
+<overlay id="mailingListHeaderOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript"
+          src="chrome://spamness/content/scripts/spamness.js" />
+  <script type="application/x-javascript"
+          src="chrome://spamness/content/scripts/messageHeader.js" />
+  <!--stringbundleset id="stringbundleset">
+    <stringbundle id="spamness-messageHeader-strings" 
+                  src="chrome://spamness/locale/messageHeader.properties" />
+  </stringbundleset-->
+
+  <vbox id="expandedHeaders">
+   <mail-headerfield>
+    <hbox flex="1"
+          class="headerNameBox"
+          id="spamnessHeader"
+          align="start"
+          collapsed="true">
+      <label class="headerName"
+             value="&spamness.messageHeader.label;: "
+             id="spamness-messageHeader-label" />
+    </hbox>
+    <textbox flex="1"
+          class="headerValue plain">
+      <hbox flex="1"
+            class="textbox-input-box"
+            id="spamness-messageHeader-value">
+        <label class="empty-and-removed" />
+      </hbox>
+    </textbox>
+   </mail-headerfield>
+  </vbox>
+</overlay>

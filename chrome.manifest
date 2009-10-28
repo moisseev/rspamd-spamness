@@ -1,6 +1,7 @@
 content	spamness	jar:chrome/spamness.jar!/content/
 
 overlay	chrome://messenger/content/messenger.xul	chrome://spamness/content/messenger.xul
+overlay chrome://messenger/content/msgHdrViewOverlay.xul chrome://spamness/content/msgHdrViewOverlay.xul
 
 skin	spamness	classic/1.0	jar:chrome/spamness.jar!/skin/
 

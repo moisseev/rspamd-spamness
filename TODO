@@ -1,14 +1,24 @@
 NEW FEATURES
+- unrelated: observer / broadcaster for archive key...
 - Incorporate into message display, preferably as actual score vs. threshhold
-- Change column display to be just graphic with score vs. threshhold as tooltip
+- fix score display, no header label...
+- Incorporate SA rules triggered into message display
+- Everybody uses the same custom column TB pref, be much nicer about adding to it and setting it via Spamness prefpane
+- prefpane: nicely change custom column/custom db header when pref changes (is this possible with the instant thing? set an observer on the pref?) and prompt to rebuild index; maybe do that on unfocus...; make re-indexing button do something
+- refresh view when preferences are accepted with prefs observer
+- deal with instant vs. hit a button - ondialogaccept is easier to manage the pref mods than
+- boo, prefwindow / panes / whatever making itself too large
+- see https://developer.mozilla.org/en/Adding_preferences_to_an_extension
 
 EVALUATE
 - Logarithmic categorization - good enough or too coarse?  Is it possible
   to manipulate the size+opacity within TB to avoid having to make those
   graphics?
-- Anything worth turning into user preferences?
 
 MARKETING
-- Better representative graphics instead of circles?
-- Finalize a logo
+- Make a logo
+- Make a better, monochrome column header
 
+DEFER
+- Change column display to be just graphic with score vs. threshhold as tooltip [seems impossible]
+- Move the junk score columns to a separate extension [or not, not that useful]

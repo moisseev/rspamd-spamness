@@ -6,7 +6,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>{41a9ee8a-e9c6-4076-84ac-bc1b612dca68}</em:id>
     <em:name>Spamness</em:name>
-    <em:version>0.1</em:version>
+    <em:version>0.2</em:version>
     
     <!-- Thunderbird -->
     <em:targetApplication>
@@ -27,7 +27,7 @@
     </em:file>
 
     <!-- Front End Integration Hooks (used by Extension Manager)-->
-    <em:description>Gives a color- and size-based visual measurement of how spam-like an individual message is based on its normalized SpamAssassin score.</em:description>
+    <em:description>Provides a color- and size-based visual measurement of how spam-like an individual message is based on its normalized SpamAssassin score.</em:description>
     <em:creator>Ryan Lee (ryan@ryanlee.org)</em:creator>
     <em:iconURL>chrome://spamness/skin/icon32x32.png</em:iconURL>
     <em:homepageURL>http://ryanlee.org/software/mozilla/thunderbird/spamness/</em:homepageURL>

@@ -10,19 +10,16 @@
         type="prefwindow"
         windowtype="spamness:pref"
         title="&spamnessOptions.title;"
-        ondialogaccept="SpamnessOptions.accept"
-        ondialogcancel="SpamnessOptions.cancel"
         buttons="accept,cancel"
         defaultButton="accept"
         buttonalign="end"
         buttonorient="horizontal"
-        buttonpack="end"
-        height="290"
-        width="300">
+        height="300"
+        width="340">
 
-  <prefpane id="paneGeneral"
+  <prefpane id="paneDisplay"
             onpaneload="SpamnessOptions.onLoad();"
-            label="&spamnessOptions.paneGeneral.label;">
+            label="&spamnessOptions.paneDisplay.label;">
 
     <stringbundleset id="stringbundleset">
       <stringbundle id="bundle_spamness"
@@ -37,26 +34,55 @@
             src="chrome://spamness/content/scripts/options.js"/>
 
     <preferences>
-      <preference id="headerName"
-                  name="extensions.org.ryanlee.spamness.SAHeader"
-                  type="string" />
-      <preference id="columnDisplay"
-                  name="extensions.org.ryanlee.spamness.columnDisplay"
+      <preference id="displayMessageScore"
+                  name="extensions.spamness.display.messageScore"
+                  type="bool" />
+      <preference id="displayMessageRulesCompact"
+                  name="extensions.spamness.display.messageRulesCompact"
+                  type="bool" />
+      <preference id="displayMessageRulesExtended"
+                  name="extensions.spamness.display.messageRulesExtended"
+                  type="bool" />
+      <preference id="displayColumn"
+                  name="extensions.spamness.display.column"
                   type="int" />
     </preferences>
 
     <groupbox>
-      <caption control="columnDisplayForm"
-               label="&spamnessOptions.prefColumnDisplay.label;" />
-      <menulist id="columnDisplayForm" 
-                preference="columnDisplay">
-        <menupopup id="columnDisplayFormOptions">
-          <menuitem value="0" label="&spamnessOptions.prefShowBoth.label;" />
-          <menuitem value="1" label="&spamnessOptions.prefShowText.label;" />
-          <menuitem value="2" label="&spamnessOptions.prefShowImage.label;" />
-        </menupopup>
-      </menulist>
+      <caption label="&spamnessOptions.captionDisplayColumnGroup.label;" />
+      <radiogroup id="displayColumnControl"
+                  preference="displayColumn">
+        <radio value="0" label="&spamnessOptions.prefShowBoth.label;" />
+        <radio value="1" label="&spamnessOptions.prefShowText.label;" />
+        <radio value="2" label="&spamnessOptions.prefShowImage.label;" /> 
+      </radiogroup>
     </groupbox>
+
+    <groupbox>
+      <caption label="&spamnessOptions.captionDisplayMessageGroup.label;" />
+      <checkbox id="displayMessageScoreControl"
+                preference="displayMessageScore"
+                label="&spamnessOptions.prefDisplayMessageScore.label;" />
+      <checkbox id="displayMessageRulesCompactControl"
+                preference="displayMessageRulesCompact"
+                label="&spamnessOptions.prefDisplayMessageRulesCompact.label;"
+                oncommand="SpamnessOptions.updateShowRules();" />
+      <hbox class="indent">
+        <checkbox id="displayMessageRulesExtendedControl"
+                  preference="displayMessageRulesExtended"
+                  label="&spamnessOptions.prefDisplayMessageRulesExtended.label;" />
+      </hbox>
+    </groupbox>
+  </prefpane>
+
+  <prefpane id="paneAdvanced"
+            onpaneload="SpamnessOptions.onLoad();"
+            label="&spamnessOptions.paneAdvanced.label;">
+    <preferences>
+      <preference id="headerName"
+                  name="extensions.spamness.header"
+                  type="string" />
+    </preferences>
 
     <groupbox>
       <caption label="&spamnessOptions.captionHeaderGroup.label;" />
@@ -64,9 +90,10 @@
              value="&spamnessOptions.prefHeaderName.label;" />
       <textbox id="headerNameForm"
                preference="headerName" />
-      <description class="caveat">&spamnessOptions.prefHeaderName.explain;</description>
+      <description class="caveat">
+        &spamnessOptions.prefHeaderName.explain;
+      </description>
       <button label="&spamnessOptions.buttonReIndex.label;" />
     </groupbox>
   </prefpane>
-
 </prefwindow>
