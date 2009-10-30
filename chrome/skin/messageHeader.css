@@ -1,0 +1,9 @@
+.spamness-disguise {
+    margin: 0 ! important;
+    border: 0 ! important;
+    padding: 0 ! important;
+    background-color: inherit ! important;
+    font: inherit ! important;
+    line-height: inherit ! important; 
+    color: inherit ! important;
+}

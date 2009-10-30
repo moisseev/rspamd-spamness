@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?> 
+<?xml-stylesheet href="chrome://spamness/skin/messageHeader.css" type="text/css"?>
 
 <!DOCTYPE overlay SYSTEM "chrome://spamness/locale/messageHeader.dtd">
 
@@ -9,30 +10,51 @@
           src="chrome://spamness/content/scripts/spamness.js" />
   <script type="application/x-javascript"
           src="chrome://spamness/content/scripts/messageHeader.js" />
-  <!--stringbundleset id="stringbundleset">
-    <stringbundle id="spamness-messageHeader-strings" 
-                  src="chrome://spamness/locale/messageHeader.properties" />
-  </stringbundleset-->
 
   <vbox id="expandedHeaders">
-   <mail-headerfield>
-    <hbox flex="1"
-          class="headerNameBox"
-          id="spamnessHeader"
-          align="start"
-          collapsed="true">
-      <label class="headerName"
-             value="&spamness.messageHeader.label;: "
-             id="spamness-messageHeader-label" />
-    </hbox>
-    <textbox flex="1"
-          class="headerValue plain">
-      <hbox flex="1"
-            class="textbox-input-box"
-            id="spamness-messageHeader-value">
-        <label class="empty-and-removed" />
+    <mail-headerfield id="expandedspamnessBox"
+                      collapsed="false">
+      <hbox class="headerNameBox"
+            id="spamnessHeader"
+            align="start"
+            collapsed="false">
+        <label flex="1"
+               class="headerName"
+               value="&spamness.messageHeader.label;: "
+               id="spamness-messageHeader-label" />
       </hbox>
-    </textbox>
-   </mail-headerfield>
+      <textbox flex="1"
+               class="headerValue plain"
+               readonly="true">
+        <hbox flex="1"
+              class="textbox-input-box"
+              id="spamness-messageHeader-value">
+          <label flex="1" class="textbox-input empty-and-removed" />
+        </hbox>
+      </textbox>
+    </mail-headerfield>
+
+    <mail-headerfield id="expandedspamness-rulesBox"
+                     collapsed="false">
+      <hbox class="headerNameBox"
+            id="spamnessRulesHeader"
+            align="start"
+            collapsed="false">
+        <label flex="1"
+               class="headerName"
+               value="&spamness.rulesMessageHeader.label;: "
+               id="spamness-rulesMessageHeader-label" />
+      </hbox>
+      <textbox flex="1"
+               class="headerValue plain"
+               readonly="true">
+          <hbox flex="1"
+                class="textbox-input-box"
+                id="spamness-rulesMessageHeader-value">
+          <label flex="1" class="textbox-input empty-and-removed" />
+        </hbox>
+      </textbox>
+    </mail-headerfield>
+
   </vbox>
 </overlay>

@@ -29,15 +29,13 @@ Spamness.Message.displayHeader = function() {
 	return;
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
-    var label = document.createElement("label");
-    if (parsed != null) {
-        label.setAttribute("value", parsed.getNormalScore());
-        label.setAttribute("title", parsed.getScore() + " / " + parsed.getThreshold());
-        // set class for styling
-    } else {
-	label.setAttribute("value", "Unrated"); // replace with string bundle
-	// set class for styling
-    }
+    var label = document.createElementNS("http://www.w3.org/1999/xhtml", "input");
+    document.getElementById("expandedspamnessBox").collapsed = (parsed == null);
+    label.setAttribute("flex", "1");
+    label.setAttribute("class", "textbox-input spamness-disguise");
+    label.setAttribute("readonly", true);
+    label.setAttribute("align", "start");
+    label.setAttribute("value", (parsed != null) ? parsed.getNormalScore() + " (" +  parsed.getScore() + " / " + parsed.getThreshold() + ")" : "");
     Spamness.Message.container.appendChild(label);
 };
 
