@@ -1,13 +1,11 @@
+Unrelated: observer / broadcaster for archive key...? might fix issue
+
 NEW FEATURES
-- unrelated: observer / broadcaster for archive key...
-- Incorporate into message display, preferably as actual score vs. threshhold
-- fix score display, no header label...
-- Incorporate SA rules triggered into message display
-- Everybody uses the same custom column TB pref, be much nicer about adding to it and setting it via Spamness prefpane
+- figure out how to make rules the twisty openable kind and make each one a link to the wiki
 - prefpane: nicely change custom column/custom db header when pref changes (is this possible with the instant thing? set an observer on the pref?) and prompt to rebuild index; maybe do that on unfocus...; make re-indexing button do something
 - refresh view when preferences are accepted with prefs observer
 - deal with instant vs. hit a button - ondialogaccept is easier to manage the pref mods than
-- boo, prefwindow / panes / whatever making itself too large
+- check on windows, especially prefwindow height
 - see https://developer.mozilla.org/en/Adding_preferences_to_an_extension
 
 EVALUATE
