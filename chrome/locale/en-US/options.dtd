@@ -9,8 +9,7 @@
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Message Display">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Show score in message">
-<!ENTITY spamnessOptions.prefDisplayMessageRulesCompact.label "Show rules fired in message">
-<!ENTITY spamnessOptions.prefDisplayMessageRulesExtended.label "With details on each rule">
+<!ENTITY spamnessOptions.prefDisplayMessageRules.label "Show rules fired in message">
 
 <!ENTITY spamnessOptions.paneAdvanced.label "Advanced">
 

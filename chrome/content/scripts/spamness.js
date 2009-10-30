@@ -31,8 +31,8 @@ Spamness.generateRulesURL = function(rule) {
 }
 
 Spamness.parseHeader = function(headerStr) {
-    // @@@ remove all newlines
     try {
+        headerStr = headerStr.replace(/[\n\r\t]/g, ''); 
         var scoreprefix = "score=";
         var scoreIdx = headerStr.indexOf("score=");
         if (scoreIdx < 0) {
@@ -65,12 +65,17 @@ Spamness.parseHeader = function(headerStr) {
 	return null;
     }
 
-    var rulesIdx = headerStr.indexOf("tests=");
-    var endRulesIdx = headerStr.indexOf(" ", threshIdx);
-    var rulesStr = headerStr.substring(rulesIdx + "tests=".length, endRulesIdx);
-    // @@@ var rules = rulesStr.split(/,/, ...);
+    var rules = [];
+    try {
+        var rulesIdx = headerStr.indexOf("tests=");
+        var endRulesIdx = headerStr.indexOf(" ", rulesIdx);
+        var rulesStr = headerStr.substring(rulesIdx + "tests=".length, endRulesIdx);
+        rules = rulesStr.split(/,/);
+    } catch(e) {
+	// Spamness.error(e);
+    }
 
-    return new Spamness.Header(score, thresh, []);
+    return new Spamness.Header(score, thresh, rules);
 };
 
 Spamness.onLoad = function() {

@@ -37,11 +37,8 @@
       <preference id="displayMessageScore"
                   name="extensions.spamness.display.messageScore"
                   type="bool" />
-      <preference id="displayMessageRulesCompact"
-                  name="extensions.spamness.display.messageRulesCompact"
-                  type="bool" />
-      <preference id="displayMessageRulesExtended"
-                  name="extensions.spamness.display.messageRulesExtended"
+      <preference id="displayMessageRules"
+                  name="extensions.spamness.display.messageRules"
                   type="bool" />
       <preference id="displayColumn"
                   name="extensions.spamness.display.column"
@@ -63,15 +60,9 @@
       <checkbox id="displayMessageScoreControl"
                 preference="displayMessageScore"
                 label="&spamnessOptions.prefDisplayMessageScore.label;" />
-      <checkbox id="displayMessageRulesCompactControl"
-                preference="displayMessageRulesCompact"
-                label="&spamnessOptions.prefDisplayMessageRulesCompact.label;"
-                oncommand="SpamnessOptions.updateShowRules();" />
-      <hbox class="indent">
-        <checkbox id="displayMessageRulesExtendedControl"
-                  preference="displayMessageRulesExtended"
-                  label="&spamnessOptions.prefDisplayMessageRulesExtended.label;" />
-      </hbox>
+      <checkbox id="displayMessageRulesControl"
+                preference="displayMessageRules"
+                label="&spamnessOptions.prefDisplayMessageRules.label;" />
     </groupbox>
   </prefpane>
 

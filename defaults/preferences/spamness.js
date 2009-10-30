@@ -3,5 +3,4 @@ pref("mailnews.customHeaders", "x-spam-status");
 pref("extensions.spamness.header", "x-spam-status");
 pref("extensions.spamness.display.column", 0);
 pref("extensions.spamness.display.messageScore", true);
-pref("extensions.spamness.display.messageRulesCompact", true);
-pref("extensions.spamness.display.messageRulesExtended", false);
+pref("extensions.spamness.display.messageRules", true);
