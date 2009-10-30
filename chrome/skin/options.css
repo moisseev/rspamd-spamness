@@ -8,12 +8,16 @@ prefpane {
     padding: 12px;
 }
 
-prefpane > vbox {
-    padding-bottom: 20px;
+prefpane > vbox.content-box {
+    overflow: -moz-hidden-unscrollable;
 }
 
-preferences, stringbundleset, script {
-    display: none;
+prefpane#paneDisplay > vbox.content-box {
+    height: 17em;
+}
+
+prefpane#paneAdvanced > vbox.content-box {
+    height: 12em;
 }
 
 prefwindow:not([type="child"]) {
@@ -65,12 +69,4 @@ radio[pane=paneAdvanced] {
 
 radio[pane=paneAdvanced]:active {
     -moz-image-region: rect(32px, 256px, 64px, 224px)
-}
-
-prefpane#paneAdvanced {
-    max-height: 150px;
-}
-
-prefpane#paneDisplay {
-    max-height: 250px;
 }
