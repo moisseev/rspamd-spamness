@@ -1,4 +1,8 @@
-var Spamness = {};
+var Spamness = {
+    customHeaders: new Array(),
+    customDBHeaders: new Array(),
+    previousSpamnessHeader: ''
+};
 
 Spamness._bundle = null;
 
@@ -20,6 +24,14 @@ Spamness._getString = function(key) {
 
 Spamness._getLabel = function(key) {
     // return Spamness._getString(key + ".label");
+};
+
+Spamness.getHeaderName = function(prefs) {
+    if (!prefs)
+        prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                    .getService(Components.interfaces.nsIPrefBranch);
+    var header = prefs.getCharPref("extensions.spamness.header");
+    return header;
 };
 
 Spamness.generateRulesURL = function(rule) {
@@ -78,13 +90,78 @@ Spamness.parseHeader = function(headerStr) {
     return new Spamness.Header(score, thresh, rules);
 };
 
-Spamness.onLoad = function() {
-    // Spamness._bundle = document.getElementById("bundle_spamness");
-};
+Spamness.syncHeaderPrefs = function(prefVal) {
+    if (!prefVal) {
+        prefVal = document.getElementById('headerNameForm').value;
+    }
+    var prefEl = document.getElementById('headerNameForm');
 
-Spamness.onUnload = function() {
-    window.removeEventListener('load', Spamness.onLoad, false);
-    window.removeEventListener('unload', Spamness.onUnload, false);
+    var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+
+    if (prefVal != Spamness.previousSpamnessHeader) {
+	if (!isRFC2822Header(prefVal)) {
+	    var bundle = document.getElementById("bundle_custom");
+	    var alertText = bundle.getString("colonInHeaderName");
+	    window.alert(alertText);
+	    if (prefEl) prefEl.focus();
+	    return false;
+	}
+
+        var nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
+        if (Spamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
+	    var bundle = document.getElementById("bundle_custom");
+	    var alertText = bundle.getString("customHeaderOverflow");
+	    window.alert(alertText);
+	    if (prefEl) prefEl.focus();
+	    return false;
+	}
+    }
+
+    var exists = false;
+    var prevExists = -1;
+    for (var i = 0; i < Spamness.customHeaders.length; i++) {
+	if (Spamness.customHeaders[i] == prefVal) {
+	    exists = true;
+	}
+	if (Spamness.customHeaders[i] == Spamness.previousSpamnessHeader) {
+	    prevExists = i;
+	}
+    }
+    if (!exists) {
+	if (prevExists >= 0) {
+	    Spamness.customHeaders.splice(prevExists, 1);
+	}
+	Spamness.customHeaders.push(prefVal);
+	var newPref = Spamness.customHeaders.join(": ");
+	prefs.setCharPref("mailnews.customHeaders", newPref);
+    }
+
+    exists = false;
+    prevExists = -1;
+    for (var i = 0; i < Spamness.customDBHeaders.length; i++) {
+	if (Spamness.customDBHeaders[i] == prefVal) {
+	    exists = true;
+	}
+	if (Spamness.customDBHeaders[i] == Spamness.previousSpamnessHeader) {
+	    prevExists = i;
+	}
+    }
+    if (!exists) {
+	if (prevExists >= 0) {
+	    Spamness.customDBHeaders.splice(prevExists, 1);
+	}
+	Spamness.customDBHeaders.push(prefVal);
+	var newPref = Spamness.customDBHeaders.join(" ");
+	prefs.setCharPref("mailnews.customDBHeaders", newPref);
+    }
+
+    prefs.setCharPref("extensions.spamness.header", prefVal);
+    Spamness.previousSpamnessHeader = prefVal;
+
+    // flush to disk
+    var prefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
+    prefService.savePrefFile(null);
+    return true;
 };
 
 Spamness.log = function(msg) {
@@ -120,6 +197,3 @@ Spamness.Header.prototype.getNormalScore = function() {
 Spamness.Header.prototype.getRules = function() {
     return this._rules;
 };
-
-//window.addEventListener("load", Spamness.onLoad, false);
-//window.addEventListener("unload", Spamness.onUnload, false);

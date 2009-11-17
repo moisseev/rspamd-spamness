@@ -1,30 +1,18 @@
 Spamness.Message = {};
 
-Spamness.Message.scoreContainer = null;
-Spamness.Message.rulesContainer = null;
-
-Spamness.Message.resetScoreHeader = function() {
-    Spamness.Message.scoreContainer.removeChild(Spamness.Message.scoreContainer.lastChild);
-};
-
 Spamness.Message.displayScoreHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showScore = prefs.getBoolPref("extensions.spamness.display.messageScore");
+    var hdrEl = document.getElementById("spamnessScoreHeader");
     if (!showScore) {
-        document.getElementById("expandedspamnessBox").collapsed = true;
-        document.getElementById("spamnessHeader").collapsed = true;
+        hdrEl.collapsed = true;
 	return;
     } else {
-        document.getElementById("expandedspamnessBox").collapsed = false;
-        document.getElementById("spamnessHeader").collapsed = false;
+        hdrEl.collapsed = false;
     }
 
-    Spamness.Message.scoreContainer = document.getElementById("spamness-messageHeader-value");
-    Spamness.Message.resetScoreHeader();
-
-    var header = prefs.getCharPref("extensions.spamness.header");
-
+    var header = Spamness.getHeaderName(prefs);
     var uri = GetLoadedMessage();
 
     if (uri == null)
@@ -36,38 +24,24 @@ Spamness.Message.displayScoreHeader = function() {
 	return;
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
-    var label = document.createElementNS("http://www.w3.org/1999/xhtml", "input");
-    document.getElementById("expandedspamnessBox").collapsed = (parsed == null);
-    label.setAttribute("flex", "1");
-    label.setAttribute("class", "textbox-input spamness-disguise");
-    label.setAttribute("readonly", true);
-    label.setAttribute("align", "start");
-    label.setAttribute("value", (parsed != null) ? parsed.getNormalScore() + " (" +  parsed.getScore() + " / " + parsed.getThreshold() + ")" : "");
-    Spamness.Message.scoreContainer.appendChild(label);
-};
-
-Spamness.Message.resetRulesHeader = function() {
-    Spamness.Message.rulesContainer.removeChild(Spamness.Message.rulesContainer.lastChild);
+    hdrEl.collapsed = (parsed == null);
+    hdrEl.headerValue = (parsed != null) ? parsed.getNormalScore() + " (" +  parsed.getScore() + " / " + parsed.getThreshold() + ")" : "";
+    hdrEl.valid = true;
 };
 
 Spamness.Message.displayRulesHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showRules = prefs.getBoolPref("extensions.spamness.display.messageRules");
+    var hdrEl = document.getElementById("spamnessRulesHeader");
     if (!showRules) {
-        document.getElementById("expandedspamness-rulesBox").collapsed = true;
-        document.getElementById("spamnessRulesHeader").collapsed = true;
+        hdrEl.collapsed = true;
 	return;
     } else {
-        document.getElementById("expandedspamness-rulesBox").collapsed = false;
-        document.getElementById("spamnessRulesHeader").collapsed = false;
+        hdrEl.collapsed = false;
     }
 
-    Spamness.Message.rulesContainer = document.getElementById("spamness-rulesMessageHeader-value");
-    Spamness.Message.resetRulesHeader();
-
-    var header = prefs.getCharPref("extensions.spamness.header");
-
+    var header = Spamness.getHeaderName(prefs);
     var uri = GetLoadedMessage();
 
     if (uri == null)
@@ -79,22 +53,17 @@ Spamness.Message.displayRulesHeader = function() {
 	return;
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
-    var label = document.createElementNS("http://www.w3.org/1999/xhtml", "input");
-    document.getElementById("expandedspamness-rulesBox").collapsed = (parsed == null);
-    label.setAttribute("flex", "1");
-    label.setAttribute("class", "textbox-input spamness-disguise");
-    label.setAttribute("readonly", true);
-    label.setAttribute("align", "start");
-    if (parsed.getRules().length > 0) {
+    hdrEl.collapsed = (parsed == null);
+    if (parsed != null && parsed.getRules().length > 0) {
         var rules = parsed.getRules();
         for (var i = 0; i < rules.length; i++) {
             // var url = Spamness.generateRulesURL(rules[i]);
         }
-        label.setAttribute("value", rules.join(", "));
+        hdrEl.headerValue = rules.join(", ");
     } else {
-        label.setAttribute("value", "");
+        hdrEl.headerValue = "";
     }
-    Spamness.Message.rulesContainer.appendChild(label);
+    hdrEl.valid = true;
 };
 
 Spamness.Message.onLoad = function() {
@@ -102,7 +71,7 @@ Spamness.Message.onLoad = function() {
     listener.onStartHeaders = function() {};
     listener.onEndHeaders = function() {
         Spamness.Message.displayScoreHeader();
-        Spamness.Message.displayRulesHeader();
+        // Spamness.Message.displayRulesHeader();
     };
     gMessageListeners.push(listener);
 };

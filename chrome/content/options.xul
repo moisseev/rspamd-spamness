@@ -12,6 +12,7 @@
         title="&spamnessOptions.title;"
         buttons="accept,cancel"
         defaultButton="accept"
+	ondialogaccept="return SpamnessOptions.syncHeaderPrefs(null);"
         buttonalign="end"
         buttonorient="horizontal"
         height="325"
@@ -24,10 +25,14 @@
     <stringbundleset id="stringbundleset">
       <stringbundle id="bundle_spamness"
                     src="chrome://spamness/locale/spamness.properties" />
+      <stringbundle id="bundle_custom"
+                    src="chrome://messenger/locale/custom.properties" />
     </stringbundleset>
 
     <script type="application/x-javascript"
             src="chrome://global/content/globalOverlay.js"/>
+    <script type="application/x-javascript"
+            src="chrome://messenger/content/CustomHeaders.js"/>
     <script type="application/x-javascript"
             src="chrome://spamness/content/scripts/spamness.js"/>
     <script type="application/x-javascript"
@@ -37,9 +42,9 @@
       <preference id="displayMessageScore"
                   name="extensions.spamness.display.messageScore"
                   type="bool" />
-      <preference id="displayMessageRules"
+      <!--preference id="displayMessageRules"
                   name="extensions.spamness.display.messageRules"
-                  type="bool" />
+                  type="bool" /-->
       <preference id="displayColumn"
                   name="extensions.spamness.display.column"
                   type="int" />
@@ -60,9 +65,9 @@
       <checkbox id="displayMessageScoreControl"
                 preference="displayMessageScore"
                 label="&spamnessOptions.prefDisplayMessageScore.label;" />
-      <checkbox id="displayMessageRulesControl"
+      <!--checkbox id="displayMessageRulesControl"
                 preference="displayMessageRules"
-                label="&spamnessOptions.prefDisplayMessageRules.label;" />
+                label="&spamnessOptions.prefDisplayMessageRules.label;" /-->
     </groupbox>
   </prefpane>
 
@@ -70,6 +75,7 @@
             onpaneload="SpamnessOptions.onLoad();"
             label="&spamnessOptions.paneAdvanced.label;">
     <preferences>
+      <!-- exists to satisfy structural requirement, but unused -->
       <preference id="headerName"
                   name="extensions.spamness.header"
                   type="string" />
@@ -79,8 +85,7 @@
       <caption label="&spamnessOptions.captionHeaderGroup.label;" />
       <label control="headerNameForm"
              value="&spamnessOptions.prefHeaderName.label;" />
-      <textbox id="headerNameForm"
-               preference="headerName" />
+      <textbox id="headerNameForm" />
       <description class="caveat">
         &spamnessOptions.prefHeaderName.explain;
       </description>

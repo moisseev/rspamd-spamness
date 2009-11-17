@@ -12,49 +12,14 @@
           src="chrome://spamness/content/scripts/messageHeader.js" />
 
   <vbox id="expandedHeaders">
-    <mail-headerfield id="expandedspamnessBox"
-                      collapsed="false">
-      <hbox class="headerNameBox"
-            id="spamnessHeader"
-            align="start"
-            collapsed="false">
-        <label flex="1"
-               class="headerName"
-               value="&spamness.messageHeader.label;: "
-               id="spamness-messageHeader-label" />
-      </hbox>
-      <textbox flex="1"
-               class="headerValue plain"
-               readonly="true">
-        <hbox flex="1"
-              class="textbox-input-box"
-              id="spamness-messageHeader-value">
-          <label flex="1" class="textbox-input empty-and-removed" />
-        </hbox>
-      </textbox>
-    </mail-headerfield>
+    <mail-headerfield id="spamnessScoreHeader"
+                      collapsed="false"
+		      label="&spamness.messageHeader.label;: "
+		      headerValue="" />
 
-    <mail-headerfield id="expandedspamness-rulesBox"
-                     collapsed="false">
-      <hbox class="headerNameBox"
-            id="spamnessRulesHeader"
-            align="start"
-            collapsed="false">
-        <label flex="1"
-               class="headerName"
-               value="&spamness.rulesMessageHeader.label;: "
-               id="spamness-rulesMessageHeader-label" />
-      </hbox>
-      <textbox flex="1"
-               class="headerValue plain"
-               readonly="true">
-          <hbox flex="1"
-                class="textbox-input-box"
-                id="spamness-rulesMessageHeader-value">
-          <label flex="1" class="textbox-input empty-and-removed" />
-        </hbox>
-      </textbox>
-    </mail-headerfield>
-
+    <!--mail-headerfield id="spamnessRulesHeader"
+                     collapsed="false"
+		     label="&spamness.rulesMessageHeader.label;: "
+		     headerValue="" /-->
   </vbox>
 </overlay>

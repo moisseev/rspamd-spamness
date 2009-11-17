@@ -10,6 +10,8 @@
           src="chrome://spamness/content/scripts/spamness.js" />
   <script type="application/javascript"
           src="chrome://spamness/content/scripts/column.js" />
+  <script type="application/javascript"
+          src="chrome://spamness/content/scripts/spamness-load.js" />
 
   <stringbundleset id="stringbundleset">
     <stringbundle id="bundle_spamness"
