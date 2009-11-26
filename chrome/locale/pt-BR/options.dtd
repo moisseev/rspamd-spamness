@@ -1,0 +1,14 @@
+<!ENTITY spamnessOptions.title "Opções do Spamness">
+<!ENTITY spamnessOptions.paneDisplay.label "Exibição">
+<!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Exibição da Coluna">
+<!ENTITY spamnessOptions.prefShowBoth.label "Mostrar visual e escore">
+<!ENTITY spamnessOptions.prefShowText.label "Mostrar apenas o escore">
+<!ENTITY spamnessOptions.prefShowImage.label "Mostrar apenas o visual">
+<!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Exibição de mensagens">
+<!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar mensagem do escore">
+<!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar regras bloqueadas na mensagem">
+<!ENTITY spamnessOptions.paneAdvanced.label "Avançado">
+<!ENTITY spamnessOptions.captionHeaderGroup.label "Cabeçalho do Escore">
+<!ENTITY spamnessOptions.prefHeaderName.label "Nome do cabeçalho da mensagem de relatório do escore de spans">
+<!ENTITY spamnessOptions.prefHeaderName.explain "Nota: Ao alterar o cabeçalho o uso do Spamness irá requerer que todos os índices de pastas sejam refeitos para que o Thunderbird possa ler os valores de cabeçalho de cada mensagem">
+<!ENTITY spamnessOptions.buttonReIndex.label "Pastas Índice">
