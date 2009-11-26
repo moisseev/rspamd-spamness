@@ -29,6 +29,8 @@
     <!-- Front End Integration Hooks (used by Extension Manager)-->
     <em:description>Provides a color- and size-based visual measurement of how spam-like an individual message is based on its normalized SpamAssassin score.</em:description>
     <em:creator>Ryan Lee (ryan@ryanlee.org)</em:creator>
+    <em:translator>Kacnepcku - PC</em:translator>
+    <em:translator>Edgard Dias Magalhaes</em:translator>
     <em:iconURL>chrome://spamness/skin/icon32x32.png</em:iconURL>
     <em:homepageURL>http://ryanlee.org/software/mozilla/thunderbird/spamness/</em:homepageURL>
     <em:optionsURL>chrome://spamness/content/options.xul</em:optionsURL>
