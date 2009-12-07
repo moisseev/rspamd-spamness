@@ -1,0 +1,14 @@
+<!ENTITY spamnessOptions.title "Opciones de Spamness">
+<!ENTITY spamnessOptions.paneDisplay.label "Pantalla">
+<!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Columna de pantalla">
+<!ENTITY spamnessOptions.prefShowBoth.label "Mostrar visual y la puntuación">
+<!ENTITY spamnessOptions.prefShowText.label "Mostrar solo puntuación">
+<!ENTITY spamnessOptions.prefShowImage.label "Mostrar solo visual">
+<!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Mensaje de pantalla">
+<!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar puntuación en mensaje">
+<!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar reglas activadas en mensaje">
+<!ENTITY spamnessOptions.paneAdvanced.label "Avanzado">
+<!ENTITY spamnessOptions.captionHeaderGroup.label "Puntuación de cabecera">
+<!ENTITY spamnessOptions.prefHeaderName.label "Informe de puntuación de la cabecera del correo que contiene spam:">
+<!ENTITY spamnessOptions.prefHeaderName.explain "Nota: las modificaciones de cabecera de Spamness requerirán la reconstrucción de todos los índices de carpeta para que Thunderbird pueda leer los valores de la cabecera para cada mensaje">
+<!ENTITY spamnessOptions.buttonReIndex.label "Índice de carpetas">

@@ -8,3 +8,4 @@ skin	spamness	classic/1.0	jar:chrome/spamness.jar!/skin/
 locale	spamness	en-US	jar:chrome/spamness.jar!/locale/en-US/
 locale  spamness	sr-SR	jar:chrome/spamness.jar!/locale/sr-SR/
 locale  spamness	pt-BR	jar:chrome/spamness.jar!/locale/pt-BR/
+locale	spamness	es-ES	jar:chrome/spamness.jar!/locale/es-ES/
