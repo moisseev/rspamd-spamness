@@ -4,16 +4,17 @@ Spamness.Message.displayScoreHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showScore = prefs.getBoolPref("extensions.spamness.display.messageScore");
+    var rowEl = document.getElementById("expandedSpamnessRow");
     var hdrEl = document.getElementById("spamnessScoreHeader");
     if (!showScore) {
-        hdrEl.collapsed = true;
+        rowEl.collapsed = true;
 	return;
     } else {
-        hdrEl.collapsed = false;
+        rowEl.collapsed = false;
     }
 
     var header = Spamness.getHeaderName(prefs);
-    var uri = GetLoadedMessage();
+    var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
     if (uri == null)
 	return;
@@ -24,7 +25,7 @@ Spamness.Message.displayScoreHeader = function() {
 	return;
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
-    hdrEl.collapsed = (parsed == null);
+    rowEl.collapsed = (parsed == null);
     hdrEl.headerValue = (parsed != null) ? parsed.getNormalScore() + " (" +  parsed.getScore() + " / " + parsed.getThreshold() + ")" : "";
     hdrEl.valid = true;
 };
@@ -33,16 +34,17 @@ Spamness.Message.displayRulesHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showRules = prefs.getBoolPref("extensions.spamness.display.messageRules");
+    var rowEl = document.getElementById("expandedSpamnesRulessRow");
     var hdrEl = document.getElementById("spamnessRulesHeader");
     if (!showRules) {
-        hdrEl.collapsed = true;
+        rowEl.collapsed = true;
 	return;
     } else {
-        hdrEl.collapsed = false;
+        rowEl.collapsed = false;
     }
 
     var header = Spamness.getHeaderName(prefs);
-    var uri = GetLoadedMessage();
+    var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
     if (uri == null)
 	return;
@@ -53,7 +55,7 @@ Spamness.Message.displayRulesHeader = function() {
 	return;
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
-    hdrEl.collapsed = (parsed == null);
+    rowEl.collapsed = (parsed == null);
     if (parsed != null && parsed.getRules().length > 0) {
         var rules = parsed.getRules();
         for (var i = 0; i < rules.length; i++) {

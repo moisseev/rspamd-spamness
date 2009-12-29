@@ -11,15 +11,20 @@
   <script type="application/x-javascript"
           src="chrome://spamness/content/scripts/messageHeader.js" />
 
-  <vbox id="expandedHeaders">
-    <mail-headerfield id="spamnessScoreHeader"
-                      collapsed="false"
-		      label="&spamness.messageHeader.label;: "
-		      headerValue="" />
-
-    <!--mail-headerfield id="spamnessRulesHeader"
+  <rows id="expandedHeader2Rows">
+    <row id="expandedSpamnessRow">
+      <label id="expandedSpamnessLabel"
+             class="headerName"
+             value="&spamness.messageHeader.label;"
+             control="spamnessScoreHeader" />
+      <mail-headerfield id="spamnessScoreHeader"
+                        flex="1"
+                        headerValue="" />
+    </row>
+    <!-- make a row
+         mail-headerfield id="spamnessRulesHeader"
                      collapsed="false"
 		     label="&spamness.rulesMessageHeader.label;: "
 		     headerValue="" /-->
-  </vbox>
+  </rows>
 </overlay>

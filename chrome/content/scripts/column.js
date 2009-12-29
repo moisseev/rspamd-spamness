@@ -2,6 +2,13 @@ var SpamnessColumn = {};
 
 SpamnessColumn.handler = {
     getCellText:         function(row, col) {
+        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                        .getService(Components.interfaces.nsIPrefBranch);
+        var showText = prefs.getIntPref("extensions.spamness.display.column");
+
+	if (showText == Spamness.settings.COLUMN_SHOW_IMAGE_NO_TEXT.value)
+	    return null;
+
         var key = gDBView.getKeyAt(row);
         var hdr = gDBView.db.GetMsgHdrForKey(key);
         var txt = SpamnessColumn.handler.getSortLongForRow(hdr) / 10.0;
