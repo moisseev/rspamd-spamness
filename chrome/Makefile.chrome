@@ -2,4 +2,6 @@ all: spamness.jar
 
 spamness.jar:
 	rm -f $@
-	find . -type f -not -name "Makefile.chrome" -and -not -path "*.svn*"| cut -c3- |xargs jar -Mcf $@
+	find . -type f -not -name "Makefile.chrome" -and -not -name "install.properties" -and -not -path "*.svn*"| cut -c3- |xargs jar -Mcf $@
+#	find . -type f -not -name "Makefile.chrome" -and -not -path "*.svn*"| cut -c3- |xargs jar -Mcf $@
+
