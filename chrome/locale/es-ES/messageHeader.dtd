@@ -1,2 +1,2 @@
-<!ENTITY spamness.messageHeader.label "Spam">
-<!ENTITY spamness.rulesMessageHeader.label "Reglas">
+<!ENTITY spamness.messageHeader.label "spam">
+<!ENTITY spamness.rulesMessageHeader.label "reglas">
