@@ -1,15 +1,20 @@
-Unrelated: observer / broadcaster for archive key...? might fix issue
-
-NEW FEATURES
-- check if reindexing needed at all in 3.0 - didn't seem to be, looked like it indexed a lot already
-- enable column on install
-- warn on install to rebuild index
-- Make getImageSrc have a side effect (sigh) of setting the tooltiptext of the cell at row, col.  Change column display to be just graphic with score vs. threshhold as tooltip [seems impossible] - maybe register onmouseover on the entire tree; if getCellAt returns the appropriate column, tooltip it...
 - preference onblur fails to run...
-- refresh view when preferences are accepted with prefs observer - use invalidate on tree.columns.[column].invalidate()
-- check functioning on windows, especially prefwindow height
-- options for showing score (actual score, actual score+thresh, normal score, etc.)
+
 - figure out how to make rules the twisty openable kind and make each one a link to the wiki - write a new XBL binding that makes a textarea instead of just an HTML input
-- allow for more than one header string
+
+- warn on install to rebuild index
+- check if reindexing needed at all in 3.0 - didn't seem to be, looked like it indexed a lot already
 - prompt to rebuild index on pref change; maybe do that on unfocus...; make re-indexing button do something
+
+- refresh view when preferences are accepted with prefs observer - use invalidate on tree.columns.[column].invalidate()
 - see https://developer.mozilla.org/en/Adding_preferences_to_an_extension
+
+- options for showing score (actual score, actual score+thresh, normal score, etc.)
+
+- enable column on install
+
+- allow for more than one header string
+
+- Make getImageSrc have a side effect (sigh) of setting the tooltiptext of the cell at row, col.  Change column display to be just graphic with score vs. threshhold as tooltip [seems impossible] - maybe register onmouseover on the entire tree; if getCellAt returns the appropriate column, tooltip it...
+
+- check functioning on windows, especially prefwindow height

@@ -1,0 +1,2 @@
+<!ENTITY spamnessColumn.label "Notation du spam">
+<!ENTITY spamnessColumnToolTip.label "Cliquez pour trier selon la notation du spam par SpamAssassin">
