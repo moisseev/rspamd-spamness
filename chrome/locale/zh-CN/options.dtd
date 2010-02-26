@@ -1,0 +1,14 @@
+<!ENTITY spamnessOptions.title "垃圾邮件配置选项">
+<!ENTITY spamnessOptions.paneDisplay.label "显示">
+<!ENTITY spamnessOptions.captionDisplayColumnGroup.label "柱形图显示">
+<!ENTITY spamnessOptions.prefShowBoth.label "显示视觉效果和得分">
+<!ENTITY spamnessOptions.prefShowText.label "仅显示得分">
+<!ENTITY spamnessOptions.prefShowImage.label "仅显示视觉效果">
+<!ENTITY spamnessOptions.captionDisplayMessageGroup.label "消息显示">
+<!ENTITY spamnessOptions.prefDisplayMessageScore.label "在消息中显示得分">
+<!ENTITY spamnessOptions.prefDisplayMessageRules.label "在消息中显示规则触发事件">
+<!ENTITY spamnessOptions.paneAdvanced.label "高级">
+<!ENTITY spamnessOptions.captionHeaderGroup.label "得分头部">
+<!ENTITY spamnessOptions.prefHeaderName.label "邮件头部包含垃圾邮件得分报告：">
+<!ENTITY spamnessOptions.prefHeaderName.explain "注意：Changing the header Spamness uses will require rebuilding all folder indices so Thunderbird can read the header values for each message">
+<!ENTITY spamnessOptions.buttonReIndex.label "首页文件夹">

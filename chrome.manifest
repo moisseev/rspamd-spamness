@@ -10,3 +10,4 @@ locale  spamness	sr-RS	jar:chrome/spamness.jar!/locale/sr-RS/
 locale  spamness	pt-BR	jar:chrome/spamness.jar!/locale/pt-BR/
 locale	spamness	es-ES	jar:chrome/spamness.jar!/locale/es-ES/
 locale	spamness	fr	jar:chrome/spamness.jar!/locale/fr/
+locale	spamness	zh-CN	jar:chrome/spamness.jar!/locale/zh-CN/
