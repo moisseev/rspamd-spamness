@@ -6,8 +6,10 @@ overlay chrome://messenger/content/msgHdrViewOverlay.xul chrome://spamness/conte
 skin	spamness	classic/1.0	jar:chrome/spamness.jar!/skin/
 
 locale	spamness	en-US	jar:chrome/spamness.jar!/locale/en-US/
-locale  spamness	sr-RS	jar:chrome/spamness.jar!/locale/sr-RS/
+locale  spamness	sr	jar:chrome/spamness.jar!/locale/sr/
 locale  spamness	pt-BR	jar:chrome/spamness.jar!/locale/pt-BR/
 locale	spamness	es-ES	jar:chrome/spamness.jar!/locale/es-ES/
 locale	spamness	fr	jar:chrome/spamness.jar!/locale/fr/
 locale	spamness	zh-CN	jar:chrome/spamness.jar!/locale/zh-CN/
+locale	spamness	it	jar:chrome/spamness.jar!/locale/it/
+locale	spamness	sv-SE	jar:chrome/spamness.jar!/locale/sv-SE/

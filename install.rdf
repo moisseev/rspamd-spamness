@@ -6,7 +6,8 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>{41a9ee8a-e9c6-4076-84ac-bc1b612dca68}</em:id>
     <em:name>Spamness</em:name>
-    <em:version>0.4</em:version>
+    <em:version>0.5</em:version>
+    <em:type>2</em:type> <!-- type=extension -->
     
     <!-- Thunderbird -->
     <em:targetApplication>
@@ -33,9 +34,10 @@
     <em:translator>Edgard Dias Magalhaes</em:translator>
     <em:translator>http://lionel.bijaoui.free.fr/</em:translator>
     <em:translator>BruceH (babelzilla.org)</em:translator>
+    <em:translator>Luana Di Muzio - BabelZilla</em:translator>
+    <em:translator>Mikael Hiort af Ornäs</em:translator>
     <em:iconURL>chrome://spamness/skin/icon32x32.png</em:iconURL>
     <em:homepageURL>http://ryanlee.org/software/mozilla/thunderbird/spamness/</em:homepageURL>
     <em:optionsURL>chrome://spamness/content/options.xul</em:optionsURL>
-    <em:type parseType="Integer">2</em:type> <!-- type=extension -->
   </Description>
 </RDF>
