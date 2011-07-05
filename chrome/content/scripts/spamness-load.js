@@ -14,6 +14,12 @@ Spamness.onLoad = function() {
     Spamness.customDBHeaders = (dhdrs == "") ? new Array() : dhdrs.split(" ");
 
     Spamness.syncHeaderPrefs(Spamness.previousSpamnessHeader);
+
+    var greet = prefs.getBoolPref("extensions.spamness.installationGreeting");
+    if (greet) {
+        Spamness.greet();
+        //prefs.setBoolPref("extensions.spamness.installationGreeting", false);
+    }
 };
 
 Spamness.onUnload = function() {

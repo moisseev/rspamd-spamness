@@ -38,7 +38,7 @@ Spamness.generateRulesURL = function(rule) {
     if (/^[A-Z0-9_]+$/.test(rules)) {
         return "http://wiki.apache.org/spamassassin/Rules/" + rule;
     } else {
-	return null;
+        return null;
     }
 }
 
@@ -99,60 +99,60 @@ Spamness.syncHeaderPrefs = function(prefVal) {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
     if (prefVal != Spamness.previousSpamnessHeader) {
-	if (!isRFC2822Header(prefVal)) {
-	    var bundle = document.getElementById("bundle_custom");
-	    var alertText = bundle.getString("colonInHeaderName");
-	    window.alert(alertText);
-	    if (prefEl) prefEl.focus();
-	    return false;
-	}
+	    if (!isRFC2822Header(prefVal)) {
+	        var bundle = document.getElementById("bundle_custom");
+	        var alertText = bundle.getString("colonInHeaderName");
+	        window.alert(alertText);
+	        if (prefEl) prefEl.focus();
+	        return false;
+	    }
 
         var nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
         if (Spamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
-	    var bundle = document.getElementById("bundle_custom");
-	    var alertText = bundle.getString("customHeaderOverflow");
-	    window.alert(alertText);
-	    if (prefEl) prefEl.focus();
-	    return false;
-	}
+	        var bundle = document.getElementById("bundle_custom");
+	        var alertText = bundle.getString("customHeaderOverflow");
+	        window.alert(alertText);
+	        if (prefEl) prefEl.focus();
+	        return false;
+	    }
     }
 
     var exists = false;
     var prevExists = -1;
     for (var i = 0; i < Spamness.customHeaders.length; i++) {
-	if (Spamness.customHeaders[i] == prefVal) {
-	    exists = true;
-	}
-	if (Spamness.customHeaders[i] == Spamness.previousSpamnessHeader) {
-	    prevExists = i;
-	}
+	    if (Spamness.customHeaders[i] == prefVal) {
+	        exists = true;
+	    }
+	    if (Spamness.customHeaders[i] == Spamness.previousSpamnessHeader) {
+	        prevExists = i;
+	    }
     }
     if (!exists) {
-	if (prevExists >= 0) {
-	    Spamness.customHeaders.splice(prevExists, 1);
-	}
-	Spamness.customHeaders.push(prefVal);
-	var newPref = Spamness.customHeaders.join(": ");
-	prefs.setCharPref("mailnews.customHeaders", newPref);
+	    if (prevExists >= 0) {
+	        Spamness.customHeaders.splice(prevExists, 1);
+	    }
+	    Spamness.customHeaders.push(prefVal);
+	    var newPref = Spamness.customHeaders.join(": ");
+	    prefs.setCharPref("mailnews.customHeaders", newPref);
     }
 
     exists = false;
     prevExists = -1;
     for (var i = 0; i < Spamness.customDBHeaders.length; i++) {
-	if (Spamness.customDBHeaders[i] == prefVal) {
-	    exists = true;
-	}
-	if (Spamness.customDBHeaders[i] == Spamness.previousSpamnessHeader) {
-	    prevExists = i;
-	}
+	    if (Spamness.customDBHeaders[i] == prefVal) {
+	        exists = true;
+	    }
+	    if (Spamness.customDBHeaders[i] == Spamness.previousSpamnessHeader) {
+	        prevExists = i;
+	    }
     }
     if (!exists) {
-	if (prevExists >= 0) {
-	    Spamness.customDBHeaders.splice(prevExists, 1);
-	}
-	Spamness.customDBHeaders.push(prefVal);
-	var newPref = Spamness.customDBHeaders.join(" ");
-	prefs.setCharPref("mailnews.customDBHeaders", newPref);
+	    if (prevExists >= 0) {
+	        Spamness.customDBHeaders.splice(prevExists, 1);
+	    }
+	    Spamness.customDBHeaders.push(prefVal);
+	    var newPref = Spamness.customDBHeaders.join(" ");
+	    prefs.setCharPref("mailnews.customDBHeaders", newPref);
     }
 
     prefs.setCharPref("extensions.spamness.header", prefVal);
@@ -174,6 +174,28 @@ Spamness.error = function(msg) {
     var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
         .getService(Components.interfaces.nsIConsoleService);
     consoleService.logStringMessage("ERROR: " + msg);
+};
+
+Spamness.greet = function() {
+    let greetPage = "chrome://spamness/content/installed.xul";
+    let tabmail = document.getElementById("tabmail");
+    if (!tabmail) {
+        let mail3PaneWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+            .getService(Components.interfaces.nsIWindowMediator)
+            .getMostRecentWindow("mail:3pane");
+        if (mail3PaneWindow) {
+            tabmail = mail3PaneWindow.document.getElementById("tabmail");
+            mail3PaneWindow.focus();
+        }
+    }
+
+    if (tabmail)
+        tabmail.openTab("contentTab", {contentPage: greetPage});
+    else
+        window.openDialog("chrome://messenger/content/", "_blank",
+                          "chrome,dialog=no,all", null,
+                          { tabType: "contentTab",
+                            tabParams: { contentPage: greetPage }});
 };
 
 Spamness.Header = function(score, threshold, rules) {
