@@ -42,17 +42,39 @@ caption {
 .paneSelector radio {
     border-right: 1px solid transparent;
     border-left: 1px transparent;
-    padding: 3px 0 3px 0;
+    padding: 5px 4px 3px;
     margin: 0;
     -moz-appearance: none !important;
 }
 
+radio[pane] {
+    border: solid transparent;
+    border-width: 0 2px;
+    padding: 5px 4px 3px;
+    margin: 0;
+    -moz-appearance: none;
+    text-shadow: rgba(255, 255, 255, 0.4) 0 1px;
+}
+
+radio[pane] > .paneButtonIcon {
+    /* preload external filter file */
+    background-image: url("chrome://global/skin/filters.svg");
+}
+
+radio[pane]:active:hover {
+    text-shadow: none;
+}
+
+radio[pane]:active:hover > .paneButtonIcon {
+    filter: url("chrome://global/skin/filters.svg#iconPressed");
+}
+
 radio[pane][selected="true"] {
-    background-color: #DDDDDD;
-    background-image: none;
-    border-right: 1px solid #b9b9b9;
-    border-left: 1px solid #b9b9b9;
-    color: ButtonText !important;
+    -moz-border-image: url("chrome://global/skin/icons/panebutton-active.png") 0 2 repeat stretch;
+}
+
+radio[pane][selected="true"]:-moz-window-inactive {
+    -moz-border-image: url("chrome://global/skin/icons/panebutton-inactive.png") 0 2 repeat stretch;
 }
 
 radio[pane=paneDisplay] {
