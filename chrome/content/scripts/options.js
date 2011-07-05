@@ -10,9 +10,6 @@ SpamnessOptions.onLoad = function() {
 
 SpamnessOptions.syncHeaderPrefs = function(evt) {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
-    if (prefs.getBoolPref("browser.preferences.instantApply")) {
-	return true;
-    }
     return Spamness.syncHeaderPrefs(null);
 };
 
