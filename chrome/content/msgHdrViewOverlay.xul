@@ -21,10 +21,15 @@
                         flex="1"
                         headerValue="" />
     </row>
-    <!-- make a row
-         mail-headerfield id="spamnessRulesHeader"
-                     collapsed="false"
-		     label="&spamness.rulesMessageHeader.label;: "
-		     headerValue="" /-->
+    <row id="expandedSpamnessRulesRow">
+      <label id="expandedSpamnessRulesLabel"
+             class="headerName"
+             value="&spamness.rulesMessageHeader.label;"
+             control="spamnessRulesHeader" />
+      <mail-toggle-headerfield id="spamnessRulesHeader"
+                        collapsed="false"
+		                label="&spamness.rulesMessageHeader.label;: "
+		                headerValue="" />
+    </row>
   </rows>
 </overlay>

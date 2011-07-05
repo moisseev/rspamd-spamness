@@ -34,7 +34,7 @@ Spamness.Message.displayRulesHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showRules = prefs.getBoolPref("extensions.spamness.display.messageRules");
-    var rowEl = document.getElementById("expandedSpamnesRulessRow");
+    var rowEl = document.getElementById("expandedSpamnessRulesRow");
     var hdrEl = document.getElementById("spamnessRulesHeader");
     if (!showRules) {
         rowEl.collapsed = true;
@@ -61,6 +61,8 @@ Spamness.Message.displayRulesHeader = function() {
         for (var i = 0; i < rules.length; i++) {
             // var url = Spamness.generateRulesURL(rules[i]);
         }
+        // make each piece an element with a click handler that opens
+        // a content tab
         hdrEl.headerValue = rules.join(", ");
     } else {
         hdrEl.headerValue = "";
@@ -73,14 +75,14 @@ Spamness.Message.onLoad = function() {
     listener.onStartHeaders = function() {};
     listener.onEndHeaders = function() {
         Spamness.Message.displayScoreHeader();
-        // Spamness.Message.displayRulesHeader();
+        Spamness.Message.displayRulesHeader();
     };
     gMessageListeners.push(listener);
 };
 
 Spamness.Message.onUnload = function() {
-    window.removeEventListener('load', Spamness.Message.onLoad, false);
-    window.removeEventListener('unload', Spamness.Message.onUnload, false);
+    window.removeEventListener("load", Spamness.Message.onLoad, false);
+    window.removeEventListener("unload", Spamness.Message.onUnload, false);
 };
 
 window.addEventListener("load", Spamness.Message.onLoad, false);

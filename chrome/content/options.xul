@@ -42,9 +42,9 @@
       <preference id="displayMessageScore"
                   name="extensions.spamness.display.messageScore"
                   type="bool" />
-      <!--preference id="displayMessageRules"
+      <preference id="displayMessageRules"
                   name="extensions.spamness.display.messageRules"
-                  type="bool" /-->
+                  type="bool" />
       <preference id="displayColumn"
                   name="extensions.spamness.display.column"
                   type="int" />
@@ -65,9 +65,9 @@
       <checkbox id="displayMessageScoreControl"
                 preference="displayMessageScore"
                 label="&spamnessOptions.prefDisplayMessageScore.label;" />
-      <!--checkbox id="displayMessageRulesControl"
+      <checkbox id="displayMessageRulesControl"
                 preference="displayMessageRules"
-                label="&spamnessOptions.prefDisplayMessageRules.label;" /-->
+                label="&spamnessOptions.prefDisplayMessageRules.label;" />
     </groupbox>
   </prefpane>
 
