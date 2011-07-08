@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://spamness/skin/installed.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://spamness/locale/installed.dtd">
+
+<window
+   xmlns:html="http://www.w3.org/1999/xhtml"
+   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   id="spamnessInstalledWindow"
+   title="&spamnessInstalled.title;">
+
+  <html:link
+     rel="shortcut icon"
+     type="image/png"
+     href="chrome://spamness/skin/icon32x32.png"/>
+
+  <hbox id="installedContainer" flex="1">
+
+    <image id="spamnessIcon"/>
+
+    <vbox flex="1">
+
+      <description flex="1" id="introduction" class="text-blurb">&spamnessInstalled.introduction.label;</description>
+
+      <groupbox flex="1">
+        <caption label="&spamnessInstalled.folderGroup.label;"/>
+        <description class="text-blurb">&spamnessInstalled.folderInstructions.label;</description>
+      </groupbox>
+
+      <groupbox flex="1">
+        <caption label="&spamnessInstalled.columnGroup.label;"/>
+        <description class="text-blurb">&spamnessInstalled.columnInstructions.label;</description>
+      </groupbox>
+
+    </vbox>
+
+  </hbox>
+
+</window>
