@@ -176,6 +176,15 @@ Spamness.error = function(msg) {
     consoleService.logStringMessage("ERROR: " + msg);
 };
 
+Spamness.addSpamnessColumn = function() {
+    // from chrome://messenger/content/folderDisplay.js
+    var fdw = FolderDisplayWidget.prototype;
+    fdw.DEFAULT_COLUMNS.push("colSpamStatus");
+    fdw.COLUMN_DEFAULT_TESTERS["colSpamStatus"] = function(viewWrapper) {
+        return viewWrapper.isIncomingFolder;
+    };
+};
+
 Spamness.greet = function() {
     let greetPage = "chrome://spamness/content/installed.xul";
     let tabmail = document.getElementById("tabmail");

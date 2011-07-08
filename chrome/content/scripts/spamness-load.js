@@ -15,6 +15,13 @@ Spamness.onLoad = function() {
 
     Spamness.syncHeaderPrefs(Spamness.previousSpamnessHeader);
 
+    // whether this column gets default status
+    var defaultCol = prefs.getBoolPref("extensions.spamness.isDefaultColumn");
+    if (defaultCol) {
+        Spamness.addSpamnessColumn();
+    }
+    
+    // first time info, should only ever show once
     var greet = prefs.getBoolPref("extensions.spamness.installationGreeting");
     if (greet) {
         Spamness.greet();

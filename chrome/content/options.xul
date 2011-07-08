@@ -12,7 +12,7 @@
         title="&spamnessOptions.title;"
         buttons="accept,cancel"
         defaultButton="accept"
-	ondialogaccept="return SpamnessOptions.syncHeaderPrefs(null);"
+        ondialogaccept="return SpamnessOptions.syncHeaderPrefs(null);"
         buttonalign="end"
         buttonorient="horizontal"
         height="325"
@@ -48,6 +48,9 @@
       <preference id="displayColumn"
                   name="extensions.spamness.display.column"
                   type="int" />
+      <preference id="isDefaultColumn"
+                  name="extensions.spamness.isDefaultColumn"
+                  type="bool" />
     </preferences>
 
     <groupbox>
@@ -58,6 +61,10 @@
         <radio value="1" label="&spamnessOptions.prefShowText.label;" />
         <radio value="2" label="&spamnessOptions.prefShowImage.label;" /> 
       </radiogroup>
+
+      <checkbox id="isDefaultColumnControl"
+                preference="isDefaultColumn"
+                label="&spamnessOptions.prefIsDefaultColumn.label;" />
     </groupbox>
 
     <groupbox>

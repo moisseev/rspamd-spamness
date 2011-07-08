@@ -6,6 +6,7 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Show visual and score">
 <!ENTITY spamnessOptions.prefShowText.label "Show only score">
 <!ENTITY spamnessOptions.prefShowImage.label "Show only visual">
+<!ENTITY spamnessOptions.prefIsDefaultColumn.label "Show column by default">
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Message Display">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Show score in message">
