@@ -35,7 +35,7 @@ Spamness.getHeaderName = function(prefs) {
 };
 
 Spamness.generateRulesURL = function(rule) {
-    if (/^[A-Z0-9_]+$/.test(rules)) {
+    if (/^[A-Z0-9_]+$/.test(rule)) {
         return "http://wiki.apache.org/spamassassin/Rules/" + rule;
     } else {
         return null;
