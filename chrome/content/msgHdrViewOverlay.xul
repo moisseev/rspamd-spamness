@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <?xml-stylesheet href="chrome://spamness/skin/messageHeader.css" type="text/css"?>
+<?xml-stylesheet href="chrome://spamness/content/bindings.css" type="text/css"?>
 
 <!DOCTYPE overlay SYSTEM "chrome://spamness/locale/messageHeader.dtd">
 
@@ -11,6 +12,11 @@
   <script type="application/x-javascript"
           src="chrome://spamness/content/scripts/messageHeader.js" />
 
+  <menupopup id="spamnessLinkPopup" popupanchor="bottomleft">
+    <menuitem label="&openLinkCmd.label;" oncommand="Spamness.Message.handleOpenLink(document.popupNode);"/>
+    <menuitem label="&copyLinkCmd.label;" oncommand="Spamness.Message.copyLink(document.popupNode);"/>
+  </menupopup>
+
   <rows id="expandedHeader2Rows">
     <row id="expandedSpamnessRow">
       <label id="expandedSpamnessLabel"
@@ -21,15 +27,12 @@
                         flex="1"
                         headerValue="" />
     </row>
-    <row id="expandedSpamnessRulesRow">
+    <row id="expandedSpamnessRulesRow" collapsed="true">
       <label id="expandedSpamnessRulesLabel"
              class="headerName"
              value="&spamness.rulesMessageHeader.label;"
              control="spamnessRulesHeader" />
-      <mail-toggle-headerfield id="spamnessRulesHeader"
-                        collapsed="false"
-		                label="&spamness.rulesMessageHeader.label;: "
-		                headerValue="" />
+      <mail-multi-linkField id="spamnessRulesHeader" />
     </row>
   </rows>
 </overlay>

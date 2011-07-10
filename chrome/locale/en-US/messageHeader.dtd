@@ -1,2 +1,5 @@
 <!ENTITY spamness.messageHeader.label "spam">
 <!ENTITY spamness.rulesMessageHeader.label "rules">
+
+<!ENTITY openLinkCmd.label "Open SpamAssassin rule link in Thunderbird">
+<!ENTITY copyLinkCmd.label "Copy SpamAssassin rule link">

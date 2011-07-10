@@ -44,7 +44,9 @@ Spamness.generateRulesURL = function(rule) {
 
 Spamness.parseHeader = function(headerStr) {
     try {
-        headerStr = headerStr.replace(/[\n\r\t]/g, ''); 
+        headerStr = headerStr.replace(/[\n\r]/g, ''); 
+        headerStr = headerStr.replace(/\t/g, ' '); 
+        headerStr = headerStr.replace(/, /g, ','); 
         var scoreprefix = "score=";
         var scoreIdx = headerStr.indexOf("score=");
         if (scoreIdx < 0) {

@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+
+<bindings
+   id="spamnessBindings"
+   xmlns="http://www.mozilla.org/xbl"
+   xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   xmlns:nc="http://home.netscape.com/NC-rdf#"
+   xmlns:xbl="http://www.mozilla.org/xbl">
+
+  <!-- dummy widget to force this file to load -->
+  <binding id="dummy" extends="xul:box"/>
+
+  <binding id="mail-link">
+    <content>
+      <xul:description anonid="linkValue" class="emailDisplayButton"
+                       xbl:inherits="aria-label" flex="1" role="textbox"
+                       aria-readonly="true" context="spamnessLinkPopup">
+        <xul:label class="linkLabel" anonid="linkLabel"
+                   xbl:inherits="value=label,crop"/>
+      </xul:description>
+    </content>
+
+    <implementation>
+      <property
+         name="label"
+         onset="this.getPart('linkValue').setAttribute('label', val); return val;"
+         onget="return this.getPart('linkValue').getAttribute('label');"/>
+
+      <method name="getPart">
+        <parameter name="aPartId"/>
+        <body><![CDATA[
+          return document.getAnonymousElementByAttribute(this, "anonid", aPartId);
+        ]]></body>
+      </method>
+    </implementation>
+  </binding>
+
+  <binding id="mail-multi-linkField">
+    <content>
+      <xul:hbox class="headerValueBox" anonid="longLinks" flex="1"
+                singleline="true" align="baseline">
+        <xul:description class="headerValue"
+                         anonid="links" flex="1"
+                         orient="vertical" pack="start"/>
+      </xul:hbox>
+      <xul:label class="moreIndicator" onclick="this.parentNode.toggleWrap()"
+        collapsed="true" anonid="more"/>
+    </content>
+
+    <implementation>
+      <constructor><![CDATA[
+        this.mLinks = new Array;
+      ]]></constructor>
+
+      <field name="mLinks"/>
+
+      <!-- aLink is an object with properties: displayText, url -->
+      <method name="addLinkView">
+        <parameter name="aLink"/>
+        <body><![CDATA[
+          this.mLinks.push(aLink);
+        ]]></body>
+      </method>
+
+      <method name="updateLinkNode">
+        <parameter name="aLinkNode"/>
+        <parameter name="aLink"/>
+        <body><![CDATA[
+          aLinkNode.setAttribute("label", aLink.displayText);
+          aLinkNode.removeAttribute("tooltiptext");
+          aLinkNode.setAttribute("url", aLink.url);
+          aLinkNode.setAttribute("displayText", aLink.displayText);
+          aLinkNode.setAttribute("tooltiptext", aLink.url);
+          if ("labelElement" in this) {
+              let ariaLabel = this.labelElement.value.slice(0, -1) + ": " +
+                              aLink.displayText;
+              aLinkNode.setAttribute("aria-label", ariaLabel);
+          }
+          try {
+              if ("UpdateLinkNodeDetails" in top)
+                  UpdateLinkNodeDetails(aLink.url, aLinkNode);
+          } catch(ex) {
+              dump("UpdateLinkNodeDetails failed: " + ex + "\n");
+          }
+        ]]></body>
+      </method>
+
+      <field name="commaNodeWidth">0</field>
+
+      <method name="fillLinksNode">
+        <parameter name="aLinkNode"/>
+        <parameter name="all"/>
+        <body><![CDATA[
+          var cached = aLinkNode.childNodes.length;
+          for (let node = aLinkNode; node; node = node.parentNode) {
+              node.collapsed = false;
+          }
+
+          this.addNMore(this.mLinks.length);
+          var availableWidth = aLinkNode.clientWidth;
+          this.more.collapsed = true;
+
+          var i = 0;
+          for (let curLine = 0, curLineWidth= 0;
+               i < this.mLinks.length && (all || curLine < this.maxLinesBeforeMore);
+               i++) {
+              let newLinkNode;
+              if (i > 0) {
+                  if (cached-- > 0) {
+                      aLinkNode.childNodes[i*2 - 1].hidden = false;
+                  } else {
+                      this.appendComma();
+                      if (this.commaNodeWidth == 0) {
+                          this.commaNodeWidth = this.links.lastChild.clientWidth;
+                      }
+                  }
+              }
+
+              if (cached-- > 0) {
+                  newLinkNode = aLinkNode.childNodes[i*2];
+                  newLinkNode.hidden = false;
+              } else {
+                  newLinkNode = document.createElement("mail-link");
+                  newLinkNode.setAttribute("headerName", this.headerName);
+                  newLinkNode = aLinkNode.appendChild(newLinkNode);
+              }
+              this.updateLinkNode(newLinkNode, this.mLinks[i]);
+
+              if (!all) {
+                  let newLineWidth = i+1 < this.mLinks.length ?
+                                     newLinkNode.clientWidth + this.commaNodeWidth :
+                                     newLinkNode.clientWidth;
+                  curLineWidth += newLineWidth;
+                  let overLineWidth = curLineWidth - availableWidth;
+                  if (overLineWidth > 0 && i > 0) {
+                      curLine++;
+                      curLineWidth = newLineWidth;
+                  }
+
+                  if (curLine >= this.maxLinesBeforeMore &&
+                      (this.maxLinesBeforeMore > 1 ||
+                       (i+1 == this.mLinks.length && overLineWidth > 30) ||
+                       newLineWidth - overLineWidth < 30)) {
+                      aLinkNode.lastChildNode.hidden = true;
+                      i--;
+                  }
+              }
+          }
+
+          cached = aLinkNode.childNodes.length;
+          for (let j = Math.max(i*2 - 1, 0); j < cached; j++) {
+              aLinkNode.childNodes[j].hidden = true;
+          }
+
+          if (!all) {
+              let remainingLinks = this.mLinks.length - i;
+              if (remainingLinks > 0) {
+                  if (aLinkNode.childNodes.length % 2 == 0) {
+                      aLinkNode.lastChild.hidden = false;
+                  } else {
+                      this.appendComma();
+                  }
+                  this.addNMore(remainingLinks);
+              }
+          }
+
+          return i;
+        ]]></body>
+      </method>
+
+      <property name="links" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'links');" readonly="true"/>
+      <property name="longLinks" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'longLinks');" readonly="true"/>
+      <property name="more" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'more')" readonly="true"/>
+
+      <field name="maxLinesBeforeMore">1</field>
+
+      <method name="buildViews">
+        <body><![CDATA[
+            this.maxLinesBeforeMore = Application.prefs.getValue(
+              "mailnews.headers.show_n_lines_before_more",
+              this.maxLinesBeforeMore);
+            const dt = Components.interfaces.nsMimeHeaderDisplayTypes;
+            var headerchoice = Application.prefs.getValue("mail.show_headers",
+                                                          dt.NormalHeaders);
+            if (this.maxLinesBeforeMore < 1 ||
+                headerchoice == dt.AllHeaders) {
+              this.fillLinksNode(this.links, true);
+              this.longLinks.removeAttribute("singleline");
+            }
+            else {
+              this.fillLinksNode(this.links, false);
+              // force a single line only in the default n=1 case
+              if (this.maxLinesBeforeMore > 1)
+                this.longLinks.removeAttribute("singleline");
+            }
+          ]]>
+        </body>
+      </method>
+
+      <method name="appendComma">
+        <body>
+          <![CDATA[
+            // Create and append a comma.
+            let commaNode = document.createElement("text");
+            commaNode.setAttribute("value", ",");
+            commaNode.setAttribute("class", "emailSeparator");
+            this.links.appendChild(commaNode);
+           ]]>
+        </body>
+      </method>
+
+      <method name="addNMore">
+        <parameter name="aNumber"/>
+        <body>
+          <![CDATA[
+            let words = gMessengerBundle.getString("headerMoreAddrs");
+            let moreForm = PluralForm.get(aNumber, words).replace("#1",
+                                                                  aNumber);
+
+            this.more.setAttribute("value", moreForm);
+
+            this.more.collapsed = false;
+          ]]>
+        </body>
+      </method>
+
+      <method name="toggleWrap">
+        <body>
+          <![CDATA[
+            document.getElementById("expandedHeaderView").setAttribute("show_header_mode","all");
+
+            this.longLinks.removeAttribute("singleline");
+
+            this.clearChildNodes(this.links);
+
+            this.fillLinksNode(this.links, true);
+
+            let eHV = document.getElementById("expandedHeaderView");
+            let style = getComputedStyle(eHV, null);
+
+            eHV.scrollTop = style.getPropertyValue("font-size").slice(0, -2);
+          ]]>
+        </body>
+      </method>
+
+      <method name="clearChildNodes">
+        <parameter name="aParentNode"/>
+        <body>
+          <![CDATA[
+            this.more.collapsed = true;
+
+            var numItemsToPreserve = this.maxLinksBeforeMore * 2 - 1;
+            var numItemsInNode = aParentNode.childNodes.length;
+
+            while (numItemsInNode && (numItemsInNode > numItemsToPreserve))
+            {
+              aParentNode.removeChild(aParentNode.childNodes[numItemsInNode-1]);
+              numItemsInNode = numItemsInNode - 1;
+            }
+          ]]>
+        </body>
+      </method>
+
+      <method name="clearHeaderValues">
+        <body>
+          <![CDATA[
+            this.mLinks = new Array;
+            this.longLinks.setAttribute("singleline", "true");
+            this.clearChildNodes(this.links);
+          ]]>
+        </body>
+      </method>
+    </implementation>
+  </binding>
+</bindings>

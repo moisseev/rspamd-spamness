@@ -8,7 +8,7 @@ Spamness.Message.displayScoreHeader = function() {
     var hdrEl = document.getElementById("spamnessScoreHeader");
     if (!showScore) {
         rowEl.collapsed = true;
-	return;
+        return;
     } else {
         rowEl.collapsed = false;
     }
@@ -17,12 +17,12 @@ Spamness.Message.displayScoreHeader = function() {
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
     if (uri == null)
-	return;
+        return;
 
     var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
 
     if (hdr == null || hdr.getStringProperty(header) == null)
-	return;
+        return;
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
     rowEl.collapsed = (parsed == null);
@@ -38,7 +38,7 @@ Spamness.Message.displayRulesHeader = function() {
     var hdrEl = document.getElementById("spamnessRulesHeader");
     if (!showRules) {
         rowEl.collapsed = true;
-	return;
+        return;
     } else {
         rowEl.collapsed = false;
     }
@@ -47,27 +47,42 @@ Spamness.Message.displayRulesHeader = function() {
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
     if (uri == null)
-	return;
+        return;
 
     var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
 
     if (hdr == null || hdr.getStringProperty(header) == null)
-	return;
+        return;
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
     rowEl.collapsed = (parsed == null);
-    if (parsed != null && parsed.getRules().length > 0) {
-        var rules = parsed.getRules();
+    var rules = parsed.getRules();
+    if (parsed != null && rules.length > 0) {
         for (var i = 0; i < rules.length; i++) {
-            // var url = Spamness.generateRulesURL(rules[i]);
+            var link = {};
+            link.displayText = rules[i];
+            link.url = Spamness.generateRulesURL(rules[i]);
+            hdrEl.addLinkView(link);
         }
-        // make each piece an element with a click handler that opens
-        // a content tab
-        hdrEl.headerValue = rules.join(", ");
     } else {
         hdrEl.headerValue = "";
     }
+
     hdrEl.valid = true;
+    hdrEl.buildViews();
+};
+
+Spamness.Message.handleOpenLink = function(linkNode) {
+};
+
+Spamness.Message.copyLink = function(linkNode) {
+    if (linkNode) {
+        var url = linkNode.getAttribute('url');
+        var contractid = "@mozilla.org/widget/clipboardhelper;1";
+        var iid = Components.interfaces.nsIClipboardHelper;
+        var clipboard = Components.classes[contractid].getService(iid);
+        clipboard.copyString(url);
+    }
 };
 
 Spamness.Message.onLoad = function() {
@@ -78,6 +93,7 @@ Spamness.Message.onLoad = function() {
         Spamness.Message.displayRulesHeader();
     };
     gMessageListeners.push(listener);
+    //gExpandedHeaderList.push({name:"SpamnessRules",useToggle:true,outputFunction:null})
 };
 
 Spamness.Message.onUnload = function() {
