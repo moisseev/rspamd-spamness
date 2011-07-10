@@ -16,26 +16,23 @@
      type="image/png"
      href="chrome://spamness/skin/icon32x32.png"/>
 
-  <hbox id="installedContainer" flex="1">
+  <vbox flex="1">
 
-    <image id="spamnessIcon"/>
-
-    <vbox flex="1">
-
+    <hbox id="introContainer">
+      <image id="spamnessIcon"/>
       <description flex="1" id="introduction" class="text-blurb">&spamnessInstalled.introduction.label;</description>
+    </hbox>
 
-      <groupbox flex="1">
-        <caption label="&spamnessInstalled.folderGroup.label;"/>
-        <description class="text-blurb">&spamnessInstalled.folderInstructions.label;</description>
-      </groupbox>
+    <groupbox flex="1">
+      <caption label="&spamnessInstalled.folderGroup.label;"/>
+      <description class="text-blurb">&spamnessInstalled.folderInstructions.label;</description>
+    </groupbox>
+    
+    <groupbox flex="1">
+      <caption label="&spamnessInstalled.columnGroup.label;"/>
+      <description class="text-blurb">&spamnessInstalled.columnInstructions.label;</description>
+    </groupbox>
 
-      <groupbox flex="1">
-        <caption label="&spamnessInstalled.columnGroup.label;"/>
-        <description class="text-blurb">&spamnessInstalled.columnInstructions.label;</description>
-      </groupbox>
-
-    </vbox>
-
-  </hbox>
+  </vbox>
 
 </window>
