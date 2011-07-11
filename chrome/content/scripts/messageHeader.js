@@ -71,11 +71,23 @@ Spamness.Message.displayRulesHeader = function() {
     }
 };
 
-Spamness.Message.handleOpenLink = function(linkNode, local) {
-    if (typeof local === "undefined") {
-        // @@@ get pref
-        local = true;
+Spamness.Message.handleLinkClick = function(e, linkNode) {
+    var local = true;
+    // @@@get pref
+
+    if (e.button === 0) {
+        Spamness.Message.openLink(linkNode, local);
     }
+};
+
+Spamness.Message.openLink = function(linkNode, local) {
+    while (linkNode.getAttribute("context") != "spamnessPopup") {
+        linkNode = linkNode.parentNode;
+        if (linkNode === null) {
+            return null;
+        }
+    }
+    linkNode = linkNode.parentNode;
 
     var url = linkNode.getAttribute('url');
     if (local) {
@@ -86,13 +98,19 @@ Spamness.Message.handleOpenLink = function(linkNode, local) {
 };
 
 Spamness.Message.copyLink = function(linkNode) {
-    if (linkNode) {
-        var url = linkNode.getAttribute('url');
-        var contractid = "@mozilla.org/widget/clipboardhelper;1";
-        var iid = Components.interfaces.nsIClipboardHelper;
-        var clipboard = Components.classes[contractid].getService(iid);
-        clipboard.copyString(url);
+    while (linkNode.getAttribute("context") != "spamnessPopup") {
+        linkNode = linkNode.parentNode;
+        if (linkNode === null) {
+            return null;
+        }
     }
+    linkNode = linkNode.parentNode;
+
+    var url = linkNode.getAttribute('url');
+    var contractid = "@mozilla.org/widget/clipboardhelper;1";
+    var iid = Components.interfaces.nsIClipboardHelper;
+    var clipboard = Components.classes[contractid].getService(iid);
+    clipboard.copyString(url);
 };
 
 Spamness.Message.onLoad = function() {

@@ -15,9 +15,10 @@
 
   <popupset>
     <menupopup id="spamnessPopup" popupanchor="bottomleft">
-      <menuitem label="&openLinkLocalCmd.label;" oncommand="Spamness.Message.handleOpenLink(findEmailNodeFromPopupNode(document.popupNode, 'spamnessPopup'), true);"/>
-      <menuitem label="&openLinkExternalCmd.label;" oncommand="Spamness.Message.handleOpenLink(findEmailNodeFromPopupNode(document.popupNode, 'spamnessPopup'), false);"/>
-      <menuitem label="&copyLinkCmd.label;" oncommand="Spamness.Message.copyLink(findEmailNodeFromPopupNode(document.popupNode, 'spamnessPopup'));"/>
+      <menuitem label="&openLinkLocalCmd.label;" oncommand="Spamness.Message.openLink(document.popupNode, true);"/>
+      <menuitem label="&openLinkExternalCmd.label;" oncommand="Spamness.Message.openLink(document.popupNode, false);"/>
+      <menuseparator/>
+      <menuitem label="&copyLinkCmd.label;" oncommand="Spamness.Message.copyLink(document.popupNode);"/>
     </menupopup>
   </popupset>
 
