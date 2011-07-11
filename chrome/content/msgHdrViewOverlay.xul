@@ -12,10 +12,14 @@
   <script type="application/x-javascript"
           src="chrome://spamness/content/scripts/messageHeader.js" />
 
-  <menupopup id="spamnessLinkPopup" popupanchor="bottomleft">
-    <menuitem label="&openLinkCmd.label;" oncommand="Spamness.Message.handleOpenLink(document.popupNode);"/>
-    <menuitem label="&copyLinkCmd.label;" oncommand="Spamness.Message.copyLink(document.popupNode);"/>
-  </menupopup>
+
+  <popupset>
+    <menupopup id="spamnessPopup" popupanchor="bottomleft">
+      <menuitem label="&openLinkLocalCmd.label;" oncommand="Spamness.Message.handleOpenLink(findEmailNodeFromPopupNode(document.popupNode, 'spamnessPopup'), true);"/>
+      <menuitem label="&openLinkExternalCmd.label;" oncommand="Spamness.Message.handleOpenLink(findEmailNodeFromPopupNode(document.popupNode, 'spamnessPopup'), false);"/>
+      <menuitem label="&copyLinkCmd.label;" oncommand="Spamness.Message.copyLink(findEmailNodeFromPopupNode(document.popupNode, 'spamnessPopup'));"/>
+    </menupopup>
+  </popupset>
 
   <rows id="expandedHeader2Rows">
     <row id="expandedSpamnessRow">
@@ -27,7 +31,7 @@
                         flex="1"
                         headerValue="" />
     </row>
-    <row id="expandedSpamnessRulesRow" collapsed="true">
+    <row id="expandedSpamnessRulesRow">
       <label id="expandedSpamnessRulesLabel"
              class="headerName"
              value="&spamness.rulesMessageHeader.label;"

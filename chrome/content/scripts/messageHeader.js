@@ -58,7 +58,7 @@ Spamness.Message.displayRulesHeader = function() {
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
     rowEl.collapsed = (parsed == null);
-    var rules = parsed.getRules();
+    var rules = (parsed == null) ? null : parsed.getRules();
     if (parsed != null && rules.length > 0) {
         for (var i = 0; i < rules.length; i++) {
             var link = {};
@@ -66,15 +66,23 @@ Spamness.Message.displayRulesHeader = function() {
             link.url = Spamness.generateRulesURL(rules[i]);
             hdrEl.addLinkView(link);
         }
-    } else {
-        hdrEl.headerValue = "";
+        hdrEl.valid = true;
+        hdrEl.buildViews();
     }
-
-    hdrEl.valid = true;
-    hdrEl.buildViews();
 };
 
-Spamness.Message.handleOpenLink = function(linkNode) {
+Spamness.Message.handleOpenLink = function(linkNode, local) {
+    if (typeof local === "undefined") {
+        // @@@ get pref
+        local = true;
+    }
+
+    var url = linkNode.getAttribute('url');
+    if (local) {
+        Spamness.openTab(url);
+    } else {
+        messenger.launchExternalURL(url);
+    }
 };
 
 Spamness.Message.copyLink = function(linkNode) {

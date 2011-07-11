@@ -187,8 +187,7 @@ Spamness.addSpamnessColumn = function() {
     };
 };
 
-Spamness.greet = function() {
-    let greetPage = "chrome://spamness/content/installed.xul";
+Spamness.openTab = function(url) {
     let tabmail = document.getElementById("tabmail");
     if (!tabmail) {
         let mail3PaneWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
@@ -201,12 +200,17 @@ Spamness.greet = function() {
     }
 
     if (tabmail)
-        tabmail.openTab("contentTab", {contentPage: greetPage});
+        tabmail.openTab("contentTab", {contentPage: url});
     else
         window.openDialog("chrome://messenger/content/", "_blank",
                           "chrome,dialog=no,all", null,
                           { tabType: "contentTab",
-                            tabParams: { contentPage: greetPage }});
+                            tabParams: { contentPage: url }});
+};
+
+Spamness.greet = function() {
+    let greetPage = "chrome://spamness/content/installed.xul";
+    Spamness.openTab(greetPage);
 };
 
 Spamness.Header = function(score, threshold, rules) {

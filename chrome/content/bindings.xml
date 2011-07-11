@@ -14,7 +14,8 @@
     <content>
       <xul:description anonid="linkValue" class="linkDisplayButton"
                        xbl:inherits="aria-label" flex="1" role="textbox"
-                       aria-readonly="true" context="spamnessLinkPopup">
+                       aria-readonly="true" context="spamnessPopup"
+                       popup="spamnessPopup">
         <xul:label class="linkLabel" anonid="linkLabel"
                    xbl:inherits="value=label,crop"/>
       </xul:description>
@@ -25,6 +26,10 @@
          name="label"
          onset="this.getPart('linkValue').setAttribute('label', val); return val;"
          onget="return this.getPart('linkValue').getAttribute('label');"/>
+      <property
+         name="crop"
+         onset="this.getPart('linkValue').setAttribute('crop', val); return val;"
+         onget="return this.getPart('linkValue').getAttribute('crop');"/>
 
       <method name="getPart">
         <parameter name="aPartId"/>
@@ -75,12 +80,6 @@
               let ariaLabel = this.labelElement.value.slice(0, -1) + ": " +
                               aLink.displayText;
               aLinkNode.setAttribute("aria-label", ariaLabel);
-          }
-          try {
-              if ("UpdateLinkNodeDetails" in top)
-                  UpdateLinkNodeDetails(aLink.url, aLinkNode);
-          } catch(ex) {
-              dump("UpdateLinkNodeDetails failed: " + ex + "\n");
           }
         ]]></body>
       </method>
