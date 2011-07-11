@@ -72,8 +72,9 @@ Spamness.Message.displayRulesHeader = function() {
 };
 
 Spamness.Message.handleLinkClick = function(e, linkNode) {
-    var local = true;
-    // @@@get pref
+    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                    .getService(Components.interfaces.nsIPrefBranch);
+    var local = prefs.getBoolPref("extensions.spamness.openRuleLinkLocally");
 
     if (e.button === 0) {
         Spamness.Message.openLink(linkNode, local);

@@ -15,7 +15,7 @@
         ondialogaccept="return SpamnessOptions.syncHeaderPrefs(null);"
         buttonalign="end"
         buttonorient="horizontal"
-        height="325"
+        height="340"
         width="340">
 
   <prefpane id="paneDisplay"
@@ -51,6 +51,9 @@
       <preference id="isDefaultColumn"
                   name="extensions.spamness.isDefaultColumn"
                   type="bool" />
+      <preference id="openRuleLinkLocally"
+                  name="extensions.spamness.openRuleLinkLocally"
+                  type="bool" />
     </preferences>
 
     <groupbox>
@@ -74,7 +77,12 @@
                 label="&spamnessOptions.prefDisplayMessageScore.label;" />
       <checkbox id="displayMessageRulesControl"
                 preference="displayMessageRules"
-                label="&spamnessOptions.prefDisplayMessageRules.label;" />
+                label="&spamnessOptions.prefDisplayMessageRules.label;"
+                oncommand="SpamnessOptions.dependents('displayMessageRulesControl');"/>
+      <checkbox id="openRuleLinkLocallyControl"
+                class="indent"
+                preference="openRuleLinkLocally"
+                label="&spamnessOptions.prefOpenRuleLinkLocally.label;" />
     </groupbox>
   </prefpane>
 
@@ -96,7 +104,6 @@
       <description class="caveat">
         &spamnessOptions.prefHeaderName.explain;
       </description>
-      <button label="&spamnessOptions.buttonReIndex.label;" />
     </groupbox>
   </prefpane>
 </prefwindow>
