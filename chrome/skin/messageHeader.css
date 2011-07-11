@@ -1,3 +1,5 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
 .spamness-disguise {
     margin: 0 ! important;
     border: 0 ! important;
@@ -6,4 +8,46 @@
     font: inherit ! important;
     line-height: inherit ! important; 
     color: inherit ! important;
+}
+
+.linkDisplayButton {
+    margin: 0px;
+    -moz-padding-start: 3px !important;
+    -moz-padding-end: 3px !important;
+    background-color: transparent;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.linkDisplayButton:hover {
+    cursor: pointer;
+    background-color: #fcaf3e;
+}
+
+mail-link[selected="true"] .linkDisplayButton {
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: #fcaf3e;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.linkDisplayButton:focus {
+    border: 1px dotted #fcaf3e;
+}
+
+.linkSeparator {
+    -moz-margin-start: -3px;
+}
+
+mail-multi-linkField {
+    margin: 0;
+    padding: 0;
+    -moz-box-align: baseline;
+}
+
+.linkLabel {
+    padding: 0px !important;
+    margin: 0px !important;
+    overflow: hidden;
 }
