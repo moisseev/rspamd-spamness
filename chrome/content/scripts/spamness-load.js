@@ -25,7 +25,8 @@ Spamness.onLoad = function() {
     var greet = prefs.getBoolPref("extensions.spamness.installationGreeting");
     if (greet) {
         Spamness.greet();
-        //prefs.setBoolPref("extensions.spamness.installationGreeting", false);
+        prefs.setBoolPref("extensions.spamness.installationGreeting", false);
+        prefs.savePrefFile(null);
     }
 };
 
