@@ -6,5 +6,4 @@ spamness.jar:
 
 babelzilla:
 	rm -f spamness.jar
-	find . -type f -not -name "Makefile.chrome" -and -not -path "*.svn*"| cut -c3- |xargs jar -Mcf $@
-
+	find . -type f -not -name "Makefile.chrome" -and -not -path "*.svn*"| cut -c3- |xargs jar -Mcf spamness.jar
