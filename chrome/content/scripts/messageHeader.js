@@ -35,11 +35,13 @@ Spamness.Message.displayRulesHeader = function() {
                     .getService(Components.interfaces.nsIPrefBranch);
     var showRules = prefs.getBoolPref("extensions.spamness.display.messageRules");
     var rowEl = document.getElementById("expandedSpamnessRulesRow");
-    var hdrEl = document.getElementById("spamnessRulesHeader");
+    var hdrEl = document.getElementById("expandedSpamnessRulesBox");
     if (!showRules) {
         rowEl.collapsed = true;
         return;
     } else {
+        if (hdrEl.clearHeaderValues)
+            hdrEl.clearHeaderValues();
         rowEl.collapsed = false;
     }
 
@@ -93,7 +95,6 @@ Spamness.Message.onLoad = function() {
         Spamness.Message.displayRulesHeader();
     };
     gMessageListeners.push(listener);
-    //gExpandedHeaderList.push({name:"SpamnessRules",useToggle:true,outputFunction:null})
 };
 
 Spamness.Message.onUnload = function() {

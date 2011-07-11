@@ -31,8 +31,8 @@
       <label id="expandedSpamnessRulesLabel"
              class="headerName"
              value="&spamness.rulesMessageHeader.label;"
-             control="spamnessRulesHeader" />
-      <mail-multi-linkField id="spamnessRulesHeader" />
+             control="expandedSpamnessRulesBox" />
+      <mail-multi-linkField id="expandedSpamnessRulesBox" />
     </row>
   </rows>
 </overlay>
