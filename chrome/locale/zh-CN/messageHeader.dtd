@@ -1,6 +1,5 @@
 <!ENTITY spamness.messageHeader.label "垃圾邮件">
 <!ENTITY spamness.rulesMessageHeader.label "规则">
-
-<!ENTITY openLinkLocalCmd.label "">
-<!ENTITY openLinkExternalCmd.label "">
-<!ENTITY copyLinkCmd.label "">
+<!ENTITY openLinkLocalCmd.label "在 Thunderbird 中打开规则链接">
+<!ENTITY openLinkExternalCmd.label "在 浏览器中打开规则链接">
+<!ENTITY copyLinkCmd.label "复制规则链接地址">

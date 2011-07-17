@@ -1,9 +1,6 @@
-<!ENTITY spamnessInstalled.title "">
-
-<!ENTITY spamnessInstalled.introduction.label "">
-
-<!ENTITY spamnessInstalled.folderGroup.label "">
-<!ENTITY spamnessInstalled.folderInstructions.label "">
-
-<!ENTITY spamnessInstalled.columnGroup.label "">
-<!ENTITY spamnessInstalled.columnInstructions.label "">
+<!ENTITY spamnessInstalled.title "Упутство за Spamness">
+<!ENTITY spamnessInstalled.introduction.label "Хвала вам што сте инсталирали Spamness. Да бисте га користили, поново направите фасциклу која садржи поруке које је оценио SpamAssassin, а потом омогућите приказ додатне колоне поред сваке фасцикле. Ако сте инсталирали Spamness пре било каквих подешавања налога, занемарите остатак упутства, јер је све већ спремно!">
+<!ENTITY spamnessInstalled.folderGroup.label "Поново индексирање фасцикли">
+<!ENTITY spamnessInstalled.folderInstructions.label "Да бисте поново индексирали фасциклу, изаберите је и отворите њена „Својства...” из приручног менија или менија Уређивање. Притисните дугме „Поправи фасциклу”. Овај поступак морате поновити за сваку фасциклу, а можете искористити ово пробно дугме да бисте поново индексирали сваку фасциклу.">
+<!ENTITY spamnessInstalled.columnGroup.label "Приказивање колоне">
+<!ENTITY spamnessInstalled.columnInstructions.label "Да бисте приказали колону оиред сваке фасцикле, кликните на колону и изаберите колону „Оцењивање нежељености”. Да бисте је применили на све фасцикле, поново кликните на колону, на дну пронађите Примени колоне на... &gt; Фасциклу и подфасцикле... и изаберите главну фасциклу свог налога. Колона ће аутоматски бити додата подразумеванима, али неће утицати на постојеће фасцикле.">

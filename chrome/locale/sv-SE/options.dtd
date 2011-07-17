@@ -4,11 +4,11 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Visa visuell indikator och poängbedömning">
 <!ENTITY spamnessOptions.prefShowText.label "Visa endast poängbedömning">
 <!ENTITY spamnessOptions.prefShowImage.label "Visa endast visuell indikator">
-<!ENTITY spamnessOptions.prefIsDefaultColumn.label "">
+<!ENTITY spamnessOptions.prefIsDefaultColumn.label "Visa kolumnen som standard">
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Meddelandevisning">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Visa poängbedömning i meddelanden">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Visa utlösta regler i meddelanden">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "">
+<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "Öppna regellänkar i Thunderbird">
 <!ENTITY spamnessOptions.paneAdvanced.label "Avancerat">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "Bedömningsmeddelandehuvud">
 <!ENTITY spamnessOptions.prefHeaderName.label "Meddelandehuvud innehållande skräppostbedömningsrapport:">

@@ -1,9 +1,6 @@
-<!ENTITY spamnessInstalled.title "">
-
+<!ENTITY spamnessInstalled.title "Guía de Spamness">
 <!ENTITY spamnessInstalled.introduction.label "">
-
-<!ENTITY spamnessInstalled.folderGroup.label "">
-<!ENTITY spamnessInstalled.folderInstructions.label "">
-
-<!ENTITY spamnessInstalled.columnGroup.label "">
+<!ENTITY spamnessInstalled.folderGroup.label "Reindizar Carpetas">
+<!ENTITY spamnessInstalled.folderInstructions.label "Para reindizar una carpeta, seleccionela y elija 'Propiedades...' del menú contextual o del menú Editar, entonces pulse sobre 'Reparar Carpeta'. Necesitará hacerlo con cada carpeta o utilizar el botón experimental para intentar reconstruir el índice para cada carpeta.">
+<!ENTITY spamnessInstalled.columnGroup.label "Mostrando la Columna">
 <!ENTITY spamnessInstalled.columnInstructions.label "">

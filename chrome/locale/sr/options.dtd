@@ -1,14 +1,14 @@
 <!ENTITY spamnessOptions.title "Spamness опције">
-<!ENTITY spamnessOptions.paneDisplay.label "Прикажи">
-<!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Прикажи колоне">
+<!ENTITY spamnessOptions.paneDisplay.label "Приказ">
+<!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Приказ колона">
 <!ENTITY spamnessOptions.prefShowBoth.label "Прикажи визуелно и резултат">
 <!ENTITY spamnessOptions.prefShowText.label "Прикажи само резултат">
 <!ENTITY spamnessOptions.prefShowImage.label "Прикажи само визуелно">
-<!ENTITY spamnessOptions.prefIsDefaultColumn.label "">
+<!ENTITY spamnessOptions.prefIsDefaultColumn.label "Прикажи колону по подразумеваном">
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Приказ порука">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Прикажи резултат у поруци">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Прикажи правила коришћена у поруци">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "">
+<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "Отвори правило у Тандерберду">
 <!ENTITY spamnessOptions.paneAdvanced.label "Напредно">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "Заглавље резултата">
 <!ENTITY spamnessOptions.prefHeaderName.label "Заглавље поруке која садржи извештај о нежељености:">

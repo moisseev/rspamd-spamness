@@ -1,16 +1,16 @@
-<!ENTITY spamnessOptions.title "垃圾邮件配置选项">
+<!ENTITY spamnessOptions.title "Spamness 选项">
 <!ENTITY spamnessOptions.paneDisplay.label "显示">
-<!ENTITY spamnessOptions.captionDisplayColumnGroup.label "柱形图显示">
-<!ENTITY spamnessOptions.prefShowBoth.label "显示视觉效果和得分">
-<!ENTITY spamnessOptions.prefShowText.label "仅显示得分">
+<!ENTITY spamnessOptions.captionDisplayColumnGroup.label "列显示">
+<!ENTITY spamnessOptions.prefShowBoth.label "显示视觉效果和等级">
+<!ENTITY spamnessOptions.prefShowText.label "仅显示等级">
 <!ENTITY spamnessOptions.prefShowImage.label "仅显示视觉效果">
-<!ENTITY spamnessOptions.prefIsDefaultColumn.label "">
+<!ENTITY spamnessOptions.prefIsDefaultColumn.label "默认显示列">
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "消息显示">
-<!ENTITY spamnessOptions.prefDisplayMessageScore.label "在消息中显示得分">
-<!ENTITY spamnessOptions.prefDisplayMessageRules.label "在消息中显示规则触发事件">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "">
+<!ENTITY spamnessOptions.prefDisplayMessageScore.label "在消息中显示等级">
+<!ENTITY spamnessOptions.prefDisplayMessageRules.label "在消息中显示被移除的规则">
+<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "在 Thunderbird 中打开规则链接">
 <!ENTITY spamnessOptions.paneAdvanced.label "高级">
-<!ENTITY spamnessOptions.captionHeaderGroup.label "得分头部">
-<!ENTITY spamnessOptions.prefHeaderName.label "邮件头部包含垃圾邮件得分报告：">
-<!ENTITY spamnessOptions.prefHeaderName.explain "">
-<!ENTITY spamnessOptions.buttonReIndex.label "首页文件夹">
+<!ENTITY spamnessOptions.captionHeaderGroup.label "Score Header">
+<!ENTITY spamnessOptions.prefHeaderName.label "邮件头包含垃圾邮件等级报告：">
+<!ENTITY spamnessOptions.prefHeaderName.explain "注意：更改数据头后 Spamness 将重建所有文件夹索引以便 Thunderbird 能够读取每个消息的数据头。打开每个文件夹的属性，然后点击重建文件夹按钮。">
+<!ENTITY spamnessOptions.buttonReIndex.label "索引文件夹">
