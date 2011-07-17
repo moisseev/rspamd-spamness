@@ -13,11 +13,6 @@
   <script type="application/javascript"
           src="chrome://spamness/content/scripts/spamness-load.js" />
 
-  <stringbundleset id="stringbundleset">
-    <stringbundle id="bundle_spamness"
-                  src="chrome://spamness/locale/spamness.properties" />
-  </stringbundleset>
-
   <tree id="threadTree">
     <treecols id="threadCols">
       <splitter class="tree-splitter" />

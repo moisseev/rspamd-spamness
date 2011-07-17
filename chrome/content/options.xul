@@ -23,8 +23,6 @@
             label="&spamnessOptions.paneDisplay.label;">
 
     <stringbundleset id="stringbundleset">
-      <stringbundle id="bundle_spamness"
-                    src="chrome://spamness/locale/spamness.properties" />
       <stringbundle id="bundle_custom"
                     src="chrome://messenger/locale/custom.properties" />
     </stringbundleset>
