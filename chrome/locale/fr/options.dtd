@@ -4,11 +4,13 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Afficher le visuel et le score">
 <!ENTITY spamnessOptions.prefShowText.label "Afficher le score seulement">
 <!ENTITY spamnessOptions.prefShowImage.label "Afficher le visuel seulement">
+<!ENTITY spamnessOptions.prefIsDefaultColumn.label "">
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Affichage des Messages">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Montrer le score dans les messages">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Montrer les règles enfreinte dans les messages">
+<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "">
 <!ENTITY spamnessOptions.paneAdvanced.label "Avancée">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "En-tête de Score">
 <!ENTITY spamnessOptions.prefHeaderName.label "En-tête de message contenant des rapports de score de spam :">
-<!ENTITY spamnessOptions.prefHeaderName.explain "Note : Changer l'en-tête que Spamness utilise va nécessiter le reconstruction de tout les indices de dossier pour que Thunderbird puisse lire la valeur des en-têtes pour chaque message">
+<!ENTITY spamnessOptions.prefHeaderName.explain "">
 <!ENTITY spamnessOptions.buttonReIndex.label "Index des dossiers">
