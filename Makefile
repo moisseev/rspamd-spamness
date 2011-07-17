@@ -10,5 +10,11 @@ babelzilla:
 	rm -rf spamness.xpi
 	zip spamness.xpi chrome/spamness.jar install.rdf license.txt chrome.manifest defaults/preferences/spamness.js 
 
+localize:
+	rm -rf chrome/locale/*
+	wget http://www.babelzilla.org/wts/download/locale/all/skipped/5242 -O chrome/locale/locales.tar.gz
+	cd chrome/locale/; tar xzf locales.tar.gz
+	rm -rf chrome/locale/locales.tar.gz
+
 clean:
 	rm -f chrome/spamness.jar spamness.xpi
