@@ -1,16 +1,16 @@
 <!ENTITY spamnessOptions.title "Opções do Spamness">
 <!ENTITY spamnessOptions.paneDisplay.label "Exibição">
 <!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Exibição da Coluna">
-<!ENTITY spamnessOptions.prefShowBoth.label "Mostrar visual e escore">
-<!ENTITY spamnessOptions.prefShowText.label "Mostrar apenas o escore">
+<!ENTITY spamnessOptions.prefShowBoth.label "Mostrar visual e classificação">
+<!ENTITY spamnessOptions.prefShowText.label "Mostrar apenas a classificação">
 <!ENTITY spamnessOptions.prefShowImage.label "Mostrar apenas o visual">
-<!ENTITY spamnessOptions.prefIsDefaultColumn.label "">
-<!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Exibição de mensagens">
-<!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar mensagem do escore">
-<!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar regras bloqueadas na mensagem">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "">
+<!ENTITY spamnessOptions.prefIsDefaultColumn.label "Mostrar coluna por padrão">
+<!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Exibição de Mensagens">
+<!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar classificação na mensagem">
+<!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar regras quebradas na mensagem">
+<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "Abrir regra do link no Thanderbird">
 <!ENTITY spamnessOptions.paneAdvanced.label "Avançado">
-<!ENTITY spamnessOptions.captionHeaderGroup.label "Cabeçalho do Escore">
-<!ENTITY spamnessOptions.prefHeaderName.label "Nome do cabeçalho da mensagem de relatório do escore de spans">
+<!ENTITY spamnessOptions.captionHeaderGroup.label "Cabeçalho da Classificação">
+<!ENTITY spamnessOptions.prefHeaderName.label "Cabeçalho da mensagem contendo relatório de classificação de spans:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "">
 <!ENTITY spamnessOptions.buttonReIndex.label "Pastas Índice">

@@ -1,9 +1,6 @@
-<!ENTITY spamnessInstalled.title "">
-
-<!ENTITY spamnessInstalled.introduction.label "">
-
-<!ENTITY spamnessInstalled.folderGroup.label "">
-<!ENTITY spamnessInstalled.folderInstructions.label "">
-
-<!ENTITY spamnessInstalled.columnGroup.label "">
-<!ENTITY spamnessInstalled.columnInstructions.label "">
+<!ENTITY spamnessInstalled.title "Guia Spamness">
+<!ENTITY spamnessInstalled.introduction.label "Obrigado por instalar o Spamness. Para usar Spamness, você vai precisar tanto re-construir os índices das pastas que contêm mensagens SpamAssassin-scored e ativar a exibição da coluna para cada pasta. Se você instalou Spamness antes da criação de todas as suas contas, você pode ignorar completamente o resto deste guia - está tudo pronto.">
+<!ENTITY spamnessInstalled.folderGroup.label "Reindexação Pastas">
+<!ENTITY spamnessInstalled.folderInstructions.label "Para reindexar uma pasta, selecione-a e escolha 'Propriedades ...' no menu de contexto ou Editar; em seguida, clique no botão &quot;Pasta de reparação&quot;. Você terá que fazer isso para cada pasta, ou você pode usar esse botão experimental para tentar re-criar um índice para cada pasta.">
+<!ENTITY spamnessInstalled.columnGroup.label "Exibindo a Coluna">
+<!ENTITY spamnessInstalled.columnInstructions.label "Para exibir a coluna em cada pasta, clique no seletor de coluna e selecione a coluna 'Classificação do Spam', certificando-se que está verificada e a nova coluna é visível. Para aplicá-la a todas as pastas, clique no seletor de coluna novamente e role até &quot;Aplicar colunas para...' e depois 'Pasta e subpastas ...&quot; e escolha a pasta principal da conta. A coluna já terá sido automaticamente adicionada às colunas padrão, mas isso não afetará as pastas já existentes.">
