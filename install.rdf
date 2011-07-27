@@ -22,7 +22,7 @@
     <em:file>
       <Description about="urn:mozilla:extension:file:spamness.jar">
         <em:package>content/spamness/</em:package>
-	<em:locale>locale/en-US/spamness/</em:locale>
+        <em:locale>locale/en-US/spamness/</em:locale>
         <em:skin>skin/classic/spamness/</em:skin>
       </Description>
     </em:file>
@@ -31,13 +31,40 @@
     <em:description>Provides a color- and size-based visual measurement of how spam-like an individual message is based on its normalized SpamAssassin score.</em:description>
     <em:creator>Ryan Lee (ryan@ryanlee.org)</em:creator>
     <em:translator>Kacnepcku - PC</em:translator>
+    <em:translator>ДакСРБИЈА</em:translator>
     <em:translator>Edgard Dias Magalhaes</em:translator>
     <em:translator>http://lionel.bijaoui.free.fr/</em:translator>
-    <em:translator>BruceH (babelzilla.org)</em:translator>
+    <em:translator>mozillazg</em:translator>
     <em:translator>Luana Di Muzio - BabelZilla</em:translator>
     <em:translator>Mikael Hiort af Ornäs</em:translator>
+    <em:translator>RigoNet</em:translator>
     <em:iconURL>chrome://spamness/skin/icon32x32.png</em:iconURL>
     <em:homepageURL>http://ryanlee.org/software/mozilla/thunderbird/spamness/</em:homepageURL>
     <em:optionsURL>chrome://spamness/content/options.xul</em:optionsURL>
+
+    <em:localized>
+      <Description>
+        <em:locale>sv-SE</em:locale>
+        <em:name>Spamness</em:name>
+        <em:description>Tillhandahåller en färg- och storleksbaserad visuell bedömningsindikator för risken att ett meddelande är skräppost, baserat på dess normaliserade SpamAssassin-klassificering.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>sr</em:locale>
+        <em:name>Spamness</em:name>
+        <em:description>Пружа визулени приказ у ком степену SpamAssassin сматра неку поруку нежељеном.</em:description>
+      </Description>
+    </em:localized>
+
+    <em:localized>
+      <Description>
+        <em:locale>pt-BR</em:locale>
+        <em:name>Spamness</em:name>
+        <em:description>Fornece uma escala visual colorida da importância do spam, baseada na sua pontuação SpamAssassin.</em:description>
+      </Description>
+    </em:localized>
+
   </Description>
 </RDF>
