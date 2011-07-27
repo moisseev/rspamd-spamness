@@ -18,15 +18,6 @@
       </Description>
     </em:targetApplication>
     
-    <!-- The contents of the extension //-->
-    <em:file>
-      <Description about="urn:mozilla:extension:file:spamness.jar">
-        <em:package>content/spamness/</em:package>
-        <em:locale>locale/en-US/spamness/</em:locale>
-        <em:skin>skin/classic/spamness/</em:skin>
-      </Description>
-    </em:file>
-
     <!-- Front End Integration Hooks (used by Extension Manager)-->
     <em:description>Provides a color- and size-based visual measurement of how spam-like an individual message is based on its normalized SpamAssassin score.</em:description>
     <em:creator>Ryan Lee (ryan@ryanlee.org)</em:creator>
