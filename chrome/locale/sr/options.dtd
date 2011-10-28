@@ -12,5 +12,5 @@
 <!ENTITY spamnessOptions.paneAdvanced.label "Напредно">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "Заглавље резултата">
 <!ENTITY spamnessOptions.prefHeaderName.label "Заглавље поруке која садржи извештај о нежељености:">
-<!ENTITY spamnessOptions.prefHeaderName.explain "">
+<!ENTITY spamnessOptions.prefHeaderName.explain "Напомена: мењање заглавља коришћења Spamness захтева поновно прављење индекса фасцикли, како би Тандерберд могао да прочита вредности и заглавља сваке поруке.">
 <!ENTITY spamnessOptions.buttonReIndex.label "Фасцикле за примљено">

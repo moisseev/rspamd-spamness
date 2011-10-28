@@ -1,5 +1,5 @@
 <!ENTITY spamness.messageHeader.label "spam">
 <!ENTITY spamness.rulesMessageHeader.label "regras">
-<!ENTITY openLinkLocalCmd.label "Abrir Regra de Links no Thanderbird">
-<!ENTITY openLinkExternalCmd.label "Abrir Regras de Links no Navegador">
-<!ENTITY copyLinkCmd.label "Copiar Localização da Regra do Link">
+<!ENTITY openLinkLocalCmd.label "Regra de Link Aberta no Thunderbird">
+<!ENTITY openLinkExternalCmd.label "Regra de Link Aberta no Navegador">
+<!ENTITY copyLinkCmd.label "Copiar Localização da Regra de Link">
