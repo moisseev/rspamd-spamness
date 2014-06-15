@@ -31,7 +31,7 @@ Spamness.getHeaderName = function(prefs) {
         prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var header = prefs.getCharPref("extensions.spamness.header");
-    return header;
+    return header.toLowerCase();
 };
 
 Spamness.generateRulesURL = function(rule) {
