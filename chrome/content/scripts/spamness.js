@@ -43,6 +43,37 @@ Spamness.generateRulesURL = function(rule) {
 }
 
 Spamness.parseHeader = function(headerStr) {
+    if (Spamness.getHeaderName() == "x-spamd-result") {
+        return Spamness.parseRspamdHeader(headerStr);
+    } else {
+        return Spamness.parseSpamAssassinHeader(headerStr);
+    }
+};
+
+Spamness.parseRspamdHeader = function(headerStr) {
+    try {
+        var match = headerStr.match(/: False \[([-\d\.]+) \/ ([-\d\.]+)\] *(.*)$/);
+        if (match == null) {
+            throw "No score found";
+        }
+        var score = parseFloat(match[1]);
+    } catch(e) {
+        // Spamness.error(e);
+        return null;
+    }
+
+    var rules = [];
+    try {
+        var rulesStr = match[3];
+        rules = rulesStr.split(/ /);
+    } catch(e) {
+        // Spamness.error(e);
+    }
+
+    return new Spamness.Header(score, 0, rules);
+};
+
+Spamness.parseSpamAssassinHeader = function(headerStr) {
     try {
         headerStr = headerStr.replace(/[\n\r]/g, ''); 
         headerStr = headerStr.replace(/\t/g, ' '); 
