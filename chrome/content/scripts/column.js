@@ -11,7 +11,7 @@ SpamnessColumn.handler = {
 
         var key = gDBView.getKeyAt(row);
         var hdr = gDBView.db.GetMsgHdrForKey(key);
-        var txt = SpamnessColumn.handler.getSortLongForRow(hdr) / 10.0;
+        var txt = SpamnessColumn.handler.getSortLongForRow(hdr);
         return (isNaN(txt)) ? "" : txt;
     },
 
@@ -37,7 +37,7 @@ SpamnessColumn.handler = {
 
         var key = gDBView.getKeyAt(row);
         var hdr = gDBView.db.GetMsgHdrForKey(key);
-        var normalized = SpamnessColumn.handler.getSortLongForRow(hdr) / 10.0;
+        var normalized = SpamnessColumn.handler.getSortLongForRow(hdr);
         var img;
         if (isNaN(normalized)) {
             img = "chrome://messenger/skin/icons/symbol-null.png";
@@ -61,7 +61,7 @@ SpamnessColumn.handler = {
 	if (spamreport != null) {
             var parsed = Spamness.parseHeader(spamreport);
 	    if (parsed != null) {
-		return parsed.getNormalScore() * 10.0;
+		return parsed.getNormalScore();
 	    }
 	}
 	return Number.NaN;
