@@ -1,15 +1,15 @@
-content	spamness	jar:chrome/spamness.jar!/content/
+content	spamness	chrome/content/
 
 overlay	chrome://messenger/content/messenger.xul	chrome://spamness/content/messenger.xul
 overlay chrome://messenger/content/msgHdrViewOverlay.xul chrome://spamness/content/msgHdrViewOverlay.xul
 
-skin	spamness	classic/1.0	jar:chrome/spamness.jar!/skin/
+skin	spamness	classic/1.0	chrome/skin/
 
-locale	spamness	en-US	jar:chrome/spamness.jar!/locale/en-US/
-locale  spamness	sr	jar:chrome/spamness.jar!/locale/sr/
-locale  spamness	pt-BR	jar:chrome/spamness.jar!/locale/pt-BR/
-locale	spamness	es-ES	jar:chrome/spamness.jar!/locale/es-ES/
-locale	spamness	fr	jar:chrome/spamness.jar!/locale/fr/
-locale	spamness	zh-CN	jar:chrome/spamness.jar!/locale/zh-CN/
-locale	spamness	it	jar:chrome/spamness.jar!/locale/it/
-locale	spamness	sv-SE	jar:chrome/spamness.jar!/locale/sv-SE/
+locale	spamness	en-US	chrome/locale/en-US/
+locale  spamness	sr	chrome/locale/sr/
+locale  spamness	pt-BR	chrome/locale/pt-BR/
+locale	spamness	es-ES	chrome/locale/es-ES/
+locale	spamness	fr	chrome/locale/fr/
+locale	spamness	zh-CN	chrome/locale/zh-CN/
+locale	spamness	it	chrome/locale/it/
+locale	spamness	sv-SE	chrome/locale/sv-SE/

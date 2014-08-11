@@ -8,6 +8,7 @@
     <em:name>Rspamd-spamness</em:name>
     <em:version>0.6.4</em:version>
     <em:type>2</em:type> <!-- type=extension -->
+    <em:unpack>false</em:unpack>
     
     <!-- Thunderbird -->
     <em:targetApplication>
