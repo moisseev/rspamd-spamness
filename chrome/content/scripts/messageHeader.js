@@ -26,7 +26,7 @@ Spamness.Message.displayScoreHeader = function() {
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
     rowEl.collapsed = (parsed == null);
-    hdrEl.headerValue = (parsed != null) ? parsed.getNormalScore() + " (" +  parsed.getScore() + " / " + parsed.getThreshold() + ")" : "";
+    hdrEl.headerValue = (parsed != null) ? parsed.getNormalScore() + " (" +  parsed.getScore() + " / " + parsed.getBayes() + ")" : "";
     hdrEl.valid = true;
 };
 

@@ -52,11 +52,18 @@ Spamness.parseHeader = function(headerStr) {
 
 Spamness.parseRspamdHeader = function(headerStr) {
     try {
-        var match = headerStr.match(/: False \[([-\d\.]+) \/ ([-\d\.]+)\] *(.*)$/);
+        var match = headerStr.match(/: False \[([-\d\.]+) \/ [-\d\.]+\] *(.*)$/);
         if (match == null) {
             throw "No score found";
         }
         var score = parseFloat(match[1]);
+
+        var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)/);
+        if (match1 != null) {
+            var bayes = parseFloat(match1[2]);
+        } else {
+            var bayes = "undefined";
+        }
     } catch(e) {
         // Spamness.error(e);
         return null;
@@ -64,13 +71,13 @@ Spamness.parseRspamdHeader = function(headerStr) {
 
     var rules = [];
     try {
-        var rulesStr = match[3];
+        var rulesStr = match[2];
         rules = rulesStr.split(/ /);
     } catch(e) {
         // Spamness.error(e);
     }
 
-    return new Spamness.Header(score, 0, rules);
+    return new Spamness.Header(score, 0, rules, bayes);
 };
 
 Spamness.parseSpamAssassinHeader = function(headerStr) {
@@ -244,10 +251,11 @@ Spamness.greet = function() {
     Spamness.openTab(greetPage);
 };
 
-Spamness.Header = function(score, threshold, rules) {
+Spamness.Header = function(score, threshold, rules, bayes) {
     this._score = score;
     this._threshold = threshold;
     this._rules = rules;
+    this._bayes = bayes;
 };
 
 Spamness.Header.prototype.getScore = function() {
@@ -264,4 +272,8 @@ Spamness.Header.prototype.getNormalScore = function() {
 
 Spamness.Header.prototype.getRules = function() {
     return this._rules;
+};
+
+Spamness.Header.prototype.getBayes = function() {
+    return this._bayes;
 };

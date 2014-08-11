@@ -4,8 +4,8 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>{41a9ee8a-e9c6-4076-84ac-bc1b612dca68}</em:id>
-    <em:name>Spamness</em:name>
+    <em:id>rspamd-spamness@alexander.moisseev</em:id>
+    <em:name>Rspamd-spamness</em:name>
     <em:version>0.6.4</em:version>
     <em:type>2</em:type> <!-- type=extension -->
     
