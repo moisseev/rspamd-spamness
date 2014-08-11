@@ -61,7 +61,7 @@ SpamnessColumn.handler = {
 	if (spamreport != null) {
             var parsed = Spamness.parseHeader(spamreport);
 	    if (parsed != null) {
-		return parsed.getNormalScore();
+		return parsed.getScore();
 	    }
 	}
 	return Number.NaN;

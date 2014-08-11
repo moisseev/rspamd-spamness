@@ -43,14 +43,6 @@ Spamness.generateRulesURL = function(rule) {
 }
 
 Spamness.parseHeader = function(headerStr) {
-    if (Spamness.getHeaderName() == "x-spamd-result") {
-        return Spamness.parseRspamdHeader(headerStr);
-    } else {
-        return Spamness.parseSpamAssassinHeader(headerStr);
-    }
-};
-
-Spamness.parseRspamdHeader = function(headerStr) {
     try {
         var match = headerStr.match(/: False \[([-\d\.]+) \/ [-\d\.]+\] *(.*)$/);
         if (match == null) {
@@ -77,57 +69,7 @@ Spamness.parseRspamdHeader = function(headerStr) {
         // Spamness.error(e);
     }
 
-    return new Spamness.Header(score, 0, rules, bayes);
-};
-
-Spamness.parseSpamAssassinHeader = function(headerStr) {
-    try {
-        headerStr = headerStr.replace(/[\n\r]/g, ''); 
-        headerStr = headerStr.replace(/\t/g, ' '); 
-        headerStr = headerStr.replace(/, /g, ','); 
-        var scoreprefix = "score=";
-        var scoreIdx = headerStr.indexOf("score=");
-        if (scoreIdx < 0) {
-            scoreprefix = "hits=";
-            scoreIdx = headerStr.indexOf("hits=");
-        }
-        if (scoreIdx < 0) {
-            throw "No score found";
-        }
-        var endScoreIdx = headerStr.indexOf(" ", scoreIdx);
-        if (endScoreIdx < 0) {
-            throw "No score found";
-        }
-        var score = parseFloat(headerStr.substring(scoreIdx + scoreprefix.length, endScoreIdx));
-
-        var threshIdx = headerStr.indexOf("required=");
-        if (threshIdx < 0)
-            throw "No threshold found";
-        var endThreshIdx = headerStr.indexOf(" ", threshIdx);
-        if (endThreshIdx <  0) {
-            var lines = headerStr.split(/\n/);
-            endThreshIdx = lines[0].length - 1;
-        }
-        if (endThreshIdx < 0) {
-            throw "No threshold found";
-        }
-        var thresh = parseFloat(headerStr.substring(threshIdx + "required=".length, endThreshIdx));
-    } catch(e) {
-	// Spamness.error(e);
-	return null;
-    }
-
-    var rules = [];
-    try {
-        var rulesIdx = headerStr.indexOf("tests=");
-        var endRulesIdx = headerStr.indexOf(" ", rulesIdx);
-        var rulesStr = headerStr.substring(rulesIdx + "tests=".length, endRulesIdx);
-        rules = rulesStr.split(/,/);
-    } catch(e) {
-	// Spamness.error(e);
-    }
-
-    return new Spamness.Header(score, thresh, rules);
+    return new Spamness.Header(score, rules, bayes);
 };
 
 Spamness.syncHeaderPrefs = function(prefVal) {
@@ -251,23 +193,14 @@ Spamness.greet = function() {
     Spamness.openTab(greetPage);
 };
 
-Spamness.Header = function(score, threshold, rules, bayes) {
+Spamness.Header = function(score, rules, bayes) {
     this._score = score;
-    this._threshold = threshold;
     this._rules = rules;
     this._bayes = bayes;
 };
 
 Spamness.Header.prototype.getScore = function() {
     return this._score;
-};
-
-Spamness.Header.prototype.getThreshold = function() {
-    return this._threshold;
-};
-
-Spamness.Header.prototype.getNormalScore = function() {
-    return Math.round((this.getScore() - this.getThreshold()) * 100) / 100.0;
 };
 
 Spamness.Header.prototype.getRules = function() {
