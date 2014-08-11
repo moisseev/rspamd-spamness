@@ -1,4 +1,4 @@
-<!ENTITY spamness.messageHeader.label "spam">
+<!ENTITY spamness.messageHeader.label "score">
 <!ENTITY spamness.rulesMessageHeader.label "rules">
 
 <!ENTITY openLinkLocalCmd.label "Open Rule Link in Thunderbird">
