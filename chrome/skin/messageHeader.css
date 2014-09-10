@@ -46,6 +46,14 @@ mail-multi-linkField {
     -moz-box-align: baseline;
 }
 
+.linkDisplayButtonHam {
+    background-color: #d4ebc8;
+}
+
+.linkDisplayButtonSpam {
+    background-color: #f0d0c8;
+}
+
 .linkLabel {
     padding: 0px !important;
     margin: 0px !important;

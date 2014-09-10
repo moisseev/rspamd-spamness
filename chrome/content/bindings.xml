@@ -76,6 +76,7 @@
           aLinkNode.setAttribute("url", aLink.url);
           aLinkNode.setAttribute("displayText", aLink.displayText);
           aLinkNode.setAttribute("tooltiptext", aLink.url);
+          aLinkNode.setAttribute("class", aLink.class);
           if ("labelElement" in this) {
               let ariaLabel = this.labelElement.value.slice(0, -1) + ": " +
                               aLink.displayText;

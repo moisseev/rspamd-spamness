@@ -42,6 +42,18 @@ Spamness.generateRulesURL = function(rule) {
     }
 }
 
+Spamness.getMetricClass = function(rule) {
+          var metric = rule.match(/\(([-\d\.]+)\)$/);
+          var metricScore = metric[1];
+          if (metricScore < 0) {
+              return "linkDisplayButtonHam";
+          } else if (metricScore > 0) {
+              return "linkDisplayButtonSpam";
+          } else {
+              return null;
+          }
+}
+
 Spamness.parseHeader = function(headerStr) {
     try {
         var match = headerStr.match(/: False \[([-\d\.]+) \/ [-\d\.]+\] *(.*)$/);
@@ -63,8 +75,9 @@ Spamness.parseHeader = function(headerStr) {
 
     var rules = [];
     try {
-        var rulesStr = match[2];
-        rules = rulesStr.split(/ /);
+        if (match[2] != "") {
+            rules = match[2].split(/ /);
+        }
     } catch(e) {
         // Spamness.error(e);
     }

@@ -57,13 +57,15 @@ Spamness.Message.displayRulesHeader = function() {
         return;
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
-    rowEl.collapsed = (parsed == null);
-    var rules = (parsed == null) ? null : parsed.getRules();
+
+    var rules = (parsed == null) ? [] : parsed.getRules();
+    rowEl.collapsed = (rules.length == 0);
     if (parsed != null && rules.length > 0) {
         for (var i = 0; i < rules.length; i++) {
             var link = {};
             link.displayText = rules[i];
             link.url = Spamness.generateRulesURL(rules[i]);
+            link.class = Spamness.getMetricClass(rules[i]);
             hdrEl.addLinkView(link);
         }
         hdrEl.valid = true;
