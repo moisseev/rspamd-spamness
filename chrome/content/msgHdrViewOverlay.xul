@@ -13,15 +13,6 @@
           src="chrome://spamness/content/scripts/messageHeader.js" />
 
 
-  <popupset>
-    <menupopup id="spamnessPopup" popupanchor="bottomleft">
-      <menuitem label="&openLinkLocalCmd.label;" oncommand="Spamness.Message.openLink(document.popupNode, true);"/>
-      <menuitem label="&openLinkExternalCmd.label;" oncommand="Spamness.Message.openLink(document.popupNode, false);"/>
-      <menuseparator/>
-      <menuitem label="&copyLinkCmd.label;" oncommand="Spamness.Message.copyLink(document.popupNode);"/>
-    </menupopup>
-  </popupset>
-
   <rows id="expandedHeader2Rows">
     <row id="expandedSpamnessRow">
       <label id="expandedSpamnessLabel"

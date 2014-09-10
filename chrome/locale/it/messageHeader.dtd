@@ -1,6 +1,2 @@
 <!ENTITY spamness.messageHeader.label "Indesiderata">
 <!ENTITY spamness.rulesMessageHeader.label "Regole">
-
-<!ENTITY openLinkLocalCmd.label "">
-<!ENTITY openLinkExternalCmd.label "">
-<!ENTITY copyLinkCmd.label "">

@@ -64,56 +64,12 @@ Spamness.Message.displayRulesHeader = function() {
         for (var i = 0; i < rules.length; i++) {
             var link = {};
             link.displayText = rules[i];
-            link.url = Spamness.generateRulesURL(rules[i]);
             link.class = Spamness.getMetricClass(rules[i]);
             hdrEl.addLinkView(link);
         }
         hdrEl.valid = true;
         hdrEl.buildViews();
     }
-};
-
-Spamness.Message.handleLinkClick = function(e, linkNode) {
-    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                    .getService(Components.interfaces.nsIPrefBranch);
-    var local = prefs.getBoolPref("extensions.spamness.openRuleLinkLocally");
-
-    if (e.button === 0) {
-        Spamness.Message.openLink(linkNode, local);
-    }
-};
-
-Spamness.Message.openLink = function(linkNode, local) {
-    while (linkNode.getAttribute("context") != "spamnessPopup") {
-        linkNode = linkNode.parentNode;
-        if (linkNode === null) {
-            return null;
-        }
-    }
-    linkNode = linkNode.parentNode;
-
-    var url = linkNode.getAttribute('url');
-    if (local) {
-        Spamness.openTab(url);
-    } else {
-        messenger.launchExternalURL(url);
-    }
-};
-
-Spamness.Message.copyLink = function(linkNode) {
-    while (linkNode.getAttribute("context") != "spamnessPopup") {
-        linkNode = linkNode.parentNode;
-        if (linkNode === null) {
-            return null;
-        }
-    }
-    linkNode = linkNode.parentNode;
-
-    var url = linkNode.getAttribute('url');
-    var contractid = "@mozilla.org/widget/clipboardhelper;1";
-    var iid = Components.interfaces.nsIClipboardHelper;
-    var clipboard = Components.classes[contractid].getService(iid);
-    clipboard.copyString(url);
 };
 
 Spamness.Message.onLoad = function() {

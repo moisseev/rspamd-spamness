@@ -34,14 +34,6 @@ Spamness.getHeaderName = function(prefs) {
     return header.toLowerCase();
 };
 
-Spamness.generateRulesURL = function(rule) {
-    if (/^[A-Z0-9_]+$/.test(rule)) {
-        return "http://wiki.apache.org/spamassassin/Rules/" + rule;
-    } else {
-        return null;
-    }
-}
-
 Spamness.getMetricClass = function(rule) {
           var metric = rule.match(/\(([-\d\.]+)\)$/);
           var metricScore = metric[1];

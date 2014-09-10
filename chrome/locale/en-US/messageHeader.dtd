@@ -1,6 +1,2 @@
 <!ENTITY spamness.messageHeader.label "Score">
 <!ENTITY spamness.rulesMessageHeader.label "Rules">
-
-<!ENTITY openLinkLocalCmd.label "Open Rule Link in Thunderbird">
-<!ENTITY openLinkExternalCmd.label "Open Rule Link in Browser">
-<!ENTITY copyLinkCmd.label "Copy Rule Link Location">

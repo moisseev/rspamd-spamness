@@ -14,8 +14,7 @@
     <content>
       <xul:description anonid="linkValue" class="linkDisplayButton"
                        xbl:inherits="aria-label" flex="1" role="textbox"
-                       aria-readonly="true" context="spamnessPopup"
-                       onclick="Spamness.Message.handleLinkClick(event, this);">
+                       aria-readonly="true" context="spamnessPopup">
         <xul:label class="linkLabel" anonid="linkLabel"
                    xbl:inherits="value=label,crop"/>
       </xul:description>
@@ -59,7 +58,7 @@
 
       <field name="mLinks"/>
 
-      <!-- aLink is an object with properties: displayText, url -->
+      <!-- aLink is an object with properties: displayText, class -->
       <method name="addLinkView">
         <parameter name="aLink"/>
         <body><![CDATA[
@@ -72,16 +71,8 @@
         <parameter name="aLink"/>
         <body><![CDATA[
           aLinkNode.setAttribute("label", aLink.displayText);
-          aLinkNode.removeAttribute("tooltiptext");
-          aLinkNode.setAttribute("url", aLink.url);
           aLinkNode.setAttribute("displayText", aLink.displayText);
-          aLinkNode.setAttribute("tooltiptext", aLink.url);
           aLinkNode.setAttribute("class", aLink.class);
-          if ("labelElement" in this) {
-              let ariaLabel = this.labelElement.value.slice(0, -1) + ": " +
-                              aLink.displayText;
-              aLinkNode.setAttribute("aria-label", ariaLabel);
-          }
         ]]></body>
       </method>
 

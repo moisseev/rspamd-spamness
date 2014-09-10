@@ -12,16 +12,11 @@
 
 .linkDisplayButton {
     margin: 0px;
+    margin-top: -2px;
     -moz-padding-start: 3px !important;
     -moz-padding-end: 3px !important;
     background-color: transparent;
     border-radius: 2px;
-    cursor: pointer;
-}
-
-.linkDisplayButton:hover {
-    cursor: pointer;
-    background-color: #fcaf3e;
 }
 
 mail-link[selected="true"] .linkDisplayButton {
@@ -30,10 +25,6 @@ mail-link[selected="true"] .linkDisplayButton {
     background-color: #fcaf3e;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-}
-
-.linkDisplayButton:focus {
-    border: 1px dotted #fcaf3e;
 }
 
 .linkSeparator {

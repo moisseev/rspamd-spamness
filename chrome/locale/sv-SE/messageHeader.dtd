@@ -1,5 +1,2 @@
 <!ENTITY spamness.messageHeader.label "skräppost">
 <!ENTITY spamness.rulesMessageHeader.label "regler">
-<!ENTITY openLinkLocalCmd.label "Öppna regellänk i Thunderbird">
-<!ENTITY openLinkExternalCmd.label "Öppna regellänk i webbläsare">
-<!ENTITY copyLinkCmd.label "Kopiera regellänkadress">
