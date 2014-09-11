@@ -11,8 +11,8 @@
 }
 
 .linkDisplayButton {
-    margin: 0px;
-    margin-top: -2px;
+    margin: -1px;
+    margin-bottom: 0px;
     -moz-padding-start: 3px !important;
     -moz-padding-end: 3px !important;
     background-color: transparent;
@@ -29,6 +29,7 @@ mail-link[selected="true"] .linkDisplayButton {
 
 .linkSeparator {
     -moz-margin-start: -3px;
+    margin-right: 1px;
 }
 
 mail-multi-linkField {
@@ -39,10 +40,12 @@ mail-multi-linkField {
 
 .linkDisplayButtonHam {
     background-color: #d4ebc8;
+    border-radius: 2px;
 }
 
 .linkDisplayButtonSpam {
     background-color: #f0d0c8;
+    border-radius: 2px;
 }
 
 .linkLabel {
