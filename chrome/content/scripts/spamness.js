@@ -60,6 +60,13 @@ Spamness.parseHeader = function(headerStr) {
         } else {
             var bayes = "undefined";
         }
+        
+        var match2 = headerStr.match(/FUZZY_(WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/);
+        if (match2 != null) {
+            var fuzzy = parseFloat(match2[2]);
+        } else {
+            var fuzzy = "undefined";
+        }
     } catch(e) {
         // Spamness.error(e);
         return null;
@@ -74,7 +81,7 @@ Spamness.parseHeader = function(headerStr) {
         // Spamness.error(e);
     }
 
-    return new Spamness.Header(score, rules, bayes);
+    return new Spamness.Header(score, rules, bayes, fuzzy);
 };
 
 Spamness.syncHeaderPrefs = function(prefVal) {
@@ -198,10 +205,11 @@ Spamness.greet = function() {
     Spamness.openTab(greetPage);
 };
 
-Spamness.Header = function(score, rules, bayes) {
+Spamness.Header = function(score, rules, bayes, fuzzy) {
     this._score = score;
     this._rules = rules;
     this._bayes = bayes;
+    this._fuzzy = fuzzy;
 };
 
 Spamness.Header.prototype.getScore = function() {
@@ -214,4 +222,8 @@ Spamness.Header.prototype.getRules = function() {
 
 Spamness.Header.prototype.getBayes = function() {
     return this._bayes;
+};
+
+Spamness.Header.prototype.getFuzzy = function() {
+    return this._fuzzy;
 };
