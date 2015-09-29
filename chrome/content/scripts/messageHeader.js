@@ -6,17 +6,19 @@ Spamness.Message.displayScoreHeader = function() {
     var showScore = prefs.getBoolPref("extensions.spamness.display.messageScore");
     var rowEl = document.getElementById("expandedSpamnessRow");
     var hdrEl = document.getElementById("spamnessScoreHeader");
-    if (!showScore) {
-        rowEl.collapsed = true;
+
+    rowEl.collapsed = true;
+
+    if (!showScore)
         return;
-    } else {
-        rowEl.collapsed = false;
-    }
 
     var header = Spamness.getHeaderName(prefs);
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
-    if (uri == null)
+//    if (uri == null)
+//        return;
+
+    if (gDBView.msgFolder == null)
         return;
 
     var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
@@ -36,21 +38,25 @@ Spamness.Message.displayRulesHeader = function() {
     var showRules = prefs.getBoolPref("extensions.spamness.display.messageRules");
     var rowEl = document.getElementById("expandedSpamnessRulesRow");
     var hdrEl = document.getElementById("expandedSpamnessRulesBox");
+
+    rowEl.collapsed = true;
+
     if (!showRules) {
-        rowEl.collapsed = true;
         return;
     } else {
         if (hdrEl.clearHeaderValues)
             hdrEl.clearHeaderValues();
-        rowEl.collapsed = false;
     }
 
     var header = Spamness.getHeaderName(prefs);
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
-    if (uri == null)
-        return;
+//    if (uri == null)
+//        return;
 
+    if (gDBView.msgFolder == null)
+        return;
+        
     var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
 
     if (hdr == null || hdr.getStringProperty(header) == null)
