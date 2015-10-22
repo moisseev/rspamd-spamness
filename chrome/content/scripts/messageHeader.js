@@ -6,7 +6,8 @@ Spamness.Message.displayScoreHeader = function() {
     var showScore = prefs.getBoolPref("extensions.spamness.display.messageScore");
     var rowEl = document.getElementById("expandedSpamnessRow");
     var hdrEl = document.getElementById("spamnessScoreHeader");
-
+    var scoreIcon = document.getElementById("spamnessScoreIcon");
+    
     rowEl.collapsed = true;
 
     if (!showScore)
@@ -28,8 +29,16 @@ Spamness.Message.displayScoreHeader = function() {
 
     var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
     rowEl.collapsed = (parsed == null);
-    hdrEl.headerValue = (parsed != null) ? parsed.getScore() + " (Bayes " + parsed.getBayes() + ", Fuzzy " + parsed.getFuzzy() + ")" : "";
-    hdrEl.valid = true;
+
+    if (parsed == null) {
+        hdrEl.headerValue = "";
+        return;
+    }
+    
+    scoreIcon.src = Spamness.getImageSrc(parsed.getScore());
+    hdrEl.headerValue = parsed.getScore() + " (Bayes " + parsed.getBayes() + ", Fuzzy " + parsed.getFuzzy() + ")";
+
+//    hdrEl.valid = true;
 };
 
 Spamness.Message.displayRulesHeader = function() {

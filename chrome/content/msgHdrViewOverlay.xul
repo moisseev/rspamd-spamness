@@ -19,9 +19,14 @@
              class="headerName"
              value="&spamness.messageHeader.label;"
              control="spamnessScoreHeader" />
-      <mail-headerfield id="spamnessScoreHeader"
-                        flex="1"
-                        headerValue="" />
+      <hbox>
+        <vbox>
+          <image id="spamnessScoreIcon" />
+        </vbox>
+        <mail-headerfield id="spamnessScoreHeader"
+                          flex="1"
+                          headerValue="" />
+      </hbox>
     </row>
     <row id="expandedSpamnessRulesRow">
       <label id="expandedSpamnessRulesLabel"

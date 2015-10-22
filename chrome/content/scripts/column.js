@@ -38,19 +38,8 @@ SpamnessColumn.handler = {
         var key = gDBView.getKeyAt(row);
         var hdr = gDBView.db.GetMsgHdrForKey(key);
         var normalized = SpamnessColumn.handler.getSortLongForRow(hdr);
-        var img;
-        if (isNaN(normalized)) {
-            img = "chrome://messenger/skin/icons/symbol-null.png";
-        } else if (normalized < 0) {
-            level = Math.round(Math.log(Math.abs(normalized) + 1));
-            level = (level >= 5) ? 4 : level;
-            img = "chrome://spamness/skin/ham" + level + ".png";
-        } else {
-            level = Math.round(Math.log(normalized + 1));
-            level = (level >= 5) ? 4 : level;
-            img = "chrome://spamness/skin/spam" + level + ".png";
-        }
-        return img;
+
+        return Spamness.getImageSrc(normalized);
     },
 
     getSortLongForRow:   function(hdr) {
