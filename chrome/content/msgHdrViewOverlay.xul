@@ -24,6 +24,16 @@
           <image id="spamnessScoreIcon" />
         </vbox>
         <mail-headerfield id="spamnessScoreHeader"
+                          headerValue="" />
+        <vbox>
+          <image id="spamnessBayesIcon" />
+        </vbox>
+        <mail-headerfield id="spamnessBayesHeader"
+                          headerValue="" />
+        <vbox>
+          <image id="spamnessFuzzyIcon" />
+        </vbox>
+        <mail-headerfield id="spamnessFuzzyHeader"
                           flex="1"
                           headerValue="" />
       </hbox>

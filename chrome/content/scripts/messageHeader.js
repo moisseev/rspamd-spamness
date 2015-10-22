@@ -6,7 +6,11 @@ Spamness.Message.displayScoreHeader = function() {
     var showScore = prefs.getBoolPref("extensions.spamness.display.messageScore");
     var rowEl = document.getElementById("expandedSpamnessRow");
     var hdrEl = document.getElementById("spamnessScoreHeader");
+    var hdrElBayes = document.getElementById("spamnessBayesHeader");
+    var hdrElFuzzy = document.getElementById("spamnessFuzzyHeader");
     var scoreIcon = document.getElementById("spamnessScoreIcon");
+    var bayesIcon = document.getElementById("spamnessBayesIcon");
+    var fuzzyIcon = document.getElementById("spamnessFuzzyIcon");
     
     rowEl.collapsed = true;
 
@@ -36,8 +40,11 @@ Spamness.Message.displayScoreHeader = function() {
     }
     
     scoreIcon.src = Spamness.getImageSrc(parsed.getScore());
-    hdrEl.headerValue = parsed.getScore() + " (Bayes " + parsed.getBayes() + ", Fuzzy " + parsed.getFuzzy() + ")";
-
+    bayesIcon.src = Spamness.getImageSrc(parsed.getBayes());
+    fuzzyIcon.src = Spamness.getImageSrc(parsed.getFuzzy());
+    hdrEl.headerValue = parsed.getScore() + " ( Bayes:";
+    hdrElBayes.headerValue = parsed.getBayes() + ", Fuzzy:";
+    hdrElFuzzy.headerValue = parsed.getFuzzy() + " )";
 //    hdrEl.valid = true;
 };
 
