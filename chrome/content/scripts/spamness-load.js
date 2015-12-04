@@ -1,7 +1,7 @@
 Spamness.onLoad = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
-    Spamness.previousSpamnessHeader = Spamness.getHeaderName(prefs);
+    Spamness.previousSpamnessHeader = prefs.getCharPref("extensions.spamness.header").toLowerCase();
 
     // colon separator
     var chdrs = prefs.getCharPref("mailnews.customHeaders");

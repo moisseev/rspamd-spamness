@@ -17,7 +17,7 @@ Spamness.Message.displayScoreHeader = function() {
     if (!showScore)
         return;
 
-    var header = Spamness.getHeaderName(prefs);
+    var header = prefs.getCharPref("extensions.spamness.header").toLowerCase();
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
 //    if (uri == null)
@@ -64,7 +64,7 @@ Spamness.Message.displayRulesHeader = function() {
             hdrEl.clearHeaderValues();
     }
 
-    var header = Spamness.getHeaderName(prefs);
+    var header = prefs.getCharPref("extensions.spamness.header").toLowerCase();
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
 //    if (uri == null)

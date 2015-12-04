@@ -26,14 +26,6 @@ Spamness._getLabel = function(key) {
     // return Spamness._getString(key + ".label");
 };
 
-Spamness.getHeaderName = function(prefs) {
-    if (!prefs)
-        prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                    .getService(Components.interfaces.nsIPrefBranch);
-    var header = prefs.getCharPref("extensions.spamness.header");
-    return header.toLowerCase();
-};
-
 Spamness.getImageSrc = function(normalized) {
     var img;
     if (isNaN(normalized)) {

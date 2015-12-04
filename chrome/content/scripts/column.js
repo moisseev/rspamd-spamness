@@ -45,7 +45,7 @@ SpamnessColumn.handler = {
     getSortLongForRow:   function(hdr) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefBranch);
-        var header = Spamness.getHeaderName(prefs);
+        var header = prefs.getCharPref("extensions.spamness.header").toLowerCase();
         var spamreport = hdr.getStringProperty(header);
 	if (spamreport != null) {
             var parsed = Spamness.parseHeader(spamreport);

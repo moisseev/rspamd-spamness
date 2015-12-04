@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE prefwindow SYSTEM "chrome://spamness/locale/options.dtd">
+
+<vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <setting pref="extensions.spamness.header" title="&spamnessOptions.prefHeaderName.label;" type="string">
+        &spamnessOptions.prefHeaderName.explain;
+    </setting>
+
+    <setting pref="extensions.spamness.display.column" type="radio" title="&spamnessOptions.captionDisplayColumnGroup.label;">
+        <radiogroup>
+            <radio value="0" label="&spamnessOptions.prefShowBoth.label;" />
+            <radio value="1" label="&spamnessOptions.prefShowText.label;" />
+            <radio value="2" label="&spamnessOptions.prefShowImage.label;" />
+        </radiogroup>
+    </setting>
+    <setting pref="extensions.spamness.isDefaultColumn" type="bool" title="&spamnessOptions.prefIsDefaultColumn.label;" />
+
+<!-- &spamnessOptions.captionDisplayMessageGroup.label; -->
+    <setting pref="extensions.spamness.display.messageScore" type="bool" title="&spamnessOptions.prefDisplayMessageScore.label;" />
+    <setting pref="extensions.spamness.display.messageRules" type="bool" title="&spamnessOptions.prefDisplayMessageRules.label;" />
+    <setting pref="extensions.spamness.openRuleLinkLocally"  type="bool" title="&spamnessOptions.prefOpenRuleLinkLocally.label;" />
+</vbox>
