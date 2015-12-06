@@ -4,7 +4,7 @@ SpamnessColumn.handler = {
     getCellText:         function(row, col) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefBranch);
-        var showText = prefs.getIntPref("extensions.spamness.display.column");
+        var showText = prefs.getIntPref("extensions.rspamd-spamness.display.column");
 
 	if (showText == Spamness.settings.COLUMN_SHOW_IMAGE_NO_TEXT.value)
 	    return null;
@@ -30,7 +30,7 @@ SpamnessColumn.handler = {
     getImageSrc:         function(row, col) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefBranch);
-        var showImage = prefs.getIntPref("extensions.spamness.display.column");
+        var showImage = prefs.getIntPref("extensions.rspamd-spamness.display.column");
 
 	if (showImage == Spamness.settings.COLUMN_NO_IMAGE_SHOW_TEXT.value)
 	    return null;
@@ -45,7 +45,7 @@ SpamnessColumn.handler = {
     getSortLongForRow:   function(hdr) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefBranch);
-        var header = prefs.getCharPref("extensions.spamness.header").toLowerCase();
+        var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
         var spamreport = hdr.getStringProperty(header);
 	if (spamreport != null) {
             var parsed = Spamness.parseHeader(spamreport);

@@ -1,7 +1,7 @@
 Spamness.onLoad = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
-    Spamness.previousSpamnessHeader = prefs.getCharPref("extensions.spamness.header").toLowerCase();
+    Spamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
     // colon separator
     var chdrs = prefs.getCharPref("mailnews.customHeaders");
@@ -16,16 +16,16 @@ Spamness.onLoad = function() {
     Spamness.syncHeaderPrefs(Spamness.previousSpamnessHeader);
 
     // whether this column gets default status
-    var defaultCol = prefs.getBoolPref("extensions.spamness.isDefaultColumn");
+    var defaultCol = prefs.getBoolPref("extensions.rspamd-spamness.isDefaultColumn");
     if (defaultCol) {
         Spamness.addSpamnessColumn();
     }
     
     // first time info, should only ever show once
-    var greet = prefs.getBoolPref("extensions.spamness.installationGreeting");
+    var greet = prefs.getBoolPref("extensions.rspamd-spamness.installationGreeting");
     if (greet) {
         Spamness.greet();
-        prefs.setBoolPref("extensions.spamness.installationGreeting", false);
+        prefs.setBoolPref("extensions.rspamd-spamness.installationGreeting", false);
         prefs.savePrefFile(null);
     }
 };

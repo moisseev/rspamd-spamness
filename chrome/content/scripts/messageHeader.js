@@ -3,7 +3,7 @@ Spamness.Message = {};
 Spamness.Message.displayScoreHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
-    var showScore = prefs.getBoolPref("extensions.spamness.display.messageScore");
+    var showScore = prefs.getBoolPref("extensions.rspamd-spamness.display.messageScore");
     var rowEl = document.getElementById("expandedSpamnessRow");
     var hdrEl = document.getElementById("spamnessScoreHeader");
     var hdrElBayes = document.getElementById("spamnessBayesHeader");
@@ -17,7 +17,7 @@ Spamness.Message.displayScoreHeader = function() {
     if (!showScore)
         return;
 
-    var header = prefs.getCharPref("extensions.spamness.header").toLowerCase();
+    var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
 //    if (uri == null)
@@ -51,7 +51,7 @@ Spamness.Message.displayScoreHeader = function() {
 Spamness.Message.displayRulesHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
-    var showRules = prefs.getBoolPref("extensions.spamness.display.messageRules");
+    var showRules = prefs.getBoolPref("extensions.rspamd-spamness.display.messageRules");
     var rowEl = document.getElementById("expandedSpamnessRulesRow");
     var hdrEl = document.getElementById("expandedSpamnessRulesBox");
 
@@ -64,7 +64,7 @@ Spamness.Message.displayRulesHeader = function() {
             hdrEl.clearHeaderValues();
     }
 
-    var header = prefs.getCharPref("extensions.spamness.header").toLowerCase();
+    var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
 //    if (uri == null)

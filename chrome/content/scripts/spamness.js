@@ -157,7 +157,7 @@ Spamness.syncHeaderPrefs = function(prefVal) {
 	    prefs.setCharPref("mailnews.customDBHeaders", newPref);
     }
 
-    prefs.setCharPref("extensions.spamness.header", prefVal);
+    prefs.setCharPref("extensions.rspamd-spamness.header", prefVal);
     Spamness.previousSpamnessHeader = prefVal;
 
     // flush to disk
