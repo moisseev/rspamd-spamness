@@ -15,13 +15,14 @@
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>3.0</em:minVersion>
-        <em:maxVersion>33.*</em:maxVersion>
+        <em:maxVersion>46.*</em:maxVersion>
       </Description>
     </em:targetApplication>
     
     <!-- Front End Integration Hooks (used by Extension Manager)-->
-    <em:description>Provides a color- and size-based visual measurement of how spam-like an individual message is based on its normalized SpamAssassin score.</em:description>
-    <em:creator>Ryan Lee (ryan@ryanlee.org)</em:creator>
+    <em:description>Provides a color- and size-based visual measurement of how spam-like an individual message is based on its normalized Rspamd score.</em:description>
+    <em:creator>Alexander Moisseev (moiseev@mezonplus.ru)</em:creator>
+    <em:developer>Ryan Lee (the author of the original Spamness add-on)</em:developer>
     <em:translator>Kacnepcku - PC</em:translator>
     <em:translator>ДакСРБИЈА</em:translator>
     <em:translator>Edgard Dias Magalhaes</em:translator>
@@ -31,13 +32,13 @@
     <em:translator>Mikael Hiort af Ornäs</em:translator>
     <em:translator>RigoNet</em:translator>
     <em:iconURL>chrome://spamness/skin/icon32x32.png</em:iconURL>
-    <em:homepageURL>http://ryanlee.org/software/mozilla/thunderbird/spamness/</em:homepageURL>
+    <em:homepageURL>https://github.com/moisseev/rspamd-spamness</em:homepageURL>
 
     <em:localized>
       <Description>
         <em:locale>sv-SE</em:locale>
         <em:name>Spamness</em:name>
-        <em:description>Tillhandahåller en färg- och storleksbaserad visuell bedömningsindikator för risken att ett meddelande är skräppost, baserat på dess normaliserade SpamAssassin-klassificering.</em:description>
+        <em:description>Tillhandahåller en färg- och storleksbaserad visuell bedömningsindikator för risken att ett meddelande är skräppost, baserat på dess normaliserade Rspamd-klassificering.</em:description>
       </Description>
     </em:localized>
 
@@ -45,7 +46,7 @@
       <Description>
         <em:locale>sr</em:locale>
         <em:name>Spamness</em:name>
-        <em:description>Пружа визулени приказ у ком степену SpamAssassin сматра неку поруку нежељеном.</em:description>
+        <em:description>Пружа визулени приказ у ком степену Rspamd сматра неку поруку нежељеном.</em:description>
       </Description>
     </em:localized>
 
@@ -53,7 +54,7 @@
       <Description>
         <em:locale>pt-BR</em:locale>
         <em:name>Spamness</em:name>
-        <em:description>Fornece uma escala visual colorida da importância do spam, baseada na sua pontuação SpamAssassin.</em:description>
+        <em:description>Fornece uma escala visual colorida da importância do spam, baseada na sua pontuação Rspamd.</em:description>
       </Description>
     </em:localized>
 
@@ -61,7 +62,7 @@
       <Description>
         <em:locale>es-ES</em:locale>
         <em:name>Spamness</em:name>
-        <em:description>Permite comparar mensajes según su puntuación de SpamAssassin visualmente midiéndolos por color o tamaño.</em:description>
+        <em:description>Permite comparar mensajes según su puntuación de Rspamd visualmente midiéndolos por color o tamaño.</em:description>
       </Description>
     </em:localized>
 
@@ -69,7 +70,7 @@
       <Description>
         <em:locale>zh-CN</em:locale>
         <em:name>Spamness</em:name>
-        <em:description>Spamness  基于标准 SpamAssassin 得分，提供了一种以颜色和大小为基础的视觉度量，用来表示一个消息与垃圾邮件相似程度。</em:description>
+        <em:description>Spamness  基于标准 Rspamd 得分，提供了一种以颜色和大小为基础的视觉度量，用来表示一个消息与垃圾邮件相似程度。</em:description>
       </Description>
     </em:localized>
   </Description>
