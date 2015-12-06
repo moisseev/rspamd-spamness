@@ -8,7 +8,6 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Meddelandevisning">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Visa poängbedömning i meddelanden">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Visa utlösta regler i meddelanden">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "Öppna regellänkar i Thunderbird">
 <!ENTITY spamnessOptions.paneAdvanced.label "Avancerat">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "Bedömningsmeddelandehuvud">
 <!ENTITY spamnessOptions.prefHeaderName.label "Meddelandehuvud innehållande skräppostbedömningsrapport:">

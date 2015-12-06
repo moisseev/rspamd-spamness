@@ -8,7 +8,6 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Приказ порука">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Прикажи резултат у поруци">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Прикажи правила коришћена у поруци">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "Отвори правило у Тандерберду">
 <!ENTITY spamnessOptions.paneAdvanced.label "Напредно">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "Заглавље резултата">
 <!ENTITY spamnessOptions.prefHeaderName.label "Заглавље поруке која садржи извештај о нежељености:">

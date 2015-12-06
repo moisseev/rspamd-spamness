@@ -19,5 +19,4 @@
 <!-- &spamnessOptions.captionDisplayMessageGroup.label; -->
     <setting pref="extensions.spamness.display.messageScore" type="bool" title="&spamnessOptions.prefDisplayMessageScore.label;" />
     <setting pref="extensions.spamness.display.messageRules" type="bool" title="&spamnessOptions.prefDisplayMessageRules.label;" />
-    <setting pref="extensions.spamness.openRuleLinkLocally"  type="bool" title="&spamnessOptions.prefOpenRuleLinkLocally.label;" />
 </vbox>

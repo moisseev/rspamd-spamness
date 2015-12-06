@@ -5,4 +5,3 @@ pref("extensions.spamness.display.messageRules", true);
 pref("extensions.spamness.version", "0.6");
 pref("extensions.spamness.isDefaultColumn", true);
 pref("extensions.spamness.installationGreeting", true);
-pref("extensions.spamness.openRuleLinkLocally", true);

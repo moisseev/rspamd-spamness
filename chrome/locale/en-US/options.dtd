@@ -11,7 +11,6 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Message Display">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Show score in message">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Show rules fired in message">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "Open rule link in Thunderbird">
 
 <!ENTITY spamnessOptions.paneAdvanced.label "Advanced">
 

@@ -8,7 +8,6 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Mensaje de pantalla">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar puntuación en mensaje">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar reglas activadas en mensaje">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "Abrir enlace de reglas en Thunderbird">
 <!ENTITY spamnessOptions.paneAdvanced.label "Avanzado">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "Puntuación de cabecera">
 <!ENTITY spamnessOptions.prefHeaderName.label "Informe de puntuación de la cabecera del correo que contiene spam:">

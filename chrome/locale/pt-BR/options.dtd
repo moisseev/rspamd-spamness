@@ -8,7 +8,6 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Exibição de mensagens">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar mensagem do escore">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar regras bloqueadas na mensagem">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "Regra de link aberta no Thunderbird">
 <!ENTITY spamnessOptions.paneAdvanced.label "Avançado">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "Cabeçalho do Escore">
 <!ENTITY spamnessOptions.prefHeaderName.label "Nome do cabeçalho da mensagem de relatório do escore de spans">

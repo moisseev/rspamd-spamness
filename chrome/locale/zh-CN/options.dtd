@@ -8,7 +8,6 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "消息显示">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "在消息中显示得分">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "在消息中显示触发的规则">
-<!ENTITY spamnessOptions.prefOpenRuleLinkLocally.label "在 Thunderbird 中打开规则链接">
 <!ENTITY spamnessOptions.paneAdvanced.label "高级">
 <!ENTITY spamnessOptions.captionHeaderGroup.label "消息头得分">
 <!ENTITY spamnessOptions.prefHeaderName.label "邮件消息头包含垃圾邮件得分报告：">
