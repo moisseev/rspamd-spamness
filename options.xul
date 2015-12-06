@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<!DOCTYPE prefwindow SYSTEM "chrome://spamness/locale/options.dtd">
+<!DOCTYPE prefwindow SYSTEM "chrome://rspamd-spamness/locale/options.dtd">
 
 <vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <setting pref="extensions.spamness.header" title="&spamnessOptions.prefHeaderName.label;" type="string">

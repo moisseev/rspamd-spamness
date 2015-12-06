@@ -31,7 +31,7 @@
     <em:translator>Luana Di Muzio - BabelZilla</em:translator>
     <em:translator>Mikael Hiort af Ornäs</em:translator>
     <em:translator>RigoNet</em:translator>
-    <em:iconURL>chrome://spamness/skin/icon32x32.png</em:iconURL>
+    <em:iconURL>chrome://rspamd-spamness/skin/icon32x32.png</em:iconURL>
     <em:homepageURL>https://github.com/moisseev/rspamd-spamness</em:homepageURL>
 
     <em:localized>

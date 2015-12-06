@@ -3,7 +3,7 @@
 }
 
 #spamnessIcon {
-    list-style-image: url("chrome://spamness/skin/icon64x64.png");
+    list-style-image: url("chrome://rspamd-spamness/skin/icon64x64.png");
     height: 64px;
     width: 64px;
 }

@@ -33,11 +33,11 @@ Spamness.getImageSrc = function(normalized) {
     } else if (normalized < 0) {
         level = Math.round(Math.log(Math.abs(normalized) + 1));
         level = (level >= 5) ? 4 : level;
-        img = "chrome://spamness/skin/ham" + level + ".png";
+        img = "chrome://rspamd-spamness/skin/ham" + level + ".png";
     } else {
         level = Math.round(Math.log(normalized + 1));
         level = (level >= 5) ? 4 : level;
-        img = "chrome://spamness/skin/spam" + level + ".png";
+        img = "chrome://rspamd-spamness/skin/spam" + level + ".png";
     }
     return img;
  };
@@ -209,7 +209,7 @@ Spamness.openTab = function(url) {
 };
 
 Spamness.greet = function() {
-    let greetPage = "chrome://spamness/content/installed.xul";
+    let greetPage = "chrome://rspamd-spamness/content/installed.xul";
     Spamness.openTab(greetPage);
 };
 

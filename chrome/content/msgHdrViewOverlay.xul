@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?> 
-<?xml-stylesheet href="chrome://spamness/skin/messageHeader.css" type="text/css"?>
-<?xml-stylesheet href="chrome://spamness/content/bindings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://rspamd-spamness/skin/messageHeader.css" type="text/css"?>
+<?xml-stylesheet href="chrome://rspamd-spamness/content/bindings.css" type="text/css"?>
 
-<!DOCTYPE overlay SYSTEM "chrome://spamness/locale/messageHeader.dtd">
+<!DOCTYPE overlay SYSTEM "chrome://rspamd-spamness/locale/messageHeader.dtd">
 
 <overlay id="mailingListHeaderOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <script type="application/x-javascript"
-          src="chrome://spamness/content/scripts/spamness.js" />
+          src="chrome://rspamd-spamness/content/scripts/spamness.js" />
   <script type="application/x-javascript"
-          src="chrome://spamness/content/scripts/messageHeader.js" />
+          src="chrome://rspamd-spamness/content/scripts/messageHeader.js" />
 
 
   <rows id="expandedHeader2Rows">

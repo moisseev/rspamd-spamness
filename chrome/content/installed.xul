@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://spamness/skin/installed.css" type="text/css"?>
+<?xml-stylesheet href="chrome://rspamd-spamness/skin/installed.css" type="text/css"?>
 
-<!DOCTYPE window SYSTEM "chrome://spamness/locale/installed.dtd">
+<!DOCTYPE window SYSTEM "chrome://rspamd-spamness/locale/installed.dtd">
 
 <window
    xmlns:html="http://www.w3.org/1999/xhtml"
@@ -14,7 +14,7 @@
   <html:link
      rel="shortcut icon"
      type="image/png"
-     href="chrome://spamness/skin/icon32x32.png"/>
+     href="chrome://rspamd-spamness/skin/icon32x32.png"/>
 
   <vbox flex="1">
 

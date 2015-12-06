@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
-<?xml-stylesheet href="chrome://spamness/skin/messenger.css" type="text/css"?>
+<?xml-stylesheet href="chrome://rspamd-spamness/skin/messenger.css" type="text/css"?>
 
-<!DOCTYPE overlay SYSTEM "chrome://spamness/locale/messenger.dtd">
+<!DOCTYPE overlay SYSTEM "chrome://rspamd-spamness/locale/messenger.dtd">
 
 <overlay id="spamness-messenger-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <script type="application/javascript"
-          src="chrome://spamness/content/scripts/spamness.js" />
+          src="chrome://rspamd-spamness/content/scripts/spamness.js" />
   <script type="application/javascript"
-          src="chrome://spamness/content/scripts/column.js" />
+          src="chrome://rspamd-spamness/content/scripts/column.js" />
   <script type="application/javascript"
-          src="chrome://spamness/content/scripts/spamness-load.js" />
+          src="chrome://rspamd-spamness/content/scripts/spamness-load.js" />
 
   <tree id="threadTree">
     <treecols id="threadCols">
