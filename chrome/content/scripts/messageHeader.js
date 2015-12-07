@@ -4,13 +4,13 @@ Spamness.Message.displayScoreHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showScore = prefs.getBoolPref("extensions.rspamd-spamness.display.messageScore");
-    var rowEl = document.getElementById("expandedSpamnessRow");
-    var hdrEl = document.getElementById("spamnessScoreHeader");
-    var hdrElBayes = document.getElementById("spamnessBayesHeader");
-    var hdrElFuzzy = document.getElementById("spamnessFuzzyHeader");
-    var scoreIcon = document.getElementById("spamnessScoreIcon");
-    var bayesIcon = document.getElementById("spamnessBayesIcon");
-    var fuzzyIcon = document.getElementById("spamnessFuzzyIcon");
+    var rowEl = document.getElementById("expandedRspamdSpamnessRow");
+    var hdrEl = document.getElementById("rspamdSpamnessScoreHeader");
+    var hdrElBayes = document.getElementById("rspamdSpamnessBayesHeader");
+    var hdrElFuzzy = document.getElementById("rspamdSpamnessFuzzyHeader");
+    var scoreIcon = document.getElementById("rspamdSpamnessScoreIcon");
+    var bayesIcon = document.getElementById("rspamdSpamnessBayesIcon");
+    var fuzzyIcon = document.getElementById("rspamdSpamnessFuzzyIcon");
     
     rowEl.collapsed = true;
 
@@ -52,8 +52,8 @@ Spamness.Message.displayRulesHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showRules = prefs.getBoolPref("extensions.rspamd-spamness.display.messageRules");
-    var rowEl = document.getElementById("expandedSpamnessRulesRow");
-    var hdrEl = document.getElementById("expandedSpamnessRulesBox");
+    var rowEl = document.getElementById("expandedRspamdSpamnessRulesRow");
+    var hdrEl = document.getElementById("expandedRspamdSpamnessRulesBox");
 
     rowEl.collapsed = true;
 
