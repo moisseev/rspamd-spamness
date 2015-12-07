@@ -14,36 +14,36 @@
 
 
   <rows id="expandedHeader2Rows">
-    <row id="expandedSpamnessRow">
-      <label id="expandedSpamnessLabel"
+    <row id="expandedRspamdSpamnessRow">
+      <label id="expandedRspamdSpamnessLabel"
              class="headerName"
              value="&spamness.messageHeader.label;"
-             control="spamnessScoreHeader" />
+             control="rspamdSpamnessScoreHeader" />
       <hbox>
         <vbox>
-          <image id="spamnessScoreIcon" />
+          <image id="rspamdSpamnessScoreIcon" />
         </vbox>
-        <mail-headerfield id="spamnessScoreHeader"
+        <mail-headerfield id="rspamdSpamnessScoreHeader"
                           headerValue="" />
         <vbox>
-          <image id="spamnessBayesIcon" />
+          <image id="rspamdSpamnessBayesIcon" />
         </vbox>
-        <mail-headerfield id="spamnessBayesHeader"
+        <mail-headerfield id="rspamdSpamnessBayesHeader"
                           headerValue="" />
         <vbox>
-          <image id="spamnessFuzzyIcon" />
+          <image id="rspamdSpamnessFuzzyIcon" />
         </vbox>
-        <mail-headerfield id="spamnessFuzzyHeader"
+        <mail-headerfield id="rspamdSpamnessFuzzyHeader"
                           flex="1"
                           headerValue="" />
       </hbox>
     </row>
-    <row id="expandedSpamnessRulesRow">
-      <label id="expandedSpamnessRulesLabel"
+    <row id="expandedRspamdSpamnessRulesRow">
+      <label id="expandedRspamdSpamnessRulesLabel"
              class="headerName"
              value="&spamness.rulesMessageHeader.label;"
-             control="expandedSpamnessRulesBox" />
-      <mail-multi-linkField id="expandedSpamnessRulesBox" />
+             control="expandedRspamdSpamnessRulesBox" />
+      <mail-multi-linkField id="expandedRspamdSpamnessRulesBox" />
     </row>
   </rows>
 </overlay>
