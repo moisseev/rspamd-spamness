@@ -1,17 +1,17 @@
-var SpamnessColumn = {};
+var RspamdSpamnessColumn = {};
 
-SpamnessColumn.handler = {
+RspamdSpamnessColumn.handler = {
     getCellText:         function(row, col) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                         .getService(Components.interfaces.nsIPrefBranch);
         var showText = prefs.getIntPref("extensions.rspamd-spamness.display.column");
 
-	if (showText == Spamness.settings.COLUMN_SHOW_IMAGE_NO_TEXT.value)
+	if (showText == RspamdSpamness.settings.COLUMN_SHOW_IMAGE_NO_TEXT.value)
 	    return null;
 
         var key = gDBView.getKeyAt(row);
         var hdr = gDBView.db.GetMsgHdrForKey(key);
-        var txt = SpamnessColumn.handler.getSortLongForRow(hdr);
+        var txt = RspamdSpamnessColumn.handler.getSortLongForRow(hdr);
         return (isNaN(txt)) ? "" : txt;
     },
 
@@ -32,14 +32,14 @@ SpamnessColumn.handler = {
                         .getService(Components.interfaces.nsIPrefBranch);
         var showImage = prefs.getIntPref("extensions.rspamd-spamness.display.column");
 
-	if (showImage == Spamness.settings.COLUMN_NO_IMAGE_SHOW_TEXT.value)
+	if (showImage == RspamdSpamness.settings.COLUMN_NO_IMAGE_SHOW_TEXT.value)
 	    return null;
 
         var key = gDBView.getKeyAt(row);
         var hdr = gDBView.db.GetMsgHdrForKey(key);
-        var normalized = SpamnessColumn.handler.getSortLongForRow(hdr);
+        var normalized = RspamdSpamnessColumn.handler.getSortLongForRow(hdr);
 
-        return Spamness.getImageSrc(normalized);
+        return RspamdSpamness.getImageSrc(normalized);
     },
 
     getSortLongForRow:   function(hdr) {
@@ -48,7 +48,7 @@ SpamnessColumn.handler = {
         var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
         var spamreport = hdr.getStringProperty(header);
 	if (spamreport != null) {
-            var parsed = Spamness.parseHeader(spamreport);
+            var parsed = RspamdSpamness.parseHeader(spamreport);
 	    if (parsed != null) {
 		return parsed.getScore();
 	    }
@@ -57,19 +57,19 @@ SpamnessColumn.handler = {
     }
 };
 
-SpamnessColumn.onLoad = function() {
+RspamdSpamnessColumn.onLoad = function() {
     var ObserverService = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-    ObserverService.addObserver(SpamnessColumn.dbObserver, "MsgCreateDBView", false);
+    ObserverService.addObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);
 };
 
-SpamnessColumn.dbObserver = {
+RspamdSpamnessColumn.dbObserver = {
     observe: function(aMsgFolder, aTopic, aData) {
-        SpamnessColumn.addColumnHandler();
+        RspamdSpamnessColumn.addColumnHandler();
     }
 };
 
-SpamnessColumn.addColumnHandler = function() {
-    gDBView.addColumnHandler("spamScoreCol", SpamnessColumn.handler);
+RspamdSpamnessColumn.addColumnHandler = function() {
+    gDBView.addColumnHandler("spamScoreCol", RspamdSpamnessColumn.handler);
 }
 
-window.addEventListener("load", SpamnessColumn.onLoad, false);
+window.addEventListener("load", RspamdSpamnessColumn.onLoad, false);

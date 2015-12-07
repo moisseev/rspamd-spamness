@@ -1,6 +1,6 @@
-Spamness.Message = {};
+RspamdSpamness.Message = {};
 
-Spamness.Message.displayScoreHeader = function() {
+RspamdSpamness.Message.displayScoreHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showScore = prefs.getBoolPref("extensions.rspamd-spamness.display.messageScore");
@@ -31,7 +31,7 @@ Spamness.Message.displayScoreHeader = function() {
     if (hdr == null || hdr.getStringProperty(header) == null)
         return;
 
-    var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
+    var parsed = RspamdSpamness.parseHeader(hdr.getStringProperty(header));
     rowEl.collapsed = (parsed == null);
 
     if (parsed == null) {
@@ -39,16 +39,16 @@ Spamness.Message.displayScoreHeader = function() {
         return;
     }
     
-    scoreIcon.src = Spamness.getImageSrc(parsed.getScore());
-    bayesIcon.src = Spamness.getImageSrc(parsed.getBayes());
-    fuzzyIcon.src = Spamness.getImageSrc(parsed.getFuzzy());
+    scoreIcon.src = RspamdSpamness.getImageSrc(parsed.getScore());
+    bayesIcon.src = RspamdSpamness.getImageSrc(parsed.getBayes());
+    fuzzyIcon.src = RspamdSpamness.getImageSrc(parsed.getFuzzy());
     hdrEl.headerValue = parsed.getScore() + " ( Bayes:";
     hdrElBayes.headerValue = parsed.getBayes() + ", Fuzzy:";
     hdrElFuzzy.headerValue = parsed.getFuzzy() + " )";
 //    hdrEl.valid = true;
 };
 
-Spamness.Message.displayRulesHeader = function() {
+RspamdSpamness.Message.displayRulesHeader = function() {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"]
                     .getService(Components.interfaces.nsIPrefBranch);
     var showRules = prefs.getBoolPref("extensions.rspamd-spamness.display.messageRules");
@@ -78,7 +78,7 @@ Spamness.Message.displayRulesHeader = function() {
     if (hdr == null || hdr.getStringProperty(header) == null)
         return;
 
-    var parsed = Spamness.parseHeader(hdr.getStringProperty(header));
+    var parsed = RspamdSpamness.parseHeader(hdr.getStringProperty(header));
 
     var rules = (parsed == null) ? [] : parsed.getRules();
     rowEl.collapsed = (rules.length == 0);
@@ -86,7 +86,7 @@ Spamness.Message.displayRulesHeader = function() {
         for (var i = 0; i < rules.length; i++) {
             var link = {};
             link.displayText = rules[i];
-            link.class = Spamness.getMetricClass(rules[i]);
+            link.class = RspamdSpamness.getMetricClass(rules[i]);
             hdrEl.addLinkView(link);
         }
         hdrEl.valid = true;
@@ -94,20 +94,20 @@ Spamness.Message.displayRulesHeader = function() {
     }
 };
 
-Spamness.Message.onLoad = function() {
+RspamdSpamness.Message.onLoad = function() {
     var listener = {};
     listener.onStartHeaders = function() {};
     listener.onEndHeaders = function() {
-        Spamness.Message.displayScoreHeader();
-        Spamness.Message.displayRulesHeader();
+        RspamdSpamness.Message.displayScoreHeader();
+        RspamdSpamness.Message.displayRulesHeader();
     };
     gMessageListeners.push(listener);
 };
 
-Spamness.Message.onUnload = function() {
-    window.removeEventListener("load", Spamness.Message.onLoad, false);
-    window.removeEventListener("unload", Spamness.Message.onUnload, false);
+RspamdSpamness.Message.onUnload = function() {
+    window.removeEventListener("load", RspamdSpamness.Message.onLoad, false);
+    window.removeEventListener("unload", RspamdSpamness.Message.onUnload, false);
 };
 
-window.addEventListener("load", Spamness.Message.onLoad, false);
-window.addEventListener("unload", Spamness.Message.onUnload, false);
+window.addEventListener("load", RspamdSpamness.Message.onLoad, false);
+window.addEventListener("unload", RspamdSpamness.Message.onUnload, false);
