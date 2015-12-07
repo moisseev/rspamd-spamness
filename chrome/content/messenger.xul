@@ -3,7 +3,7 @@
 
 <!DOCTYPE overlay SYSTEM "chrome://rspamd-spamness/locale/messenger.dtd">
 
-<overlay id="spamness-messenger-overlay"
+<overlay id="rspamd-spamness-messenger-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <script type="application/javascript"
@@ -16,7 +16,7 @@
   <tree id="threadTree">
     <treecols id="threadCols">
       <splitter class="tree-splitter" />
-      <treecol id="colSpamStatus" persist="hidden ordinal width" 
+      <treecol id="spamScoreCol" persist="hidden ordinal width" 
            currentView="unthreaded"
            class="treecol-image spamnessCol"
            label="&spamnessColumn.label;"

@@ -69,7 +69,7 @@ SpamnessColumn.dbObserver = {
 };
 
 SpamnessColumn.addColumnHandler = function() {
-    gDBView.addColumnHandler("colSpamStatus", SpamnessColumn.handler);
+    gDBView.addColumnHandler("spamScoreCol", SpamnessColumn.handler);
 }
 
 window.addEventListener("load", SpamnessColumn.onLoad, false);

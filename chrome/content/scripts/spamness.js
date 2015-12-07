@@ -181,8 +181,8 @@ Spamness.error = function(msg) {
 Spamness.addSpamnessColumn = function() {
     // from chrome://messenger/content/folderDisplay.js
     var fdw = FolderDisplayWidget.prototype;
-    fdw.DEFAULT_COLUMNS.push("colSpamStatus");
-    fdw.COLUMN_DEFAULT_TESTERS["colSpamStatus"] = function(viewWrapper) {
+    fdw.DEFAULT_COLUMNS.push("spamScoreCol");
+    fdw.COLUMN_DEFAULT_TESTERS["spamScoreCol"] = function(viewWrapper) {
         return viewWrapper.isIncomingFolder;
     };
 };
