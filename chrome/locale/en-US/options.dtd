@@ -1,7 +1,3 @@
-<!ENTITY spamnessOptions.title "Spamness Options">
-
-<!ENTITY spamnessOptions.paneDisplay.label "Display">
-
 <!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Column Display">
 <!ENTITY spamnessOptions.prefShowBoth.label "Show visual and score">
 <!ENTITY spamnessOptions.prefShowText.label "Show only score">
@@ -12,9 +8,5 @@
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Show score in message">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Show rules fired in message">
 
-<!ENTITY spamnessOptions.paneAdvanced.label "Advanced">
-
-<!ENTITY spamnessOptions.captionHeaderGroup.label "Score Header">
 <!ENTITY spamnessOptions.prefHeaderName.label "Mail header containing spam score report:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Note: Changing the header Spamness uses will require rebuilding all folder indices so Thunderbird can read the header values for each message.  Open each folder's properties, then click the Rebuild Folders button.">
-<!ENTITY spamnessOptions.buttonReIndex.label "Index Folders">

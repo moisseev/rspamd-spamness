@@ -1,5 +1,3 @@
-<!ENTITY spamnessOptions.title "Spamness опције">
-<!ENTITY spamnessOptions.paneDisplay.label "Приказ">
 <!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Приказ колона">
 <!ENTITY spamnessOptions.prefShowBoth.label "Прикажи визуелно и резултат">
 <!ENTITY spamnessOptions.prefShowText.label "Прикажи само резултат">
@@ -8,8 +6,5 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Приказ порука">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Прикажи резултат у поруци">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Прикажи правила коришћена у поруци">
-<!ENTITY spamnessOptions.paneAdvanced.label "Напредно">
-<!ENTITY spamnessOptions.captionHeaderGroup.label "Заглавље резултата">
 <!ENTITY spamnessOptions.prefHeaderName.label "Заглавље поруке која садржи извештај о нежељености:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Напомена: мењање заглавља коришћења Spamness захтева поновно прављење индекса фасцикли, како би Тандерберд могао да прочита вредности и заглавља сваке поруке.">
-<!ENTITY spamnessOptions.buttonReIndex.label "Фасцикле за примљено">

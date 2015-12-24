@@ -1,5 +1,3 @@
-<!ENTITY spamnessOptions.title "Impostazioni di Spamness">
-<!ENTITY spamnessOptions.paneDisplay.label "Aspetto">
 <!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Aspetto nella colonna aggiuntiva">
 <!ENTITY spamnessOptions.prefShowBoth.label "Mostra grafica e punteggio">
 <!ENTITY spamnessOptions.prefShowText.label "Mostra solo il punteggio">
@@ -8,8 +6,5 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Aspetto nel messaggio">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostra il punteggio">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostra le regole">
-<!ENTITY spamnessOptions.paneAdvanced.label "Avanzate">
-<!ENTITY spamnessOptions.captionHeaderGroup.label "Intestazione e livello di rischio spam">
 <!ENTITY spamnessOptions.prefHeaderName.label "Intestazione del messaggio con il livello di rischio spam">
 <!ENTITY spamnessOptions.prefHeaderName.explain "">
-<!ENTITY spamnessOptions.buttonReIndex.label "Ricrea l&apos;indice">

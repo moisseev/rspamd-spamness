@@ -1,5 +1,3 @@
-<!ENTITY spamnessOptions.title "Options de Spamness">
-<!ENTITY spamnessOptions.paneDisplay.label "Afficher">
 <!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Affichage des Colonnes">
 <!ENTITY spamnessOptions.prefShowBoth.label "Afficher le visuel et le score">
 <!ENTITY spamnessOptions.prefShowText.label "Afficher le score seulement">
@@ -8,8 +6,5 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Affichage des Messages">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Montrer le score dans les messages">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Montrer les règles enfreinte dans les messages">
-<!ENTITY spamnessOptions.paneAdvanced.label "Avancée">
-<!ENTITY spamnessOptions.captionHeaderGroup.label "En-tête de Score">
 <!ENTITY spamnessOptions.prefHeaderName.label "En-tête de message contenant des rapports de score de spam :">
 <!ENTITY spamnessOptions.prefHeaderName.explain "">
-<!ENTITY spamnessOptions.buttonReIndex.label "Index des dossiers">
