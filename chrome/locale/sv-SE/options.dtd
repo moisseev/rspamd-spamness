@@ -7,4 +7,4 @@
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Visa poängbedömning i meddelanden">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Visa utlösta regler i meddelanden">
 <!ENTITY spamnessOptions.prefHeaderName.label "Meddelandehuvud innehållande skräppostbedömningsrapport:">
-<!ENTITY spamnessOptions.prefHeaderName.explain "Obs.: Om du ändrar i huvudet som Spamness använder, så måste alla mappindex återskapas för att Thunderbird skall kunna läsa huvudets värden för varje meddelande">
+<!ENTITY spamnessOptions.prefHeaderName.explain "Obs.: Om du ändrar i huvudet som Rspamd-spamness använder, så måste alla mappindex återskapas för att Thunderbird skall kunna läsa huvudets värden för varje meddelande">
