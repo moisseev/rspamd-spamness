@@ -4,10 +4,6 @@ mail-link {
     -moz-binding: url("chrome://rspamd-spamness/content/bindings.xml#mail-link");
 }
 
-mail-linkheaderfield {
-    -moz-binding: url("chrome://rspamd-spamness/content/bindings.xml#mail-linkheaderfield");
-}
-
 mail-multi-linkField {
     -moz-binding: url("chrome://rspamd-spamness/content/bindings.xml#mail-multi-linkField");
 }
