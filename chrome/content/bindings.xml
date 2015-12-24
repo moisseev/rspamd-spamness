@@ -14,7 +14,7 @@
     <content>
       <xul:description anonid="linkValue" class="linkDisplayButton"
                        xbl:inherits="aria-label" flex="1" role="textbox"
-                       aria-readonly="true" context="spamnessPopup">
+                       aria-readonly="true">
         <xul:label class="linkLabel" anonid="linkLabel"
                    xbl:inherits="value=label,crop"/>
       </xul:description>
