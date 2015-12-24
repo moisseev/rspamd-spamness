@@ -1,5 +1,5 @@
-<!ENTITY spamnessInstalled.title "Guía Spamness">
-<!ENTITY spamnessInstalled.introduction.label "Gracias por instalar Spamness. Para utilizarlo, necesitará reconstruir indices de carpetas que contengan mensajes puntuados por SpamAssassin y activar la visualización de columna para cada carpeta. Si ha instalado Spamness antes de configurar sus cuentas, puede ignorar el resto de esta guía.">
+<!ENTITY spamnessInstalled.title "Guía Rspamd-spamness">
+<!ENTITY spamnessInstalled.introduction.label "Gracias por instalar Rspamd-spamness. Para utilizarlo, necesitará reconstruir indices de carpetas que contengan mensajes puntuados por Rspamd y activar la visualización de columna para cada carpeta. Si ha instalado Rspamd-spamness antes de configurar sus cuentas, puede ignorar el resto de esta guía.">
 <!ENTITY spamnessInstalled.folderGroup.label "Reindizar carpetas">
 <!ENTITY spamnessInstalled.folderInstructions.label "Para reindizar una carpeta, selecciónela y elija 'Propiedades...' en el menú contextual o en el menú Editar, entonces pulse sobre 'Reparar carpeta'. Necesitará repetirlo en cada carpeta, o utilizar este botón experimental para intentar reconstruir el índice en cada carpeta.">
 <!ENTITY spamnessInstalled.columnGroup.label "Mostrar la columna">

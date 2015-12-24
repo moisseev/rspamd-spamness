@@ -1,5 +1,5 @@
-<!ENTITY spamnessInstalled.title "Guia do Spamness">
-<!ENTITY spamnessInstalled.introduction.label "Obrigado por instalar o Spamness. Para usar o Spamness, você precisa reconstruir os índices das pastas que contêm o SpamAssassin-mensagem classificada e ativar a exibição da coluna para cada pasta. Se você instalou o Spamness antes de configurar suas contas, você pode ignorar completamente o resto deste guia - você está pronto.">
+<!ENTITY spamnessInstalled.title "Guia do Rspamd-spamness">
+<!ENTITY spamnessInstalled.introduction.label "Obrigado por instalar o Rspamd-spamness. Para usar o Rspamd-spamness, você precisa reconstruir os índices das pastas que contêm o Rspamd-mensagem classificada e ativar a exibição da coluna para cada pasta. Se você instalou o Rspamd-spamness antes de configurar suas contas, você pode ignorar completamente o resto deste guia - você está pronto.">
 <!ENTITY spamnessInstalled.folderGroup.label "Reindexando Pastas">
 <!ENTITY spamnessInstalled.folderInstructions.label "Para reindexar uma pasta, selecione-a e escolha 'Propriedades...' a partir do menu de contexto ou menu Editar, depois tecle no botão 'Reparar Pasta'. Você terá que fazer isso para cada pasta, ou você pode usar esse botão experimental para tentar recriar um índice para cada pasta.">
 <!ENTITY spamnessInstalled.columnGroup.label "Exibindo a Coluna">

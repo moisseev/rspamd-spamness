@@ -1,6 +1,6 @@
-<!ENTITY spamnessInstalled.title "Spamness Guide">
+<!ENTITY spamnessInstalled.title "Rspamd-spamness Guide">
 
-<!ENTITY spamnessInstalled.introduction.label "Thanks for installing Spamness.  To use Spamness, you'll need to both re-build folder indices for folders that contain SpamAssassin-scored mail and enable the column display for each folder.  If you've installed Spamness ahead of setting up any of your accounts, you can completely ignore the rest of this guide - you're all set.">
+<!ENTITY spamnessInstalled.introduction.label "Thanks for installing Rspamd-spamness.  To use Rspamd-spamness, you'll need to both re-build folder indices for folders that contain Rspamd-scored mail and enable the column display for each folder.  If you've installed Rspamd-spamness ahead of setting up any of your accounts, you can completely ignore the rest of this guide - you're all set.">
 
 <!ENTITY spamnessInstalled.folderGroup.label "Re-indexing Folders">
 <!ENTITY spamnessInstalled.folderInstructions.label "To re-index a folder, select it and choose 'Properties...' from the context or Edit menu, then click the 'Repair Folder' button.  You will need to do this for every folder, or you can use this experimental button to try to re-build the index for every folder.">

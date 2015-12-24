@@ -1,5 +1,5 @@
-<!ENTITY spamnessInstalled.title "Guide för Spamness">
-<!ENTITY spamnessInstalled.introduction.label "Tack för att du installerar Spamness.  För att använda Spamness måste du både återskapa mappindex för mappar som innehåller SpamAssassin-rankade meddelanden och aktivera kolumnvisningen för varje mapp.  Om du har installerat Spamness innan du har skapat och konfigurerat dina konton, så kan du strunta i resten av denna guide - då är du redan redo.">
+<!ENTITY spamnessInstalled.title "Guide för Rspamd-spamness">
+<!ENTITY spamnessInstalled.introduction.label "Tack för att du installerar Rspamd-spamness.  För att använda Rspamd-spamness måste du både återskapa mappindex för mappar som innehåller Rspamd-rankade meddelanden och aktivera kolumnvisningen för varje mapp.  Om du har installerat Rspamd-spamness innan du har skapat och konfigurerat dina konton, så kan du strunta i resten av denna guide - då är du redan redo.">
 <!ENTITY spamnessInstalled.folderGroup.label "Omindexering av mappar">
 <!ENTITY spamnessInstalled.folderInstructions.label "För att omindexera en mapp, markera den och välj &quot;Egenskaper…&quot; i snabbmenyn eller gå till Redigera-menyn, välj &quot;Mappegenskaper&quot; och klicka på knappen &quot;Reparera mapp&quot;.  Du kommer att behöva göra detta för varje mapp eller använda denna experimentella knapp för att försöka återskapa indexet för alla mappar.">
 <!ENTITY spamnessInstalled.columnGroup.label "Visning av kolumnen">
