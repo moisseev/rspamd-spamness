@@ -210,7 +210,7 @@ RspamdSpamness.openTab = function(url) {
 
 RspamdSpamness.greet = function() {
     let greetPage = "chrome://rspamd-spamness/content/installed.xul";
-    Spamness.openTab(greetPage);
+    RspamdSpamness.openTab(greetPage);
 };
 
 RspamdSpamness.Header = function(score, rules, bayes, fuzzy) {
