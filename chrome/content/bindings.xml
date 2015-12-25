@@ -132,7 +132,7 @@
                       (this.maxLinesBeforeMore > 1 ||
                        (i+1 == this.mLinks.length && overLineWidth > 30) ||
                        newLineWidth - overLineWidth < 30)) {
-                      aLinkNode.lastChildNode.hidden = true;
+                      aLinkNode.lastChild.hidden = true;
                       i--;
                   }
               }
