@@ -23,12 +23,12 @@
       <description flex="1" id="introduction" class="text-blurb">&spamnessInstalled.introduction.label;</description>
     </hbox>
 
-    <groupbox flex="1">
+    <groupbox>
       <caption label="&spamnessInstalled.folderGroup.label;"/>
       <description class="text-blurb">&spamnessInstalled.folderInstructions.label;</description>
     </groupbox>
     
-    <groupbox flex="1">
+    <groupbox>
       <caption label="&spamnessInstalled.columnGroup.label;"/>
       <description class="text-blurb">&spamnessInstalled.columnInstructions.label;</description>
     </groupbox>
