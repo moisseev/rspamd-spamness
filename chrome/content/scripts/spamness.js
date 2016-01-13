@@ -4,16 +4,6 @@ var RspamdSpamness = {
     previousSpamnessHeader: ''
 };
 
-RspamdSpamness._bundle = null;
-
-RspamdSpamness._getString = function(key) {
-    // return Spamness._bundle.getString(key);
-};
-
-RspamdSpamness._getLabel = function(key) {
-    // return Spamness._getString(key + ".label");
-};
-
 RspamdSpamness.getImageSrc = function(normalized) {
     var img;
     if (isNaN(normalized)) {
