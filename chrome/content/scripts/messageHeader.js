@@ -1,8 +1,6 @@
 RspamdSpamness.Message = {};
 
 RspamdSpamness.Message.displayScoreHeader = function() {
-    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                    .getService(Components.interfaces.nsIPrefBranch);
     var showScore = prefs.getBoolPref("extensions.rspamd-spamness.display.messageScore");
     var rowEl = document.getElementById("expandedRspamdSpamnessRow");
     var hdrEl = document.getElementById("rspamdSpamnessScoreHeader");
@@ -49,8 +47,6 @@ RspamdSpamness.Message.displayScoreHeader = function() {
 };
 
 RspamdSpamness.Message.displayRulesHeader = function() {
-    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                    .getService(Components.interfaces.nsIPrefBranch);
     var showRules = prefs.getBoolPref("extensions.rspamd-spamness.display.messageRules");
     var rowEl = document.getElementById("expandedRspamdSpamnessRulesRow");
     var hdrEl = document.getElementById("expandedRspamdSpamnessRulesBox");

@@ -2,8 +2,6 @@ var RspamdSpamnessColumn = {};
 
 RspamdSpamnessColumn.handler = {
     getCellText:         function(row, col) {
-        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                        .getService(Components.interfaces.nsIPrefBranch);
         var showText = prefs.getIntPref("extensions.rspamd-spamness.display.column");
 
 	if (showText == RspamdSpamness.settings.COLUMN_SHOW_IMAGE_NO_TEXT.value)
@@ -28,8 +26,6 @@ RspamdSpamnessColumn.handler = {
     getRowProperties:    function(row, props) {},
 
     getImageSrc:         function(row, col) {
-        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                        .getService(Components.interfaces.nsIPrefBranch);
         var showImage = prefs.getIntPref("extensions.rspamd-spamness.display.column");
 
 	if (showImage == RspamdSpamness.settings.COLUMN_NO_IMAGE_SHOW_TEXT.value)
@@ -43,8 +39,6 @@ RspamdSpamnessColumn.handler = {
     },
 
     getSortLongForRow:   function(hdr) {
-        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-                        .getService(Components.interfaces.nsIPrefBranch);
         var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
         var spamreport = hdr.getStringProperty(header);
 	if (spamreport != null) {
