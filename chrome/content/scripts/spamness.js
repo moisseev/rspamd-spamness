@@ -6,18 +6,6 @@ var RspamdSpamness = {
 
 RspamdSpamness._bundle = null;
 
-RspamdSpamness.settings = {
-    "COLUMN_SHOW_IMAGE_SHOW_TEXT": {
-       "value": 0
-    },
-    "COLUMN_NO_IMAGE_SHOW_TEXT": {
-        "value": 1
-    },
-    "COLUMN_SHOW_IMAGE_NO_TEXT": {
-        "value": 2
-    }
-};
-
 RspamdSpamness._getString = function(key) {
     // return Spamness._bundle.getString(key);
 };

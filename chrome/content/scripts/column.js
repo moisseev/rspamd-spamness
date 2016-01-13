@@ -2,9 +2,7 @@ var RspamdSpamnessColumn = {};
 
 RspamdSpamnessColumn.handler = {
     getCellText:         function(row, col) {
-        var showText = prefs.getIntPref("extensions.rspamd-spamness.display.column");
-
-	if (showText == RspamdSpamness.settings.COLUMN_SHOW_IMAGE_NO_TEXT.value)
+	if (prefs.getIntPref("extensions.rspamd-spamness.display.column") == 2)
 	    return null;
 
         var key = gDBView.getKeyAt(row);
@@ -26,9 +24,7 @@ RspamdSpamnessColumn.handler = {
     getRowProperties:    function(row, props) {},
 
     getImageSrc:         function(row, col) {
-        var showImage = prefs.getIntPref("extensions.rspamd-spamness.display.column");
-
-	if (showImage == RspamdSpamness.settings.COLUMN_NO_IMAGE_SHOW_TEXT.value)
+	if (prefs.getIntPref("extensions.rspamd-spamness.display.column") == 1)
 	    return null;
 
         var key = gDBView.getKeyAt(row);
