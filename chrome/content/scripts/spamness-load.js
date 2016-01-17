@@ -30,7 +30,7 @@ RspamdSpamness.onLoad = function() {
 
     // space separator
     var dhdrs = prefs.getCharPref("mailnews.customDBHeaders");
-    chdrs = chdrs.replace(/\s+/g, ' ');
+    dhdrs = dhdrs.replace(/\s+/g, ' ');
     RspamdSpamness.customDBHeaders = (dhdrs == "") ? new Array() : dhdrs.split(" ");
 
     RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);
