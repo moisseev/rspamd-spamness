@@ -3,8 +3,13 @@
 <!ENTITY spamnessOptions.prefShowText.label "Visa endast poängbedömning">
 <!ENTITY spamnessOptions.prefShowImage.label "Visa endast visuell indikator">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "Visa kolumnen som standard">
+
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Meddelandevisning">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Visa poängbedömning i meddelanden">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Visa utlösta regler i meddelanden">
+
 <!ENTITY spamnessOptions.prefHeaderName.label "Meddelandehuvud innehållande skräppostbedömningsrapport:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Obs.: Om du ändrar i huvudet som Rspamd-spamness använder, så måste alla mappindex återskapas för att Thunderbird skall kunna läsa huvudets värden för varje meddelande">
+
+<!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">
+<!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">

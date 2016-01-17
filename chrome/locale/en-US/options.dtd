@@ -10,3 +10,6 @@
 
 <!ENTITY spamnessOptions.prefHeaderName.label "Mail header containing spam score report:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Note: Changing the header Rspamd-spamness uses will require rebuilding all folder indices so Thunderbird can read the header values for each message.  Open each folder's properties, then click the Repair Folder button.">
+
+<!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">
+<!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">

@@ -3,8 +3,13 @@
 <!ENTITY spamnessOptions.prefShowText.label "Mostra solo il punteggio">
 <!ENTITY spamnessOptions.prefShowImage.label "Mostra solo la grafica">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "">
+
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Aspetto nel messaggio">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostra il punteggio">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostra le regole">
+
 <!ENTITY spamnessOptions.prefHeaderName.label "Intestazione del messaggio con il livello di rischio spam">
 <!ENTITY spamnessOptions.prefHeaderName.explain "">
+
+<!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">
+<!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">

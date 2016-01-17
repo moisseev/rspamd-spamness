@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet href="chrome://rspamd-spamness/skin/advancedOptions.css" type="text/css"?>
+
+<!DOCTYPE prefwindow SYSTEM "chrome://rspamd-spamness/locale/options.dtd">
+
+<dialog id="windowAdvancedOptions" title="&spamnessOptions.prefAdvOptions.title;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        onload="window.sizeToContent();"
+        buttons="accept,cancel"
+        buttonlabelaccept="Save"
+        ondialogaccept="return RspamdSpamness.syncHeaderPrefs(null);"
+        buttonlabelcancel="Cancel">
+
+    <stringbundleset id="stringbundleset">
+          <stringbundle id="bundle_custom"
+                        src="chrome://messenger/locale/custom.properties" />
+    </stringbundleset>
+
+    <script type="application/x-javascript"
+            src="chrome://rspamd-spamness/content/scripts/spamness.js"/>
+
+    <label control="headerNameForm"
+           value="&spamnessOptions.prefHeaderName.label;"/>
+    <textbox id="headerNameForm"/>
+
+    <description class="caveat">
+        &spamnessOptions.prefHeaderName.explain;
+    </description>
+
+    <script>
+        document.getElementById('headerNameForm').value = window.arguments[0];
+    </script>
+</dialog>

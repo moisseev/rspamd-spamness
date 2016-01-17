@@ -3,8 +3,13 @@
 <!ENTITY spamnessOptions.prefShowText.label "Mostrar apenas o escore">
 <!ENTITY spamnessOptions.prefShowImage.label "Mostrar apenas o visual">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "Exibe a coluna por padrão">
+
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Exibição de mensagens">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar mensagem do escore">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar regras bloqueadas na mensagem">
+
 <!ENTITY spamnessOptions.prefHeaderName.label "Nome do cabeçalho da mensagem de relatório do escore de spans">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Nota: Ao alterar o cabeçalho o uso do Rspamd-spamness irá requerer que todos os índices de pastas sejam refeitos para que o Thunderbird possa ler os valores de cabeçalho de cada mensagem">
+
+<!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">
+<!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">

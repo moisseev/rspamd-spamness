@@ -3,10 +3,6 @@
 <!DOCTYPE prefwindow SYSTEM "chrome://rspamd-spamness/locale/options.dtd">
 
 <vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-    <setting pref="extensions.rspamd-spamness.header" title="&spamnessOptions.prefHeaderName.label;" type="string">
-        &spamnessOptions.prefHeaderName.explain;
-    </setting>
-
     <setting pref="extensions.rspamd-spamness.display.column" type="radio" title="&spamnessOptions.captionDisplayColumnGroup.label;">
         <radiogroup>
             <radio value="0" label="&spamnessOptions.prefShowBoth.label;" />
@@ -19,4 +15,8 @@
 <!-- &spamnessOptions.captionDisplayMessageGroup.label; -->
     <setting pref="extensions.rspamd-spamness.display.messageScore" type="bool" title="&spamnessOptions.prefDisplayMessageScore.label;" />
     <setting pref="extensions.rspamd-spamness.display.messageRules" type="bool" title="&spamnessOptions.prefDisplayMessageRules.label;" />
+
+    <setting type="control" title="&spamnessOptions.prefAdvOptions.title;">
+        <button id="advanced-options-button" label="&spamnessOptions.prefAdvOptionsBtn.label;" />
+    </setting>
 </vbox>

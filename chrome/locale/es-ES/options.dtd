@@ -3,8 +3,13 @@
 <!ENTITY spamnessOptions.prefShowText.label "Mostrar solo puntuación">
 <!ENTITY spamnessOptions.prefShowImage.label "Mostrar solo visual">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "Mostrar columna predeterminada">
+
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Mensaje de pantalla">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar puntuación en mensaje">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar reglas activadas en mensaje">
+
 <!ENTITY spamnessOptions.prefHeaderName.label "Informe de puntuación de la cabecera del correo que contiene spam:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Nota: las modificaciones de cabecera de Rspamd-spamness requerirán la reconstrucción de todos los índices de carpeta para que Thunderbird pueda leer los valores de la cabecera para cada mensaje">
+
+<!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">
+<!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">
