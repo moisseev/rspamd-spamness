@@ -77,6 +77,7 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     var prefEl = document.getElementById('headerNameForm');
 
     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+    RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
     // colon separator
     var chdrs = prefs.getCharPref("mailnews.customHeaders");
@@ -119,11 +120,13 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 	        prevExists = i;
 	    }
     }
-    if (!exists) {
-	    if (prevExists >= 0) {
+    if (!exists || prevExists >= 0) {
+	    if (prefVal != RspamdSpamness.previousSpamnessHeader && prevExists >= 0) {
 	        RspamdSpamness.customHeaders.splice(prevExists, 1);
 	    }
-	    RspamdSpamness.customHeaders.push(prefVal);
+	    if (!exists) {
+	        RspamdSpamness.customHeaders.push(prefVal);
+	    }
 	    var newPref = RspamdSpamness.customHeaders.join(": ");
 	    prefs.setCharPref("mailnews.customHeaders", newPref);
     }
@@ -138,11 +141,13 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 	        prevExists = i;
 	    }
     }
-    if (!exists) {
-	    if (prevExists >= 0) {
+    if (!exists || prevExists >= 0) {
+	    if (prefVal != RspamdSpamness.previousSpamnessHeader && prevExists >= 0) {
 	        RspamdSpamness.customDBHeaders.splice(prevExists, 1);
 	    }
-	    RspamdSpamness.customDBHeaders.push(prefVal);
+	    if (!exists) {
+	        RspamdSpamness.customDBHeaders.push(prefVal);
+	    }
 	    var newPref = RspamdSpamness.customDBHeaders.join(" ");
 	    prefs.setCharPref("mailnews.customDBHeaders", newPref);
     }
