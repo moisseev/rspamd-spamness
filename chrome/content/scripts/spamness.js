@@ -79,6 +79,7 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
     if (prefVal != RspamdSpamness.previousSpamnessHeader) {
+/*
 	    if (!isRFC2822Header(prefVal)) {
 	        var bundle = document.getElementById("bundle_custom");
 	        var alertText = bundle.getString("colonInHeaderName");
@@ -86,6 +87,7 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 	        if (prefEl) prefEl.focus();
 	        return false;
 	    }
+*/
 
         var nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
         if (RspamdSpamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
