@@ -78,6 +78,16 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 
     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
 
+    // colon separator
+    var chdrs = prefs.getCharPref("mailnews.customHeaders");
+    chdrs = chdrs.replace(/\s+/g, '');
+    RspamdSpamness.customHeaders = (chdrs == "") ? new Array() : chdrs.split(":");
+
+    // space separator
+    var dhdrs = prefs.getCharPref("mailnews.customDBHeaders");
+    dhdrs = dhdrs.replace(/\s+/g, ' ');
+    RspamdSpamness.customDBHeaders = (dhdrs == "") ? new Array() : dhdrs.split(" ");
+
     if (prefVal != RspamdSpamness.previousSpamnessHeader) {
 /*
 	    if (!isRFC2822Header(prefVal)) {

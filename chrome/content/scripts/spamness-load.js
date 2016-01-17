@@ -23,16 +23,6 @@ RspamdSpamness.onLoad = function() {
 
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
-    // colon separator
-    var chdrs = prefs.getCharPref("mailnews.customHeaders");
-    chdrs = chdrs.replace(/\s+/g, '');
-    RspamdSpamness.customHeaders = (chdrs == "") ? new Array() : chdrs.split(":");
-
-    // space separator
-    var dhdrs = prefs.getCharPref("mailnews.customDBHeaders");
-    dhdrs = dhdrs.replace(/\s+/g, ' ');
-    RspamdSpamness.customDBHeaders = (dhdrs == "") ? new Array() : dhdrs.split(" ");
-
     RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);
 
     // whether this column gets default status
