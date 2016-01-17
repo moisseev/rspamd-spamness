@@ -88,7 +88,7 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 	    }
 
         var nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
-        if (Spamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
+        if (RspamdSpamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
 	        var bundle = document.getElementById("bundle_custom");
 	        var alertText = bundle.getString("customHeaderOverflow");
 	        window.alert(alertText);
