@@ -90,15 +90,13 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     RspamdSpamness.customDBHeaders = (dhdrs == "") ? new Array() : dhdrs.split(" ");
 
     if (prefVal != RspamdSpamness.previousSpamnessHeader) {
-/*
-	    if (!isRFC2822Header(prefVal)) {
+        if (!isRFC5322HeaderName(prefVal)) {
 	        var bundle = document.getElementById("bundle_custom");
 	        var alertText = bundle.getString("colonInHeaderName");
 	        window.alert(alertText);
 	        if (prefEl) prefEl.focus();
 	        return false;
 	    }
-*/
 
         var nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
         if (RspamdSpamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
@@ -159,6 +157,10 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     var prefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
     prefService.savePrefFile(null);
     return true;
+
+    function isRFC5322HeaderName(str) {
+        return /^[\x21-\x39\x3B-\x7E]+$/.test(str);
+    }
 };
 
 RspamdSpamness.log = function(msg) {
