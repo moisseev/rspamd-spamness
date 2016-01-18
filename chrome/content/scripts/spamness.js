@@ -108,48 +108,8 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 	    }
     }
 
-    var exists = false;
-    var prevExists = -1;
-    for (var i = 0; i < RspamdSpamness.customHeaders.length; i++) {
-	    if (RspamdSpamness.customHeaders[i] == prefVal) {
-	        exists = true;
-	    }
-	    if (RspamdSpamness.customHeaders[i] == RspamdSpamness.previousSpamnessHeader) {
-	        prevExists = i;
-	    }
-    }
-    if (!exists || prevExists >= 0) {
-	    if (prefVal != RspamdSpamness.previousSpamnessHeader && prevExists >= 0) {
-	        RspamdSpamness.customHeaders.splice(prevExists, 1);
-	    }
-	    if (!exists) {
-	        RspamdSpamness.customHeaders.push(prefVal);
-	    }
-	    var newPref = RspamdSpamness.customHeaders.join(": ");
-	    prefs.setCharPref("mailnews.customHeaders", newPref);
-    }
-
-    exists = false;
-    prevExists = -1;
-    for (var i = 0; i < RspamdSpamness.customDBHeaders.length; i++) {
-	    if (RspamdSpamness.customDBHeaders[i] == prefVal) {
-	        exists = true;
-	    }
-	    if (RspamdSpamness.customDBHeaders[i] == RspamdSpamness.previousSpamnessHeader) {
-	        prevExists = i;
-	    }
-    }
-    if (!exists || prevExists >= 0) {
-	    if (prefVal != RspamdSpamness.previousSpamnessHeader && prevExists >= 0) {
-	        RspamdSpamness.customDBHeaders.splice(prevExists, 1);
-	    }
-	    if (!exists) {
-	        RspamdSpamness.customDBHeaders.push(prefVal);
-	    }
-	    var newPref = RspamdSpamness.customDBHeaders.join(" ");
-	    prefs.setCharPref("mailnews.customDBHeaders", newPref);
-    }
-
+    setHeadersPref("mailnews.customDBHeaders", RspamdSpamness.customDBHeaders, " " );
+    setHeadersPref("mailnews.customHeaders",   RspamdSpamness.customHeaders,   ": ");
     prefs.setCharPref("extensions.rspamd-spamness.header", prefVal);
     RspamdSpamness.previousSpamnessHeader = prefVal;
 
@@ -160,6 +120,29 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 
     function isRFC5322HeaderName(str) {
         return /^[\x21-\x39\x3B-\x7E]+$/.test(str);
+    }
+
+    function setHeadersPref(prefName, headersArray, separator) {
+        var exists = false;
+        var prevExists = -1;
+        for (var i = 0; i < headersArray.length; i++) {
+            if (headersArray[i] == prefVal) {
+                exists = true;
+            }
+            if (headersArray[i] == RspamdSpamness.previousSpamnessHeader) {
+                prevExists = i;
+            }
+        }
+        if (!exists || prevExists >= 0) {
+            if (prefVal != RspamdSpamness.previousSpamnessHeader && prevExists >= 0) {
+                headersArray.splice(prevExists, 1);
+            }
+            if (!exists) {
+                headersArray.push(prefVal);
+            }
+            var newPref = headersArray.join(separator);
+            prefs.setCharPref(prefName, newPref);
+        }
     }
 };
 
