@@ -79,15 +79,8 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
-    // colon separator
-    var chdrs = prefs.getCharPref("mailnews.customHeaders");
-    chdrs = chdrs.replace(/\s+/g, '');
-    RspamdSpamness.customHeaders = (chdrs == "") ? new Array() : chdrs.split(":");
-
-    // space separator
-    var dhdrs = prefs.getCharPref("mailnews.customDBHeaders");
-    dhdrs = dhdrs.replace(/\s+/g, ' ');
-    RspamdSpamness.customDBHeaders = (dhdrs == "") ? new Array() : dhdrs.split(" ");
+    RspamdSpamness.customDBHeaders = getHeadersPref("mailnews.customDBHeaders", /\s+/);
+    RspamdSpamness.customHeaders   = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
 
     if (prefVal != RspamdSpamness.previousSpamnessHeader) {
         if (!isRFC5322HeaderName(prefVal)) {
@@ -117,6 +110,13 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     var prefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
     prefService.savePrefFile(null);
     return true;
+
+    function getHeadersPref(prefName, separator) {
+        var chdrs = prefs.getCharPref(prefName).trim();
+        return (chdrs === "")
+            ? []
+            : chdrs.split(separator);
+    }
 
     function isRFC5322HeaderName(str) {
         return /^[\x21-\x39\x3B-\x7E]+$/.test(str);
