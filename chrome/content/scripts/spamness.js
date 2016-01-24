@@ -46,12 +46,17 @@ RspamdSpamness.parseHeader = function(headerStr) {
         } else {
             var bayes = "undefined";
         }
-        
-        var match2 = headerStr.match(/FUZZY_(WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/);
-        if (match2 != null) {
-            var fuzzy = parseFloat(match2[2]);
-        } else {
-            var fuzzy = "undefined";
+
+        var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/g;
+        var fuzzySymbols = [];
+        var fuzzy = 0;
+        var fuzzySymbolsCount = 0;
+        while ((fuzzySymbols = re.exec(headerStr)) != null) {
+            fuzzy = fuzzy + parseFloat(fuzzySymbols[1]);
+            fuzzySymbolsCount++;
+        }
+        if (fuzzySymbolsCount === 0) {
+            fuzzy = "undefined";
         }
     } catch(e) {
         // Spamness.error(e);
