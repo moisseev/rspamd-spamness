@@ -1,74 +1,32 @@
 RspamdSpamness.Message = {};
 
-RspamdSpamness.Message.displayScoreHeader = function() {
+RspamdSpamness.Message.displayHeaders = function() {
     var showScore = prefs.getBoolPref("extensions.rspamd-spamness.display.messageScore");
-    var rowEl = document.getElementById("expandedRspamdSpamnessRow");
-    var hdrEl = document.getElementById("rspamdSpamnessScoreHeader");
+    var rowElScore = document.getElementById("expandedRspamdSpamnessRow");
+    var hdrElScore = document.getElementById("rspamdSpamnessScoreHeader");
     var hdrElBayes = document.getElementById("rspamdSpamnessBayesHeader");
     var hdrElFuzzy = document.getElementById("rspamdSpamnessFuzzyHeader");
+
     var scoreIcon = document.getElementById("rspamdSpamnessScoreIcon");
     var bayesIcon = document.getElementById("rspamdSpamnessBayesIcon");
     var fuzzyIcon = document.getElementById("rspamdSpamnessFuzzyIcon");
-    
-    rowEl.collapsed = true;
 
-    if (!showScore)
-        return;
-
-    var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-    var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
-
-//    if (uri == null)
-//        return;
-
-    if (gDBView.msgFolder == null)
-        return;
-
-    var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
-
-    if (hdr == null || hdr.getStringProperty(header) == null)
-        return;
-
-    var parsed = RspamdSpamness.parseHeader(hdr.getStringProperty(header));
-    rowEl.collapsed = (parsed == null);
-
-    if (parsed == null) {
-        hdrEl.headerValue = "";
-        return;
-    }
-    
-    scoreIcon.src = RspamdSpamness.getImageSrc(parsed.getScore());
-    bayesIcon.src = RspamdSpamness.getImageSrc(parsed.getBayes());
-    fuzzyIcon.src = RspamdSpamness.getImageSrc(parsed.getFuzzy());
-    hdrEl.headerValue = parsed.getScore() + " ( Bayes:";
-    hdrElBayes.headerValue = parsed.getBayes() + ", Fuzzy:";
-    hdrElFuzzy.headerValue = parsed.getFuzzy() + " )";
-//    hdrEl.valid = true;
-};
-
-RspamdSpamness.Message.displayRulesHeader = function() {
     var showRules = prefs.getBoolPref("extensions.rspamd-spamness.display.messageRules");
-    var rowEl = document.getElementById("expandedRspamdSpamnessRulesRow");
-    var hdrEl = document.getElementById("expandedRspamdSpamnessRulesBox");
+    var rowElRules = document.getElementById("expandedRspamdSpamnessRulesRow");
+    var hdrElRulesBox = document.getElementById("expandedRspamdSpamnessRulesBox");
 
-    rowEl.collapsed = true;
+    rowElScore.collapsed = true;
+    rowElRules.collapsed = true;
 
-    if (!showRules) {
+    if (!showScore && !showRules)
         return;
-    } else {
-        if (hdrEl.clearHeaderValues)
-            hdrEl.clearHeaderValues();
-    }
 
     var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
-//    if (uri == null)
-//        return;
-
     if (gDBView.msgFolder == null)
         return;
-        
+
     var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
 
     if (hdr == null || hdr.getStringProperty(header) == null)
@@ -76,17 +34,37 @@ RspamdSpamness.Message.displayRulesHeader = function() {
 
     var parsed = RspamdSpamness.parseHeader(hdr.getStringProperty(header));
 
-    var rules = (parsed == null) ? [] : parsed.getRules();
-    rowEl.collapsed = (rules.length == 0);
-    if (parsed != null && rules.length > 0) {
-        for (var i = 0; i < rules.length; i++) {
-            var link = {};
-            link.displayText = rules[i];
-            link.class = RspamdSpamness.getMetricClass(rules[i]);
-            hdrEl.addLinkView(link);
+    if (showScore) {
+        rowElScore.collapsed = (parsed == null);
+
+        if (parsed == null) {
+            hdrElScore.headerValue = "";
+            return;
         }
-        hdrEl.valid = true;
-        hdrEl.buildViews();
+
+        scoreIcon.src = RspamdSpamness.getImageSrc(parsed.getScore());
+        bayesIcon.src = RspamdSpamness.getImageSrc(parsed.getBayes());
+        fuzzyIcon.src = RspamdSpamness.getImageSrc(parsed.getFuzzy());
+        hdrElScore.headerValue = parsed.getScore() + " ( Bayes:";
+        hdrElBayes.headerValue = parsed.getBayes() + ", Fuzzy:";
+        hdrElFuzzy.headerValue = parsed.getFuzzy() + " )";
+    }
+
+    if (showRules) {
+        if (hdrElRulesBox.clearHeaderValues)
+            hdrElRulesBox.clearHeaderValues();
+
+        var rules = (parsed == null) ? [] : parsed.getRules();
+        rowElRules.collapsed = (rules.length == 0);
+        if (parsed != null && rules.length > 0) {
+            for (var i = 0; i < rules.length; i++) {
+                var link = {};
+                link.displayText = rules[i];
+                link.class = RspamdSpamness.getMetricClass(rules[i]);
+                hdrElRulesBox.addLinkView(link);
+            }
+            hdrElRulesBox.buildViews();
+        }
     }
 };
 
@@ -94,8 +72,7 @@ RspamdSpamness.Message.onLoad = function() {
     var listener = {};
     listener.onStartHeaders = function() {};
     listener.onEndHeaders = function() {
-        RspamdSpamness.Message.displayScoreHeader();
-        RspamdSpamness.Message.displayRulesHeader();
+        RspamdSpamness.Message.displayHeaders();
     };
     gMessageListeners.push(listener);
 };
