@@ -22,7 +22,6 @@ RspamdSpamness.Message.displayHeaders = function() {
         return;
 
     var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-    var uri = gMessageDisplay.folderDisplay.selectedMessageUris[0];
 
     if (gDBView.msgFolder == null)
         return;
