@@ -32,6 +32,12 @@ RspamdSpamness.getMetricClass = function(rule) {
           }
 }
 
+RspamdSpamness.getParsed = function(hdr) {
+    var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+    var headerStr = hdr.getStringProperty(header);
+    return (headerStr) ? RspamdSpamness.parseHeader(headerStr) : null;
+};
+
 RspamdSpamness.parseHeader = function(headerStr) {
     try {
         var match = headerStr.match(/: False \[([-\d\.]+) \/ [-\d\.]+\] *(.*)$/);

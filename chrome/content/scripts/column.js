@@ -5,10 +5,8 @@ RspamdSpamnessColumn.handler = {
 	if (prefs.getIntPref("extensions.rspamd-spamness.display.column") == 2)
 	    return null;
 
-        var key = gDBView.getKeyAt(row);
-        var hdr = gDBView.db.GetMsgHdrForKey(key);
-        var txt = RspamdSpamnessColumn.handler.getSortLongForRow(hdr);
-        return (isNaN(txt)) ? "" : txt;
+        var score = RspamdSpamnessColumn.getScoreByRow(row);
+        return (isNaN(score)) ? "" : score;
     },
 
     getSortStringForRow: function(hdr) {
@@ -27,24 +25,24 @@ RspamdSpamnessColumn.handler = {
 	if (prefs.getIntPref("extensions.rspamd-spamness.display.column") == 1)
 	    return null;
 
-        var key = gDBView.getKeyAt(row);
-        var hdr = gDBView.db.GetMsgHdrForKey(key);
-        var normalized = RspamdSpamnessColumn.handler.getSortLongForRow(hdr);
-
-        return RspamdSpamness.getImageSrc(normalized);
+        var score = RspamdSpamnessColumn.getScoreByRow(row);
+        return RspamdSpamness.getImageSrc(score);
     },
 
     getSortLongForRow:   function(hdr) {
-        var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-        var spamreport = hdr.getStringProperty(header);
-	if (spamreport != null) {
-            var parsed = RspamdSpamness.parseHeader(spamreport);
-	    if (parsed != null) {
-		return parsed.getScore();
-	    }
-	}
-	return Number.NaN;
+        return RspamdSpamnessColumn.getScoreByHdr(hdr);
     }
+};
+
+RspamdSpamnessColumn.getScoreByRow = function(row) {
+    var key = gDBView.getKeyAt(row);
+    var hdr = gDBView.db.GetMsgHdrForKey(key);
+    return RspamdSpamnessColumn.getScoreByHdr(hdr);
+};
+
+RspamdSpamnessColumn.getScoreByHdr = function(hdr) {
+    var parsed = RspamdSpamness.getParsed(hdr);
+    return (parsed) ? parsed.getScore() : Number.NaN;
 };
 
 RspamdSpamnessColumn.onLoad = function() {

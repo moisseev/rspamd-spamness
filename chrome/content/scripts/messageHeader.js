@@ -21,17 +21,15 @@ RspamdSpamness.Message.displayHeaders = function() {
     if (!showScore && !showRules)
         return;
 
-    var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-
     if (gDBView.msgFolder == null)
         return;
 
     var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
 
-    if (hdr == null || hdr.getStringProperty(header) == null)
+    if (!hdr)
         return;
 
-    var parsed = RspamdSpamness.parseHeader(hdr.getStringProperty(header));
+    var parsed = RspamdSpamness.getParsed(hdr);
 
     if (showScore) {
         rowElScore.collapsed = (parsed == null);
