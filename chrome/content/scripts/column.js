@@ -30,7 +30,7 @@ RspamdSpamnessColumn.handler = {
     },
 
     getSortLongForRow:   function(hdr) {
-        return RspamdSpamnessColumn.getScoreByHdr(hdr);
+        return RspamdSpamnessColumn.getScoreByHdr(hdr) * 1e4 + 1e8;
     }
 };
 
