@@ -60,7 +60,7 @@ RspamdSpamness.parseHeader = function(hdr) {
         var fuzzy = 0;
         var fuzzySymbolsCount = 0;
         while ((fuzzySymbols = re.exec(headerStr)) != null) {
-            fuzzy = fuzzy + parseFloat(fuzzySymbols[1]);
+            fuzzy += parseFloat(fuzzySymbols[1]);
             fuzzySymbolsCount++;
         }
         if (fuzzySymbolsCount === 0) {
@@ -84,7 +84,10 @@ RspamdSpamness.parseHeader = function(hdr) {
         score: score,
         rules: rules,
         bayes: bayes,
-        fuzzy: fuzzy
+        fuzzy: {
+            score: fuzzy,
+            count: fuzzySymbolsCount
+        }
     };
 };
 

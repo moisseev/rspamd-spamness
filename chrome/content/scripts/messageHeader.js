@@ -39,12 +39,16 @@ RspamdSpamness.Message.displayHeaders = function() {
             return;
         }
 
+        var fuzzyCounter = (parsed.fuzzy.count > 1)
+            ? "{" + parsed.fuzzy.count + "}"
+            : "";
+
         scoreIcon.src = RspamdSpamness.getImageSrc(parsed.score);
         bayesIcon.src = RspamdSpamness.getImageSrc(parsed.bayes);
-        fuzzyIcon.src = RspamdSpamness.getImageSrc(parsed.fuzzy);
+        fuzzyIcon.src = RspamdSpamness.getImageSrc(parsed.fuzzy.score);
         hdrElScore.headerValue = parsed.score + " ( Bayes:";
-        hdrElBayes.headerValue = parsed.bayes + ", Fuzzy:";
-        hdrElFuzzy.headerValue = parsed.fuzzy + " )";
+        hdrElBayes.headerValue = parsed.bayes + ", Fuzzy" + fuzzyCounter + ":";
+        hdrElFuzzy.headerValue = parsed.fuzzy.score + " )";
     }
 
     if (showRules) {
