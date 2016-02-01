@@ -39,19 +39,19 @@ RspamdSpamness.Message.displayHeaders = function() {
             return;
         }
 
-        scoreIcon.src = RspamdSpamness.getImageSrc(parsed.getScore());
-        bayesIcon.src = RspamdSpamness.getImageSrc(parsed.getBayes());
-        fuzzyIcon.src = RspamdSpamness.getImageSrc(parsed.getFuzzy());
-        hdrElScore.headerValue = parsed.getScore() + " ( Bayes:";
-        hdrElBayes.headerValue = parsed.getBayes() + ", Fuzzy:";
-        hdrElFuzzy.headerValue = parsed.getFuzzy() + " )";
+        scoreIcon.src = RspamdSpamness.getImageSrc(parsed.score);
+        bayesIcon.src = RspamdSpamness.getImageSrc(parsed.bayes);
+        fuzzyIcon.src = RspamdSpamness.getImageSrc(parsed.fuzzy);
+        hdrElScore.headerValue = parsed.score + " ( Bayes:";
+        hdrElBayes.headerValue = parsed.bayes + ", Fuzzy:";
+        hdrElFuzzy.headerValue = parsed.fuzzy + " )";
     }
 
     if (showRules) {
         if (hdrElRulesBox.clearHeaderValues)
             hdrElRulesBox.clearHeaderValues();
 
-        var rules = (parsed == null) ? [] : parsed.getRules();
+        var rules = (parsed == null) ? [] : parsed.rules;
         rowElRules.collapsed = (rules.length == 0);
         if (parsed != null && rules.length > 0) {
             for (var i = 0; i < rules.length; i++) {

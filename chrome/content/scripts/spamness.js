@@ -80,7 +80,12 @@ RspamdSpamness.parseHeader = function(hdr) {
         // Spamness.error(e);
     }
 
-    return new RspamdSpamness.Header(score, rules, bayes, fuzzy);
+    return {
+        score: score,
+        rules: rules,
+        bayes: bayes,
+        fuzzy: fuzzy
+    };
 };
 
 RspamdSpamness.syncHeaderPrefs = function(prefVal) {
@@ -204,27 +209,4 @@ RspamdSpamness.openTab = function(url) {
 RspamdSpamness.greet = function() {
     let greetPage = "chrome://rspamd-spamness/content/installed.xul";
     RspamdSpamness.openTab(greetPage);
-};
-
-RspamdSpamness.Header = function(score, rules, bayes, fuzzy) {
-    this._score = score;
-    this._rules = rules;
-    this._bayes = bayes;
-    this._fuzzy = fuzzy;
-};
-
-RspamdSpamness.Header.prototype.getScore = function() {
-    return this._score;
-};
-
-RspamdSpamness.Header.prototype.getRules = function() {
-    return this._rules;
-};
-
-RspamdSpamness.Header.prototype.getBayes = function() {
-    return this._bayes;
-};
-
-RspamdSpamness.Header.prototype.getFuzzy = function() {
-    return this._fuzzy;
 };
