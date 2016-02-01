@@ -29,7 +29,7 @@ RspamdSpamness.Message.displayHeaders = function() {
     if (!hdr)
         return;
 
-    var parsed = RspamdSpamness.getParsed(hdr);
+    var parsed = RspamdSpamness.parseHeader(hdr);
 
     if (showScore) {
         rowElScore.collapsed = (parsed == null);

@@ -41,8 +41,11 @@ RspamdSpamnessColumn.getScoreByRow = function(row) {
 };
 
 RspamdSpamnessColumn.getScoreByHdr = function(hdr) {
-    var parsed = RspamdSpamness.getParsed(hdr);
-    return (parsed) ? parsed.getScore() : Number.NaN;
+    var re = /: False \[([-\d\.]+) \/ [-\d\.]+\] */;
+    var headerStr = RspamdSpamness.getHeaderStr(hdr);
+    return (headerStr)
+        ? parseFloat(re.exec(headerStr)[1])
+        : Number.NaN;
 };
 
 RspamdSpamnessColumn.onLoad = function() {

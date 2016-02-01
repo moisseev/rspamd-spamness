@@ -32,14 +32,16 @@ RspamdSpamness.getMetricClass = function(rule) {
           }
 }
 
-RspamdSpamness.getParsed = function(hdr) {
+RspamdSpamness.getHeaderStr = function(hdr) {
     var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     var headerStr = hdr.getStringProperty(header);
-    return (headerStr) ? RspamdSpamness.parseHeader(headerStr) : null;
+    return (headerStr) ? headerStr : null;
 };
 
-RspamdSpamness.parseHeader = function(headerStr) {
+RspamdSpamness.parseHeader = function(hdr) {
     try {
+        var headerStr = RspamdSpamness.getHeaderStr(hdr);
+
         var match = headerStr.match(/: False \[([-\d\.]+) \/ [-\d\.]+\] *(.*)$/);
         if (match == null) {
             throw "No score found";
