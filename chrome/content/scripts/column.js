@@ -2,6 +2,8 @@ var RspamdSpamnessColumn = {};
 
 RspamdSpamnessColumn.handler = {
     getCellText:         function(row, col) {
+        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+            .getService(Components.interfaces.nsIPrefBranch);
 	if (prefs.getIntPref("extensions.rspamd-spamness.display.column") == 2)
 	    return null;
 
@@ -22,6 +24,8 @@ RspamdSpamnessColumn.handler = {
     getRowProperties:    function(row, props) {},
 
     getImageSrc:         function(row, col) {
+        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+            .getService(Components.interfaces.nsIPrefBranch);
 	if (prefs.getIntPref("extensions.rspamd-spamness.display.column") == 1)
 	    return null;
 

@@ -33,6 +33,8 @@ RspamdSpamness.getMetricClass = function(rule) {
 }
 
 RspamdSpamness.getHeaderStr = function(hdr) {
+    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+        .getService(Components.interfaces.nsIPrefBranch);
     var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     var headerStr = hdr.getStringProperty(header);
     return (headerStr) ? headerStr : null;
