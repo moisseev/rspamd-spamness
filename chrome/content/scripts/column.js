@@ -53,8 +53,7 @@ RspamdSpamnessColumn.getScoreByHdr = function(hdr) {
 };
 
 RspamdSpamnessColumn.onLoad = function() {
-    var ObserverService = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-    ObserverService.addObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);
+    Services.obs.addObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);
 };
 
 RspamdSpamnessColumn.dbObserver = {
