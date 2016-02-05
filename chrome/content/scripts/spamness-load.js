@@ -6,7 +6,7 @@ var optionObserver = {
             return;
         var doc = aSubject;
         var elem = doc.getElementById("advanced-options-button");
-        elem.addEventListener('command', this.eventHandler, true);
+        elem.addEventListener('command', this.eventHandler, false);
     },
     eventHandler: function(event) {
         var prefs = Components.classes["@mozilla.org/preferences-service;1"]
