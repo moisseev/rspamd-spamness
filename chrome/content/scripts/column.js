@@ -2,10 +2,8 @@ var RspamdSpamnessColumn = {};
 
 RspamdSpamnessColumn.handler = {
     getCellText:         function(row, col) {
-        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-            .getService(Components.interfaces.nsIPrefBranch);
-	if (prefs.getIntPref("extensions.rspamd-spamness.display.column") == 2)
-	    return null;
+        if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") == 2)
+            return null;
 
         var score = RspamdSpamnessColumn.getScoreByRow(row);
         return (isNaN(score)) ? "" : score;
@@ -24,10 +22,8 @@ RspamdSpamnessColumn.handler = {
     getRowProperties:    function(row, props) {},
 
     getImageSrc:         function(row, col) {
-        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-            .getService(Components.interfaces.nsIPrefBranch);
-	if (prefs.getIntPref("extensions.rspamd-spamness.display.column") == 1)
-	    return null;
+        if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") == 1)
+            return null;
 
         var score = RspamdSpamnessColumn.getScoreByRow(row);
         return RspamdSpamness.getImageSrc(score);

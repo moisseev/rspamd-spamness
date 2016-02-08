@@ -1,3 +1,5 @@
+Components.utils.import("resource://gre/modules/Services.jsm");
+
 var RspamdSpamness = {
     customHeaders: new Array(),
     customDBHeaders: new Array(),
@@ -33,9 +35,7 @@ RspamdSpamness.getMetricClass = function(rule) {
 }
 
 RspamdSpamness.getHeaderStr = function(hdr) {
-    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-        .getService(Components.interfaces.nsIPrefBranch);
-    var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+    var header = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     var headerStr = hdr.getStringProperty(header);
     return (headerStr) ? headerStr : null;
 };
@@ -98,8 +98,7 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
         prefVal = document.getElementById('headerNameForm').value;
     }
     var prefEl = document.getElementById('headerNameForm');
-
-    var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+    const prefs = Services.prefs;
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
     RspamdSpamness.customDBHeaders = getHeadersPref("mailnews.customDBHeaders", /\s+/);
@@ -130,8 +129,7 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     RspamdSpamness.previousSpamnessHeader = prefVal;
 
     // flush to disk
-    var prefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
-    prefService.savePrefFile(null);
+    prefs.savePrefFile(null);
     return true;
 
     function getHeadersPref(prefName, separator) {
@@ -170,15 +168,11 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 };
 
 RspamdSpamness.log = function(msg) {
-    var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
-        .getService(Components.interfaces.nsIConsoleService);
-    consoleService.logStringMessage(msg);
+    Services.console.logStringMessage(msg);
 };
 
 RspamdSpamness.error = function(msg) {
-    var consoleService = Components.classes["@mozilla.org/consoleservice;1"]
-        .getService(Components.interfaces.nsIConsoleService);
-    consoleService.logStringMessage("ERROR: " + msg);
+    Services.console.logStringMessage("ERROR: " + msg);
 };
 
 RspamdSpamness.addSpamnessColumn = function() {
@@ -193,9 +187,7 @@ RspamdSpamness.addSpamnessColumn = function() {
 RspamdSpamness.openTab = function(url) {
     let tabmail = document.getElementById("tabmail");
     if (!tabmail) {
-        let mail3PaneWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-            .getService(Components.interfaces.nsIWindowMediator)
-            .getMostRecentWindow("mail:3pane");
+        let mail3PaneWindow = Services.wm.getMostRecentWindow("mail:3pane");
         if (mail3PaneWindow) {
             tabmail = mail3PaneWindow.document.getElementById("tabmail");
             mail3PaneWindow.focus();

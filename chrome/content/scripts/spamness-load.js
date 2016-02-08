@@ -9,9 +9,7 @@ var optionObserver = {
         elem.addEventListener('command', this.eventHandler, false);
     },
     eventHandler: function(event) {
-        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-            .getService(Components.interfaces.nsIPrefBranch);
-        var previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+        var previousSpamnessHeader = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
         window.openDialog(
             "chrome://rspamd-spamness/content/advancedOptions.xul", "",
             "chrome,modal,dialog,centerscreen",
@@ -21,10 +19,9 @@ var optionObserver = {
 };
 
 RspamdSpamness.onLoad = function() {
-    var prefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefBranch);
+    const prefs = Services.prefs;
 
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-
     RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);
 
     // whether this column gets default status

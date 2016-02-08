@@ -1,8 +1,8 @@
 RspamdSpamness.Message = {};
 
 RspamdSpamness.Message.displayHeaders = function() {
-    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
-        .getService(Components.interfaces.nsIPrefBranch);
+    const prefs = Services.prefs;
+
     var showScore = prefs.getBoolPref("extensions.rspamd-spamness.display.messageScore");
     var rowElScore = document.getElementById("expandedRspamdSpamnessRow");
     var hdrElScore = document.getElementById("rspamdSpamnessScoreHeader");
