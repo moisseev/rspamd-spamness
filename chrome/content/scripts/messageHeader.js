@@ -3,24 +3,52 @@ RspamdSpamness.Message = {};
 RspamdSpamness.Message.displayHeaders = function() {
     const prefs = Services.prefs;
 
-    var showScore = prefs.getBoolPref("extensions.rspamd-spamness.display.messageScore");
-    var rowElScore = document.getElementById("expandedRspamdSpamnessRow");
-    var hdrElScore = document.getElementById("rspamdSpamnessScoreHeader");
-    var hdrElBayes = document.getElementById("rspamdSpamnessBayesHeader");
-    var hdrElFuzzy = document.getElementById("rspamdSpamnessFuzzyHeader");
+    var id = {
+        score: {
+            hdr: {
+                score: {
+                    icon:  "rspamdSpamnessScoreIcon",
+                    score: "rspamdSpamnessScoreHeader"
+                },
+                bayes: {
+                    icon:  "rspamdSpamnessBayesIcon",
+                    score: "rspamdSpamnessBayesHeader"
+                },
+                fuzzy: {
+                    icon:  "rspamdSpamnessFuzzyIcon",
+                    score: "rspamdSpamnessFuzzyHeader"
+                }
+            }
+        }
+    };
 
-    var scoreIcon = document.getElementById("rspamdSpamnessScoreIcon");
-    var bayesIcon = document.getElementById("rspamdSpamnessBayesIcon");
-    var fuzzyIcon = document.getElementById("rspamdSpamnessFuzzyIcon");
+    var el = {
+        score: {
+            row: getEl("expandedRspamdSpamnessRow")
+        },
+        rules: {
+            row: getEl("expandedRspamdSpamnessRulesRow"),
+            box: getEl("expandedRspamdSpamnessRulesBox")
+        }
+    };
 
-    var showRules = prefs.getBoolPref("extensions.rspamd-spamness.display.messageRules");
-    var rowElRules = document.getElementById("expandedRspamdSpamnessRulesRow");
-    var hdrElRulesBox = document.getElementById("expandedRspamdSpamnessRulesBox");
+    var show = {
+        score: getPref("extensions.rspamd-spamness.display.messageScore"),
+        rules: getPref("extensions.rspamd-spamness.display.messageRules")
+    };
 
-    rowElScore.collapsed = true;
-    rowElRules.collapsed = true;
+    function getEl(id) {
+        return document.getElementById(id);
+    }
 
-    if (!showScore && !showRules)
+    function getPref(prefName) {
+        return prefs.getBoolPref(prefName);
+    }
+
+    el.score.row.collapsed = true;
+    el.rules.row.collapsed = true;
+
+    if (!show.score && !show.rules)
         return;
 
     if (gDBView.msgFolder == null)
@@ -39,64 +67,67 @@ RspamdSpamness.Message.displayHeaders = function() {
     if (match == null)
         return null;
 
-    if (showScore) {
-        var score = parseFloat(match[1]);
-        rowElScore.collapsed = (score == null);
+    if (show.score) {
+        var parsed = [];
+        parsed.score = parseFloat(match[1]);
+        el.score.row.collapsed = (parsed.score == null);
 
-        if (score == null) {
-            hdrElScore.headerValue = "";
+        if (parsed.score == null) {
+            el.score.score.headerValue = "";
             return;
         }
 
         var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)/);
-        if (match1 != null) {
-            var bayes = parseFloat(match1[2]);
-        } else {
-            var bayes = "undefined";
-        }
+        parsed.bayes = (match1)
+            ? parseFloat(match1[2])
+            :"undefined";
 
         var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/g;
         var fuzzySymbols = [];
-        var fuzzy = 0;
+        parsed.fuzzy = 0;
         var fuzzySymbolsCount = 0;
         while ((fuzzySymbols = re.exec(headerStr)) != null) {
-            fuzzy += parseFloat(fuzzySymbols[1]);
+            parsed.fuzzy += parseFloat(fuzzySymbols[1]);
             fuzzySymbolsCount++;
         }
         if (fuzzySymbolsCount === 0) {
-            fuzzy = "undefined";
+            parsed.fuzzy = "undefined";
         }
 
         var fuzzyCounter = (fuzzySymbolsCount > 1)
             ? "{" + fuzzySymbolsCount + "}"
             : "";
 
-        scoreIcon.src = RspamdSpamness.getImageSrc(score);
-        bayesIcon.src = RspamdSpamness.getImageSrc(bayes);
-        fuzzyIcon.src = RspamdSpamness.getImageSrc(fuzzy);
-        hdrElScore.headerValue = score + " ( Bayes:";
-        hdrElBayes.headerValue = bayes + ", Fuzzy" + fuzzyCounter + ":";
-        hdrElFuzzy.headerValue = fuzzy + " )";
+        var hdrVal = {
+            score: parsed.score + " ( Bayes:",
+            bayes: parsed.bayes + ", Fuzzy" + fuzzyCounter + ":",
+            fuzzy: parsed.fuzzy + " )"
+        };
+
+        for (var key in id.score.hdr) {
+            getEl(id.score.hdr[key].icon).src = RspamdSpamness.getImageSrc(parsed[key]);
+            getEl(id.score.hdr[key].score).headerValue = hdrVal[key];
+        }
     }
 
-    if (showRules) {
-        if (hdrElRulesBox.clearHeaderValues)
-            hdrElRulesBox.clearHeaderValues();
+    if (show.rules) {
+        if (el.rules.box.clearHeaderValues)
+            el.rules.box.clearHeaderValues();
 
         var rules = [];
         if (match[2] != "") {
             rules = match[2].split(/ /);
         }
 
-        rowElRules.collapsed = (rules.length == 0);
+        el.rules.row.collapsed = (rules.length == 0);
         if (rules.length > 0) {
             for (var i = 0; i < rules.length; i++) {
                 var link = {};
                 link.displayText = rules[i];
                 link.class = RspamdSpamness.getMetricClass(rules[i]);
-                hdrElRulesBox.addLinkView(link);
+                el.rules.box.addLinkView(link);
             }
-            hdrElRulesBox.buildViews();
+            el.rules.box.buildViews();
         }
     }
 };
