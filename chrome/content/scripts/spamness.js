@@ -41,59 +41,6 @@ RspamdSpamness.getHeaderStr = function(hdr) {
     return (headerStr) ? headerStr : null;
 };
 
-RspamdSpamness.parseHeader = function(hdr) {
-    try {
-        var headerStr = RspamdSpamness.getHeaderStr(hdr);
-
-        var match = headerStr.match(/: False \[([-\d\.]+) \/ [-\d\.]+\] *(.*)$/);
-        if (match == null) {
-            throw "No score found";
-        }
-        var score = parseFloat(match[1]);
-
-        var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)/);
-        if (match1 != null) {
-            var bayes = parseFloat(match1[2]);
-        } else {
-            var bayes = "undefined";
-        }
-
-        var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/g;
-        var fuzzySymbols = [];
-        var fuzzy = 0;
-        var fuzzySymbolsCount = 0;
-        while ((fuzzySymbols = re.exec(headerStr)) != null) {
-            fuzzy += parseFloat(fuzzySymbols[1]);
-            fuzzySymbolsCount++;
-        }
-        if (fuzzySymbolsCount === 0) {
-            fuzzy = "undefined";
-        }
-    } catch(e) {
-        // Spamness.error(e);
-        return null;
-    }
-
-    var rules = [];
-    try {
-        if (match[2] != "") {
-            rules = match[2].split(/ /);
-        }
-    } catch(e) {
-        // Spamness.error(e);
-    }
-
-    return {
-        score: score,
-        rules: rules,
-        bayes: bayes,
-        fuzzy: {
-            score: fuzzy,
-            count: fuzzySymbolsCount
-        }
-    };
-};
-
 RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     if (!prefVal) {
         prefVal = document.getElementById('headerNameForm').value;
