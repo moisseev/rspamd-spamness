@@ -1,5 +1,4 @@
 Components.utils.import("resource://gre/modules/Services.jsm");
-const prefs = Services.prefs;
 
 var RspamdSpamness = {
     customHeaders: new Array(),
@@ -36,7 +35,7 @@ RspamdSpamness.getMetricClass = function(rule) {
 }
 
 RspamdSpamness.getHeaderStr = function(hdr) {
-    var header = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+    var header = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     var headerStr = hdr.getStringProperty(header);
     return (headerStr) ? headerStr : null;
 };
@@ -46,6 +45,7 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
         prefVal = document.getElementById('headerNameForm').value;
     }
     var prefEl = document.getElementById('headerNameForm');
+    const prefs = Services.prefs;
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
     RspamdSpamness.customDBHeaders = getHeadersPref("mailnews.customDBHeaders", /\s+/);

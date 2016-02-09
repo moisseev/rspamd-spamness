@@ -1,6 +1,8 @@
 RspamdSpamness.Message = {};
 
 RspamdSpamness.Message.displayHeaders = function() {
+    const prefs = Services.prefs;
+
     var showScore = prefs.getBoolPref("extensions.rspamd-spamness.display.messageScore");
     var rowElScore = document.getElementById("expandedRspamdSpamnessRow");
     var hdrElScore = document.getElementById("rspamdSpamnessScoreHeader");
