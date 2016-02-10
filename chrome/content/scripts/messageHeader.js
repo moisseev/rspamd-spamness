@@ -1,3 +1,5 @@
+"use strict";
+
 RspamdSpamness.Message = {};
 
 RspamdSpamness.Message.displayHeaders = function() {

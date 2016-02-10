@@ -1,3 +1,5 @@
+"use strict";
+
 Components.utils.import("resource://gre/modules/Services.jsm");
 
 var RspamdSpamness = {
@@ -7,7 +9,7 @@ var RspamdSpamness = {
 };
 
 RspamdSpamness.getImageSrc = function(normalized) {
-    var img;
+    var img, level;
     if (isNaN(normalized)) {
         img = "chrome://messenger/skin/icons/symbol-null.png";
     } else if (normalized < 0) {

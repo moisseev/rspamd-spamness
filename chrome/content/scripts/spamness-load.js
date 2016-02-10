@@ -1,3 +1,5 @@
+"use strict";
+
 const myAddonId = 'rspamd-spamness@alexander.moisseev'
 
 var optionObserver = {
