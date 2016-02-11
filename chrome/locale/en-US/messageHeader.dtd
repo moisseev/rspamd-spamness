@@ -1,2 +1,3 @@
 <!ENTITY spamness.messageHeader.label "Score">
 <!ENTITY spamness.rulesMessageHeader.label "Rules">
+<!ENTITY spamness.greylistMessageHeader.label "Greylist">

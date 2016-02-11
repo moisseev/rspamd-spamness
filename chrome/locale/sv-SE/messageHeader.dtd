@@ -1,2 +1,3 @@
 <!ENTITY spamness.messageHeader.label "skräppost">
 <!ENTITY spamness.rulesMessageHeader.label "regler">
+<!ENTITY spamness.greylistMessageHeader.label "Greylist">

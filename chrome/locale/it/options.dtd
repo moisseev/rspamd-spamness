@@ -7,6 +7,7 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Aspetto nel messaggio">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostra il punteggio">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostra le regole">
+<!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
 <!ENTITY spamnessOptions.prefHeaderName.label "Intestazione del messaggio con il livello di rischio spam">
 <!ENTITY spamnessOptions.prefHeaderName.explain "">

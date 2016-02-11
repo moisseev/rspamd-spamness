@@ -1,2 +1,3 @@
 <!ENTITY spamness.messageHeader.label "Indesiderata">
 <!ENTITY spamness.rulesMessageHeader.label "Regole">
+<!ENTITY spamness.greylistMessageHeader.label "Greylist">

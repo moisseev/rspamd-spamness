@@ -38,6 +38,15 @@
                           headerValue="" />
       </hbox>
     </row>
+    <row id="expandedRspamdSpamnessGreylistRow">
+      <label id="expandedRspamdSpamnessGreylistLabel"
+             class="headerName"
+             value="&spamness.greylistMessageHeader.label;"
+             control="expandedRspamdSpamnessGreylistHeader" />
+      <mail-headerfield id="expandedRspamdSpamnessGreylistHeader"
+                        flex="1"
+                        headerValue="" />
+    </row>
     <row id="expandedRspamdSpamnessRulesRow">
       <label id="expandedRspamdSpamnessRulesLabel"
              class="headerName"

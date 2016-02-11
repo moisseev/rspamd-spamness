@@ -25,6 +25,10 @@ RspamdSpamness.Message.displayHeaders = function() {
     };
 
     var el = {
+        greyl: {
+            row: getEl("expandedRspamdSpamnessGreylistRow"),
+            hdr: getEl("expandedRspamdSpamnessGreylistHeader")
+        },
         score: {
             row: getEl("expandedRspamdSpamnessRow")
         },
@@ -35,6 +39,7 @@ RspamdSpamness.Message.displayHeaders = function() {
     };
 
     var show = {
+        greyl: getPref("extensions.rspamd-spamness.display.messageGreylist"),
         score: getPref("extensions.rspamd-spamness.display.messageScore"),
         rules: getPref("extensions.rspamd-spamness.display.messageRules")
     };
@@ -51,8 +56,32 @@ RspamdSpamness.Message.displayHeaders = function() {
         }
     }
 
+    el.greyl.row.collapsed = true;
     el.score.row.collapsed = true;
     el.rules.row.collapsed = true;
+
+    if (show.greyl) {
+        const msg = gMessageDisplay.displayedMessage;
+        if (msg.folder) {
+            MsgHdrToMimeMessage(msg, null, function(aMsgHdr, aMimeMsg) {
+                const greylistHeaders = getGreylistHeaders(aMimeMsg.headers);
+                el.greyl.row.collapsed = (greylistHeaders.length == 0);
+                el.greyl.hdr.headerValue = greylistHeaders;
+                el.greyl.hdr.valid = true;
+            }, true);
+        };
+
+        function getGreylistHeaders(msgHeaders) {
+            let greylistHeaders = [];
+            if ('x-rmilter-greylist' in msgHeaders) {
+                msgHeaders['x-rmilter-greylist'].forEach(function(header) {
+                    if (header != null)
+                        greylistHeaders.push(header);
+                });
+            }
+            return greylistHeaders;
+        };
+    }
 
     if (!show.score && !show.rules)
         return;

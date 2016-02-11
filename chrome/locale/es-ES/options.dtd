@@ -7,6 +7,7 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Mensaje de pantalla">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostrar puntuación en mensaje">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Mostrar reglas activadas en mensaje">
+<!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
 <!ENTITY spamnessOptions.prefHeaderName.label "Informe de puntuación de la cabecera del correo que contiene spam:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Nota: las modificaciones de cabecera de Rspamd-spamness requerirán la reconstrucción de todos los índices de carpeta para que Thunderbird pueda leer los valores de la cabecera para cada mensaje">

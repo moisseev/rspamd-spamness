@@ -7,6 +7,7 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "消息显示">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "在消息中显示得分">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "在消息中显示触发的规则">
+<!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
 <!ENTITY spamnessOptions.prefHeaderName.label "邮件消息头包含垃圾邮件得分报告：">
 <!ENTITY spamnessOptions.prefHeaderName.explain "注意：更改 Rspamd-spamness 使用的消息头需要重建所有文件夹指数，以使 Thunderbird 能读取每个消息的消息头值。打开每个文件夹的属性，然后点击重建文件夹按钮。">
