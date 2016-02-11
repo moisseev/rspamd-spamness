@@ -44,7 +44,11 @@ RspamdSpamness.Message.displayHeaders = function() {
     }
 
     function getPref(prefName) {
-        return prefs.getBoolPref(prefName);
+        try {
+            return prefs.getBoolPref(prefName);
+        } catch (e) {
+            RspamdSpamness.err(e);
+        }
     }
 
     el.score.row.collapsed = true;

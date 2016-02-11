@@ -120,7 +120,7 @@ RspamdSpamness.log = function(msg) {
     Services.console.logStringMessage(msg);
 };
 
-RspamdSpamness.error = function(msg) {
+RspamdSpamness.err = function(msg) {
     Services.console.logStringMessage("ERROR: " + msg);
 };
 
