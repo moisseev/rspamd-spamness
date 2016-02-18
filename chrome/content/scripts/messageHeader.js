@@ -70,18 +70,18 @@ RspamdSpamness.Message.displayHeaders = function() {
                 el.greyl.hdr.valid = true;
             }, true);
         };
-
-        function getGreylistHeaders(msgHeaders) {
-            let greylistHeaders = [];
-            if ('x-rmilter-greylist' in msgHeaders) {
-                msgHeaders['x-rmilter-greylist'].forEach(function(header) {
-                    if (header != null)
-                        greylistHeaders.push(header);
-                });
-            }
-            return greylistHeaders;
-        };
     }
+
+    function getGreylistHeaders(msgHeaders) {
+        let greylistHeaders = [];
+        if ('x-rmilter-greylist' in msgHeaders) {
+            msgHeaders['x-rmilter-greylist'].forEach(function(header) {
+                if (header != null)
+                    greylistHeaders.push(header);
+            });
+        }
+        return greylistHeaders;
+    };
 
     if (!show.score && !show.rules)
         return;
