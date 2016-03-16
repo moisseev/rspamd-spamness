@@ -15,6 +15,7 @@
 <!-- &spamnessOptions.captionDisplayMessageGroup.label; -->
     <setting pref="extensions.rspamd-spamness.display.messageScore" type="bool" title="&spamnessOptions.prefDisplayMessageScore.label;" />
     <setting pref="extensions.rspamd-spamness.display.messageRules" type="bool" title="&spamnessOptions.prefDisplayMessageRules.label;" />
+    <setting pref="extensions.rspamd-spamness.headers.show_n_lines_before_more" type="integer" title="&spamnessOptions.prefShowNLinesBeforeMore.label;" />
     <setting pref="extensions.rspamd-spamness.display.messageGreylist" type="bool" title="&spamnessOptions.prefDisplayMessageGreylist.label;" />
 
     <setting type="control" title="&spamnessOptions.prefAdvOptions.title;">

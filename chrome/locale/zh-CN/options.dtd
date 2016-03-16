@@ -7,6 +7,7 @@
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "消息显示">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "在消息中显示得分">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "在消息中显示触发的规则">
+<!ENTITY spamnessOptions.prefShowNLinesBeforeMore.label "Number of lines to show for rules header before 'more' (0 - unlimited)">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
 <!ENTITY spamnessOptions.prefHeaderName.label "邮件消息头包含垃圾邮件得分报告：">

@@ -168,7 +168,7 @@
       <method name="buildViews">
         <body><![CDATA[
             this.maxLinesBeforeMore = Application.prefs.getValue(
-              "mailnews.headers.show_n_lines_before_more",
+              "extensions.rspamd-spamness.headers.show_n_lines_before_more",
               this.maxLinesBeforeMore);
             const dt = Components.interfaces.nsMimeHeaderDisplayTypes;
             var headerchoice = Application.prefs.getValue("mail.show_headers",
