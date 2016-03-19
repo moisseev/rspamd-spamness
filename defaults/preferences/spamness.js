@@ -3,6 +3,6 @@ pref("extensions.rspamd-spamness.display.column", 0);
 pref("extensions.rspamd-spamness.display.messageScore", true);
 pref("extensions.rspamd-spamness.display.messageRules", true);
 pref("extensions.rspamd-spamness.display.messageGreylist", true);
-pref("extensions.rspamd-spamness.headers.show_n_lines_before_more", 1);
+pref("extensions.rspamd-spamness.headers.show_n_lines_before_more", 2);
 pref("extensions.rspamd-spamness.isDefaultColumn", true);
 pref("extensions.rspamd-spamness.installationGreeting", true);
