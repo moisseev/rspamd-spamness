@@ -125,9 +125,9 @@ RspamdSpamness.Message.displayHeaders = function() {
             parsed.fuzzy += parseFloat(fuzzySymbols[1]);
             fuzzySymbolsCount++;
         }
-        if (fuzzySymbolsCount === 0) {
-            parsed.fuzzy = "undefined";
-        }
+        parsed.fuzzy = (parsed.fuzzy)
+            ? +parseFloat(parsed.fuzzy).toFixed(10)
+            : "undefined";
 
         var fuzzyCounter = (fuzzySymbolsCount > 1)
             ? "{" + fuzzySymbolsCount + "}"
