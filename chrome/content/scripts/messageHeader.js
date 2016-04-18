@@ -115,7 +115,7 @@ RspamdSpamness.Message.displayHeaders = function() {
         var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)/);
         parsed.bayes = (match1)
             ? parseFloat(match1[2])
-            :"undefined";
+            : "undefined";
 
         var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/g;
         var fuzzySymbols = [];
