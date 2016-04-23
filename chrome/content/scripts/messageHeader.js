@@ -149,9 +149,11 @@ RspamdSpamness.Message.displayHeaders = function() {
         if (el.rules.box.clearHeaderValues)
             el.rules.box.clearHeaderValues();
 
-        var rules = [];
-        if (match[2] != "") {
-            rules = match[2].split(/ /);
+        var rule   = [];
+        var rules  = [];
+        var reRule = /(\S+\([^)]+\))(?:\[.*?\])?/g;
+        while (rule = reRule.exec(match[2])) {
+            rules.push(rule[1]);
         }
 
         el.rules.row.collapsed = (rules.length == 0);
