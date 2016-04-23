@@ -26,7 +26,9 @@ RspamdSpamness.getImageSrc = function(normalized) {
 
 RspamdSpamness.getMetricClass = function(rule) {
           var metric = rule.match(/\(([-\d\.]+)\)$/);
-          var metricScore = metric[1];
+          var metricScore = (metric)
+              ? metric[1]
+              : null;
           if (metricScore < 0) {
               return "linkDisplayButtonHam";
           } else if (metricScore > 0) {
