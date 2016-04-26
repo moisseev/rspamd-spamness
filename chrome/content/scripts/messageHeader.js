@@ -149,22 +149,22 @@ RspamdSpamness.Message.displayHeaders = function() {
         if (el.rules.box.clearHeaderValues)
             el.rules.box.clearHeaderValues();
 
+        var num    = 0;
         var rule   = [];
-        var rules  = [];
-        var reRule = /(\S+\([^)]+\))(?:\[.*?\])?/g;
+        var reRule = /(\S+\([^)]+\))(\[.*?\])?/g;
         while (rule = reRule.exec(match[2])) {
-            rules.push(rule[1]);
+            el.rules.box.addLinkView({
+                displayText: rule[1],
+                tooltiptext: rule[2],
+                class:       RspamdSpamness.getMetricClass(rule[1])
+            });
+            num++;
         }
 
-        el.rules.row.collapsed = (rules.length == 0);
-        if (rules.length > 0) {
-            for (var i = 0; i < rules.length; i++) {
-                var link = {};
-                link.displayText = rules[i];
-                link.class = RspamdSpamness.getMetricClass(rules[i]);
-                el.rules.box.addLinkView(link);
-            }
+        if (num) {
             el.rules.box.buildViews();
+        } else {
+            el.rules.row.collapsed;
         }
     }
 };

@@ -72,6 +72,7 @@
         <body><![CDATA[
           aLinkNode.setAttribute("label", aLink.displayText);
           aLinkNode.setAttribute("displayText", aLink.displayText);
+          aLinkNode.setAttribute("tooltiptext", aLink.tooltiptext);
           aLinkNode.setAttribute("class", aLink.class);
         ]]></body>
       </method>
