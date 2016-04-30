@@ -112,10 +112,14 @@ RspamdSpamness.Message.displayHeaders = function() {
             return;
         }
 
-        var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)/);
+        var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)(\[.+?\])?/);
+
         parsed.bayes = (match1)
             ? parseFloat(match1[2])
             : "undefined";
+        parsed.bayesOptions = (match1 && match1[3])
+            ? match1[3]
+            : '';
 
         var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/g;
         var fuzzySymbols = [];
@@ -135,7 +139,7 @@ RspamdSpamness.Message.displayHeaders = function() {
 
         var hdrVal = {
             score: parsed.score + " ( Bayes:",
-            bayes: parsed.bayes + ", Fuzzy" + fuzzyCounter + ":",
+            bayes: parsed.bayes + parsed.bayesOptions + ", Fuzzy" + fuzzyCounter + ":",
             fuzzy: parsed.fuzzy + " )"
         };
 
