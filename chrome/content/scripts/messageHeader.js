@@ -112,7 +112,7 @@ RspamdSpamness.Message.displayHeaders = function() {
             return;
         }
 
-        var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)(\[.+?\])?/);
+        var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)(\[[^\]]+?\])?/);
 
         parsed.bayes = (match1)
             ? parseFloat(match1[2])
