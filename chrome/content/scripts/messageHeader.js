@@ -118,7 +118,7 @@ RspamdSpamness.Message.displayHeaders = function() {
             ? parseFloat(match1[2])
             : "undefined";
         parsed.bayesOptions = (match1 && match1[3])
-            ? match1[3]
+            ? ' ' + match1[3]
             : '';
 
         var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/g;
