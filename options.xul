@@ -17,6 +17,8 @@
     <setting pref="extensions.rspamd-spamness.display.messageRules" type="bool" title="&spamnessOptions.prefDisplayMessageRules.label;" />
     <setting pref="extensions.rspamd-spamness.headers.show_n_lines_before_more" type="integer" title="&spamnessOptions.prefShowNLinesBeforeMore.label;" />
     <setting pref="extensions.rspamd-spamness.display.messageGreylist" type="bool" title="&spamnessOptions.prefDisplayMessageGreylist.label;" />
+    <setting pref="extensions.rspamd-spamness.uri.folderTrainHam" type="string" title="&spamnessOptions.prefFolderURITrainHam.label;" tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
+    <setting pref="extensions.rspamd-spamness.uri.folderTrainSpam" type="string" title="&spamnessOptions.prefFolderURITrainSpam.label;" tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
 
     <setting type="control" title="&spamnessOptions.prefAdvOptions.title;">
         <button id="advanced-options-button" label="&spamnessOptions.prefAdvOptionsBtn.label;" />

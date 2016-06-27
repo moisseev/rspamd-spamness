@@ -158,3 +158,11 @@ RspamdSpamness.greet = function() {
     let greetPage = "chrome://rspamd-spamness/content/installed.xul";
     RspamdSpamness.openTab(greetPage);
 };
+
+RspamdSpamness.moveMessage = function(folder, action) {
+    var destination = MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
+    if (action == "copy")
+        MsgCopyMessage(destination);
+    else
+        MsgMoveMessage(destination);
+};
