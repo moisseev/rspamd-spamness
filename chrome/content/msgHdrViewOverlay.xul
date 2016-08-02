@@ -64,6 +64,8 @@
           <image id="rspamdSpamnessFuzzyIcon" />
         </vbox>
         <mail-headerfield id="rspamdSpamnessFuzzyHeader"
+                          headerValue="" />
+        <mail-headerfield id="rspamdSpamnessScanTimeHeader"
                           flex="1"
                           headerValue="" />
       </hbox>

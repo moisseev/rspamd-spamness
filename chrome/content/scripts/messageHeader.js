@@ -35,7 +35,8 @@ RspamdSpamness.Message.displayHeaders = function() {
         rules: {
             row: getEl("expandedRspamdSpamnessRulesRow"),
             box: getEl("expandedRspamdSpamnessRulesBox")
-        }
+        },
+        scanTime: getEl("rspamdSpamnessScanTimeHeader")
     };
 
     var show = {
@@ -147,6 +148,13 @@ RspamdSpamness.Message.displayHeaders = function() {
             getEl(id.score.hdr[key].icon).src = RspamdSpamness.getImageSrc(parsed[key]);
             getEl(id.score.hdr[key].score).headerValue = hdrVal[key];
         }
+
+        const msg = gMessageDisplay.displayedMessage;
+        if (msg.folder) {
+            MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
+                el.scanTime.headerValue = "Scan time: " + getHeaderBody(aMimeMsg.headers, "x-rspamd-scan-time");
+            }, true);
+        };
     }
 
     if (show.rules) {
