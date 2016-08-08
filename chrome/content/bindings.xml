@@ -168,12 +168,10 @@
 
       <method name="buildViews">
         <body><![CDATA[
-            this.maxLinesBeforeMore = Application.prefs.getValue(
-              "extensions.rspamd-spamness.headers.show_n_lines_before_more",
-              this.maxLinesBeforeMore);
+            const prefs = Services.prefs;
+            this.maxLinesBeforeMore = prefs.getIntPref("extensions.rspamd-spamness.headers.show_n_lines_before_more");
             const dt = Components.interfaces.nsMimeHeaderDisplayTypes;
-            var headerchoice = Application.prefs.getValue("mail.show_headers",
-                                                          dt.NormalHeaders);
+            var headerchoice = prefs.getIntPref("mail.show_headers");
             if (this.maxLinesBeforeMore < 1 ||
                 headerchoice == dt.AllHeaders) {
               this.fillLinksNode(this.links, true);
