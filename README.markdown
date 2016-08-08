@@ -11,7 +11,7 @@ Rspamd-spamness is a fork of the [Spamness add-on](https://addons.mozilla.org/en
 
 ## Requirements
 
-The add-on uses extended spamd headers added by [rmilter](https://github.com/vstakhov/rmilter).
+The add-on uses extended spamd headers added by [Rmilter](https://github.com/vstakhov/rmilter).
 To enable extended spam headers add the following line to `rmilter.conf`:
 ~~~
 spamd {
