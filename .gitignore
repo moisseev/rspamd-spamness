@@ -1,2 +1,4 @@
+*.bak
 *.jar
 *.xpi
+*.zip
