@@ -32,3 +32,17 @@ To re-index a folder, select it and choose `Properties...` from the context or `
 
 ### Displaying the 'Spam score' column
 To display the column in each folder, click the column picker and select the `Spam score` column, making sure it's checked and the new column is visible.  To apply it to all folders, click the column picker again, scrolling to the bottom to `Apply columns to...`, then `Folder and its children...` and choose the top folder for your account.  The column has already been automatically added to the default columns set, but this doesn't affect existing folders.
+
+## Training Rspamd
+
+One of the training methods is collecting emails in special IMAP folders and processing them by script that call `rspamc`.
+
+You can add toolbar buttons to move/copy messages to the training spam/ham folders in one click.
+![move_buttons](https://cloud.githubusercontent.com/assets/2275981/18813761/36a41136-830e-11e6-8cf0-a9dd7042cc8b.png)
+
+To add the buttons, you need to:
+- right-click onto Thunderbird message pane header toolbar;
+- select `Customize…`;
+- the `Customize Toolbar` window will launch. From there you can drag-and-drop the buttons into your toolbar.
+
+You also need to specify training folder location URIs in the add-on options. A folder URI can be found at `General Information` tab of the `Folder Properties`.
