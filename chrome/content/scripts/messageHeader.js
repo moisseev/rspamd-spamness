@@ -116,7 +116,7 @@ RspamdSpamness.Message.displayHeaders = function() {
         var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)(\[[^\]]+?\])?/);
 
         parsed.bayes = (match1)
-            ? parseFloat(match1[2])
+            ? match1[2]
             : "undefined";
         parsed.bayesOptions = (match1 && match1[3])
             ? ' ' + match1[3]
