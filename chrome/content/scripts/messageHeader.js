@@ -157,7 +157,10 @@ RspamdSpamness.Message.displayHeaders = function() {
             const msg = gMessageDisplay.displayedMessage;
             if (msg.folder) {
                 MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
-                    el.scanTime.headerValue = "Scan time: " + getHeaderBody(aMimeMsg.headers, "x-rspamd-scan-time");
+                    const scanTime = getHeaderBody(aMimeMsg.headers, "x-rspamd-scan-time");
+                    el.scanTime.headerValue = (scanTime.length)
+                        ? "Scan time: " + scanTime
+                        : "";
                 }, true, {
                     partsOnDemand: true
                 });
