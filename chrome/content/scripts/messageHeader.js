@@ -99,13 +99,13 @@ RspamdSpamness.Message.displayHeaders = function() {
     if (headerStr == null)
         return null;
 
-    var match = headerStr.match(/: False \[([-\d\.]+) \/ [-\d\.]+\] *(.*)$/);
+    var match = headerStr.match(/: False \[[-\d\.]+ \/ [-\d\.]+\] *(.*)$/);
     if (match == null)
         return null;
 
     if (show.score) {
         var parsed = [];
-        parsed.score = parseFloat(match[1]);
+        parsed.score = RspamdSpamnessColumn.getScoreByHdr(hdr);
         el.score.row.collapsed = (parsed.score == null);
 
         if (parsed.score == null) {
@@ -164,7 +164,7 @@ RspamdSpamness.Message.displayHeaders = function() {
         var num    = 0;
         var rule   = [];
         var reRule = /(\S+\([^)]+\))(\[.*?\])?/g;
-        while (rule = reRule.exec(match[2])) {
+        while (rule = reRule.exec(match[1])) {
             el.rules.box.addLinkView({
                 displayText: rule[1],
                 tooltiptext: rule[2],
