@@ -74,8 +74,10 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 	    }
     }
 
-    setHeadersPref("mailnews.customDBHeaders", RspamdSpamness.customDBHeaders, " " );
-    setHeadersPref("mailnews.customHeaders",   RspamdSpamness.customHeaders,   ": ");
+    setHeadersPref("mailnews.customDBHeaders", RspamdSpamness.customDBHeaders, " ",
+        RspamdSpamness.previousSpamnessHeader, prefVal);
+    setHeadersPref("mailnews.customHeaders",   RspamdSpamness.customHeaders,   ": ",
+        RspamdSpamness.previousSpamnessHeader, prefVal);
     prefs.setCharPref("extensions.rspamd-spamness.header", prefVal);
     RspamdSpamness.previousSpamnessHeader = prefVal;
 
@@ -94,25 +96,28 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
         return /^[\x21-\x39\x3B-\x7E]+$/.test(str);
     }
 
-    function setHeadersPref(prefName, headersArray, separator) {
-        var exists = false;
-        var prevExists = -1;
-        for (var i = 0; i < headersArray.length; i++) {
-            if (headersArray[i] == prefVal) {
-                exists = true;
+    function setHeadersPref(prefName, arr, separator, rmvHeaders, addHeaders) {
+        let modified;
+        if (typeof rmvHeaders == "string")
+            rmvHeaders = [rmvHeaders];
+        if (typeof addHeaders == "string")
+            addHeaders = [addHeaders];
+
+        rmvHeaders.forEach(function (hdr) {
+            const i = arr.indexOf(hdr);
+            if (i >= 0 && addHeaders.indexOf(hdr) == -1) {
+                arr.splice(i, 1);
+                modified = true;
             }
-            if (headersArray[i] == RspamdSpamness.previousSpamnessHeader) {
-                prevExists = i;
+        });
+        addHeaders.forEach(function (hdr) {
+            if (arr.indexOf(hdr) == -1) {
+                arr.push(hdr);
+                modified = true;
             }
-        }
-        if (!exists || prevExists >= 0) {
-            if (prefVal != RspamdSpamness.previousSpamnessHeader && prevExists >= 0) {
-                headersArray.splice(prevExists, 1);
-            }
-            if (!exists) {
-                headersArray.push(prefVal);
-            }
-            var newPref = headersArray.join(separator);
+        });
+        if (modified) {
+            var newPref = arr.join(separator);
             prefs.setCharPref(prefName, newPref);
         }
     }
