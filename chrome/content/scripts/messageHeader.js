@@ -80,7 +80,9 @@ RspamdSpamness.Message.displayHeaders = function() {
                 el.greyl.row.collapsed = (greylistHeaders.length == 0);
                 el.greyl.hdr.headerValue = greylistHeaders;
                 el.greyl.hdr.valid = true;
-            }, true);
+            }, true, {
+                partsOnDemand: true
+            });
         };
     }
 
@@ -153,7 +155,9 @@ RspamdSpamness.Message.displayHeaders = function() {
         if (msg.folder) {
             MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
                 el.scanTime.headerValue = "Scan time: " + getHeaderBody(aMimeMsg.headers, "x-rspamd-scan-time");
-            }, true);
+            }, true, {
+                partsOnDemand: true
+            });
         };
     }
 
