@@ -97,17 +97,34 @@ RspamdSpamness.Message.displayHeaders = function() {
     if (!hdr)
         return;
 
-    var headerStr = RspamdSpamness.getHeaderStr(hdr);
-    if (headerStr == null)
-        return null;
-
-    var match = headerStr.match(/: False \[[-\d\.]+ \/ [-\d\.]+\] *(.*)$/);
-    if (match == null)
-        return null;
+    // Get symbols from Rmilter header
+    const headerStr = RspamdSpamness.getHeaderStr(hdr);
+    if (headerStr) {
+        const s = headerStr.match(/: False \[[-\d\.]+ \/ [-\d\.]+\] *(.*)$/);
+        if (s) {
+            displayScoreRulesHeaders(s[1]);
+            return;
         }
-    displayScoreRulesHeaders();
+    }
 
-    function displayScoreRulesHeaders() {
+    // Get symbols from Exim header
+    const msg = gMessageDisplay.displayedMessage;
+    if (msg.folder) {
+        MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
+            const headerStr = getHeaderBody(aMimeMsg.headers, "x-spam-report")[0];
+            if (headerStr) {
+                const s = headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
+                if (s)
+                    displayScoreRulesHeaders(s[1]);
+            }
+        }, true, {
+            partsOnDemand: true
+        });
+    };
+
+    return;
+
+    function displayScoreRulesHeaders(symbols) {
         if (show.score) {
             var parsed = [];
             parsed.score = RspamdSpamnessColumn.getScoreByHdr(hdr);
@@ -118,20 +135,15 @@ RspamdSpamness.Message.displayHeaders = function() {
                 return;
             }
 
-            var match1 = headerStr.match(/BAYES_(HAM|SPAM)\(([-\d\.]+)\)(\[[^\]]+?\])?/);
-
-            parsed.bayes = (match1)
-                ? match1[2]
-                : "undefined";
-            parsed.bayesOptions = (match1 && match1[3])
-                ? ' ' + match1[3]
-                : '';
+            const b = symbols.match(/BAYES_(?:HAM|SPAM)\(([-\d\.]+)\)(\[[^\]]+?\])?/);
+            parsed.bayes = (b) ? b[1] : "undefined";
+            parsed.bayesOptions = (b && b[2]) ? " " + b[2] : "";
 
             var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/g;
             var fuzzySymbols = [];
             parsed.fuzzy = 0;
             var fuzzySymbolsCount = 0;
-            while ((fuzzySymbols = re.exec(headerStr)) != null) {
+            while ((fuzzySymbols = re.exec(symbols)) != null) {
                 parsed.fuzzy += parseFloat(fuzzySymbols[1]);
                 fuzzySymbolsCount++;
             }
@@ -174,7 +186,7 @@ RspamdSpamness.Message.displayHeaders = function() {
             var num    = 0;
             var rule   = [];
             var reRule = /(\S+\([^)]+\))(\[.*?\])?/g;
-            while (rule = reRule.exec(match[1])) {
+            while (rule = reRule.exec(symbols)) {
                 el.rules.box.addLinkView({
                     displayText: rule[1],
                     tooltiptext: rule[2],
