@@ -100,7 +100,7 @@ RspamdSpamness.Message.displayHeaders = function() {
     // Get symbols from Rmilter header
     const headerStr = RspamdSpamness.getHeaderStr(hdr);
     if (headerStr) {
-        const s = headerStr.match(/: False \[[-\d\.]+ \/ [-\d\.]+\] *(.*)$/);
+        const s = headerStr.match(/: False \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
         if (s) {
             displayScoreRulesHeaders(s[1]);
             return;
@@ -135,11 +135,11 @@ RspamdSpamness.Message.displayHeaders = function() {
                 return;
             }
 
-            const b = symbols.match(/BAYES_(?:HAM|SPAM)\(([-\d\.]+)\)(\[[^\]]+?\])?/);
+            const b = symbols.match(/BAYES_(?:HAM|SPAM)\(([-\d.]+)\)(\[[^\]]+?\])?/);
             parsed.bayes = (b) ? b[1] : "undefined";
             parsed.bayesOptions = (b && b[2]) ? " " + b[2] : "";
 
-            var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d\.]+)\)/g;
+            var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d.]+)\)/g;
             var fuzzySymbols = [];
             parsed.fuzzy = 0;
             var fuzzySymbolsCount = 0;
