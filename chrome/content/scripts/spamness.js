@@ -77,7 +77,8 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     setHeadersPref("mailnews.customDBHeaders", RspamdSpamness.customDBHeaders, " ",
         RspamdSpamness.previousSpamnessHeader, prefVal);
     setHeadersPref("mailnews.customHeaders",   RspamdSpamness.customHeaders,   ": ",
-        RspamdSpamness.previousSpamnessHeader, prefVal);
+        RspamdSpamness.previousSpamnessHeader, [prefVal, "x-spam-score"]);
+
     prefs.setCharPref("extensions.rspamd-spamness.header", prefVal);
     RspamdSpamness.previousSpamnessHeader = prefVal;
 
