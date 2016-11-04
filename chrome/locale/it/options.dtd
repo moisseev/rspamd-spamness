@@ -2,7 +2,7 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Mostra grafica e punteggio">
 <!ENTITY spamnessOptions.prefShowText.label "Mostra solo il punteggio">
 <!ENTITY spamnessOptions.prefShowImage.label "Mostra solo la grafica">
-<!ENTITY spamnessOptions.prefIsDefaultColumn.label "">
+<!ENTITY spamnessOptions.prefIsDefaultColumn.label "Show column by default">
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Aspetto nel messaggio">
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Mostra il punteggio">
@@ -10,8 +10,8 @@
 <!ENTITY spamnessOptions.prefShowNLinesBeforeMore.label "Number of lines to show for rules header before 'more' (0 - unlimited)">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
-<!ENTITY spamnessOptions.prefHeaderName.label "Intestazione del messaggio con il livello di rischio spam">
-<!ENTITY spamnessOptions.prefHeaderName.explain "">
+<!ENTITY spamnessOptions.prefHeaderName.label "Rmilter mail header containing extended Rspamd headers:">
+<!ENTITY spamnessOptions.prefHeaderName.explain "Note: Changing the header Rspamd-spamness uses will require rebuilding all folder indices so Thunderbird can read the header values for each message.  Open each folder's properties, then click the Repair Folder button.">
 
 <!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">
 <!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">
