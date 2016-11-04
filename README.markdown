@@ -7,18 +7,18 @@ on the server-side and embedded in message headers.
 ![screenshot](https://cloud.githubusercontent.com/assets/2275981/12062734/4021734a-afb3-11e5-8558-626fedd797ee.png
 "Rspamd-spamness adds a column to the thread pane (message list) and a header to the message pane. The size and saturation of a circle reflects larger or smaller spam score.")
 
-Rspamd-spamness is a fork of the [Spamness add-on](https://addons.mozilla.org/en-US/thunderbird/addon/spamness/) by Ryan Lee.
-
 ## Requirements
 
-The add-on uses extended spamd headers added by [Rmilter](https://github.com/vstakhov/rmilter).
-To enable extended spam headers add the following line to `rmilter.conf`:
+The add-on uses extended Rspamd headers added by [Rmilter](https://github.com/vstakhov/rmilter) (`X-Spamd-Result`) and (from version 0.8.0) headers added by Exim (`X-Spam-Score` and `X-Spam-Report`).
+
+To enable extended spam headers in Rmilter add the following line to `rmilter.conf`:
 ~~~
 spamd {
 ...
         extended_spam_headers = yes;
 };
 ~~~
+To enable headers in Exim refer to the "Integration with Exim MTA" section of [MTA integration](https://rspamd.com/doc/integration.html) document.
 
 ## Installation
 
@@ -46,3 +46,7 @@ To add the buttons, you need to:
 - the `Customize Toolbar` window will launch. From there you can drag-and-drop the buttons into your toolbar.
 
 You also need to specify training folder location URIs in the add-on options. A folder URI can be found at `General Information` tab of the `Folder Properties`.
+
+## Credits
+
+Rspamd-spamness is a fork of the [Spamness add-on](https://addons.mozilla.org/en-US/thunderbird/addon/spamness/) by Ryan Lee.
