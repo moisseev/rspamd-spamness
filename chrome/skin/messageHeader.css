@@ -13,18 +13,13 @@
 .linkDisplayButton {
     margin: -1px;
     margin-bottom: 0px;
+}
+
+mail-link {
     -moz-padding-start: 3px !important;
     -moz-padding-end: 3px !important;
     background-color: transparent;
     border-radius: 2px;
-}
-
-mail-link[selected="true"] .linkDisplayButton {
-    cursor: pointer;
-    border-radius: 3px;
-    background-color: #fcaf3e;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
 }
 
 .linkSeparator {
@@ -52,4 +47,16 @@ mail-multi-linkField {
     padding: 0px !important;
     margin: 0px !important;
     overflow: hidden;
+}
+
+mail-link:hover {
+    background-color: #aaa;
+}
+
+.linkDisplayButtonHam:hover {
+    background-color: #b4eba8;
+}
+
+.linkDisplayButtonSpam:hover {
+    background-color: #f0b0a8;
 }
