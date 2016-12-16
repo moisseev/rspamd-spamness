@@ -202,18 +202,14 @@
       <method name="toggleWrap">
         <body>
           <![CDATA[
-            document.getElementById("expandedHeaderView").setAttribute("show_header_mode","all");
-
             this.longLinks.removeAttribute("singleline");
-
             this.clearChildNodes(this.links);
-
             this.fillLinksNode(this.links, true);
 
-            let eHV = document.getElementById("expandedHeaderView");
-            let style = getComputedStyle(eHV, null);
-
-            eHV.scrollTop = style.getPropertyValue("font-size").slice(0, -2);
+            const expandedHeaderView = document.getElementById("expandedHeaderView");
+            const expandedHeadersBoxHeight = document.getElementById("expandedHeadersBox").clientHeight;
+            expandedHeaderView.setAttribute("height", expandedHeadersBoxHeight);
+            expandedHeaderView.setAttribute("show_header_mode", (expandedHeadersBoxHeight < 230 ) ? "normal" : "all" );
           ]]>
         </body>
       </method>
