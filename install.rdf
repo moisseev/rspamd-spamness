@@ -31,6 +31,7 @@
     <em:translator>Luana Di Muzio - BabelZilla</em:translator>
     <em:translator>Mikael Hiort af Ornäs</em:translator>
     <em:translator>RigoNet</em:translator>
+    <em:translator>dehnli</em:translator>
     <em:iconURL>chrome://rspamd-spamness/skin/icon32x32.png</em:iconURL>
     <em:homepageURL>https://github.com/moisseev/rspamd-spamness</em:homepageURL>
 
@@ -55,6 +56,13 @@
         <em:locale>pt-BR</em:locale>
         <em:name>Rspamd-spamness</em:name>
         <em:description>Fornece uma escala visual colorida da importância do spam, baseada na sua pontuação Rspamd.</em:description>
+      </Description>
+    </em:localized>
+    <em:localized>  
+      <Description>
+        <em:locale>ru</em:locale>
+        <em:name>Rspamd-spamness</em:name>
+        <em:description>Дополнение позволяет наглядно отображать результаты обработки сообщения антиспам-системой Rspamd.</em:description>
       </Description>
     </em:localized>
 

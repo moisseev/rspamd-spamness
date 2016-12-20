@@ -1,0 +1,8 @@
+<!ENTITY spamness.messageHeader.label "Оценка">
+<!ENTITY spamness.rulesMessageHeader.label "Правила">
+<!ENTITY spamness.greylistMessageHeader.label "Грейлист">
+
+<!ENTITY spamness.buttonTrainHam.label "Обучить как не-спам">
+<!ENTITY spamness.buttonTrainSpam.label "Обучить как спам">
+<!ENTITY spamness.buttonTrainHam.tooltip "Переместить сообщение в папку для обучения как не-спам">
+<!ENTITY spamness.buttonTrainSpam.tooltip "Переместить сообщение в папку для обучения как спам">

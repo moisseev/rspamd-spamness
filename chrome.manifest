@@ -8,6 +8,7 @@ skin	rspamd-spamness	classic/1.0	chrome/skin/
 locale	rspamd-spamness	en-US	chrome/locale/en-US/
 locale  rspamd-spamness	sr	chrome/locale/sr/
 locale  rspamd-spamness	pt-BR	chrome/locale/pt-BR/
+locale  rspamd-spamness	ru	chrome/locale/ru/
 locale	rspamd-spamness	es-ES	chrome/locale/es-ES/
 locale	rspamd-spamness	fr	chrome/locale/fr/
 locale	rspamd-spamness	zh-CN	chrome/locale/zh-CN/
