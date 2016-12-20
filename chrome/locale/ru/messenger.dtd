@@ -1,0 +1,2 @@
+<!ENTITY spamnessColumn.label "Оценка спама [Rspamd]">
+<!ENTITY spamnessColumnToolTip.label "Сортировать по оценке">
