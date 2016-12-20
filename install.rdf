@@ -62,7 +62,7 @@
       <Description>
         <em:locale>ru</em:locale>
         <em:name>Rspamd-spamness</em:name>
-        <em:description>Дополнение позволяет наглядно отображать результаты обработки сообщения антиспам-системой Rspamd</em:descripti
+        <em:description>Дополнение позволяет наглядно отображать результаты обработки сообщения антиспам-системой Rspamd.</em:description>
       </Description>
     </em:localized>
 
