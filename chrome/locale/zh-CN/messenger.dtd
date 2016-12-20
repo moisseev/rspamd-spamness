@@ -1,2 +1,2 @@
-<!ENTITY spamnessColumn.label "垃圾邮件等级">
+<!ENTITY spamnessColumn.label "垃圾邮件等级 [Rspamd]">
 <!ENTITY spamnessColumnToolTip.label "点击按垃圾邮件等级排序">

@@ -1,2 +1,2 @@
-<!ENTITY spamnessColumn.label "Ratio de Spam">
+<!ENTITY spamnessColumn.label "Ratio de Spam [Rspamd]">
 <!ENTITY spamnessColumnToolTip.label "Pulsar para ordenar por ratio de SpamAssassin">

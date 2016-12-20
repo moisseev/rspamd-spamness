@@ -1,2 +1,2 @@
-<!ENTITY spamnessColumn.label "Skräppostklassificering">
+<!ENTITY spamnessColumn.label "Skräppostklassificering [Rspamd]">
 <!ENTITY spamnessColumnToolTip.label "Klicka för att sortera efter SpamAssassins skräppostklassificering">

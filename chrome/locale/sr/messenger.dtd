@@ -1,2 +1,2 @@
-<!ENTITY spamnessColumn.label "Оцена нежељености">
+<!ENTITY spamnessColumn.label "Оцена нежељености [Rspamd]">
 <!ENTITY spamnessColumnToolTip.label "Кликните да бисте поређали по оцени SpamAssassin">

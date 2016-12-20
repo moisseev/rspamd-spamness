@@ -1,2 +1,2 @@
-<!ENTITY spamnessColumn.label "Livello di rischio spam">
+<!ENTITY spamnessColumn.label "Livello di rischio spam [Rspamd]">
 <!ENTITY spamnessColumnToolTip.label "Fare clic per ordinare per livello di rischio spam secondo SpamAssassin">

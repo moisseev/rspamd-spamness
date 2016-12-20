@@ -1,2 +1,2 @@
-<!ENTITY spamnessColumn.label "Spam score">
+<!ENTITY spamnessColumn.label "Spam score [Rspamd]">
 <!ENTITY spamnessColumnToolTip.label "Click to sort by Rspamd spam score">
