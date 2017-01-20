@@ -43,7 +43,7 @@ RspamdSpamnessColumn.getScoreByRow = function(row) {
 };
 
 RspamdSpamnessColumn.getScoreByHdr = function(hdr) {
-    const re = /(?:^|: False \[)([-\d.]+?) [(/]/;
+    const re = /(?:^|: \S+ \[)([-\d.]+?) [(/]/;
     const headerStr = RspamdSpamness.getHeaderStr(hdr) || hdr.getStringProperty("x-spam-score");
     return (headerStr)
         ? parseFloat(re.exec(headerStr)[1])

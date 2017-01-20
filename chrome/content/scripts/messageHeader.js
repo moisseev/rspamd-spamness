@@ -100,7 +100,7 @@ RspamdSpamness.Message.displayHeaders = function() {
     // Get symbols from Rmilter header
     const headerStr = RspamdSpamness.getHeaderStr(hdr);
     if (headerStr) {
-        const s = headerStr.match(/: False \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
+        const s = headerStr.match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
         if (s) {
             displayScoreRulesHeaders(s[1]);
             return;
