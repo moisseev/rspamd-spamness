@@ -186,6 +186,12 @@ RspamdSpamness.Message.displayHeaders = function() {
             var num    = 0;
             var rule   = [];
             var reRule = /(\S+\([^)]+\))(\[.*?\])?/g;
+
+            const converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+                .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+            converter.charset = "UTF-8";
+            symbols = converter.ConvertToUnicode(symbols);
+
             while (rule = reRule.exec(symbols)) {
                 el.rules.box.addLinkView({
                     displayText: rule[1],
