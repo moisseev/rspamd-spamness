@@ -9,6 +9,8 @@ var optionObserver = {
         var doc = aSubject;
         var elem = doc.getElementById("advanced-options-button");
         elem.addEventListener('command', this.eventHandler, false);
+        elem = aSubject.getElementById("default-action-menupopup");
+        elem.addEventListener("popuphidden", this.setBtnCmdLabels, false);
     },
     eventHandler: function(event) {
         var previousSpamnessHeader = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
@@ -17,6 +19,9 @@ var optionObserver = {
             "chrome,modal,dialog,centerscreen",
             previousSpamnessHeader
         );
+    },
+    setBtnCmdLabels: function () {
+        RspamdSpamness.setBtnCmdLabels();
     }
 };
 
@@ -25,6 +30,7 @@ RspamdSpamness.onLoad = function() {
 
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);
+    RspamdSpamness.setBtnCmdLabels();
 
     // whether this column gets default status
     var defaultCol = prefs.getBoolPref("extensions.rspamd-spamness.isDefaultColumn");

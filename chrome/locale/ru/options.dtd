@@ -20,3 +20,5 @@
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.label "Расположение [URI] папки 'Спам'">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.tooltip "Узнать URI можно в свойствах папки, вкладка 'Основная информация', поле 'Адрес'">
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.tooltip "Узнать URI можно в свойствах папки, вкладка 'Основная информация', поле 'Адрес'">
+
+<!ENTITY spamnessOptions.prefTrainingButtonsDefaultAction.title "Действие по умолчанию для кнопок обучения">

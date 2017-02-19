@@ -19,6 +19,14 @@
     <setting pref="extensions.rspamd-spamness.display.messageGreylist" type="bool" title="&spamnessOptions.prefDisplayMessageGreylist.label;" />
     <setting pref="extensions.rspamd-spamness.uri.folderTrainHam" type="string" title="&spamnessOptions.prefFolderURITrainHam.label;" tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
     <setting pref="extensions.rspamd-spamness.uri.folderTrainSpam" type="string" title="&spamnessOptions.prefFolderURITrainSpam.label;" tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
+    <setting pref="extensions.rspamd-spamness.trainingButtons.defaultAction" type="menulist" title="&spamnessOptions.prefTrainingButtonsDefaultAction.title;">
+      <menulist>
+        <menupopup id="default-action-menupopup">
+          <menuitem value="move" label="Move" />
+          <menuitem value="copy" label="Copy" />
+        </menupopup>
+      </menulist>
+    </setting>
 
     <setting type="control" title="&spamnessOptions.prefAdvOptions.title;">
         <button id="advanced-options-button" label="&spamnessOptions.prefAdvOptionsBtn.label;" />

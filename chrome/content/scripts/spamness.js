@@ -5,7 +5,8 @@ Components.utils.import("resource://gre/modules/Services.jsm");
 var RspamdSpamness = {
     customHeaders: new Array(),
     customDBHeaders: new Array(),
-    previousSpamnessHeader: ''
+    previousSpamnessHeader: "",
+    trainingButtonDefaultAction: "move"
 };
 
 RspamdSpamness.getImageSrc = function(normalized) {
@@ -165,10 +166,32 @@ RspamdSpamness.greet = function() {
     RspamdSpamness.openTab(greetPage);
 };
 
-RspamdSpamness.moveMessage = function(folder, action) {
+RspamdSpamness.moveMessage = function (folder, isDefault) {
     var destination = MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
-    if (action == "copy")
+    if (isDefault && RspamdSpamness.trainingButtonDefaultAction == "copy" ||
+        !isDefault && RspamdSpamness.trainingButtonDefaultAction != "copy")
         MsgCopyMessage(destination);
     else
         MsgMoveMessage(destination);
+};
+
+RspamdSpamness.setBtnCmdLabels = function () {
+    function setLabel(id, label) {
+        document.getElementById(id)
+            .setAttribute("label", label);
+    }
+
+    RspamdSpamness.trainingButtonDefaultAction = Services.prefs.getCharPref("extensions.rspamd-spamness.trainingButtons.defaultAction");
+
+    if (RspamdSpamness.trainingButtonDefaultAction == "copy") {
+        setLabel("btnHamCmdPrimary", "Copy");
+        setLabel("btnSpamCmdPrimary", "Copy");
+        setLabel("btnHamCmdSecondary", "Move");
+        setLabel("btnSpamCmdSecondary", "Move");
+    } else {
+        setLabel("btnHamCmdPrimary", "Move");
+        setLabel("btnSpamCmdPrimary", "Move");
+        setLabel("btnHamCmdSecondary", "Copy");
+        setLabel("btnSpamCmdSecondary", "Copy");
+    }
 };

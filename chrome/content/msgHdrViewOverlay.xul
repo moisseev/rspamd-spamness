@@ -19,12 +19,12 @@
                    label="&spamness.buttonTrainHam.label;"
                    tooltiptext="&spamness.buttonTrainHam.tooltip;"
                    image="chrome://rspamd-spamness/skin/arrow-down.png"
-                   oncommand="RspamdSpamness.moveMessage('TrainHam');">
+                   oncommand="RspamdSpamness.moveMessage('TrainHam', true);">
       <menupopup>
-        <menuitem label="Move" default="true" />
+        <menuitem id="btnHamCmdPrimary" default="true" />
         <menuseparator/>
-        <menuitem label="Copy"
-                  oncommand="RspamdSpamness.moveMessage('TrainHam', 'copy'); event.stopPropagation();" />
+        <menuitem id="btnHamCmdSecondary"
+                  oncommand="RspamdSpamness.moveMessage('TrainHam'); event.stopPropagation();" />
       </menupopup>
     </toolbarbutton>
     <toolbarbutton id="rspamdSpamnessButtonSpam"
@@ -33,12 +33,12 @@
                    label="&spamness.buttonTrainSpam.label;"
                    tooltiptext="&spamness.buttonTrainSpam.tooltip;"
                    image="chrome://rspamd-spamness/skin/arrow-up.png"
-                   oncommand="RspamdSpamness.moveMessage('TrainSpam');" >
+                   oncommand="RspamdSpamness.moveMessage('TrainSpam', true);" >
       <menupopup>
-        <menuitem label="Move" default="true" />
+        <menuitem id="btnSpamCmdPrimary" default="true" />
         <menuseparator/>
-        <menuitem label="Copy"
-                  oncommand="RspamdSpamness.moveMessage('TrainSpam', 'copy'); event.stopPropagation();" />
+        <menuitem id="btnSpamCmdSecondary"
+                  oncommand="RspamdSpamness.moveMessage('TrainSpam'); event.stopPropagation();" />
       </menupopup>
     </toolbarbutton>
   </toolbarpalette>

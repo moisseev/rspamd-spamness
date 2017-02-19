@@ -20,3 +20,5 @@
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.label "Spam training folder location URI">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.tooltip "Can be found at 'General Information' tab of 'Folder Properties'">
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.tooltip "Can be found at 'General Information' tab of 'Folder Properties'">
+
+<!ENTITY spamnessOptions.prefTrainingButtonsDefaultAction.title "Training buttons default action">
