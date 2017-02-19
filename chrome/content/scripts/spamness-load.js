@@ -3,17 +3,16 @@
 const myAddonId = 'rspamd-spamness@alexander.moisseev'
 
 var optionObserver = {
-    observe: function(aSubject, aTopic, aData) {
-        if (aTopic !== 'addon-options-displayed' || aData !== myAddonId)
+    observe: function (aSubject, aTopic, aData) {
+        if (aTopic !== "addon-options-displayed" || aData !== myAddonId)
             return;
-        var doc = aSubject;
-        var elem = doc.getElementById("advanced-options-button");
-        elem.addEventListener('command', this.eventHandler, false);
-        elem = aSubject.getElementById("default-action-menupopup");
-        elem.addEventListener("popuphidden", this.setBtnCmdLabels, false);
+        aSubject.getElementById("advanced-options-button")
+            .addEventListener("command", this.openAdvancedOptions, false);
+        aSubject.getElementById("default-action-menupopup")
+            .addEventListener("popuphidden", this.setBtnCmdLabels, false);
     },
-    eventHandler: function(event) {
-        var previousSpamnessHeader = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+    openAdvancedOptions: function () {
+        const previousSpamnessHeader = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
         window.openDialog(
             "chrome://rspamd-spamness/content/advancedOptions.xul", "",
             "chrome,modal,dialog,centerscreen",
