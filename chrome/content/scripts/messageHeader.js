@@ -98,9 +98,15 @@ RspamdSpamness.Message.displayHeaders = function() {
         return;
 
     // Get symbols from Rmilter header
-    const headerStr = RspamdSpamness.getHeaderStr(hdr);
-    if (headerStr) {
-        const s = headerStr.match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
+    RspamdSpamness.Message.headerStr = RspamdSpamness.getHeaderStr(hdr);
+    if (RspamdSpamness.Message.headerStr) {
+
+        const converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+            .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+        converter.charset = "UTF-8";
+        RspamdSpamness.Message.headerStr = converter.ConvertToUnicode(RspamdSpamness.Message.headerStr);
+
+        const s = RspamdSpamness.Message.headerStr.match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
         if (s) {
             displayScoreRulesHeaders(s[1]);
             return;
@@ -111,9 +117,9 @@ RspamdSpamness.Message.displayHeaders = function() {
     const msg = gMessageDisplay.displayedMessage;
     if (msg.folder) {
         MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
-            const headerStr = getHeaderBody(aMimeMsg.headers, "x-spam-report")[0];
-            if (headerStr) {
-                const s = headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
+            RspamdSpamness.Message.headerStr = getHeaderBody(aMimeMsg.headers, "x-spam-report")[0];
+            if (RspamdSpamness.Message.headerStr) {
+                const s = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
                 if (s)
                     displayScoreRulesHeaders(s[1]);
             }
@@ -186,12 +192,6 @@ RspamdSpamness.Message.displayHeaders = function() {
             var num    = 0;
             var rule   = [];
             var reRule = /(\S+\([^)]+\))(\[.*?\])?/g;
-
-            const converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
-                .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
-            converter.charset = "UTF-8";
-            symbols = converter.ConvertToUnicode(symbols);
-
             while (rule = reRule.exec(symbols)) {
                 el.rules.box.addLinkView({
                     displayText: rule[1],
