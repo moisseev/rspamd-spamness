@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://rspamd-spamness/locale/messageHeader.dtd">
+
+<dialog title="&spamness.rulesMessageHeader.label;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        buttons=",">
+
+    <textbox id="rulesDlgTextbox" class="plain" style="background-color: transparent;" flex="1"
+        multiline="true" readonly="true"
+        onoverflow="this.height = this.inputField.scrollHeight;" />
+
+    <script>
+        document.getElementById("rulesDlgTextbox").value = window.arguments[0];
+
+        // Center the dialog window
+        const w = screen.availWidth/2 - this.width/2;
+        const h = screen.availHeight/2 - this.height/2;
+        window.moveTo(w,h);
+    </script>
+</dialog>

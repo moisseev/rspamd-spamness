@@ -79,7 +79,8 @@
                         flex="1"
                         headerValue="" />
     </row>
-    <row id="expandedRspamdSpamnessRulesRow">
+    <row id="expandedRspamdSpamnessRulesRow"
+         ondblclick="RspamdSpamness.Message.openRulesDialog();">
       <label id="expandedRspamdSpamnessRulesLabel"
              class="headerName"
              value="&spamness.rulesMessageHeader.label;"

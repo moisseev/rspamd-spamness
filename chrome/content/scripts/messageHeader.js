@@ -210,6 +210,18 @@ RspamdSpamness.Message.displayHeaders = function() {
     }
 };
 
+RspamdSpamness.Message.openRulesDialog = function () {
+    // Insert line breaks
+    const re = /( +(?:(?:Symbol?: )?[^) ]+\)(?:\[[^\]]*\])?|Message-ID: [^ ]+?))/g;
+    const content = RspamdSpamness.Message.headerStr.replace(re, "\n$1");
+
+    window.openDialog(
+        "chrome://rspamd-spamness/content/rspamdHeaders.xul", "",
+        "chrome,modal,dialog,width=720,height=420,centerscreen,resizable",
+        content
+    );
+}
+
 RspamdSpamness.Message.onLoad = function() {
     var listener = {};
     listener.onStartHeaders = function() {};
