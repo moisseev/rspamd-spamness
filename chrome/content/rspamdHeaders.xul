@@ -6,6 +6,7 @@
 
 <dialog title="&spamness.rulesMessageHeader.label;"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        onload="document.getElementById('rulesDlgTextbox').setSelectionRange(0,0);"
         buttons=",">
 
     <textbox id="rulesDlgTextbox" class="plain" style="background-color: transparent;" flex="1"
