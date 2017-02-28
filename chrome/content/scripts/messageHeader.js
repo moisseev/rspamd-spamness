@@ -216,7 +216,7 @@ RspamdSpamness.Message.openRulesDialog = function () {
     const content = RspamdSpamness.Message.headerStr.replace(re, "\n$1");
 
     window.openDialog(
-        "chrome://rspamd-spamness/content/rspamdHeaders.xul", "",
+        "chrome://rspamd-spamness/content/rulesDialog.xul", "",
         "chrome,modal,dialog,width=720,height=420,centerscreen,resizable",
         content
     );
