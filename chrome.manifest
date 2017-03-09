@@ -2,6 +2,7 @@ content	rspamd-spamness	chrome/content/
 
 overlay	chrome://messenger/content/messenger.xul	chrome://rspamd-spamness/content/messenger.xul
 overlay chrome://messenger/content/msgHdrViewOverlay.xul chrome://rspamd-spamness/content/msgHdrViewOverlay.xul
+overlay chrome://messenger/content/mailWindowOverlay.xul chrome://rspamd-spamness/content/mailWindowOverlay.xul
 
 skin	rspamd-spamness	classic/1.0	chrome/skin/
 
