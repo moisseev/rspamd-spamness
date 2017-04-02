@@ -66,7 +66,13 @@ RspamdSpamness.Message.displayHeaders = function() {
             });
         }
         return headerBody;
-    };
+    }
+
+    function b64DecodeUnicode(str) {
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
 
     el.greyl.row.collapsed = true;
     el.score.row.collapsed = true;
@@ -120,13 +126,39 @@ RspamdSpamness.Message.displayHeaders = function() {
             RspamdSpamness.Message.headerStr = getHeaderBody(aMimeMsg.headers, "x-spam-report")[0];
             if (RspamdSpamness.Message.headerStr) {
                 const s = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
-                if (s)
+                if (s) {
                     displayScoreRulesHeaders(s[1]);
+                    return;
+                }
             }
         }, true, {
             partsOnDemand: true
         });
-    };
+    }
+
+    // Get symbols from LDA mode header
+    if (msg.folder) {
+        MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
+            RspamdSpamness.Message.headerStr = getHeaderBody(aMimeMsg.headers, "x-spam-result")[0];
+            if (RspamdSpamness.Message.headerStr) {
+                const metric = JSON.parse(b64DecodeUnicode(RspamdSpamness.Message.headerStr)).default;
+                var s;
+                for (var item in metric) {
+                    let symbol = metric[item];
+                    if (symbol.name) {
+                        s += " " + symbol.name +
+                            "(" + symbol.score.toFixed(2) + ")" +
+                            "[" + (symbol.options ? symbol.options.join(", ") : "") + "]";
+                    }
+                }
+                if (s) {
+                    displayScoreRulesHeaders(s);
+                }
+            }
+        }, true, {
+            partsOnDemand: true
+        });
+    }
 
     return;
 
@@ -175,7 +207,10 @@ RspamdSpamness.Message.displayHeaders = function() {
             const msg = gMessageDisplay.displayedMessage;
             if (msg.folder) {
                 MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
-                    const scanTime = getHeaderBody(aMimeMsg.headers, "x-rspamd-scan-time");
+                    let scanTime = getHeaderBody(aMimeMsg.headers, "x-rspamd-scan-time");
+                    if (!scanTime.length) {
+                        scanTime = getHeaderBody(aMimeMsg.headers, "x-spam-scan-time");
+                    }
                     el.scanTime.headerValue = (scanTime.length)
                         ? "Scan time: " + scanTime
                         : "";
