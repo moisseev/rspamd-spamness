@@ -139,20 +139,23 @@ RspamdSpamness.Message.displayHeaders = function() {
     // Get symbols from LDA mode header
     if (msg.folder) {
         MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
-            RspamdSpamness.Message.headerStr = getHeaderBody(aMimeMsg.headers, "x-spam-result")[0];
-            if (RspamdSpamness.Message.headerStr) {
-                const metric = JSON.parse(b64DecodeUnicode(RspamdSpamness.Message.headerStr)).default;
-                var s;
-                for (var item in metric) {
-                    let symbol = metric[item];
-                    if (symbol.name) {
-                        s += " " + symbol.name +
-                            "(" + symbol.score.toFixed(2) + ")" +
-                            "[" + (symbol.options ? symbol.options.join(", ") : "") + "]";
+            const hdrBody = getHeaderBody(aMimeMsg.headers, "x-spam-result");
+            if (hdrBody) {
+                RspamdSpamness.Message.headerStr = b64DecodeUnicode(hdrBody);
+                if (RspamdSpamness.Message.headerStr) {
+                    const metric = JSON.parse(RspamdSpamness.Message.headerStr).default;
+                    var s;
+                    for (var item in metric) {
+                        let symbol = metric[item];
+                        if (symbol.name) {
+                            s += " " + symbol.name +
+                                "(" + symbol.score.toFixed(2) + ")" +
+                                "[" + (symbol.options ? symbol.options.join(", ") : "") + "]";
+                        }
                     }
-                }
-                if (s) {
-                    displayScoreRulesHeaders(s);
+                    if (s) {
+                        displayScoreRulesHeaders(s);
+                    }
                 }
             }
         }, true, {
