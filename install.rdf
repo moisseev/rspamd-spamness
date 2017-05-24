@@ -6,7 +6,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>rspamd-spamness@alexander.moisseev</em:id>
     <em:name>Rspamd-spamness</em:name>
-    <em:version>0.8.3</em:version>
+    <em:version>0.8.4</em:version>
     <em:type>2</em:type> <!-- type=extension -->
     <em:unpack>false</em:unpack>
 
