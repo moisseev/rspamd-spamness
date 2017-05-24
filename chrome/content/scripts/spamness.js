@@ -177,8 +177,9 @@ RspamdSpamness.moveMessage = function (folder, isDefault) {
 
 RspamdSpamness.setBtnCmdLabels = function () {
     function setLabel(id, label) {
-        document.getElementById(id)
-            .setAttribute("label", label);
+        const el = document.getElementById(id);
+        if (el)
+            el.setAttribute("label", label);
     }
 
     RspamdSpamness.trainingButtonDefaultAction = Services.prefs.getCharPref("extensions.rspamd-spamness.trainingButtons.defaultAction");
