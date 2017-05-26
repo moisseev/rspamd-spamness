@@ -24,6 +24,16 @@ var optionObserver = {
     }
 };
 
+var toolbarObserver = {
+    observe: function (aSubject, aTopic, aData) {
+        document.getElementById("header-view-toolbar")
+            .addEventListener("drop", this.setBtnCmdLabels, false);
+    },
+    setBtnCmdLabels: function () {
+        RspamdSpamness.setBtnCmdLabels();
+    }
+};
+
 RspamdSpamness.onLoad = function() {
     const prefs = Services.prefs;
 
@@ -46,6 +56,7 @@ RspamdSpamness.onLoad = function() {
     }
     
     Services.obs.addObserver(optionObserver, "addon-options-displayed", false);
+    Services.obs.addObserver(toolbarObserver, "mail:updateToolbarItems", false);
 };
 
 RspamdSpamness.onUnload = function() {
