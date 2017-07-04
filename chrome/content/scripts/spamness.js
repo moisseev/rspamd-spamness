@@ -26,6 +26,9 @@ RspamdSpamness.getImageSrc = function(normalized) {
  };
 
 RspamdSpamness.getMetricClass = function (rule) {
+    if (rule.match(/^GREYLIST\(/))
+        return "linkDisplayButtonGreyl";
+
     var metric = rule.match(/\(([-\d.]+)\)$/);
     var metricScore = (metric)
         ? metric[1]

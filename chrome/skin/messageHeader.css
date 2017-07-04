@@ -33,6 +33,11 @@ mail-multi-linkField {
     -moz-box-align: baseline;
 }
 
+.linkDisplayButtonGreyl {
+    background-color: #d8e0f6;
+    border-radius: 2px;
+}
+
 .linkDisplayButtonHam {
     background-color: #d4ebc8;
     border-radius: 2px;
@@ -51,6 +56,10 @@ mail-multi-linkField {
 
 mail-link:hover {
     background-color: #aaa;
+}
+
+.linkDisplayButtonGreyl:hover {
+    background-color: #abc1fc;
 }
 
 .linkDisplayButtonHam:hover {
