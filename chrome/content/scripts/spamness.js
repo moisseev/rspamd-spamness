@@ -25,18 +25,18 @@ RspamdSpamness.getImageSrc = function(normalized) {
     return img;
  };
 
-RspamdSpamness.getMetricClass = function(rule) {
-          var metric = rule.match(/\(([-\d\.]+)\)$/);
-          var metricScore = (metric)
-              ? metric[1]
-              : null;
-          if (metricScore < 0) {
-              return "linkDisplayButtonHam";
-          } else if (metricScore > 0) {
-              return "linkDisplayButtonSpam";
-          } else {
-              return null;
-          }
+RspamdSpamness.getMetricClass = function (rule) {
+    var metric = rule.match(/\(([-\d.]+)\)$/);
+    var metricScore = (metric)
+        ? metric[1]
+        : null;
+    if (metricScore < 0) {
+        return "linkDisplayButtonHam";
+    } else if (metricScore > 0) {
+        return "linkDisplayButtonSpam";
+    } else {
+        return null;
+    }
 }
 
 RspamdSpamness.getHeaderStr = function(hdr) {
