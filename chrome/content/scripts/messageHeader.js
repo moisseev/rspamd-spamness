@@ -78,18 +78,17 @@ RspamdSpamness.Message.displayHeaders = function() {
     el.score.row.collapsed = true;
     el.rules.row.collapsed = true;
 
-    if (show.greyl) {
-        const msg = gMessageDisplay.displayedMessage;
-        if (msg.folder) {
-            MsgHdrToMimeMessage(msg, null, function(aMsgHdr, aMimeMsg) {
-                const greylistHeaders = getHeaderBody(aMimeMsg.headers, 'x-rmilter-greylist');
-                el.greyl.row.collapsed = (greylistHeaders.length == 0);
-                el.greyl.hdr.headerValue = greylistHeaders;
-                el.greyl.hdr.valid = true;
-            }, true, {
-                partsOnDemand: true
-            });
-        };
+    const msg = gMessageDisplay.displayedMessage;
+
+    if (show.greyl && msg.folder) {
+        MsgHdrToMimeMessage(msg, null, function(aMsgHdr, aMimeMsg) {
+            const greylistHeaders = getHeaderBody(aMimeMsg.headers, 'x-rmilter-greylist');
+            el.greyl.row.collapsed = (greylistHeaders.length == 0);
+            el.greyl.hdr.headerValue = greylistHeaders;
+            el.greyl.hdr.valid = true;
+        }, true, {
+            partsOnDemand: true
+        });
     }
 
     if (!show.score && !show.rules)
@@ -120,7 +119,6 @@ RspamdSpamness.Message.displayHeaders = function() {
     }
 
     // Get symbols from Exim header
-    const msg = gMessageDisplay.displayedMessage;
     if (msg.folder) {
         MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
             RspamdSpamness.Message.headerStr = getHeaderBody(aMimeMsg.headers, "x-spam-report")[0];
@@ -207,7 +205,6 @@ RspamdSpamness.Message.displayHeaders = function() {
                 getEl(id.score.hdr[key].score).headerValue = hdrVal[key];
             }
 
-            const msg = gMessageDisplay.displayedMessage;
             if (msg.folder) {
                 MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
                     let scanTime = getHeaderBody(aMimeMsg.headers, "x-rspamd-scan-time");
