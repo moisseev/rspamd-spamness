@@ -1,39 +1,28 @@
 .linkDisplayButton {
-    margin: -1px;
-    margin-bottom: 0px;
+    margin: -1px 0px -1px 0px;
 }
 
 mail-link {
-    -moz-padding-start: 3px !important;
-    -moz-padding-end: 3px !important;
-    background-color: transparent;
+    margin: 1px;
     border-radius: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .linkSeparator {
-    -moz-margin-start: -3px;
-    margin-right: 1px;
-}
-
-mail-multi-linkField {
-    margin: 0;
-    padding: 0;
-    -moz-box-align: baseline;
+    margin-left: -4px;
 }
 
 .linkDisplayButtonGreyl {
     background-color: #d8e0f6;
-    border-radius: 2px;
 }
 
 .linkDisplayButtonHam {
     background-color: #d4ebc8;
-    border-radius: 2px;
 }
 
 .linkDisplayButtonSpam {
     background-color: #f0d0c8;
-    border-radius: 2px;
 }
 
 mail-link:hover {
