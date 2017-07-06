@@ -1,42 +1,37 @@
-.linkDisplayButton {
-    margin: -1px 0px -1px 0px;
-}
-
 mail-link {
     margin: 1px;
     border-radius: 2px;
     padding-left: 2px;
     padding-right: 2px;
 }
+mail-link:hover {
+    background-color: #aaa;
+}
 
-.linkSeparator {
-    margin-left: -4px;
+.linkDisplayButton {
+    margin: -1px 0px -1px 0px;
 }
 
 .linkDisplayButtonGreyl {
     background-color: #d8e0f6;
 }
-
 .linkDisplayButtonHam {
     background-color: #d4ebc8;
 }
-
 .linkDisplayButtonSpam {
     background-color: #f0d0c8;
-}
-
-mail-link:hover {
-    background-color: #aaa;
 }
 
 .linkDisplayButtonGreyl:hover {
     background-color: #abc1fc;
 }
-
 .linkDisplayButtonHam:hover {
     background-color: #b4eba8;
 }
-
 .linkDisplayButtonSpam:hover {
     background-color: #f0b0a8;
+}
+
+.linkSeparator {
+    margin-left: -4px;
 }
