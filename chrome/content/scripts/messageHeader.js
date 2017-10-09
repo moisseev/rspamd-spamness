@@ -78,6 +78,9 @@ RspamdSpamness.Message.displayHeaders = function() {
     el.score.row.collapsed = true;
     el.rules.row.collapsed = true;
 
+    // Height could be set on more indicator click. Remove it.
+    getEl("expandedHeaderView").removeAttribute("height");
+
     const msg = gMessageDisplay.displayedMessage;
 
     if (show.greyl && msg.folder) {
