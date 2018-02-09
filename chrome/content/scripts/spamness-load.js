@@ -1,26 +1,26 @@
 "use strict";
 
-const myAddonId = 'rspamd-spamness@alexander.moisseev'
+var prefObserver = {
+    register: function() {
+        this.branch = Services.prefs.getBranch("extensions.rspamd-spamness.");
 
-var optionObserver = {
-    observe: function (aSubject, aTopic, aData) {
-        if (aTopic !== "addon-options-displayed" || aData !== myAddonId)
+        // This is only necessary prior to Gecko 13
+        if (!("addObserver" in this.branch)) {
+            this.branch.QueryInterface(Components.interfaces.nsIPrefBranch2);
+        }
+
+        this.branch.addObserver("", this, false);
+    },
+    unregister: function() {
+        this.branch.removeObserver("", this);
+    },
+    observe: function(aSubject, aTopic, aData) {
+        if (aTopic !== "nsPref:changed") {
             return;
-        aSubject.getElementById("advanced-options-button")
-            .addEventListener("command", this.openAdvancedOptions, false);
-        aSubject.getElementById("default-action-menupopup")
-            .addEventListener("popuphidden", this.setBtnCmdLabels, false);
-    },
-    openAdvancedOptions: function () {
-        const previousSpamnessHeader = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-        window.openDialog(
-            "chrome://rspamd-spamness/content/advancedOptions.xul", "",
-            "chrome,modal,dialog,centerscreen",
-            previousSpamnessHeader
-        );
-    },
-    setBtnCmdLabels: function () {
-        RspamdSpamness.setBtnCmdLabels();
+        }
+        if (aData === "trainingButtons.defaultAction") {
+            RspamdSpamness.setBtnCmdLabels();
+        }
     }
 };
 
@@ -54,8 +54,8 @@ RspamdSpamness.onLoad = function() {
         prefs.setBoolPref("extensions.rspamd-spamness.installationGreeting", false);
         prefs.savePrefFile(null);
     }
-    
-    Services.obs.addObserver(optionObserver, "addon-options-displayed", false);
+
+    prefObserver.register();
     Services.obs.addObserver(toolbarObserver, "mail:updateToolbarItems", false);
 };
 

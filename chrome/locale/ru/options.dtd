@@ -1,3 +1,5 @@
+<!ENTITY spamnessOptions.title "Настройки Rspamd-spamness">
+
 <!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Настройка отображения колонки">
 <!ENTITY spamnessOptions.prefShowBoth.label "Показывать значок и оценку">
 <!ENTITY spamnessOptions.prefShowText.label "Показывать только оценку">
@@ -16,6 +18,7 @@
 <!ENTITY spamnessOptions.prefAdvOptions.title "Дополнительные настройки">
 <!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Открыть..">
 
+<!ENTITY spamnessOptions.captionTrainingButtonsGroup.label "Настройки кнопок обучения">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.label "Расположение [URI] папки 'Не-спам'">
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.label "Расположение [URI] папки 'Спам'">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.tooltip "Узнать URI можно в свойствах папки, вкладка 'Основная информация', поле 'Адрес'">

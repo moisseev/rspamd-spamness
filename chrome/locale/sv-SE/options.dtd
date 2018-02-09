@@ -1,3 +1,5 @@
+<!ENTITY spamnessOptions.title "Inställningar för Rspamd-spamness">
+
 <!ENTITY spamnessOptions.captionDisplayColumnGroup.label "Kolumnvisning">
 <!ENTITY spamnessOptions.prefShowBoth.label "Visa visuell indikator och poängbedömning">
 <!ENTITY spamnessOptions.prefShowText.label "Visa endast poängbedömning">
@@ -16,6 +18,7 @@
 <!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">
 <!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">
 
+<!ENTITY spamnessOptions.captionTrainingButtonsGroup.label "Training buttons settings">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.label "Ham training folder location URI">
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.label "Spam training folder location URI">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.tooltip "Can be found at 'General Information' tab of 'Folder Properties'">

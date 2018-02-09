@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<?xml-stylesheet type="text/css" href="chrome://messenger/skin/preferences/preferences.css"?>
+
+<!DOCTYPE prefwindow SYSTEM "chrome://rspamd-spamness/locale/options.dtd">
+
+<prefwindow id="spamnessOptionsWindow" title="&spamnessOptions.title;" buttons="accept,cancel"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <prefpane>
+        <preferences>
+            <preference id="pref_display.column" name="extensions.rspamd-spamness.display.column" type="int" />
+            <preference id="pref_isDefaultColumn" name="extensions.rspamd-spamness.isDefaultColumn" type="bool" />
+            <preference id="pref_display.messageScore" name="extensions.rspamd-spamness.display.messageScore" type="bool" />
+            <preference id="pref_display.messageRules" name="extensions.rspamd-spamness.display.messageRules" type="bool" />
+            <preference id="pref_headers.show_n_lines_before_more" name="extensions.rspamd-spamness.headers.show_n_lines_before_more" type="int" />
+            <preference id="pref_display.messageGreylist" name="extensions.rspamd-spamness.display.messageGreylist" type="bool" />
+            <preference id="pref_uri.folderTrainHam" name="extensions.rspamd-spamness.uri.folderTrainHam" type="string" />
+            <preference id="pref_uri.folderTrainSpam" name="extensions.rspamd-spamness.uri.folderTrainSpam" type="string" />
+            <preference id="pref_trainingButtons.defaultAction" name="extensions.rspamd-spamness.trainingButtons.defaultAction" type="string" />
+        </preferences>
+        <hbox>
+            <groupbox flex="1">
+                <caption label="&spamnessOptions.captionDisplayColumnGroup.label;" />
+                <radiogroup preference="pref_display.column">
+                    <radio value="0" label="&spamnessOptions.prefShowBoth.label;" />
+                    <radio value="1" label="&spamnessOptions.prefShowText.label;" />
+                    <radio value="2" label="&spamnessOptions.prefShowImage.label;" />
+                </radiogroup>
+                <checkbox preference="pref_isDefaultColumn" label="&spamnessOptions.prefIsDefaultColumn.label;" />
+            </groupbox>
+        </hbox>
+        <hbox>
+            <groupbox flex="1">
+                <caption label="&spamnessOptions.captionDisplayMessageGroup.label;" />
+                <checkbox preference="pref_display.messageScore" label="&spamnessOptions.prefDisplayMessageScore.label;" />
+                <checkbox preference="pref_display.messageRules" label="&spamnessOptions.prefDisplayMessageRules.label;" />
+                <hbox>
+                    <label control="show_n_lines_before_more" value="&spamnessOptions.prefShowNLinesBeforeMore.label;" />
+                    <textbox id="show_n_lines_before_more" preference="pref_headers.show_n_lines_before_more" type="number" size="2" />
+                </hbox>
+                <checkbox preference="pref_display.messageGreylist" label="&spamnessOptions.prefDisplayMessageGreylist.label;" />
+            </groupbox>
+        </hbox>
+        <hbox>
+            <groupbox flex="1">
+                <caption label="&spamnessOptions.captionTrainingButtonsGroup.label;" />
+                <hbox>
+                    <label control="folderTrainHam" flex="1" value="&spamnessOptions.prefFolderURITrainHam.label;" />
+                    <textbox id="folderTrainHam" size="80" preference="pref_uri.folderTrainHam"
+                             tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
+                </hbox>
+                <hbox>
+                    <label control="folderTrainSpam" flex="1" value="&spamnessOptions.prefFolderURITrainSpam.label;" />
+                    <textbox id="folderTrainSpam" size="80" preference="pref_uri.folderTrainSpam"
+                             tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
+                </hbox>
+                <hbox>
+                    <label control="trainingButtonsDefaultAction" value="&spamnessOptions.prefTrainingButtonsDefaultAction.title;" />
+                    <menulist id="trainingButtonsDefaultAction" preference="pref_trainingButtons.defaultAction">
+                        <menupopup id="default-action-menupopup">
+                            <menuitem value="move" label="Move" />
+                            <menuitem value="copy" label="Copy" />
+                        </menupopup>
+                    </menulist>
+                </hbox>
+            </groupbox>
+        </hbox>
+        <hbox>
+            <label control="advanced-options-button" value="&spamnessOptions.prefAdvOptions.title;" />
+            <button id="advanced-options-button" label="&spamnessOptions.prefAdvOptionsBtn.label;" oncommand="openAdvancedOptions();" />
+        </hbox>
+
+        <script>
+            "use strict";
+            Components.utils.import("resource://gre/modules/Services.jsm");
+
+            function openAdvancedOptions() {
+                const previousSpamnessHeader = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+                window.openDialog(
+                    "chrome://rspamd-spamness/content/advancedOptions.xul",
+                    "",
+                    "chrome,modal,dialog,centerscreen",
+                    previousSpamnessHeader
+                );
+            }
+        </script>
+    </prefpane>
+</prefwindow>
