@@ -12,7 +12,7 @@
 <!ENTITY spamnessOptions.prefShowNLinesBeforeMore.label "Number of lines to show for rules header before 'more' (0 - unlimited)">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
-<!ENTITY spamnessOptions.prefHeaderName.label "Rmilter mail header containing extended Rspamd headers:">
+<!ENTITY spamnessOptions.prefHeaderName.label "Mail header containing extended Rspamd headers:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "注意：更改 Rspamd-spamness 使用的消息头需要重建所有文件夹指数，以使 Thunderbird 能读取每个消息的消息头值。打开每个文件夹的属性，然后点击重建文件夹按钮。">
 
 <!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">

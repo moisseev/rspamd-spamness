@@ -12,7 +12,7 @@
 <!ENTITY spamnessOptions.prefShowNLinesBeforeMore.label "Кол-во строк для отображения Правил (0 - показать все строки)">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Отображать в сообщении заголовок X-Rmilter-Greylist">
 
-<!ENTITY spamnessOptions.prefHeaderName.label "Заголовок Rmilter, содержащий дополнительные заголовки Rspamd:">
+<!ENTITY spamnessOptions.prefHeaderName.label "Заголовок, содержащий дополнительные заголовки Rspamd:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Примечание: После изменения заголовка необходимо переиндексировать папки. Для этого откройте свойства каждой папки и нажмите кнопку 'Починить папку'.">
 
 <!ENTITY spamnessOptions.prefAdvOptions.title "Дополнительные настройки">
