@@ -9,16 +9,21 @@ on the server-side and embedded in message headers.
 
 ## Requirements
 
-The add-on uses extended Rspamd headers added by [Rmilter](https://github.com/vstakhov/rmilter) (`X-Spamd-Result`) and (from version 0.8.0) headers added by Exim (`X-Spam-Score` and `X-Spam-Report`).
+The add-on uses extended Rspamd headers added by [Rspamd proxy worker](https://rspamd.com/doc/workers/rspamd_proxy.html) (`X-Spamd-Result`) and (from version 0.8.0) headers added by Exim (`X-Spam-Score` and `X-Spam-Report`).
 
-To enable extended spam headers in Rmilter add the following line to `rmilter.conf`:
+To enable extended spam headers in [Milter headers module](https://rspamd.com/doc/modules/milter_headers.html) add the following line to `local.d/milter_headers.conf`:
+~~~
+extended_spam_headers = true;
+~~~
+To enable headers in Exim refer to the "Integration with Exim MTA" section of [MTA integration](https://rspamd.com/doc/integration.html) document.
+
+To enable extended spam headers in [Rmilter](https://www.rspamd.com/rmilter/) (deprecated) add the following line to `rmilter.conf`:
 ~~~
 spamd {
 ...
         extended_spam_headers = yes;
 };
 ~~~
-To enable headers in Exim refer to the "Integration with Exim MTA" section of [MTA integration](https://rspamd.com/doc/integration.html) document.
 
 ## Installation
 
