@@ -2,7 +2,11 @@
 
 RspamdSpamness.Message = {};
 
-RspamdSpamness.Message.displayHeaders = function() {
+/**
+ * Display headers in msgHeaderView box.
+ * @param {boolean} [update_rules=false] - Just redraw "Rules" header, leave other headers as they are.
+ */
+RspamdSpamness.Message.displayHeaders = function (update_rules) {
     const prefs = Services.prefs;
 
     var id = {
@@ -40,8 +44,8 @@ RspamdSpamness.Message.displayHeaders = function() {
     };
 
     var show = {
-        greyl: getPref("extensions.rspamd-spamness.display.messageGreylist"),
-        score: getPref("extensions.rspamd-spamness.display.messageScore"),
+        greyl: update_rules ? false : getPref("extensions.rspamd-spamness.display.messageGreylist"),
+        score: update_rules ? false : getPref("extensions.rspamd-spamness.display.messageScore"),
         rules: getPref("extensions.rspamd-spamness.display.messageRules")
     };
 
@@ -74,9 +78,11 @@ RspamdSpamness.Message.displayHeaders = function() {
         }).join(''));
     }
 
-    el.greyl.row.collapsed = true;
-    el.score.row.collapsed = true;
-    el.rules.row.collapsed = true;
+    if (!update_rules) {
+        el.greyl.row.collapsed = true;
+        el.score.row.collapsed = true;
+        el.rules.row.collapsed = true;
+    }
 
     // Height could be set on more indicator click. Remove it.
     getEl("expandedHeaderView").removeAttribute("height");
@@ -227,17 +233,40 @@ RspamdSpamness.Message.displayHeaders = function() {
             if (el.rules.box.clearHeaderValues)
                 el.rules.box.clearHeaderValues();
 
-            var num    = 0;
-            var rule   = [];
-            var reRule = /(\S+\([^)]+\))(\[.*?\])?/g;
-            while (rule = reRule.exec(symbols)) {
-                el.rules.box.addLinkView({
-                    displayText: rule[1],
-                    tooltiptext: rule[2],
-                    class:       RspamdSpamness.getMetricClass(rule[1])
+            var num = 0;
+            var parsed_symbols = [];
+
+            (function(a) {
+                var parsed_symbol = [];
+                var s = [];
+                var re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
+                while (parsed_symbol = re.exec(symbols)) {
+                    s = [];
+                    [, s.name, s.score, s.options] = parsed_symbol;
+                    a.push(s);
+                }
+            })(parsed_symbols);
+
+            const prefName = "extensions.rspamd-spamness.headers.symbols_order";
+            const symOrder = prefs.getCharPref(prefName).toLowerCase();
+            var compare = (symOrder === "name")
+                ? function(a, b) {
+                    return a.name.localeCompare(b.name);
+                }
+                : function(a, b) {
+                    return Math.abs(a.score) < Math.abs(b.score);
+                };
+
+            parsed_symbols
+                .sort(compare)
+                .forEach(function(s) {
+                    el.rules.box.addLinkView({
+                        displayText: s.name,
+                        tooltiptext: s.options,
+                        class: RspamdSpamness.getMetricClass(s.name)
+                    });
+                    num++;
                 });
-                num++;
-            }
 
             if (num) {
                 el.rules.box.buildViews();
@@ -246,6 +275,18 @@ RspamdSpamness.Message.displayHeaders = function() {
             }
         }
     }
+};
+
+RspamdSpamness.Message.changeSymOrder = function(prefVal) {
+    const prefs = Services.prefs;
+    const prefName = "extensions.rspamd-spamness.headers.symbols_order";
+    if (!arguments.length) {
+        prefVal = (prefs.getCharPref(prefName).toLowerCase() === "name")
+            ? "score"
+            : "name";
+    }
+    prefs.setCharPref(prefName, prefVal);
+    RspamdSpamness.Message.displayHeaders(true);
 };
 
 RspamdSpamness.Message.openRulesDialog = function () {

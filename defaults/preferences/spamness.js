@@ -4,6 +4,7 @@ pref("extensions.rspamd-spamness.display.messageScore", true);
 pref("extensions.rspamd-spamness.display.messageRules", true);
 pref("extensions.rspamd-spamness.display.messageGreylist", true);
 pref("extensions.rspamd-spamness.headers.show_n_lines_before_more", 2);
+pref("extensions.rspamd-spamness.headers.symbols_order", "score");
 pref("extensions.rspamd-spamness.isDefaultColumn", true);
 pref("extensions.rspamd-spamness.installationGreeting", true);
 pref("extensions.rspamd-spamness.trainingButtons.defaultAction", "move");
