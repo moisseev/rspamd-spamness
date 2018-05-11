@@ -17,7 +17,7 @@
       <Description>
         <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
         <em:minVersion>8.0</em:minVersion>
-        <em:maxVersion>61.*</em:maxVersion>
+        <em:maxVersion>60.*</em:maxVersion>
       </Description>
     </em:targetApplication>
 
@@ -60,7 +60,7 @@
         <em:description>Fornece uma escala visual colorida da importância do spam, baseada na sua pontuação Rspamd.</em:description>
       </Description>
     </em:localized>
-    <em:localized>  
+    <em:localized>
       <Description>
         <em:locale>ru</em:locale>
         <em:name>Rspamd-spamness</em:name>
