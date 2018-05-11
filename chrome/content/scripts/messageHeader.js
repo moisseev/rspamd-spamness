@@ -1,3 +1,5 @@
+/* global RspamdSpamness:false, RspamdSpamnessColumn:false */
+
 "use strict";
 
 RspamdSpamness.Message = {};
@@ -73,9 +75,9 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     }
 
     function b64DecodeUnicode(str) {
-        return decodeURIComponent(atob(str).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+        return decodeURIComponent(atob(str).split("").map(function(c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(""));
     }
 
     if (!update_rules) {
@@ -91,7 +93,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
 
     if (show.greyl && msg.folder) {
         MsgHdrToMimeMessage(msg, null, function(aMsgHdr, aMimeMsg) {
-            const greylistHeaders = getHeaderBody(aMimeMsg.headers, 'x-rmilter-greylist');
+            const greylistHeaders = getHeaderBody(aMimeMsg.headers, "x-rmilter-greylist");
             el.greyl.row.collapsed = (greylistHeaders.length == 0);
             el.greyl.hdr.headerValue = greylistHeaders;
             el.greyl.hdr.valid = true;
@@ -226,7 +228,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 }, true, {
                     partsOnDemand: true
                 });
-            };
+            }
         }
 
         if (show.rules) {
@@ -299,7 +301,7 @@ RspamdSpamness.Message.openRulesDialog = function () {
         "chrome,modal,dialog,width=720,height=420,centerscreen,resizable",
         content
     );
-}
+};
 
 RspamdSpamness.Message.onLoad = function() {
     var listener = {};

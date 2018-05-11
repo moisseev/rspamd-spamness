@@ -1,3 +1,5 @@
+/* global RspamdSpamness:false */
+
 "use strict";
 
 var prefObserver = {
@@ -61,8 +63,8 @@ RspamdSpamness.onLoad = function() {
 
 RspamdSpamness.onUnload = function() {
     Services.obs.removeObserver(optionObserver, "addon-options-displayed", false);
-    window.removeEventListener('load', RspamdSpamness.onLoad, false);
-    window.removeEventListener('unload', RspamdSpamness.onUnload, false);
+    window.removeEventListener("load", RspamdSpamness.onLoad, false);
+    window.removeEventListener("unload", RspamdSpamness.onUnload, false);
 };
 
 window.addEventListener("load", RspamdSpamness.onLoad, false);

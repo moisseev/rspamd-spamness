@@ -1,0 +1,28 @@
+{
+    "env": {
+        "browser": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "linebreak-style": ["error", "unix"],
+        "quotes": ["error", "double"],
+        "semi": ["error","always"]
+    },
+    "globals": {
+        "Components": false,
+        "FolderDisplayWidget": false,
+        "gDBView": false,
+        "gMessageDisplay": false,
+        "gMessageListeners": false,
+        "MsgHdrToMimeMessage": false,
+        "MailUtils": false,
+        "MsgCopyMessage": false,
+        "MsgMoveMessage": false,
+        "optionObserver": false,
+        "Services": false
+    }
+}

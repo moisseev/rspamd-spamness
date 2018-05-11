@@ -62,12 +62,12 @@ RspamdSpamnessColumn.dbObserver = {
 
 RspamdSpamnessColumn.addColumnHandler = function() {
     gDBView.addColumnHandler("spamScoreCol", RspamdSpamnessColumn.handler);
-}
+};
 
 RspamdSpamnessColumn.onUnload = function() {
     Services.obs.removeObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);
-    window.removeEventListener('load', RspamdSpamnessColumn.onLoad, false);
-    window.removeEventListener('unload', RspamdSpamnessColumn.onUnload, false);
+    window.removeEventListener("load", RspamdSpamnessColumn.onLoad, false);
+    window.removeEventListener("unload", RspamdSpamnessColumn.onUnload, false);
 };
 
 window.addEventListener("load", RspamdSpamnessColumn.onLoad, false);

@@ -23,7 +23,7 @@ RspamdSpamness.getImageSrc = function(normalized) {
         img = "chrome://rspamd-spamness/skin/spam" + level + ".png";
     }
     return img;
- };
+};
 
 RspamdSpamness.getMetricClass = function (rule) {
     if (rule.match(/^GREYLIST\(/))
@@ -40,7 +40,7 @@ RspamdSpamness.getMetricClass = function (rule) {
     } else {
         return null;
     }
-}
+};
 
 RspamdSpamness.getHeaderStr = function(hdr) {
     var header = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
@@ -50,9 +50,9 @@ RspamdSpamness.getHeaderStr = function(hdr) {
 
 RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     if (!prefVal) {
-        prefVal = document.getElementById('headerNameForm').value;
+        prefVal = document.getElementById("headerNameForm").value;
     }
-    var prefEl = document.getElementById('headerNameForm');
+    var prefEl = document.getElementById("headerNameForm");
     const prefs = Services.prefs;
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
@@ -61,21 +61,21 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 
     if (prefVal != RspamdSpamness.previousSpamnessHeader) {
         if (!isRFC5322HeaderName(prefVal)) {
-	        var bundle = document.getElementById("bundle_custom");
-	        var alertText = bundle.getString("colonInHeaderName");
-	        window.alert(alertText);
-	        if (prefEl) prefEl.focus();
-	        return false;
-	    }
+            var bundle = document.getElementById("bundle_custom");
+            var alertText = bundle.getString("colonInHeaderName");
+            window.alert(alertText);
+            if (prefEl) prefEl.focus();
+            return false;
+        }
 
         var nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
         if (RspamdSpamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
-	        var bundle = document.getElementById("bundle_custom");
-	        var alertText = bundle.getString("customHeaderOverflow");
-	        window.alert(alertText);
-	        if (prefEl) prefEl.focus();
-	        return false;
-	    }
+            var bundle = document.getElementById("bundle_custom");
+            var alertText = bundle.getString("customHeaderOverflow");
+            window.alert(alertText);
+            if (prefEl) prefEl.focus();
+            return false;
+        }
     }
 
     setHeadersPref("mailnews.customDBHeaders", RspamdSpamness.customDBHeaders, " ",
@@ -159,9 +159,9 @@ RspamdSpamness.openTab = function(url) {
         tabmail.openTab("contentTab", {contentPage: url});
     else
         window.openDialog("chrome://messenger/content/", "_blank",
-                          "chrome,dialog=no,all", null,
-                          { tabType: "contentTab",
-                            tabParams: { contentPage: url }});
+            "chrome,dialog=no,all", null,
+            { tabType: "contentTab",
+                tabParams: { contentPage: url }});
 };
 
 RspamdSpamness.greet = function() {
