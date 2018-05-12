@@ -153,7 +153,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 RspamdSpamness.Message.headerStr = b64DecodeUnicode(hdrBody);
                 if (RspamdSpamness.Message.headerStr) {
                     const metric = JSON.parse(RspamdSpamness.Message.headerStr).default;
-                    var s;
+                    var s = null;
                     for (var item in metric) {
                         let symbol = metric[item];
                         if (symbol.name) {

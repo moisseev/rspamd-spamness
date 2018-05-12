@@ -10,7 +10,8 @@ var RspamdSpamness = {
 };
 
 RspamdSpamness.getImageSrc = function (normalized) {
-    var img, level;
+    let img = null;
+    let level = null;
     if (isNaN(normalized)) {
         img = "chrome://messenger/skin/icons/symbol-null.png";
     } else if (normalized < 0) {
@@ -99,7 +100,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     }
 
     function setHeadersPref(prefName, arr, separator, rmvHeaders, addHeaders) {
-        let modified;
+        let modified = null;
         if (typeof rmvHeaders === "string")
             rmvHeaders = [rmvHeaders];
         if (typeof addHeaders === "string")
