@@ -3,6 +3,14 @@
 "use strict";
 
 var prefObserver = {
+    observe: function (aSubject, aTopic, aData) {
+        if (aTopic !== "nsPref:changed") {
+            return;
+        }
+        if (aData === "trainingButtons.defaultAction") {
+            RspamdSpamness.setBtnCmdLabels();
+        }
+    },
     register: function () {
         this.branch = Services.prefs.getBranch("extensions.rspamd-spamness.");
 
@@ -15,14 +23,6 @@ var prefObserver = {
     },
     unregister: function () {
         this.branch.removeObserver("", this);
-    },
-    observe: function (aSubject, aTopic, aData) {
-        if (aTopic !== "nsPref:changed") {
-            return;
-        }
-        if (aData === "trainingButtons.defaultAction") {
-            RspamdSpamness.setBtnCmdLabels();
-        }
     }
 };
 

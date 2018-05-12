@@ -3,8 +3,8 @@
 Components.utils.import("resource://gre/modules/Services.jsm");
 
 var RspamdSpamness = {
-    customHeaders: new Array(),
     customDBHeaders: new Array(),
+    customHeaders: new Array(),
     previousSpamnessHeader: "",
     trainingButtonDefaultAction: "move"
 };

@@ -5,36 +5,28 @@
 var RspamdSpamnessColumn = {};
 
 RspamdSpamnessColumn.handler = {
+    getCellProperties:   function () {},
     getCellText:         function (row) {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 2)
             return null;
-
         var score = RspamdSpamnessColumn.getScoreByRow(row);
         return (isNaN(score)) ? "" : score;
     },
-
-    getSortStringForRow: function () {
-        return null;
-    },
-
-    isString:            function () {
-        return false;
-    },
-
-    getCellProperties:   function () {},
-
-    getRowProperties:    function () {},
-
     getImageSrc:         function (row) {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 1)
             return null;
-
         var score = RspamdSpamnessColumn.getScoreByRow(row);
         return RspamdSpamness.getImageSrc(score);
     },
-
+    getRowProperties:    function () {},
     getSortLongForRow:   function (hdr) {
         return RspamdSpamnessColumn.getScoreByHdr(hdr) * 1e4 + 1e8;
+    },
+    getSortStringForRow: function () {
+        return null;
+    },
+    isString:            function () {
+        return false;
     }
 };
 

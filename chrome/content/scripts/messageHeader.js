@@ -14,10 +14,6 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     var id = {
         score: {
             hdr: {
-                score: {
-                    icon:  "rspamdSpamnessScoreIcon",
-                    score: "rspamdSpamnessScoreHeader"
-                },
                 bayes: {
                     icon:  "rspamdSpamnessBayesIcon",
                     score: "rspamdSpamnessBayesHeader"
@@ -25,6 +21,10 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 fuzzy: {
                     icon:  "rspamdSpamnessFuzzyIcon",
                     score: "rspamdSpamnessFuzzyHeader"
+                },
+                score: {
+                    icon:  "rspamdSpamnessScoreIcon",
+                    score: "rspamdSpamnessScoreHeader"
                 }
             }
         }
@@ -32,23 +32,23 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
 
     var el = {
         greyl: {
-            row: getEl("expandedRspamdSpamnessGreylistRow"),
-            hdr: getEl("expandedRspamdSpamnessGreylistHeader")
-        },
-        score: {
-            row: getEl("expandedRspamdSpamnessRow")
+            hdr: getEl("expandedRspamdSpamnessGreylistHeader"),
+            row: getEl("expandedRspamdSpamnessGreylistRow")
         },
         rules: {
-            row: getEl("expandedRspamdSpamnessRulesRow"),
-            box: getEl("expandedRspamdSpamnessRulesBox")
+            box: getEl("expandedRspamdSpamnessRulesBox"),
+            row: getEl("expandedRspamdSpamnessRulesRow")
         },
-        scanTime: getEl("rspamdSpamnessScanTimeHeader")
+        scanTime: getEl("rspamdSpamnessScanTimeHeader"),
+        score: {
+            row: getEl("expandedRspamdSpamnessRow")
+        }
     };
 
     var show = {
         greyl: update_rules ? false : getPref("extensions.rspamd-spamness.display.messageGreylist"),
-        score: update_rules ? false : getPref("extensions.rspamd-spamness.display.messageScore"),
-        rules: getPref("extensions.rspamd-spamness.display.messageRules")
+        rules: getPref("extensions.rspamd-spamness.display.messageRules"),
+        score: update_rules ? false : getPref("extensions.rspamd-spamness.display.messageScore")
     };
 
     function getEl(id) {
@@ -206,9 +206,9 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 : "";
 
             var hdrVal = {
-                score: parsed.score + " ( Bayes:",
                 bayes: parsed.bayes + parsed.bayesOptions + ", Fuzzy" + fuzzyCounter + ":",
-                fuzzy: parsed.fuzzy + " )"
+                fuzzy: parsed.fuzzy + " )",
+                score: parsed.score + " ( Bayes:"
             };
 
             for (var key in id.score.hdr) {
@@ -263,9 +263,9 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 .sort(compare)
                 .forEach(function (s) {
                     el.rules.box.addLinkView({
+                        class: RspamdSpamness.getMetricClass(s.name),
                         displayText: s.name,
-                        tooltiptext: s.options,
-                        class: RspamdSpamness.getMetricClass(s.name)
+                        tooltiptext: s.options
                     });
                     num++;
                 });
