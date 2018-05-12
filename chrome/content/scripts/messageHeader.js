@@ -9,7 +9,7 @@ RspamdSpamness.Message = {};
  * @param {boolean} [update_rules=false] - Just redraw "Rules" header, leave other headers as they are.
  */
 RspamdSpamness.Message.displayHeaders = function (update_rules) {
-    const prefs = Services.prefs;
+    const {prefs} = Services;
 
     var id = {
         score: {
@@ -132,7 +132,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     // Get symbols from Exim header
     if (msg.folder) {
         MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
-            RspamdSpamness.Message.headerStr = getHeaderBody(aMimeMsg.headers, "x-spam-report")[0];
+            [RspamdSpamness.Message.headerStr] = getHeaderBody(aMimeMsg.headers, "x-spam-report");
             if (RspamdSpamness.Message.headerStr) {
                 const s = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
                 if (s) {
@@ -280,7 +280,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
 };
 
 RspamdSpamness.Message.changeSymOrder = function (prefVal) {
-    const prefs = Services.prefs;
+    const {prefs} = Services;
     const prefName = "extensions.rspamd-spamness.headers.symbols_order";
     if (!arguments.length) {
         prefVal = (prefs.getCharPref(prefName).toLowerCase() === "name")

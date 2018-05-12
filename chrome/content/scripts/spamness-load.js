@@ -37,7 +37,7 @@ var toolbarObserver = {
 };
 
 RspamdSpamness.onLoad = function () {
-    const prefs = Services.prefs;
+    const {prefs} = Services;
 
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);

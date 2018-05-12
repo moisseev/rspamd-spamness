@@ -53,7 +53,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
         prefVal = document.getElementById("headerNameForm").value;
     }
     var prefEl = document.getElementById("headerNameForm");
-    const prefs = Services.prefs;
+    const {prefs} = Services;
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
     RspamdSpamness.customDBHeaders = getHeadersPref("mailnews.customDBHeaders", /\s+/);
@@ -65,7 +65,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
             return false;
         }
 
-        const nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
+        const {nsMsgSearchAttrib} = Components.interfaces;
         if (RspamdSpamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
             showAlert("customHeaderOverflow");
             return false;
