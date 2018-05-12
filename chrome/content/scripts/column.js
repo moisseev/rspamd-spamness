@@ -2,7 +2,7 @@
 
 "use strict";
 
-var RspamdSpamnessColumn = {};
+const RspamdSpamnessColumn = {};
 
 RspamdSpamnessColumn.handler = {
     getCellProperties:   function () {
@@ -11,13 +11,13 @@ RspamdSpamnessColumn.handler = {
     getCellText:         function (row) {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 2)
             return null;
-        var score = RspamdSpamnessColumn.getScoreByRow(row);
+        const score = RspamdSpamnessColumn.getScoreByRow(row);
         return (isNaN(score)) ? "" : score;
     },
     getImageSrc:         function (row) {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 1)
             return null;
-        var score = RspamdSpamnessColumn.getScoreByRow(row);
+        const score = RspamdSpamnessColumn.getScoreByRow(row);
         return RspamdSpamness.getImageSrc(score);
     },
     getRowProperties:    function () {
@@ -35,8 +35,8 @@ RspamdSpamnessColumn.handler = {
 };
 
 RspamdSpamnessColumn.getScoreByRow = function (row) {
-    var key = gDBView.getKeyAt(row);
-    var hdr = gDBView.db.GetMsgHdrForKey(key);
+    const key = gDBView.getKeyAt(row);
+    const hdr = gDBView.db.GetMsgHdrForKey(key);
     return RspamdSpamnessColumn.getScoreByHdr(hdr);
 };
 

@@ -11,7 +11,7 @@ RspamdSpamness.Message = {};
 RspamdSpamness.Message.displayHeaders = function (update_rules) {
     const {prefs} = Services;
 
-    var id = {
+    const id = {
         score: {
             hdr: {
                 bayes: {
@@ -30,7 +30,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         }
     };
 
-    var el = {
+    const el = {
         greyl: {
             hdr: getEl("expandedRspamdSpamnessGreylistHeader"),
             row: getEl("expandedRspamdSpamnessGreylistRow")
@@ -45,7 +45,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         }
     };
 
-    var show = {
+    const show = {
         greyl: update_rules ? false : getPref("extensions.rspamd-spamness.display.messageGreylist"),
         rules: getPref("extensions.rspamd-spamness.display.messageRules"),
         score: update_rules ? false : getPref("extensions.rspamd-spamness.display.messageScore")
@@ -108,7 +108,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     if (gDBView.msgFolder === null)
         return;
 
-    var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
+    const hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
 
     if (!hdr)
         return;
@@ -152,8 +152,8 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 RspamdSpamness.Message.headerStr = b64DecodeUnicode(hdrBody);
                 if (RspamdSpamness.Message.headerStr) {
                     const metric = JSON.parse(RspamdSpamness.Message.headerStr).default;
-                    var s = null;
-                    for (var item in metric) {
+                    let s = null;
+                    for (let item in metric) {
                         let symbol = metric[item];
                         if (symbol.name) {
                             s += " " + symbol.name +
@@ -173,7 +173,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
 
     function displayScoreRulesHeaders(symbols) {
         if (show.score) {
-            var parsed = [];
+            const parsed = [];
             parsed.score = RspamdSpamnessColumn.getScoreByHdr(hdr);
             el.score.row.collapsed = (parsed.score === null);
 
@@ -186,10 +186,10 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             parsed.bayes = (b) ? b[1] : "undefined";
             parsed.bayesOptions = (b && b[2]) ? " " + b[2] : "";
 
-            var re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d.]+)\)/g;
-            var fuzzySymbols = [];
+            const re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d.]+)\)/g;
+            let fuzzySymbols = [];
             parsed.fuzzy = 0;
-            var fuzzySymbolsCount = 0;
+            let fuzzySymbolsCount = 0;
             while ((fuzzySymbols = re.exec(symbols)) !== null) {
                 parsed.fuzzy += parseFloat(fuzzySymbols[1]);
                 fuzzySymbolsCount++;
@@ -198,17 +198,17 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 ? +parseFloat(parsed.fuzzy).toFixed(10)
                 : "undefined";
 
-            var fuzzyCounter = (fuzzySymbolsCount > 1)
+            const fuzzyCounter = (fuzzySymbolsCount > 1)
                 ? "{" + fuzzySymbolsCount + "}"
                 : "";
 
-            var hdrVal = {
+            const hdrVal = {
                 bayes: parsed.bayes + parsed.bayesOptions + ", Fuzzy" + fuzzyCounter + ":",
                 fuzzy: parsed.fuzzy + " )",
                 score: parsed.score + " ( Bayes:"
             };
 
-            for (var key in id.score.hdr) {
+            for (let key in id.score.hdr) {
                 getEl(id.score.hdr[key].icon).src = RspamdSpamness.getImageSrc(parsed[key]);
                 getEl(id.score.hdr[key].score).headerValue = hdrVal[key];
             }
@@ -232,13 +232,13 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             if (el.rules.box.clearHeaderValues)
                 el.rules.box.clearHeaderValues();
 
-            var num = 0;
-            var parsed_symbols = [];
+            let num = 0;
+            const parsed_symbols = [];
 
             (function (a) {
-                var parsed_symbol = [];
-                var s = [];
-                var re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
+                let parsed_symbol = [];
+                let s = [];
+                const re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
                 while ((parsed_symbol = re.exec(symbols)) !== null) {
                     s = [];
                     [, s.name, s.score, s.options] = parsed_symbol;
@@ -248,7 +248,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
 
             const prefName = "extensions.rspamd-spamness.headers.symbols_order";
             const symOrder = prefs.getCharPref(prefName).toLowerCase();
-            var compare = (symOrder === "name")
+            const compare = (symOrder === "name")
                 ? function (a, b) {
                     return a.name.localeCompare(b.name);
                 }
@@ -301,7 +301,7 @@ RspamdSpamness.Message.openRulesDialog = function () {
 };
 
 RspamdSpamness.Message.onLoad = function () {
-    var listener = {};
+    const listener = {};
     listener.onStartHeaders = function () {
         // Do nothing.
     };

@@ -2,7 +2,7 @@
 
 "use strict";
 
-var prefObserver = {
+const prefObserver = {
     observe: function (aSubject, aTopic, aData) {
         if (aTopic !== "nsPref:changed") {
             return;
@@ -26,7 +26,7 @@ var prefObserver = {
     }
 };
 
-var toolbarObserver = {
+const toolbarObserver = {
     observe: function () {
         document.getElementById("header-view-toolbar")
             .addEventListener("drop", this.setBtnCmdLabels, false);
@@ -44,13 +44,13 @@ RspamdSpamness.onLoad = function () {
     RspamdSpamness.setBtnCmdLabels();
 
     // whether this column gets default status
-    var defaultCol = prefs.getBoolPref("extensions.rspamd-spamness.isDefaultColumn");
+    const defaultCol = prefs.getBoolPref("extensions.rspamd-spamness.isDefaultColumn");
     if (defaultCol) {
         RspamdSpamness.addSpamnessColumn();
     }
 
     // first time info, should only ever show once
-    var greet = prefs.getBoolPref("extensions.rspamd-spamness.installationGreeting");
+    const greet = prefs.getBoolPref("extensions.rspamd-spamness.installationGreeting");
     if (greet) {
         RspamdSpamness.greet();
         prefs.setBoolPref("extensions.rspamd-spamness.installationGreeting", false);

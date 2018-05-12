@@ -30,8 +30,8 @@ RspamdSpamness.getMetricClass = function (rule) {
     if (rule.match(/^GREYLIST\(/))
         return "linkDisplayButtonGreyl";
 
-    var metric = rule.match(/\(([-\d.]+)\)$/);
-    var metricScore = (metric)
+    const metric = rule.match(/\(([-\d.]+)\)$/);
+    const metricScore = (metric)
         ? metric[1]
         : null;
     if (metricScore < 0) {
@@ -43,8 +43,8 @@ RspamdSpamness.getMetricClass = function (rule) {
 };
 
 RspamdSpamness.getHeaderStr = function (hdr) {
-    var header = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-    var headerStr = hdr.getStringProperty(header);
+    const header = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+    const headerStr = hdr.getStringProperty(header);
     return (headerStr) ? headerStr : null;
 };
 
@@ -52,7 +52,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     if (!prefVal) {
         prefVal = document.getElementById("headerNameForm").value;
     }
-    var prefEl = document.getElementById("headerNameForm");
+    const prefEl = document.getElementById("headerNameForm");
     const {prefs} = Services;
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
@@ -89,7 +89,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     return true;
 
     function getHeadersPref(prefName, separator) {
-        var chdrs = prefs.getCharPref(prefName).trim();
+        const chdrs = prefs.getCharPref(prefName).trim();
         return (chdrs === "")
             ? []
             : chdrs.split(separator);
@@ -120,7 +120,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
             }
         });
         if (modified) {
-            var newPref = arr.join(separator);
+            const newPref = arr.join(separator);
             prefs.setCharPref(prefName, newPref);
         }
     }
@@ -143,7 +143,7 @@ RspamdSpamness.err = function (msg) {
 
 RspamdSpamness.addSpamnessColumn = function () {
     // from chrome://messenger/content/folderDisplay.js
-    var fdw = FolderDisplayWidget.prototype;
+    const fdw = FolderDisplayWidget.prototype;
     fdw.DEFAULT_COLUMNS.push("spamScoreCol");
     fdw.COLUMN_DEFAULT_TESTERS["spamScoreCol"] = function (viewWrapper) {
         return viewWrapper.isIncomingFolder;
@@ -179,7 +179,7 @@ RspamdSpamness.greet = function () {
 };
 
 RspamdSpamness.moveMessage = function (folder, isDefault) {
-    var destination = MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
+    const destination = MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
     if (isDefault && RspamdSpamness.trainingButtonDefaultAction === "copy" ||
         !isDefault && RspamdSpamness.trainingButtonDefaultAction !== "copy")
         MsgCopyMessage(destination);
