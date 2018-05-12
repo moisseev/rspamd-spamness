@@ -137,7 +137,6 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 const s = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
                 if (s) {
                     displayScoreRulesHeaders(s[1]);
-                    return;
                 }
             }
         }, true, {
@@ -171,8 +170,6 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             partsOnDemand: true
         });
     }
-
-    return;
 
     function displayScoreRulesHeaders(symbols) {
         if (show.score) {
