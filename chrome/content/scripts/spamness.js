@@ -37,9 +37,8 @@ RspamdSpamness.getMetricClass = function (rule) {
         return "linkDisplayButtonHam";
     } else if (metricScore > 0) {
         return "linkDisplayButtonSpam";
-    } else {
-        return null;
     }
+    return null;
 };
 
 RspamdSpamness.getHeaderStr = function(hdr) {
