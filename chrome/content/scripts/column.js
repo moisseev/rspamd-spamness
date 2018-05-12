@@ -1,9 +1,11 @@
+/* global RspamdSpamness:false */
+
 "use strict";
 
 var RspamdSpamnessColumn = {};
 
 RspamdSpamnessColumn.handler = {
-    getCellText:         function(row, col) {
+    getCellText:         function (row) {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") == 2)
             return null;
 
@@ -11,19 +13,19 @@ RspamdSpamnessColumn.handler = {
         return (isNaN(score)) ? "" : score;
     },
 
-    getSortStringForRow: function(hdr) {
+    getSortStringForRow: function () {
         return null;
     },
 
-    isString:            function() {
+    isString:            function () {
         return false;
     },
 
-    getCellProperties:   function(row, col, props) {},
+    getCellProperties:   function () {},
 
-    getRowProperties:    function(row, props) {},
+    getRowProperties:    function () {},
 
-    getImageSrc:         function(row, col) {
+    getImageSrc:         function (row) {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") == 1)
             return null;
 
@@ -31,7 +33,7 @@ RspamdSpamnessColumn.handler = {
         return RspamdSpamness.getImageSrc(score);
     },
 
-    getSortLongForRow:   function(hdr) {
+    getSortLongForRow:   function (hdr) {
         return RspamdSpamnessColumn.getScoreByHdr(hdr) * 1e4 + 1e8;
     }
 };
@@ -55,7 +57,7 @@ RspamdSpamnessColumn.onLoad = function() {
 };
 
 RspamdSpamnessColumn.dbObserver = {
-    observe: function(aMsgFolder, aTopic, aData) {
+    observe: function () {
         RspamdSpamnessColumn.addColumnHandler();
     }
 };

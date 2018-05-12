@@ -27,7 +27,7 @@ var prefObserver = {
 };
 
 var toolbarObserver = {
-    observe: function (aSubject, aTopic, aData) {
+    observe: function () {
         document.getElementById("header-view-toolbar")
             .addEventListener("drop", this.setBtnCmdLabels, false);
     },
