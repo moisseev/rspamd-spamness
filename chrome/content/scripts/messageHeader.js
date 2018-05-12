@@ -242,7 +242,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 var parsed_symbol = [];
                 var s = [];
                 var re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
-                while (parsed_symbol = re.exec(symbols)) {
+                while ((parsed_symbol = re.exec(symbols)) !== null) {
                     s = [];
                     [, s.name, s.score, s.options] = parsed_symbol;
                     a.push(s);
