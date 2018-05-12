@@ -66,7 +66,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     function getHeaderBody(msgHeaders, name) {
         let headerBody = [];
         if (name in msgHeaders) {
-            msgHeaders[name].forEach(function(body) {
+            msgHeaders[name].forEach(function (body) {
                 if (body !== null)
                     headerBody.push(body);
             });
@@ -75,7 +75,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     }
 
     function b64DecodeUnicode(str) {
-        return decodeURIComponent(atob(str).split("").map(function(c) {
+        return decodeURIComponent(atob(str).split("").map(function (c) {
             return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(""));
     }
@@ -92,7 +92,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     const msg = gMessageDisplay.displayedMessage;
 
     if (show.greyl && msg.folder) {
-        MsgHdrToMimeMessage(msg, null, function(aMsgHdr, aMimeMsg) {
+        MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
             const greylistHeaders = getHeaderBody(aMimeMsg.headers, "x-rmilter-greylist");
             el.greyl.row.collapsed = (greylistHeaders.length === 0);
             el.greyl.hdr.headerValue = greylistHeaders;
@@ -238,7 +238,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             var num = 0;
             var parsed_symbols = [];
 
-            (function(a) {
+            (function (a) {
                 var parsed_symbol = [];
                 var s = [];
                 var re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
@@ -252,16 +252,16 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             const prefName = "extensions.rspamd-spamness.headers.symbols_order";
             const symOrder = prefs.getCharPref(prefName).toLowerCase();
             var compare = (symOrder === "name")
-                ? function(a, b) {
+                ? function (a, b) {
                     return a.name.localeCompare(b.name);
                 }
-                : function(a, b) {
+                : function (a, b) {
                     return Math.abs(a.score) < Math.abs(b.score);
                 };
 
             parsed_symbols
                 .sort(compare)
-                .forEach(function(s) {
+                .forEach(function (s) {
                     el.rules.box.addLinkView({
                         displayText: s.name,
                         tooltiptext: s.options,
@@ -279,7 +279,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     }
 };
 
-RspamdSpamness.Message.changeSymOrder = function(prefVal) {
+RspamdSpamness.Message.changeSymOrder = function (prefVal) {
     const prefs = Services.prefs;
     const prefName = "extensions.rspamd-spamness.headers.symbols_order";
     if (!arguments.length) {
@@ -303,16 +303,16 @@ RspamdSpamness.Message.openRulesDialog = function () {
     );
 };
 
-RspamdSpamness.Message.onLoad = function() {
+RspamdSpamness.Message.onLoad = function () {
     var listener = {};
-    listener.onStartHeaders = function() {};
-    listener.onEndHeaders = function() {
+    listener.onStartHeaders = function () {};
+    listener.onEndHeaders = function () {
         RspamdSpamness.Message.displayHeaders();
     };
     gMessageListeners.push(listener);
 };
 
-RspamdSpamness.Message.onUnload = function() {
+RspamdSpamness.Message.onUnload = function () {
     window.removeEventListener("load", RspamdSpamness.Message.onLoad, false);
     window.removeEventListener("unload", RspamdSpamness.Message.onUnload, false);
 };

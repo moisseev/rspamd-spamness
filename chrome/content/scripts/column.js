@@ -38,13 +38,13 @@ RspamdSpamnessColumn.handler = {
     }
 };
 
-RspamdSpamnessColumn.getScoreByRow = function(row) {
+RspamdSpamnessColumn.getScoreByRow = function (row) {
     var key = gDBView.getKeyAt(row);
     var hdr = gDBView.db.GetMsgHdrForKey(key);
     return RspamdSpamnessColumn.getScoreByHdr(hdr);
 };
 
-RspamdSpamnessColumn.getScoreByHdr = function(hdr) {
+RspamdSpamnessColumn.getScoreByHdr = function (hdr) {
     const re = /(?:^|: \S+ \[)([-\d.]+?) [(/]/;
     const headerStr = RspamdSpamness.getHeaderStr(hdr) || hdr.getStringProperty("x-spam-score");
     return (headerStr)
@@ -52,7 +52,7 @@ RspamdSpamnessColumn.getScoreByHdr = function(hdr) {
         : Number.NaN;
 };
 
-RspamdSpamnessColumn.onLoad = function() {
+RspamdSpamnessColumn.onLoad = function () {
     Services.obs.addObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);
 };
 
@@ -62,11 +62,11 @@ RspamdSpamnessColumn.dbObserver = {
     }
 };
 
-RspamdSpamnessColumn.addColumnHandler = function() {
+RspamdSpamnessColumn.addColumnHandler = function () {
     gDBView.addColumnHandler("spamScoreCol", RspamdSpamnessColumn.handler);
 };
 
-RspamdSpamnessColumn.onUnload = function() {
+RspamdSpamnessColumn.onUnload = function () {
     Services.obs.removeObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);
     window.removeEventListener("load", RspamdSpamnessColumn.onLoad, false);
     window.removeEventListener("unload", RspamdSpamnessColumn.onUnload, false);

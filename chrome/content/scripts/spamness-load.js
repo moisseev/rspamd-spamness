@@ -3,7 +3,7 @@
 "use strict";
 
 var prefObserver = {
-    register: function() {
+    register: function () {
         this.branch = Services.prefs.getBranch("extensions.rspamd-spamness.");
 
         // This is only necessary prior to Gecko 13
@@ -13,10 +13,10 @@ var prefObserver = {
 
         this.branch.addObserver("", this, false);
     },
-    unregister: function() {
+    unregister: function () {
         this.branch.removeObserver("", this);
     },
-    observe: function(aSubject, aTopic, aData) {
+    observe: function (aSubject, aTopic, aData) {
         if (aTopic !== "nsPref:changed") {
             return;
         }
@@ -36,7 +36,7 @@ var toolbarObserver = {
     }
 };
 
-RspamdSpamness.onLoad = function() {
+RspamdSpamness.onLoad = function () {
     const prefs = Services.prefs;
 
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
@@ -48,7 +48,7 @@ RspamdSpamness.onLoad = function() {
     if (defaultCol) {
         RspamdSpamness.addSpamnessColumn();
     }
-    
+
     // first time info, should only ever show once
     var greet = prefs.getBoolPref("extensions.rspamd-spamness.installationGreeting");
     if (greet) {
@@ -61,7 +61,7 @@ RspamdSpamness.onLoad = function() {
     Services.obs.addObserver(toolbarObserver, "mail:updateToolbarItems", false);
 };
 
-RspamdSpamness.onUnload = function() {
+RspamdSpamness.onUnload = function () {
     Services.obs.removeObserver(optionObserver, "addon-options-displayed", false);
     window.removeEventListener("load", RspamdSpamness.onLoad, false);
     window.removeEventListener("unload", RspamdSpamness.onUnload, false);

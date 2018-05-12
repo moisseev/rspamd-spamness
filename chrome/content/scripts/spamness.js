@@ -9,7 +9,7 @@ var RspamdSpamness = {
     trainingButtonDefaultAction: "move"
 };
 
-RspamdSpamness.getImageSrc = function(normalized) {
+RspamdSpamness.getImageSrc = function (normalized) {
     var img, level;
     if (isNaN(normalized)) {
         img = "chrome://messenger/skin/icons/symbol-null.png";
@@ -41,13 +41,13 @@ RspamdSpamness.getMetricClass = function (rule) {
     return null;
 };
 
-RspamdSpamness.getHeaderStr = function(hdr) {
+RspamdSpamness.getHeaderStr = function (hdr) {
     var header = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     var headerStr = hdr.getStringProperty(header);
     return (headerStr) ? headerStr : null;
 };
 
-RspamdSpamness.syncHeaderPrefs = function(prefVal) {
+RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     if (!prefVal) {
         prefVal = document.getElementById("headerNameForm").value;
     }
@@ -71,10 +71,14 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
         }
     }
 
-    setHeadersPref("mailnews.customDBHeaders", RspamdSpamness.customDBHeaders, " ",
-        RspamdSpamness.previousSpamnessHeader, prefVal);
-    setHeadersPref("mailnews.customHeaders",   RspamdSpamness.customHeaders,   ": ",
-        RspamdSpamness.previousSpamnessHeader, [prefVal, "x-spam-score"]);
+    setHeadersPref(
+        "mailnews.customDBHeaders", RspamdSpamness.customDBHeaders, " ",
+        RspamdSpamness.previousSpamnessHeader, prefVal
+    );
+    setHeadersPref(
+        "mailnews.customHeaders",   RspamdSpamness.customHeaders,   ": ",
+        RspamdSpamness.previousSpamnessHeader, [prefVal, "x-spam-score"]
+    );
 
     prefs.setCharPref("extensions.rspamd-spamness.header", prefVal);
     RspamdSpamness.previousSpamnessHeader = prefVal;
@@ -128,24 +132,24 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     }
 };
 
-RspamdSpamness.log = function(msg) {
+RspamdSpamness.log = function (msg) {
     Services.console.logStringMessage(msg);
 };
 
-RspamdSpamness.err = function(msg) {
+RspamdSpamness.err = function (msg) {
     Services.console.logStringMessage("ERROR: " + msg);
 };
 
-RspamdSpamness.addSpamnessColumn = function() {
+RspamdSpamness.addSpamnessColumn = function () {
     // from chrome://messenger/content/folderDisplay.js
     var fdw = FolderDisplayWidget.prototype;
     fdw.DEFAULT_COLUMNS.push("spamScoreCol");
-    fdw.COLUMN_DEFAULT_TESTERS["spamScoreCol"] = function(viewWrapper) {
+    fdw.COLUMN_DEFAULT_TESTERS["spamScoreCol"] = function (viewWrapper) {
         return viewWrapper.isIncomingFolder;
     };
 };
 
-RspamdSpamness.openTab = function(url) {
+RspamdSpamness.openTab = function (url) {
     let tabmail = document.getElementById("tabmail");
     if (!tabmail) {
         let mail3PaneWindow = Services.wm.getMostRecentWindow("mail:3pane");
@@ -158,13 +162,17 @@ RspamdSpamness.openTab = function(url) {
     if (tabmail)
         tabmail.openTab("contentTab", {contentPage: url});
     else
-        window.openDialog("chrome://messenger/content/", "_blank",
+        window.openDialog(
+            "chrome://messenger/content/", "_blank",
             "chrome,dialog=no,all", null,
-            { tabType: "contentTab",
-                tabParams: { contentPage: url }});
+            {
+                tabParams: {contentPage: url},
+                tabType: "contentTab"
+            }
+        );
 };
 
-RspamdSpamness.greet = function() {
+RspamdSpamness.greet = function () {
     let greetPage = "chrome://rspamd-spamness/content/installed.xul";
     RspamdSpamness.openTab(greetPage);
 };
