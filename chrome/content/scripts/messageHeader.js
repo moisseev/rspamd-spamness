@@ -305,7 +305,9 @@ RspamdSpamness.Message.openRulesDialog = function () {
 
 RspamdSpamness.Message.onLoad = function () {
     var listener = {};
-    listener.onStartHeaders = function () {};
+    listener.onStartHeaders = function () {
+        // Do nothing.
+    };
     listener.onEndHeaders = function () {
         RspamdSpamness.Message.displayHeaders();
     };
