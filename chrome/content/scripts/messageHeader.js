@@ -67,7 +67,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         let headerBody = [];
         if (name in msgHeaders) {
             msgHeaders[name].forEach(function(body) {
-                if (body != null)
+                if (body !== null)
                     headerBody.push(body);
             });
         }
@@ -94,7 +94,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     if (show.greyl && msg.folder) {
         MsgHdrToMimeMessage(msg, null, function(aMsgHdr, aMimeMsg) {
             const greylistHeaders = getHeaderBody(aMimeMsg.headers, "x-rmilter-greylist");
-            el.greyl.row.collapsed = (greylistHeaders.length == 0);
+            el.greyl.row.collapsed = (greylistHeaders.length === 0);
             el.greyl.hdr.headerValue = greylistHeaders;
             el.greyl.hdr.valid = true;
         }, true, {
@@ -105,7 +105,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     if (!show.score && !show.rules)
         return;
 
-    if (gDBView.msgFolder == null)
+    if (gDBView.msgFolder === null)
         return;
 
     var hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
@@ -178,9 +178,9 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         if (show.score) {
             var parsed = [];
             parsed.score = RspamdSpamnessColumn.getScoreByHdr(hdr);
-            el.score.row.collapsed = (parsed.score == null);
+            el.score.row.collapsed = (parsed.score === null);
 
-            if (parsed.score == null) {
+            if (parsed.score === null) {
                 el.score.score.headerValue = "";
                 return;
             }
@@ -193,7 +193,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             var fuzzySymbols = [];
             parsed.fuzzy = 0;
             var fuzzySymbolsCount = 0;
-            while ((fuzzySymbols = re.exec(symbols)) != null) {
+            while ((fuzzySymbols = re.exec(symbols)) !== null) {
                 parsed.fuzzy += parseFloat(fuzzySymbols[1]);
                 fuzzySymbolsCount++;
             }

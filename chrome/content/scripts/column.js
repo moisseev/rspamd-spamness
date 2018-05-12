@@ -6,7 +6,7 @@ var RspamdSpamnessColumn = {};
 
 RspamdSpamnessColumn.handler = {
     getCellText:         function (row) {
-        if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") == 2)
+        if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 2)
             return null;
 
         var score = RspamdSpamnessColumn.getScoreByRow(row);
@@ -26,7 +26,7 @@ RspamdSpamnessColumn.handler = {
     getRowProperties:    function () {},
 
     getImageSrc:         function (row) {
-        if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") == 1)
+        if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 1)
             return null;
 
         var score = RspamdSpamnessColumn.getScoreByRow(row);

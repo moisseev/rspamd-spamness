@@ -59,7 +59,7 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
     RspamdSpamness.customDBHeaders = getHeadersPref("mailnews.customDBHeaders", /\s+/);
     RspamdSpamness.customHeaders   = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
 
-    if (prefVal != RspamdSpamness.previousSpamnessHeader) {
+    if (prefVal !== RspamdSpamness.previousSpamnessHeader) {
         if (!isRFC5322HeaderName(prefVal)) {
             var bundle = document.getElementById("bundle_custom");
             var alertText = bundle.getString("colonInHeaderName");
@@ -103,20 +103,20 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 
     function setHeadersPref(prefName, arr, separator, rmvHeaders, addHeaders) {
         let modified;
-        if (typeof rmvHeaders == "string")
+        if (typeof rmvHeaders === "string")
             rmvHeaders = [rmvHeaders];
-        if (typeof addHeaders == "string")
+        if (typeof addHeaders === "string")
             addHeaders = [addHeaders];
 
         rmvHeaders.forEach(function (hdr) {
             const i = arr.indexOf(hdr);
-            if (i >= 0 && addHeaders.indexOf(hdr) == -1) {
+            if (i >= 0 && addHeaders.indexOf(hdr) === -1) {
                 arr.splice(i, 1);
                 modified = true;
             }
         });
         addHeaders.forEach(function (hdr) {
-            if (arr.indexOf(hdr) == -1) {
+            if (arr.indexOf(hdr) === -1) {
                 arr.push(hdr);
                 modified = true;
             }
@@ -171,8 +171,8 @@ RspamdSpamness.greet = function() {
 
 RspamdSpamness.moveMessage = function (folder, isDefault) {
     var destination = MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
-    if (isDefault && RspamdSpamness.trainingButtonDefaultAction == "copy" ||
-        !isDefault && RspamdSpamness.trainingButtonDefaultAction != "copy")
+    if (isDefault && RspamdSpamness.trainingButtonDefaultAction === "copy" ||
+        !isDefault && RspamdSpamness.trainingButtonDefaultAction !== "copy")
         MsgCopyMessage(destination);
     else
         MsgMoveMessage(destination);
@@ -187,7 +187,7 @@ RspamdSpamness.setBtnCmdLabels = function () {
 
     RspamdSpamness.trainingButtonDefaultAction = Services.prefs.getCharPref("extensions.rspamd-spamness.trainingButtons.defaultAction");
 
-    if (RspamdSpamness.trainingButtonDefaultAction == "copy") {
+    if (RspamdSpamness.trainingButtonDefaultAction === "copy") {
         setLabel("btnHamCmdPrimary", "Copy");
         setLabel("btnSpamCmdPrimary", "Copy");
         setLabel("btnHamCmdSecondary", "Move");
