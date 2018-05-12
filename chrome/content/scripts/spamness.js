@@ -60,19 +60,13 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
 
     if (prefVal !== RspamdSpamness.previousSpamnessHeader) {
         if (!isRFC5322HeaderName(prefVal)) {
-            var bundle = document.getElementById("bundle_custom");
-            var alertText = bundle.getString("colonInHeaderName");
-            window.alert(alertText);
-            if (prefEl) prefEl.focus();
+            showAlert("colonInHeaderName");
             return false;
         }
 
-        var nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
+        const nsMsgSearchAttrib = Components.interfaces.nsMsgSearchAttrib;
         if (RspamdSpamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
-            var bundle = document.getElementById("bundle_custom");
-            var alertText = bundle.getString("customHeaderOverflow");
-            window.alert(alertText);
-            if (prefEl) prefEl.focus();
+            showAlert("customHeaderOverflow");
             return false;
         }
     }
@@ -124,6 +118,13 @@ RspamdSpamness.syncHeaderPrefs = function(prefVal) {
             var newPref = arr.join(separator);
             prefs.setCharPref(prefName, newPref);
         }
+    }
+
+    function showAlert(strId) {
+        const bundle = document.getElementById("bundle_custom");
+        const alertText = bundle.getString(strId);
+        window.alert(alertText);
+        if (prefEl) prefEl.focus();
     }
 };
 
