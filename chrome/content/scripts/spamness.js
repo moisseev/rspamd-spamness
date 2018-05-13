@@ -48,7 +48,8 @@ RspamdSpamness.getHeaderStr = function (hdr) {
     return (headerStr) ? headerStr : null;
 };
 
-RspamdSpamness.syncHeaderPrefs = function (prefVal) {
+RspamdSpamness.syncHeaderPrefs = function (prefValue) {
+    let prefVal = prefValue;
     if (!prefVal) {
         prefVal = document.getElementById("headerNameForm").value;
     }
@@ -100,20 +101,24 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     }
 
     function setHeadersPref(prefName, arr, separator, rmvHeaders, addHeaders) {
+        const h = {
+            add: addHeaders,
+            rmv: rmvHeaders
+        };
         let modified = null;
-        if (typeof rmvHeaders === "string")
-            rmvHeaders = [rmvHeaders];
-        if (typeof addHeaders === "string")
-            addHeaders = [addHeaders];
+        if (typeof h.rmv === "string")
+            h.rmv = [h.rmv];
+        if (typeof h.add === "string")
+            h.add = [h.add];
 
-        rmvHeaders.forEach(function (hdr) {
+        h.rmv.forEach(function (hdr) {
             const i = arr.indexOf(hdr);
-            if (i >= 0 && addHeaders.indexOf(hdr) === -1) {
+            if (i >= 0 && h.add.indexOf(hdr) === -1) {
                 arr.splice(i, 1);
                 modified = true;
             }
         });
-        addHeaders.forEach(function (hdr) {
+        h.add.forEach(function (hdr) {
             if (arr.indexOf(hdr) === -1) {
                 arr.push(hdr);
                 modified = true;

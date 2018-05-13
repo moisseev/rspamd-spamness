@@ -276,7 +276,8 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     }
 };
 
-RspamdSpamness.Message.changeSymOrder = function (prefVal) {
+RspamdSpamness.Message.changeSymOrder = function (prefValue) {
+    let prefVal = prefValue;
     const {prefs} = Services;
     const prefName = "extensions.rspamd-spamness.headers.symbols_order";
     if (!arguments.length) {
