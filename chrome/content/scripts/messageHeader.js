@@ -64,7 +64,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     }
 
     function getHeaderBody(msgHeaders, name) {
-        let headerBody = [];
+        const headerBody = [];
         if (name in msgHeaders) {
             msgHeaders[name].forEach(function (body) {
                 if (body !== null)
@@ -153,8 +153,8 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 if (RspamdSpamness.Message.headerStr) {
                     const metric = JSON.parse(RspamdSpamness.Message.headerStr).default;
                     let s = null;
-                    for (let item in metric) {
-                        let symbol = metric[item];
+                    for (let item in metric) { // eslint-disable-line prefer-const
+                        const symbol = metric[item];
                         if (symbol.name) {
                             s += " " + symbol.name +
                                 "(" + symbol.score.toFixed(2) + ")" +
@@ -208,7 +208,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 score: parsed.score + " ( Bayes:"
             };
 
-            for (let key in id.score.hdr) {
+            for (let key in id.score.hdr) { // eslint-disable-line prefer-const
                 getEl(id.score.hdr[key].icon).src = RspamdSpamness.getImageSrc(parsed[key]);
                 getEl(id.score.hdr[key].score).headerValue = hdrVal[key];
             }

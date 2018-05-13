@@ -158,7 +158,7 @@ RspamdSpamness.addSpamnessColumn = function () {
 RspamdSpamness.openTab = function (url) {
     let tabmail = document.getElementById("tabmail");
     if (!tabmail) {
-        let mail3PaneWindow = Services.wm.getMostRecentWindow("mail:3pane");
+        const mail3PaneWindow = Services.wm.getMostRecentWindow("mail:3pane");
         if (mail3PaneWindow) {
             tabmail = mail3PaneWindow.document.getElementById("tabmail");
             mail3PaneWindow.focus();
@@ -179,7 +179,7 @@ RspamdSpamness.openTab = function (url) {
 };
 
 RspamdSpamness.greet = function () {
-    let greetPage = "chrome://rspamd-spamness/content/installed.xul";
+    const greetPage = "chrome://rspamd-spamness/content/installed.xul";
     RspamdSpamness.openTab(greetPage);
 };
 
