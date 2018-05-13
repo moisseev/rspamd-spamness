@@ -2,15 +2,58 @@
     "env": {
         "browser": true
     },
-    "extends": "eslint:recommended",
+    "extends": "eslint:all",
     "parserOptions": {
         "ecmaVersion": 6
     },
     "rules": {
-        "indent": ["error", 4],
-        "linebreak-style": ["error", "unix"],
-        "quotes": ["error", "double"],
-        "semi": ["error","always"]
+        "array-element-newline": ["error", { "multiline": true }],
+        "camelcase": "off",
+        "capitalized-comments": "off",
+        "curly": "off",
+        "dot-location": ["error", "property"],
+        "func-names": "off",
+        "func-style": ["error", "declaration"],
+        "id-length": ["error", { "min": 1 }],
+        "key-spacing": ["error", { "align": "value" }],
+        "max-len": ["error", { "code": 120 }],
+        "max-params": ["warn", 5],
+        "max-statements": ["warn", 40],
+        "multiline-ternary": ["error", "always-multiline"],
+        "new-cap": ["error", { "capIsNewExceptions": [
+            "ConvertToUnicode",
+            "GetMsgHdrForKey",
+            "GetMessageHeader",
+            "MsgCopyMessage",
+            "MsgHdrToMimeMessage",
+            "MsgMoveMessage",
+            "QueryInterface"
+        ]}],
+        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 4 }],
+        "no-alert": "off",
+        "no-continue": "off",
+        "no-extra-parens": ["error", "functions"],
+        "no-implicit-globals": "off",
+        "no-magic-numbers": "off",
+        "no-mixed-operators": "off",
+        "no-plusplus": "off",
+        "no-ternary": "off",
+        "no-use-before-define": ["error", { "functions": false }],
+        "nonblock-statement-body-position": "off",
+        "object-curly-newline": ["error", { "consistent": true }],
+        "object-shorthand": "off",
+        "one-var": "off",
+        "padded-blocks": "off",
+        "prefer-arrow-callback": "off",
+        "prefer-template": "off",
+        "quote-props" : ["error", "consistent-as-needed"],
+        "require-jsdoc": "off",
+        "space-before-function-paren": ["error", {
+            "anonymous": "always",
+            "named": "never"
+        }],
+        "strict": ["error", "global"],
+        "wrap-iife": ["error", "any"]
     },
     "globals": {
         "Components": false,
@@ -18,9 +61,9 @@
         "gDBView": false,
         "gMessageDisplay": false,
         "gMessageListeners": false,
-        "MsgHdrToMimeMessage": false,
         "MailUtils": false,
         "MsgCopyMessage": false,
+        "MsgHdrToMimeMessage": false,
         "MsgMoveMessage": false,
         "optionObserver": false,
         "Services": false
