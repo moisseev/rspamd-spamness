@@ -1,13 +1,14 @@
 "use strict";
 
-Components.utils.import("resource://gre/modules/Services.jsm");
-
+// eslint-disable-next-line no-var
 var RspamdSpamness = {
-    customDBHeaders: [],
-    customHeaders: [],
-    previousSpamnessHeader: "",
+    customDBHeaders:             [],
+    customHeaders:               [],
+    previousSpamnessHeader:      "",
     trainingButtonDefaultAction: "move"
 };
+
+Components.utils.import("resource://gre/modules/Services.jsm");
 
 RspamdSpamness.getImageSrc = function (normalized) {
     let img = null;
@@ -58,7 +59,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
     RspamdSpamness.customDBHeaders = getHeadersPref("mailnews.customDBHeaders", /\s+/);
-    RspamdSpamness.customHeaders   = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
+    RspamdSpamness.customHeaders = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
 
     if (prefVal !== RspamdSpamness.previousSpamnessHeader) {
         if (!isRFC5322HeaderName(prefVal)) {
@@ -67,7 +68,8 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
         }
 
         const {nsMsgSearchAttrib} = Components.interfaces;
-        if (RspamdSpamness.customHeaders.length + 1 >= (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
+        if (RspamdSpamness.customHeaders.length + 1 >=
+                (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
             showAlert("customHeaderOverflow");
             return false;
         }
@@ -78,7 +80,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
         RspamdSpamness.previousSpamnessHeader, prefVal
     );
     setHeadersPref(
-        "mailnews.customHeaders",   RspamdSpamness.customHeaders,   ": ",
+        "mailnews.customHeaders", RspamdSpamness.customHeaders, ": ",
         RspamdSpamness.previousSpamnessHeader, [prefVal, "x-spam-score"]
     );
 
@@ -173,7 +175,7 @@ RspamdSpamness.openTab = function (url) {
             "chrome,dialog=no,all", null,
             {
                 tabParams: {contentPage: url},
-                tabType: "contentTab"
+                tabType:   "contentTab"
             }
         );
 };
@@ -184,7 +186,8 @@ RspamdSpamness.greet = function () {
 };
 
 RspamdSpamness.moveMessage = function (folder, isDefault) {
-    const destination = MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
+    const destination =
+        MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
     if (isDefault && RspamdSpamness.trainingButtonDefaultAction === "copy" ||
         !isDefault && RspamdSpamness.trainingButtonDefaultAction !== "copy")
         MsgCopyMessage(destination);
@@ -199,7 +202,8 @@ RspamdSpamness.setBtnCmdLabels = function () {
             el.setAttribute("label", label);
     }
 
-    RspamdSpamness.trainingButtonDefaultAction = Services.prefs.getCharPref("extensions.rspamd-spamness.trainingButtons.defaultAction");
+    RspamdSpamness.trainingButtonDefaultAction =
+        Services.prefs.getCharPref("extensions.rspamd-spamness.trainingButtons.defaultAction");
 
     if (RspamdSpamness.trainingButtonDefaultAction === "copy") {
         setLabel("btnHamCmdPrimary", "Copy");

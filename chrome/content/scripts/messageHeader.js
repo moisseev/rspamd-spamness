@@ -1,4 +1,5 @@
 /* global RspamdSpamness:false, RspamdSpamnessColumn:false */
+/* eslint max-lines: ["error", 350] */
 
 "use strict";
 
@@ -7,6 +8,7 @@ RspamdSpamness.Message = {};
 /**
  * Display headers in msgHeaderView box.
  * @param {boolean} [update_rules=false] - Just redraw "Rules" header, leave other headers as they are.
+ * @returns {void}
  */
 RspamdSpamness.Message.displayHeaders = function (update_rules) {
     const {prefs} = Services;
@@ -40,7 +42,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             row: getEl("expandedRspamdSpamnessRulesRow")
         },
         scanTime: getEl("rspamdSpamnessScanTimeHeader"),
-        score: {
+        score:    {
             row: getEl("expandedRspamdSpamnessRow")
         }
     };
@@ -263,7 +265,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 .sort(compare)
                 .forEach(function (s) {
                     el.rules.box.addLinkView({
-                        class: RspamdSpamness.getMetricClass(s.name),
+                        class:       RspamdSpamness.getMetricClass(s.name),
                         displayText: s.name,
                         tooltiptext: s.options
                     });
@@ -273,7 +275,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             if (num) {
                 el.rules.box.buildViews();
             } else {
-                el.rules.row.collapsed;
+                el.rules.row.collapsed; // eslint-disable-line no-unused-expressions
             }
         }
     }
