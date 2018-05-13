@@ -51,8 +51,8 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         score: update_rules ? false : getPref("extensions.rspamd-spamness.display.messageScore")
     };
 
-    function getEl(id) {
-        return document.getElementById(id);
+    function getEl(elementId) {
+        return document.getElementById(elementId);
     }
 
     function getPref(prefName) {
@@ -60,6 +60,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             return prefs.getBoolPref(prefName);
         } catch (e) {
             RspamdSpamness.err(e);
+            return null;
         }
     }
 
@@ -154,6 +155,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                     const metric = JSON.parse(RspamdSpamness.Message.headerStr).default;
                     let s = null;
                     for (let item in metric) { // eslint-disable-line prefer-const
+                        if (!{}.hasOwnProperty.call(metric, item)) continue;
                         const symbol = metric[item];
                         if (symbol.name) {
                             s += " " + symbol.name +
@@ -209,6 +211,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             };
 
             for (let key in id.score.hdr) { // eslint-disable-line prefer-const
+                if (!{}.hasOwnProperty.call(id.score.hdr, key)) continue;
                 getEl(id.score.hdr[key].icon).src = RspamdSpamness.getImageSrc(parsed[key]);
                 getEl(id.score.hdr[key].score).headerValue = hdrVal[key];
             }

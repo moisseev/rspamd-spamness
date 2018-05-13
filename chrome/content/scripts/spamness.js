@@ -97,7 +97,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
     }
 
     function isRFC5322HeaderName(str) {
-        return /^[\x21-\x39\x3B-\x7E]+$/.test(str);
+        return (/^[\x21-\x39\x3B-\x7E]+$/).test(str);
     }
 
     function setHeadersPref(prefName, arr, separator, rmvHeaders, addHeaders) {
