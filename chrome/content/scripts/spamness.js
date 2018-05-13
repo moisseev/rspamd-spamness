@@ -3,8 +3,8 @@
 Components.utils.import("resource://gre/modules/Services.jsm");
 
 var RspamdSpamness = {
-    customDBHeaders: new Array(),
-    customHeaders: new Array(),
+    customDBHeaders: [],
+    customHeaders: [],
     previousSpamnessHeader: "",
     trainingButtonDefaultAction: "move"
 };
@@ -150,7 +150,7 @@ RspamdSpamness.addSpamnessColumn = function () {
     // from chrome://messenger/content/folderDisplay.js
     const fdw = FolderDisplayWidget.prototype;
     fdw.DEFAULT_COLUMNS.push("spamScoreCol");
-    fdw.COLUMN_DEFAULT_TESTERS["spamScoreCol"] = function (viewWrapper) {
+    fdw.COLUMN_DEFAULT_TESTERS.spamScoreCol = function (viewWrapper) {
         return viewWrapper.isIncomingFolder;
     };
 };

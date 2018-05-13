@@ -195,7 +195,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 fuzzySymbolsCount++;
             }
             parsed.fuzzy = (parsed.fuzzy)
-                ? +parseFloat(parsed.fuzzy).toFixed(10)
+                ? Number(parseFloat(parsed.fuzzy).toFixed(10))
                 : "undefined";
 
             const fuzzyCounter = (fuzzySymbolsCount > 1)
