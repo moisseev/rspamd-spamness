@@ -18,6 +18,8 @@ RspamdSpamnessColumn.handler = {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 1)
             return null;
         const score = RspamdSpamnessColumn.getScoreByRow(row);
+        if (Services.prefs.getBoolPref("extensions.rspamd-spamness.display.columnImageOnlyForPositive") && score <= 0)
+            return null;
         return RspamdSpamness.getImageSrc(score);
     },
     getRowProperties: function () {

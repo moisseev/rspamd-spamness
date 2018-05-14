@@ -10,6 +10,7 @@
     <prefpane>
         <preferences>
             <preference id="pref_display.column" name="extensions.rspamd-spamness.display.column" type="int" />
+            <preference id="pref_display.columnImageOnlyForPositive" name="extensions.rspamd-spamness.display.columnImageOnlyForPositive" type="bool" />
             <preference id="pref_isDefaultColumn" name="extensions.rspamd-spamness.isDefaultColumn" type="bool" />
             <preference id="pref_display.messageScore" name="extensions.rspamd-spamness.display.messageScore" type="bool" />
             <preference id="pref_display.messageRules" name="extensions.rspamd-spamness.display.messageRules" type="bool" />
@@ -29,6 +30,7 @@
                             <radio value="1" label="&spamnessOptions.prefShowText.label;" />
                             <radio value="2" label="&spamnessOptions.prefShowImage.label;" />
                         </radiogroup>
+                        <checkbox preference="pref_display.columnImageOnlyForPositive" label="&spamnessOptions.prefDisplayColumnImageOnlyForPositive.label;" />
                         <checkbox preference="pref_isDefaultColumn" label="&spamnessOptions.prefIsDefaultColumn.label;" />
                     </groupbox>
                 </hbox>

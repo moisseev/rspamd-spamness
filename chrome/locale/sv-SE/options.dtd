@@ -4,6 +4,7 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Visa visuell indikator och poängbedömning">
 <!ENTITY spamnessOptions.prefShowText.label "Visa endast poängbedömning">
 <!ENTITY spamnessOptions.prefShowImage.label "Visa endast visuell indikator">
+<!ENTITY spamnessOptions.prefDisplayColumnImageOnlyForPositive.label "Show visual only for positive score">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "Visa kolumnen som standard">
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Meddelandevisning">

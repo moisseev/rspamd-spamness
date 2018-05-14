@@ -4,6 +4,7 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Mostra grafica e punteggio">
 <!ENTITY spamnessOptions.prefShowText.label "Mostra solo il punteggio">
 <!ENTITY spamnessOptions.prefShowImage.label "Mostra solo la grafica">
+<!ENTITY spamnessOptions.prefDisplayColumnImageOnlyForPositive.label "Show visual only for positive score">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "Show column by default">
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Aspetto nel messaggio">

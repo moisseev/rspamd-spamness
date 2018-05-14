@@ -4,6 +4,7 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Прикажи визуелно и резултат">
 <!ENTITY spamnessOptions.prefShowText.label "Прикажи само резултат">
 <!ENTITY spamnessOptions.prefShowImage.label "Прикажи само визуелно">
+<!ENTITY spamnessOptions.prefDisplayColumnImageOnlyForPositive.label "Show visual only for positive score">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "Прикажи колону по подразумеваном">
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Приказ порука">

@@ -4,6 +4,7 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Показывать значок и оценку">
 <!ENTITY spamnessOptions.prefShowText.label "Показывать только оценку">
 <!ENTITY spamnessOptions.prefShowImage.label "Показывать только значок">
+<!ENTITY spamnessOptions.prefDisplayColumnImageOnlyForPositive.label "Показывать значок только для положительной оценки">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "Отображать колонку по-умолчанию">
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Настройки отображения сообщения">

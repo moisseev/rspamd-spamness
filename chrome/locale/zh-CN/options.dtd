@@ -4,6 +4,7 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "显示视觉效果和得分">
 <!ENTITY spamnessOptions.prefShowText.label "仅显示得分">
 <!ENTITY spamnessOptions.prefShowImage.label "仅显示视觉效果">
+<!ENTITY spamnessOptions.prefDisplayColumnImageOnlyForPositive.label "Show visual only for positive score">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "默认显示列">
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "消息显示">

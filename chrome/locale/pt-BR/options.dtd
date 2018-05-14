@@ -4,6 +4,7 @@
 <!ENTITY spamnessOptions.prefShowBoth.label "Mostrar visual e escore">
 <!ENTITY spamnessOptions.prefShowText.label "Mostrar apenas o escore">
 <!ENTITY spamnessOptions.prefShowImage.label "Mostrar apenas o visual">
+<!ENTITY spamnessOptions.prefDisplayColumnImageOnlyForPositive.label "Show visual only for positive score">
 <!ENTITY spamnessOptions.prefIsDefaultColumn.label "Exibe a coluna por padrão">
 
 <!ENTITY spamnessOptions.captionDisplayMessageGroup.label "Exibição de mensagens">
