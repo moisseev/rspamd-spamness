@@ -46,6 +46,8 @@ RspamdSpamness.onLoad = function () {
     RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);
     RspamdSpamness.setBtnCmdLabels();
     RspamdSpamness.hideTrnButtons();
+    RspamdSpamness.Message.changeSymOrder();
+    RspamdSpamness.Message.toggleSymGrouping();
 
     // whether this column gets default status
     const defaultCol = prefs.getBoolPref("extensions.rspamd-spamness.isDefaultColumn");

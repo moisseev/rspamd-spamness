@@ -54,7 +54,8 @@
           aLinkNode.setAttribute("class", aLink.class);
 
           let el = document.getAnonymousElementByAttribute(aLinkNode, "anonid", "linkValue");
-          el.setAttribute("context", "copyPopup");
+          el.setAttribute("context", "rspamdSpamnessSymbolPopup");
+          el.setAttribute("popup", "rspamdSpamnessSymbolPopup");
           el.textContent = aLink.displayText;
         ]]></body>
       </method>

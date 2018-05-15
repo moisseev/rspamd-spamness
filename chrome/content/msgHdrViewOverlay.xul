@@ -2,7 +2,14 @@
 <?xml-stylesheet href="chrome://rspamd-spamness/skin/messageHeader.css" type="text/css"?>
 <?xml-stylesheet href="chrome://rspamd-spamness/content/bindings.css" type="text/css"?>
 
-<!DOCTYPE overlay SYSTEM "chrome://rspamd-spamness/locale/messageHeader.dtd">
+<!DOCTYPE window [
+  <!ENTITY % messageHeaderDTD SYSTEM "chrome://rspamd-spamness/locale/messageHeader.dtd">
+  %messageHeaderDTD;
+  <!ENTITY % messengerDTD SYSTEM "chrome://messenger/locale/messenger.dtd" >
+  %messengerDTD;
+  <!ENTITY % utilityDTD SYSTEM "chrome://communicator/locale/utilityOverlay.dtd">
+  %utilityDTD;
+]>
 
 <overlay id="mailingListHeaderOverlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -11,6 +18,41 @@
           src="chrome://rspamd-spamness/content/scripts/spamness.js" />
   <script type="application/x-javascript"
           src="chrome://rspamd-spamness/content/scripts/messageHeader.js" />
+
+  <popupset id="mainPopupSet">
+    <menupopup id="rspamdSpamnessSymbolPopup">
+      <menuitem label="&copyCmd.label;"
+                accesskey="&copyCmd.accesskey;"
+                tooltiptext="&copyCmd.label;"
+                oncommand="Components.classes['@mozilla.org/widget/clipboardhelper;1']
+                            .getService(Components.interfaces.nsIClipboardHelper)
+                            .copyString(window.getSelection().isCollapsed ?
+                                document.popupNode.textContent :
+                                window.getSelection().toString());"/>
+      <menuitem label="&CreateFilterFrom.label;"
+                accesskey="&CreateFilterFrom.accesskey;"
+                oncommand="CreateFilter(this.parentNode.triggerNode.parentNode, gMessageDisplay.displayedMessage)"
+                observes="cmd_createFilterFromPopup"/>
+      <menuseparator/>
+      <menuitem id = "rspamdSpamnessSymbolPopupSortByName"
+              label="Sort symbols by name"
+              oncommand="RspamdSpamness.Message.changeSymOrder('name')"/>
+      <menuitem id = "rspamdSpamnessSymbolPopupSortByScore"
+              label="Sort symbols by score"
+              oncommand="RspamdSpamness.Message.changeSymOrder('score')"/>
+      <menuseparator/>
+      <menuitem id = "rspamdSpamnessSymbolPopupGroup"
+              label="Group symbols"
+              oncommand="RspamdSpamness.Message.toggleSymGrouping(true)"/>
+      <menuitem id = "rspamdSpamnessSymbolPopupUngroup"
+              label="Ungroup symbols"
+              oncommand="RspamdSpamness.Message.toggleSymGrouping(false)"/>
+      <menuseparator/>
+      <menuitem
+              label="Raw extended Rspamd header"
+              oncommand="RspamdSpamness.Message.openRulesDialog();"/>
+    </menupopup>
+  </popupset>
 
   <toolbarpalette id="header-view-toolbar-palette">
     <toolbarbutton id="rspamdSpamnessButtonHam"

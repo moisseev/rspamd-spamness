@@ -1,5 +1,5 @@
 /* global RspamdSpamness:false, RspamdSpamnessColumn:false */
-/* eslint max-lines: ["error", 350] */
+/* eslint max-lines: ["error", 400] */
 
 "use strict";
 
@@ -300,13 +300,28 @@ RspamdSpamness.Message.changeSymOrder = function (prefValue) {
     let prefVal = prefValue;
     const {prefs} = Services;
     const prefName = "extensions.rspamd-spamness.headers.symbols_order";
-    if (!arguments.length) {
-        prefVal = (prefs.getCharPref(prefName).toLowerCase() === "name")
-            ? "score"
-            : "name";
+    if (arguments.length) {
+        prefs.setCharPref(prefName, prefVal);
+        RspamdSpamness.Message.displayHeaders(true);
+    } else {
+        prefVal = prefs.getCharPref(prefName);
     }
-    prefs.setCharPref(prefName, prefVal);
-    RspamdSpamness.Message.displayHeaders(true);
+    document.getElementById("rspamdSpamnessSymbolPopupSortByName").disabled = (prefVal === "name");
+    document.getElementById("rspamdSpamnessSymbolPopupSortByScore").disabled = (prefVal === "score");
+};
+
+RspamdSpamness.Message.toggleSymGrouping = function (prefValue) {
+    let prefVal = prefValue;
+    const {prefs} = Services;
+    const prefName = "extensions.rspamd-spamness.headers.group_symbols";
+    if (arguments.length) {
+        prefs.setBoolPref(prefName, prefVal);
+        RspamdSpamness.Message.displayHeaders(true);
+    } else {
+        prefVal = prefs.getBoolPref(prefName);
+    }
+    document.getElementById("rspamdSpamnessSymbolPopupGroup").disabled = prefVal;
+    document.getElementById("rspamdSpamnessSymbolPopupUngroup").disabled = !prefVal;
 };
 
 RspamdSpamness.Message.openRulesDialog = function () {
