@@ -261,8 +261,22 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                     return Math.abs(a.score) < Math.abs(b.score);
                 };
 
+            const group_symbols = getPref("extensions.rspamd-spamness.headers.group_symbols");
             parsed_symbols
-                .sort(compare)
+                .sort(function (a, b) {
+                    function group(s) {
+                        if (s.score > 0) return 3;
+                        if (s.score < 0) return 2;
+                        if (/^GREYLIST\(/.test(s.name)) return 1;
+                        return 0;
+                    }
+
+                    if (group_symbols) {
+                        if (group(a) < group(b)) return 1;
+                        if (group(a) > group(b)) return -1;
+                    }
+                    return compare(a, b);
+                })
                 .forEach(function (s) {
                     el.rules.box.addLinkView({
                         class:       RspamdSpamness.getMetricClass(s.name),
