@@ -5,11 +5,11 @@
 <overlay
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <popup id="mailContext">
-        <menuitem
+        <menuitem class="trn"
             label="&spamness.buttonTrainHam.label;"
             tooltiptext="&spamness.buttonTrainHam.tooltip;"
             oncommand="RspamdSpamness.moveMessage('TrainHam', true);" />
-        <menuitem
+        <menuitem class="trn"
             label="&spamness.buttonTrainSpam.label;"
             tooltiptext="&spamness.buttonTrainSpam.tooltip;"
             oncommand="RspamdSpamness.moveMessage('TrainSpam', true);" />

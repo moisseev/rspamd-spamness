@@ -21,6 +21,7 @@
 <!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Открыть..">
 
 <!ENTITY spamnessOptions.captionTrainingButtonsGroup.label "Настройки кнопок обучения">
+<!ENTITY spamnessOptions.prefTrainingButtons.enabled.label "Включить кнопки обучения">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.label "Расположение [URI] папки 'Не-спам'">
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.label "Расположение [URI] папки 'Спам'">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.tooltip "Узнать URI можно в свойствах папки, вкладка 'Основная информация', поле 'Адрес'">

@@ -17,6 +17,7 @@
             <preference id="pref_headers.show_n_lines_before_more" name="extensions.rspamd-spamness.headers.show_n_lines_before_more" type="int" />
             <preference id="pref_headers.colorizeSymbols" name="extensions.rspamd-spamness.headers.colorizeSymbols" type="bool" />
             <preference id="pref_display.messageGreylist" name="extensions.rspamd-spamness.display.messageGreylist" type="bool" />
+            <preference id="pref_trainingButtons.enabled" name="extensions.rspamd-spamness.trainingButtons.enabled" type="bool" />
             <preference id="pref_uri.folderTrainHam" name="extensions.rspamd-spamness.uri.folderTrainHam" type="string" />
             <preference id="pref_uri.folderTrainSpam" name="extensions.rspamd-spamness.uri.folderTrainSpam" type="string" />
             <preference id="pref_trainingButtons.defaultAction" name="extensions.rspamd-spamness.trainingButtons.defaultAction" type="string" />
@@ -51,6 +52,7 @@
                 <hbox>
                     <groupbox flex="1">
                         <caption label="&spamnessOptions.captionTrainingButtonsGroup.label;" />
+                        <checkbox preference="pref_trainingButtons.enabled" label="&spamnessOptions.prefTrainingButtons.enabled.label;" />
                         <hbox>
                             <label control="folderTrainHam" flex="1" value="&spamnessOptions.prefFolderURITrainHam.label;" />
                             <textbox id="folderTrainHam" size="80" preference="pref_uri.folderTrainHam"

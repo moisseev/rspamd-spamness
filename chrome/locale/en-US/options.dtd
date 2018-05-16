@@ -21,6 +21,7 @@
 <!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">
 
 <!ENTITY spamnessOptions.captionTrainingButtonsGroup.label "Training buttons settings">
+<!ENTITY spamnessOptions.prefTrainingButtons.enabled.label "Enable training buttons">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.label "Ham training folder location URI">
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.label "Spam training folder location URI">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.tooltip "Can be found at 'General Information' tab of 'Folder Properties'">

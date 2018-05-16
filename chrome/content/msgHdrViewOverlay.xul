@@ -15,7 +15,7 @@
   <toolbarpalette id="header-view-toolbar-palette">
     <toolbarbutton id="rspamdSpamnessButtonHam"
                    type="menu-button"
-                   class="toolbarbutton-1 msgHeaderView-button"
+                   class="toolbarbutton-1 msgHeaderView-button trn"
                    label="&spamness.buttonTrainHam.label;"
                    tooltiptext="&spamness.buttonTrainHam.tooltip;"
                    image="chrome://rspamd-spamness/skin/arrow-down.png"
@@ -29,7 +29,7 @@
     </toolbarbutton>
     <toolbarbutton id="rspamdSpamnessButtonSpam"
                    type="menu-button"
-                   class="toolbarbutton-1 msgHeaderView-button"
+                   class="toolbarbutton-1 msgHeaderView-button trn"
                    label="&spamness.buttonTrainSpam.label;"
                    tooltiptext="&spamness.buttonTrainSpam.tooltip;"
                    image="chrome://rspamd-spamness/skin/arrow-up.png"

@@ -10,6 +10,9 @@ const prefObserver = {
         if (aData === "trainingButtons.defaultAction") {
             RspamdSpamness.setBtnCmdLabels();
         }
+        if (aData === "trainingButtons.enabled") {
+            RspamdSpamness.hideTrnButtons();
+        }
     },
     register: function () {
         this.branch = Services.prefs.getBranch("extensions.rspamd-spamness.");
@@ -42,6 +45,7 @@ RspamdSpamness.onLoad = function () {
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);
     RspamdSpamness.setBtnCmdLabels();
+    RspamdSpamness.hideTrnButtons();
 
     // whether this column gets default status
     const defaultCol = prefs.getBoolPref("extensions.rspamd-spamness.isDefaultColumn");

@@ -217,3 +217,11 @@ RspamdSpamness.setBtnCmdLabels = function () {
         setLabel("btnSpamCmdSecondary", "Copy");
     }
 };
+
+RspamdSpamness.hideTrnButtons = function () {
+    const hide = !Services.prefs.getBoolPref("extensions.rspamd-spamness.trainingButtons.enabled");
+    const elements = document.getElementsByClassName("trn");
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].hidden = hide;
+    }
+};
