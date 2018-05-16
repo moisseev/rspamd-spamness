@@ -15,6 +15,7 @@
             <preference id="pref_display.messageScore" name="extensions.rspamd-spamness.display.messageScore" type="bool" />
             <preference id="pref_display.messageRules" name="extensions.rspamd-spamness.display.messageRules" type="bool" />
             <preference id="pref_headers.show_n_lines_before_more" name="extensions.rspamd-spamness.headers.show_n_lines_before_more" type="int" />
+            <preference id="pref_headers.colorizeSymbols" name="extensions.rspamd-spamness.headers.colorizeSymbols" type="bool" />
             <preference id="pref_display.messageGreylist" name="extensions.rspamd-spamness.display.messageGreylist" type="bool" />
             <preference id="pref_uri.folderTrainHam" name="extensions.rspamd-spamness.uri.folderTrainHam" type="string" />
             <preference id="pref_uri.folderTrainSpam" name="extensions.rspamd-spamness.uri.folderTrainSpam" type="string" />
@@ -43,6 +44,7 @@
                             <label control="show_n_lines_before_more" value="&spamnessOptions.prefShowNLinesBeforeMore.label;" />
                             <textbox id="show_n_lines_before_more" preference="pref_headers.show_n_lines_before_more" type="number" size="2" />
                         </hbox>
+                        <checkbox preference="pref_headers.colorizeSymbols" label="&spamnessOptions.prefHeadersColorizeSymbols.label;" />
                         <checkbox preference="pref_display.messageGreylist" label="&spamnessOptions.prefDisplayMessageGreylist.label;" />
                     </groupbox>
                 </hbox>

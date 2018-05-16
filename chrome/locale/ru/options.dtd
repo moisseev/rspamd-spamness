@@ -11,6 +11,7 @@
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Отображать Оценку в сообщении">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Отображать Правила в сообщении">
 <!ENTITY spamnessOptions.prefShowNLinesBeforeMore.label "Кол-во строк для отображения Правил (0 - показать все строки)">
+<!ENTITY spamnessOptions.prefHeadersColorizeSymbols.label "Подкрашивать символы">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Отображать в сообщении заголовок X-Rmilter-Greylist">
 
 <!ENTITY spamnessOptions.prefHeaderName.label "Заголовок, содержащий дополнительные заголовки Rspamd:">

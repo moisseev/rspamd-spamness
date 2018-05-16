@@ -11,6 +11,7 @@
 <!ENTITY spamnessOptions.prefDisplayMessageScore.label "Visa poängbedömning i meddelanden">
 <!ENTITY spamnessOptions.prefDisplayMessageRules.label "Visa utlösta regler i meddelanden">
 <!ENTITY spamnessOptions.prefShowNLinesBeforeMore.label "Number of lines to show for rules header before 'more' (0 - unlimited)">
+<!ENTITY spamnessOptions.prefHeadersColorizeSymbols.label "Colorize symbols">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
 <!ENTITY spamnessOptions.prefHeaderName.label "Mail header containing extended Rspamd headers:">

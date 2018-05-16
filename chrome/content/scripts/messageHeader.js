@@ -261,6 +261,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                     return Math.abs(a.score) < Math.abs(b.score);
                 };
 
+            const colorize_symbols = getPref("extensions.rspamd-spamness.headers.colorizeSymbols");
             const group_symbols = getPref("extensions.rspamd-spamness.headers.group_symbols");
             parsed_symbols
                 .sort(function (a, b) {
@@ -279,7 +280,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                 })
                 .forEach(function (s) {
                     el.rules.box.addLinkView({
-                        class:       RspamdSpamness.getMetricClass(s.name),
+                        class:       colorize_symbols ? RspamdSpamness.getMetricClass(s.name) : null,
                         displayText: s.name,
                         tooltiptext: s.options
                     });
