@@ -6,3 +6,9 @@
 <!ENTITY spamness.buttonTrainSpam.label "Train spam">
 <!ENTITY spamness.buttonTrainHam.tooltip "Move message to ham training folder">
 <!ENTITY spamness.buttonTrainSpam.tooltip "Move message to spam training folder">
+
+<!ENTITY spamness.popupSortByName.label "Sort symbols by name">
+<!ENTITY spamness.popupSortByScore.label "Sort symbols by score">
+<!ENTITY spamness.popupGroup.label "Group symbols">
+<!ENTITY spamness.popupUngroup.label "Ungroup symbols">
+<!ENTITY spamness.popupRawExtendedHeader.label "Raw extended Rspamd header">

@@ -6,3 +6,9 @@
 <!ENTITY spamness.buttonTrainSpam.label "Обучить как спам">
 <!ENTITY spamness.buttonTrainHam.tooltip "Переместить сообщение в папку для обучения как не-спам">
 <!ENTITY spamness.buttonTrainSpam.tooltip "Переместить сообщение в папку для обучения как спам">
+
+<!ENTITY spamness.popupSortByName.label "Сортировать символы по имени">
+<!ENTITY spamness.popupSortByScore.label "Сортировать символы по оценке">
+<!ENTITY spamness.popupGroup.label "Сгруппировать символы">
+<!ENTITY spamness.popupUngroup.label "Разгруппировать символы">
+<!ENTITY spamness.popupRawExtendedHeader.label "Исходный расширенный заголовок Rspamd">

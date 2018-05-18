@@ -35,21 +35,21 @@
                 observes="cmd_createFilterFromPopup"/>
       <menuseparator/>
       <menuitem id = "rspamdSpamnessSymbolPopupSortByName"
-              label="Sort symbols by name"
+              label="&spamness.popupSortByName.label;"
               oncommand="RspamdSpamness.Message.changeSymOrder('name')"/>
       <menuitem id = "rspamdSpamnessSymbolPopupSortByScore"
-              label="Sort symbols by score"
+              label="&spamness.popupSortByScore.label;"
               oncommand="RspamdSpamness.Message.changeSymOrder('score')"/>
       <menuseparator/>
       <menuitem id = "rspamdSpamnessSymbolPopupGroup"
-              label="Group symbols"
+              label="&spamness.popupGroup.label;"
               oncommand="RspamdSpamness.Message.toggleSymGrouping(true)"/>
       <menuitem id = "rspamdSpamnessSymbolPopupUngroup"
-              label="Ungroup symbols"
+              label="&spamness.popupUngroup.label;"
               oncommand="RspamdSpamness.Message.toggleSymGrouping(false)"/>
       <menuseparator/>
       <menuitem
-              label="Raw extended Rspamd header"
+              label="&spamness.popupRawExtendedHeader.label;"
               oncommand="RspamdSpamness.Message.openRulesDialog();"/>
     </menupopup>
   </popupset>
