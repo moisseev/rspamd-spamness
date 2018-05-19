@@ -8,6 +8,7 @@ var RspamdSpamness = {
     trainingButtonDefaultAction: "move"
 };
 
+Components.utils.import("resource://gre/modules/AddonManager.jsm");
 Components.utils.import("resource://gre/modules/Services.jsm");
 
 RspamdSpamness.getImageSrc = function (normalized) {
@@ -183,6 +184,29 @@ RspamdSpamness.openTab = function (url) {
 RspamdSpamness.greet = function () {
     const greetPage = "chrome://rspamd-spamness/content/installed.xul";
     RspamdSpamness.openTab(greetPage);
+};
+
+RspamdSpamness.openAddonOptions = function () {
+    AddonManager.getAddonByID("rspamd-spamness@alexander.moisseev", function (addon) {
+        const {optionsURL} = addon;
+        const type = Number(addon.optionsType);
+        if (type === AddonManager.OPTIONS_TYPE_INLINE) {
+            window.BrowserOpenAddonsMgr("addons://detail/" + encodeURIComponent(addon.id) + "/preferences");
+        } else if (type === AddonManager.OPTIONS_TYPE_TAB && "switchToTabHavingURI" in window) {
+            window.switchToTabHavingURI(optionsURL, true);
+        } else {
+            const windows = Services.wm.getEnumerator(null);
+            while (windows.hasMoreElements()) {
+                const win = windows.getNext();
+                if (win.document.documentURI === optionsURL) {
+                    win.focus();
+                    return null;
+                }
+            }
+            window.openDialog(optionsURL, "", "chrome,titlebar,toolbar,centerscreen,dialog=no", null);
+        }
+        return null;
+    });
 };
 
 RspamdSpamness.moveMessage = function (folder, isDefault) {

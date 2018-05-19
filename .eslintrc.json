@@ -21,6 +21,7 @@
         "max-statements": ["warn", 40],
         "multiline-ternary": ["error", "always-multiline"],
         "new-cap": ["error", { "capIsNewExceptions": [
+            "BrowserOpenAddonsMgr",
             "ConvertToUnicode",
             "GetMsgHdrForKey",
             "GetMessageHeader",
@@ -56,6 +57,8 @@
         "wrap-iife": ["error", "any"]
     },
     "globals": {
+        "AddonManager": false,
+        "BrowserOpenAddonsMgr": false,
         "Components": false,
         "FolderDisplayWidget": false,
         "gDBView": false,
