@@ -12,7 +12,7 @@ RspamdSpamnessColumn.handler = {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 2)
             return null;
         const score = RspamdSpamnessColumn.getScoreByRow(row);
-        return (isNaN(score)) ? "" : score;
+        return (isNaN(score)) ? "" : score.toFixed(2);
     },
     getImageSrc: function (row) {
         if (Services.prefs.getIntPref("extensions.rspamd-spamness.display.column") === 1)
