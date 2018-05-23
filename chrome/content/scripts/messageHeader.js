@@ -111,7 +111,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     if (gDBView.msgFolder === null)
         return;
 
-    const hdr = gDBView.msgFolder.GetMessageHeader(gDBView.getKeyAt(gDBView.currentlyDisplayedMessage));
+    const hdr = gDBView.getMsgHdrAt(gDBView.currentlyDisplayedMessage);
 
     if (!hdr)
         return;

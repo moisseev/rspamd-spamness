@@ -37,9 +37,7 @@ RspamdSpamnessColumn.handler = {
 };
 
 RspamdSpamnessColumn.getScoreByRow = function (row) {
-    const key = gDBView.getKeyAt(row);
-    const hdr = gDBView.db.GetMsgHdrForKey(key);
-    return RspamdSpamnessColumn.getScoreByHdr(hdr);
+    return RspamdSpamnessColumn.getScoreByHdr(gDBView.getMsgHdrAt(row));
 };
 
 RspamdSpamnessColumn.getScoreByHdr = function (hdr) {
