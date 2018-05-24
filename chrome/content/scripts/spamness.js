@@ -203,7 +203,7 @@ RspamdSpamness.openAddonOptions = function () {
                     return null;
                 }
             }
-            window.openDialog(optionsURL, "", "chrome,titlebar,toolbar,centerscreen,dialog=no", null);
+            window.open(optionsURL, "", "chrome=no,titlebar,toolbar,centerscreen,dialog=no", null);
         }
         return null;
     });
