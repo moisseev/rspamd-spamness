@@ -6,7 +6,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>rspamd-spamness@alexander.moisseev</em:id>
     <em:name>Rspamd-spamness</em:name>
-    <em:version>0.8.6</em:version>
+    <em:version>0.8.7</em:version>
     <em:type>2</em:type> <!-- type=extension -->
     <em:unpack>false</em:unpack>
     <em:optionsURL>chrome://Rspamd-spamness/content/options.xul</em:optionsURL>
