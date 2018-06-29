@@ -26,7 +26,7 @@ RspamdSpamnessColumn.handler = {
         // Do nothing.
     },
     getSortLongForRow: function (hdr) {
-        return RspamdSpamnessColumn.getScoreByHdr(hdr) * 1e4 + 1e8;
+        return RspamdSpamness.getScoreByHdr(hdr) * 1e4 + 1e8;
     },
     getSortStringForRow: function () {
         return null;
@@ -37,15 +37,7 @@ RspamdSpamnessColumn.handler = {
 };
 
 RspamdSpamnessColumn.getScoreByRow = function (row) {
-    return RspamdSpamnessColumn.getScoreByHdr(gDBView.getMsgHdrAt(row));
-};
-
-RspamdSpamnessColumn.getScoreByHdr = function (hdr) {
-    const re = /(?:^|: \S+ \[)([-\d.]+?) [(/]/;
-    const headerStr = RspamdSpamness.getHeaderStr(hdr) || hdr.getStringProperty("x-spam-score");
-    return (headerStr)
-        ? parseFloat(re.exec(headerStr)[1])
-        : Number.NaN;
+    return RspamdSpamness.getScoreByHdr(gDBView.getMsgHdrAt(row));
 };
 
 RspamdSpamnessColumn.onLoad = function () {

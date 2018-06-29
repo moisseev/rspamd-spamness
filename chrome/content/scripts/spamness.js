@@ -50,6 +50,14 @@ RspamdSpamness.getHeaderStr = function (hdr) {
     return (headerStr) ? headerStr : null;
 };
 
+RspamdSpamness.getScoreByHdr = function (hdr) {
+    const re = /(?:^|: \S+ \[)([-\d.]+?) [(/]/;
+    const headerStr = RspamdSpamness.getHeaderStr(hdr) || hdr.getStringProperty("x-spam-score");
+    return (headerStr)
+        ? parseFloat(re.exec(headerStr)[1])
+        : Number.NaN;
+};
+
 RspamdSpamness.syncHeaderPrefs = function (prefValue) {
     let prefVal = prefValue;
     if (!prefVal) {

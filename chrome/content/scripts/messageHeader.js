@@ -1,4 +1,4 @@
-/* global RspamdSpamness:false, RspamdSpamnessColumn:false */
+/* global RspamdSpamness:false */
 /* eslint max-lines: ["error", 400] */
 
 "use strict";
@@ -178,7 +178,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
     function displayScoreRulesHeaders(symbols) {
         if (show.score) {
             const parsed = [];
-            parsed.score = RspamdSpamnessColumn.getScoreByHdr(hdr);
+            parsed.score = RspamdSpamness.getScoreByHdr(hdr);
             el.score.row.collapsed = (parsed.score === null);
 
             if (parsed.score === null) {
