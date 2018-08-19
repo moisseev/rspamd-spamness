@@ -10,6 +10,7 @@ RspamdSpamness.Message = {};
  * @param {boolean} [update_rules=false] - Just redraw "Rules" header, leave other headers as they are.
  * @returns {void}
  */
+// eslint-disable-next-line max-lines-per-function
 RspamdSpamness.Message.displayHeaders = function (update_rules) {
     const {prefs} = Services;
 
@@ -175,6 +176,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         });
     }
 
+    // eslint-disable-next-line max-lines-per-function
     function displayScoreRulesHeaders(symbols) {
         if (show.score) {
             const parsed = [];

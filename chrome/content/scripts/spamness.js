@@ -58,6 +58,7 @@ RspamdSpamness.getScoreByHdr = function (hdr) {
         : Number.NaN;
 };
 
+// eslint-disable-next-line max-lines-per-function
 RspamdSpamness.syncHeaderPrefs = function (prefValue) {
     let prefVal = prefValue;
     if (!prefVal) {
