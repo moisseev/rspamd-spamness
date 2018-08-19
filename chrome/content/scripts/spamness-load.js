@@ -7,7 +7,9 @@ const prefObserver = {
         if (aTopic !== "nsPref:changed") {
             return;
         }
-        if (aData === "trainingButtons.defaultAction") {
+        if (aData === "trainingButtonHam.defaultAction" ||
+            aData === "trainingButtonSpam.defaultAction"
+        ) {
             RspamdSpamness.setBtnCmdLabels();
         }
         if (aData === "trainingButtons.enabled") {
@@ -41,6 +43,15 @@ const toolbarObserver = {
 
 RspamdSpamness.onLoad = function () {
     const {prefs} = Services;
+
+    // Convert legacy preference
+    if (prefs.getPrefType("extensions.rspamd-spamness.trainingButtons.defaultAction")) {
+        if (prefs.getCharPref("extensions.rspamd-spamness.trainingButtons.defaultAction") === "copy") {
+            prefs.setCharPref("extensions.rspamd-spamness.trainingButtonHam.defaultAction", "copy");
+            prefs.setCharPref("extensions.rspamd-spamness.trainingButtonSpam.defaultAction", "copy");
+        }
+        prefs.clearUserPref("extensions.rspamd-spamness.trainingButtons.defaultAction");
+    }
 
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
     RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);

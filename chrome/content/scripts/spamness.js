@@ -2,10 +2,11 @@
 
 // eslint-disable-next-line no-var
 var RspamdSpamness = {
-    customDBHeaders:             [],
-    customHeaders:               [],
-    previousSpamnessHeader:      "",
-    trainingButtonDefaultAction: "move"
+    customDBHeaders:                 [],
+    customHeaders:                   [],
+    previousSpamnessHeader:          "",
+    trainingButtonHamDefaultAction:  "move",
+    trainingButtonSpamDefaultAction: "move"
 };
 
 Components.utils.import("resource://gre/modules/AddonManager.jsm");
@@ -221,8 +222,16 @@ RspamdSpamness.openAddonOptions = function () {
 RspamdSpamness.moveMessage = function (folder, isDefault) {
     const destination =
         MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
-    if (isDefault && RspamdSpamness.trainingButtonDefaultAction === "copy" ||
-        !isDefault && RspamdSpamness.trainingButtonDefaultAction !== "copy")
+    if (
+        folder === "TrainHam" && (
+            isDefault && RspamdSpamness.trainingButtonHamDefaultAction === "copy" ||
+            !isDefault && RspamdSpamness.trainingButtonHamDefaultAction !== "copy"
+        ) ||
+        folder === "TrainSpam" && (
+            isDefault && RspamdSpamness.trainingButtonSpamDefaultAction === "copy" ||
+            !isDefault && RspamdSpamness.trainingButtonSpamDefaultAction !== "copy"
+        )
+    )
         MsgCopyMessage(destination);
     else
         MsgMoveMessage(destination);
@@ -235,18 +244,23 @@ RspamdSpamness.setBtnCmdLabels = function () {
             el.setAttribute("label", label);
     }
 
-    RspamdSpamness.trainingButtonDefaultAction =
-        Services.prefs.getCharPref("extensions.rspamd-spamness.trainingButtons.defaultAction");
-
-    if (RspamdSpamness.trainingButtonDefaultAction === "copy") {
+    RspamdSpamness.trainingButtonHamDefaultAction =
+        Services.prefs.getCharPref("extensions.rspamd-spamness.trainingButtonHam.defaultAction");
+    if (RspamdSpamness.trainingButtonHamDefaultAction === "copy") {
         setLabel("btnHamCmdPrimary", "Copy");
-        setLabel("btnSpamCmdPrimary", "Copy");
         setLabel("btnHamCmdSecondary", "Move");
-        setLabel("btnSpamCmdSecondary", "Move");
     } else {
         setLabel("btnHamCmdPrimary", "Move");
-        setLabel("btnSpamCmdPrimary", "Move");
         setLabel("btnHamCmdSecondary", "Copy");
+    }
+
+    RspamdSpamness.trainingButtonSpamDefaultAction =
+        Services.prefs.getCharPref("extensions.rspamd-spamness.trainingButtonSpam.defaultAction");
+    if (RspamdSpamness.trainingButtonSpamDefaultAction === "copy") {
+        setLabel("btnSpamCmdPrimary", "Copy");
+        setLabel("btnSpamCmdSecondary", "Move");
+    } else {
+        setLabel("btnSpamCmdPrimary", "Move");
         setLabel("btnSpamCmdSecondary", "Copy");
     }
 };

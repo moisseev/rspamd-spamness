@@ -14,4 +14,5 @@ pref("extensions.rspamd-spamness.headers.symbols_order", "score");
 pref("extensions.rspamd-spamness.isDefaultColumn", true);
 pref("extensions.rspamd-spamness.installationGreeting", true);
 pref("extensions.rspamd-spamness.trainingButtons.enabled", true);
-pref("extensions.rspamd-spamness.trainingButtons.defaultAction", "move");
+pref("extensions.rspamd-spamness.trainingButtonHam.defaultAction", "move");
+pref("extensions.rspamd-spamness.trainingButtonSpam.defaultAction", "move");

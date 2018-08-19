@@ -3,7 +3,12 @@
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
 <?xml-stylesheet type="text/css" href="chrome://messenger/skin/preferences/preferences.css"?>
 
-<!DOCTYPE prefwindow SYSTEM "chrome://rspamd-spamness/locale/options.dtd">
+<!DOCTYPE window [
+  <!ENTITY % messageHeaderDTD SYSTEM "chrome://rspamd-spamness/locale/messageHeader.dtd">
+  %messageHeaderDTD;
+  <!ENTITY % optionsDTD SYSTEM "chrome://rspamd-spamness/locale/options.dtd" >
+  %optionsDTD;
+]>
 
 <prefwindow id="spamnessOptionsWindow" title="&spamnessOptions.title;" buttons="accept,cancel"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -20,7 +25,8 @@
             <preference id="pref_trainingButtons.enabled" name="extensions.rspamd-spamness.trainingButtons.enabled" type="bool" />
             <preference id="pref_uri.folderTrainHam" name="extensions.rspamd-spamness.uri.folderTrainHam" type="string" />
             <preference id="pref_uri.folderTrainSpam" name="extensions.rspamd-spamness.uri.folderTrainSpam" type="string" />
-            <preference id="pref_trainingButtons.defaultAction" name="extensions.rspamd-spamness.trainingButtons.defaultAction" type="string" />
+            <preference id="pref_trainingButtonHam.defaultAction" name="extensions.rspamd-spamness.trainingButtonHam.defaultAction" type="string" />
+            <preference id="pref_trainingButtonSpam.defaultAction" name="extensions.rspamd-spamness.trainingButtonSpam.defaultAction" type="string" />
         </preferences>
         <hbox>
             <vbox>
@@ -63,15 +69,31 @@
                             <textbox id="folderTrainSpam" size="80" preference="pref_uri.folderTrainSpam"
                                      tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
                         </hbox>
+                        <groupbox flex="1">
+                            <caption label="&spamnessOptions.prefTrainingButtonsDefaultAction.title;" />
                         <hbox>
-                            <label control="trainingButtonsDefaultAction" value="&spamnessOptions.prefTrainingButtonsDefaultAction.title;" />
-                            <menulist id="trainingButtonsDefaultAction" preference="pref_trainingButtons.defaultAction">
-                                <menupopup id="default-action-menupopup">
-                                    <menuitem value="move" label="Move" />
-                                    <menuitem value="copy" label="Copy" />
-                                </menupopup>
-                            </menulist>
+                            <vbox>
+                                <label control="trainingButtonHamDefaultAction" flex="1" value="&spamness.buttonTrainHam.label;" />
+                                <label control="trainingButtonSpamDefaultAction" flex="1" value="&spamness.buttonTrainSpam.label;" />
+                            </vbox>
+                            <vbox>
+                                <menulist id="trainingButtonHamDefaultAction" preference="pref_trainingButtonHam.defaultAction">
+                                    <menupopup id="default-action-menupopup">
+                                        <menuitem value="move" label="Move" />
+                                        <menuitem value="copy" label="Copy" />
+                                    </menupopup>
+                                </menulist>
+
+                                <menulist id="trainingButtonSpamDefaultAction" preference="pref_trainingButtonSpam.defaultAction">
+                                    <menupopup id="default-action-menupopup">
+                                        <menuitem value="move" label="Move" />
+                                        <menuitem value="copy" label="Copy" />
+                                    </menupopup>
+                                </menulist>
+                            </vbox>
+                            <spacer flex="1" />
                         </hbox>
+                         </groupbox>
                     </groupbox>
                 </hbox>
                 <hbox>
