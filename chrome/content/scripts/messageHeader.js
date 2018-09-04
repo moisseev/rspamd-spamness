@@ -270,7 +270,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
                     function group(s) {
                         if (s.score > 0) return 3;
                         if (s.score < 0) return 2;
-                        if (/^GREYLIST\(/.test(s.name)) return 1;
+                        if ((/^GREYLIST\(/).test(s.name)) return 1;
                         return 0;
                     }
 
