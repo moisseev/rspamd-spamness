@@ -220,8 +220,40 @@ RspamdSpamness.openAddonOptions = function () {
 };
 
 RspamdSpamness.moveMessage = function (folder, isDefault) {
-    const destination =
-        MailUtils.getFolderForURI(Services.prefs.getCharPref("extensions.rspamd-spamness.uri.folder" + folder));
+    function findAccountFromFolder() {
+        const theFolder = gMessageDisplay.displayedMessage.folder;
+
+        if (!theFolder)
+            return null;
+
+        const {accounts} = Components.classes["@mozilla.org/messenger/account-manager;1"]
+            .getService(Components.interfaces.nsIMsgAccountManager);
+
+        for (let i = 0; i < accounts.length; i++) {
+            const account = accounts.queryElementAt(i, Components.interfaces.nsIMsgAccount);
+            const {rootFolder} = account.incomingServer;
+            if (rootFolder.hasSubFolders) {
+                const {subFolders} = rootFolder;
+                while (subFolders.hasMoreElements()) {
+                    if (theFolder === subFolders.getNext().QueryInterface(Components.interfaces.nsIMsgFolder))
+                        return account.QueryInterface(Components.interfaces.nsIMsgAccount).key;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    const prefServiceBranch = Components.classes["@mozilla.org/preferences-service;1"]
+        .getService(Components.interfaces.nsIPrefService).getBranch("");
+    const accountPref = "extensions.rspamd-spamness." + findAccountFromFolder() + ".uri.folder" + folder;
+
+    // Use default URI if account preference doesn't exist
+    const URI = Services.prefs.getCharPref(prefServiceBranch.getPrefType(accountPref)
+        ? accountPref
+        : "extensions.rspamd-spamness.uri.folder" + folder);
+
+    const destination = MailUtils.getFolderForURI(URI);
     if (
         folder === "TrainHam" && (
             isDefault && RspamdSpamness.trainingButtonHamDefaultAction === "copy" ||
