@@ -52,7 +52,7 @@ RspamdSpamness.getHeaderStr = function (hdr) {
 };
 
 RspamdSpamness.getScoreByHdr = function (hdr) {
-    const re = /(?:^|: \S+ \[)([-\d.]+?) [(/]/;
+    const re = /(?:^|: \S+ \[)([-\d.]+?)(?: [(/]|$)/;
     const headerStr = RspamdSpamness.getHeaderStr(hdr) || hdr.getStringProperty("x-spam-score");
     return (headerStr)
         ? parseFloat(re.exec(headerStr)[1])
