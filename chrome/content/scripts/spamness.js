@@ -2,7 +2,6 @@
 
 // eslint-disable-next-line no-var
 var RspamdSpamness = {
-    customDBHeaders:                 [],
     customHeaders:                   [],
     previousSpamnessHeader:          "",
     trainingButtonHamDefaultAction:  "move",
@@ -69,7 +68,6 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
     const {prefs} = Services;
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
 
-    RspamdSpamness.customDBHeaders = getHeadersPref("mailnews.customDBHeaders", /\s+/);
     RspamdSpamness.customHeaders = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
 
     if (prefVal !== RspamdSpamness.previousSpamnessHeader) {
@@ -86,10 +84,6 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
         }
     }
 
-    setHeadersPref(
-        "mailnews.customDBHeaders", RspamdSpamness.customDBHeaders, " ",
-        RspamdSpamness.previousSpamnessHeader, prefVal
-    );
     setHeadersPref(
         "mailnews.customHeaders", RspamdSpamness.customHeaders, ": ",
         RspamdSpamness.previousSpamnessHeader, [prefVal, "x-spam-score"]
