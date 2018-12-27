@@ -1,7 +1,7 @@
 /* global pref:false */
 /* eslint strict: ["error", "never"] */
 
-pref("extensions.rspamd-spamness.header", "x-spamd-result");
+pref("extensions.rspamd-spamness.header", "");
 pref("extensions.rspamd-spamness.display.column", 0);
 pref("extensions.rspamd-spamness.display.columnImageOnlyForPositive", false);
 pref("extensions.rspamd-spamness.display.messageScore", true);

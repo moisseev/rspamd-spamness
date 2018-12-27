@@ -14,7 +14,8 @@
 <!ENTITY spamnessOptions.prefHeadersColorizeSymbols.label "Colorize symbols">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
-<!ENTITY spamnessOptions.prefHeaderName.label "Mail header containing extended Rspamd headers:">
+<!ENTITY spamnessOptions.prefHeaderName.label "Additional mail header to search for spam score in:">
+<!ENTITY spamnessOptions.prefHeaderName.scoreHeaders "Default mail headers:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "Obs.: Om du ändrar i huvudet som Rspamd-spamness använder, så måste alla mappindex återskapas för att Thunderbird skall kunna läsa huvudets värden för varje meddelande">
 
 <!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">

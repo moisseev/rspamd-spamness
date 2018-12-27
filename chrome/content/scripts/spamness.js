@@ -2,8 +2,15 @@
 
 // eslint-disable-next-line no-var
 var RspamdSpamness = {
-    customHeaders:                   [],
-    previousSpamnessHeader:          "",
+    customHeaders:          [],
+    previousSpamnessHeader: "",
+    // Headers to search for total score in
+    scoreHeaders:           [
+        "x-spamd-result",
+        "x-spam-score",
+        "x-spam-status",
+        "x-mailscanner-spamcheck"
+    ],
     trainingButtonHamDefaultAction:  "move",
     trainingButtonSpamDefaultAction: "move"
 };
@@ -45,25 +52,48 @@ RspamdSpamness.getMetricClass = function (rule) {
 };
 
 RspamdSpamness.getHeaderStr = function (hdr) {
+    let headerStr = null;
     const header = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-    const headerStr = hdr.getStringProperty(header);
-    return (headerStr) ? headerStr : null;
+    if (header) {
+        headerStr = hdr.getStringProperty(header);
+        if ((/: \S+ \[[-\d.]+ \/ [-\d.]+\]/).test(headerStr))
+            return headerStr;
+    }
+    return hdr.getStringProperty("x-spamd-result") || null;
 };
 
 RspamdSpamness.getScoreByHdr = function (hdr) {
-    const re = /(?:^|: \S+ \[)([-\d.]+?)(?: [(/]|$)/;
-    const headerStr = RspamdSpamness.getHeaderStr(hdr) || hdr.getStringProperty("x-spam-score");
-    return (headerStr)
-        ? parseFloat(re.exec(headerStr)[1])
-        : Number.NaN;
+    const re = [
+        // X-Spamd-Result: Rspamd (milter)
+        /: \S+ \[([-\d.]+?) \//,
+        // X-Spam-Score: Rspamd (Exim, LDA) , SpamAssassin
+        /^([-\d.]+?)(?: [(/]|$)/,
+        // X-Spam-Status: SpamAssassin, X-MailScanner-SpamCheck: MailScanner
+        /(?:, | [(])score=([-\d.]+?)(?:[, ]|$)/
+    ];
+
+    const customHdr = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+    let score = Number.NaN;
+    [customHdr, ...RspamdSpamness.scoreHeaders].some(function (headerName) {
+        const headerStr = hdr.getStringProperty(headerName);
+        if (!headerStr) return false;
+        re.some(function (regexp) {
+            const parsed = regexp.exec(headerStr);
+            if (parsed) {
+                score = parseFloat(parsed[1]);
+            }
+            return parsed;
+        });
+        return true;
+    });
+    return score;
 };
 
 // eslint-disable-next-line max-lines-per-function
 RspamdSpamness.syncHeaderPrefs = function (prefValue) {
-    let prefVal = prefValue;
-    if (!prefVal) {
-        prefVal = document.getElementById("headerNameForm").value;
-    }
+    const prefVal = (typeof prefValue === "undefined")
+        ? document.getElementById("headerNameForm").value
+        : prefValue;
     const prefEl = document.getElementById("headerNameForm");
     const {prefs} = Services;
     RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
@@ -71,7 +101,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
     RspamdSpamness.customHeaders = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
 
     if (prefVal !== RspamdSpamness.previousSpamnessHeader) {
-        if (!isRFC5322HeaderName(prefVal)) {
+        if (prefVal !== "" && !isRFC5322HeaderName(prefVal)) {
             showAlert("colonInHeaderName");
             return false;
         }
@@ -86,7 +116,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
 
     setHeadersPref(
         "mailnews.customHeaders", RspamdSpamness.customHeaders, ": ",
-        RspamdSpamness.previousSpamnessHeader, [prefVal, "x-spam-score"]
+        RspamdSpamness.previousSpamnessHeader, [prefVal, ...RspamdSpamness.scoreHeaders]
     );
 
     prefs.setCharPref("extensions.rspamd-spamness.header", prefVal);
@@ -126,6 +156,8 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
             }
         });
         h.add.forEach(function (hdr) {
+            // Skip empty strings
+            if (!hdr) return;
             if (arr.indexOf(hdr) === -1) {
                 arr.push(hdr);
                 modified = true;

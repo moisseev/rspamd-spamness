@@ -7,7 +7,7 @@
         "ecmaVersion": 6
     },
     "rules": {
-        "array-element-newline": ["error", { "multiline": true }],
+        "array-element-newline": ["error", "consistent"],
         "camelcase": "off",
         "capitalized-comments": "off",
         "curly": "off",

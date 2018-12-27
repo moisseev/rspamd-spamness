@@ -10,7 +10,7 @@
         onload="window.sizeToContent();"
         buttons="accept,cancel"
         buttonlabelaccept="Save"
-        ondialogaccept="return RspamdSpamness.syncHeaderPrefs(null);"
+        ondialogaccept="return RspamdSpamness.syncHeaderPrefs();"
         buttonlabelcancel="Cancel">
 
     <stringbundleset id="stringbundleset">
@@ -26,10 +26,15 @@
     <textbox id="headerNameForm"/>
 
     <description class="caveat">
+        &spamnessOptions.prefHeaderName.scoreHeaders;
+        <span id="scoreHeaders"></span>
+    </description>
+    <description class="caveat">
         &spamnessOptions.prefHeaderName.explain;
     </description>
 
     <script>
         document.getElementById('headerNameForm').value = window.arguments[0];
+        document.getElementById("scoreHeaders").textContent = RspamdSpamness.scoreHeaders.join(", ");
     </script>
 </dialog>
