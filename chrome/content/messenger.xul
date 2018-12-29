@@ -16,9 +16,9 @@
   <tree id="threadTree">
     <treecols id="threadCols">
       <splitter class="tree-splitter" />
-      <treecol id="spamScoreCol" persist="hidden ordinal width" 
+      <treecol id="spamScoreCol" persist="hidden ordinal width"
            currentView="unthreaded"
-           class="treecol-image spamnessCol"
+           class="spamnessCol"
            label="&spamnessColumn.label;"
            tooltiptext="&spamnessColumnToolTip.label;" />
       <splitter class="tree-splitter" />
