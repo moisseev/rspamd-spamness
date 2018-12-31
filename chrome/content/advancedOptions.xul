@@ -10,7 +10,7 @@
         onload="window.sizeToContent();"
         buttons="accept,cancel"
         buttonlabelaccept="Save"
-        ondialogaccept="return RspamdSpamness.syncHeaderPrefs();"
+        ondialogaccept="return RspamdSpamness.syncHeaderPrefs(document.getElementById('headerNameForm').value);"
         buttonlabelcancel="Cancel">
 
     <stringbundleset id="stringbundleset">

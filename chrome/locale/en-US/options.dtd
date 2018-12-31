@@ -14,9 +14,9 @@
 <!ENTITY spamnessOptions.prefHeadersColorizeSymbols.label "Colorize symbols">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
-<!ENTITY spamnessOptions.prefHeaderName.label "Additional mail header to search for spam score in:">
+<!ENTITY spamnessOptions.prefHeaderName.label "Additional mail headers to search for spam score in:">
 <!ENTITY spamnessOptions.prefHeaderName.scoreHeaders "Default mail headers:">
-<!ENTITY spamnessOptions.prefHeaderName.explain "Note: Changing the header Rspamd-spamness uses will require rebuilding all folder indices so Thunderbird can read the header values for each message.  Open each folder's properties, then click the 'Repair Folder' button.">
+<!ENTITY spamnessOptions.prefHeaderName.explain "Note: Changing the headers Rspamd-spamness uses will require rebuilding all folder indices so Thunderbird can read the headers values for each message.  Open each folder's properties, then click the 'Repair Folder' button.">
 
 <!ENTITY spamnessOptions.prefAdvOptions.title "Advanced options">
 <!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Open">

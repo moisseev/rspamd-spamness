@@ -14,7 +14,7 @@
 <!ENTITY spamnessOptions.prefHeadersColorizeSymbols.label "Colorize symbols">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Show X-Rmilter-Greylist header in message">
 
-<!ENTITY spamnessOptions.prefHeaderName.label "Additional mail header to search for spam score in:">
+<!ENTITY spamnessOptions.prefHeaderName.label "Addditional mail headers to search for spam score in:">
 <!ENTITY spamnessOptions.prefHeaderName.scoreHeaders "Default mail headers:">
 <!ENTITY spamnessOptions.prefHeaderName.explain "注意：更改 Rspamd-spamness 使用的消息头需要重建所有文件夹指数，以使 Thunderbird 能读取每个消息的消息头值。打开每个文件夹的属性，然后点击重建文件夹按钮。">
 

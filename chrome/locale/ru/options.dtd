@@ -14,9 +14,9 @@
 <!ENTITY spamnessOptions.prefHeadersColorizeSymbols.label "Подкрашивать символы">
 <!ENTITY spamnessOptions.prefDisplayMessageGreylist.label "Отображать в сообщении заголовок X-Rmilter-Greylist">
 
-<!ENTITY spamnessOptions.prefHeaderName.label "Дополнительный заголовок, в котором искать спам-рейтинг:">
+<!ENTITY spamnessOptions.prefHeaderName.label "Дополнительные заголовоки, в которых искать спам-рейтинг:">
 <!ENTITY spamnessOptions.prefHeaderName.scoreHeaders "Заголовки по умолчанию:">
-<!ENTITY spamnessOptions.prefHeaderName.explain "Примечание: После изменения заголовка необходимо переиндексировать папки. Для этого откройте свойства каждой папки и нажмите кнопку 'Починить папку'.">
+<!ENTITY spamnessOptions.prefHeaderName.explain "Примечание: После изменения заголовков необходимо переиндексировать папки. Для этого откройте свойства каждой папки и нажмите кнопку 'Починить папку'.">
 
 <!ENTITY spamnessOptions.prefAdvOptions.title "Дополнительные настройки">
 <!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Открыть..">

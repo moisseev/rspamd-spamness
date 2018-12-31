@@ -2,10 +2,8 @@
 
 // eslint-disable-next-line no-var
 var RspamdSpamness = {
-    customHeaders:          [],
-    previousSpamnessHeader: "",
     // Headers to search for total score in
-    scoreHeaders:           [
+    scoreHeaders: [
         "x-spamd-result",
         "x-spam-score",
         "x-spam-status",
@@ -90,37 +88,34 @@ RspamdSpamness.getScoreByHdr = function (hdr) {
 };
 
 // eslint-disable-next-line max-lines-per-function
-RspamdSpamness.syncHeaderPrefs = function (prefValue) {
-    const prefVal = (typeof prefValue === "undefined")
-        ? document.getElementById("headerNameForm").value
-        : prefValue;
-    const prefEl = document.getElementById("headerNameForm");
+RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     const {prefs} = Services;
-    RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+    const customHeaders = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
+    const curUserHeaders = getHeadersPref("extensions.rspamd-spamness.header", ", ");
+    const newUserHeaders = prefVal.toLowerCase().split(/, */);
 
-    RspamdSpamness.customHeaders = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
-
-    if (prefVal !== RspamdSpamness.previousSpamnessHeader) {
-        if (prefVal !== "" && !isRFC5322HeaderName(prefVal)) {
+    if (newUserHeaders.length) {
+        const valid = newUserHeaders.every(function (h) {
+            return isRFC5322HeaderName(h);
+        });
+        if (!valid) {
             showAlert("colonInHeaderName");
-            return false;
-        }
-
-        const {nsMsgSearchAttrib} = Components.interfaces;
-        if (RspamdSpamness.customHeaders.length + 1 >=
-                (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
-            showAlert("customHeaderOverflow");
             return false;
         }
     }
 
-    setHeadersPref(
-        "mailnews.customHeaders", RspamdSpamness.customHeaders, ": ",
-        RspamdSpamness.previousSpamnessHeader, [prefVal, ...RspamdSpamness.scoreHeaders]
-    );
+    const curHeaders = [...RspamdSpamness.scoreHeaders, ...curUserHeaders];
+    const newHeaders = [...RspamdSpamness.scoreHeaders, ...newUserHeaders];
 
-    prefs.setCharPref("extensions.rspamd-spamness.header", prefVal);
-    RspamdSpamness.previousSpamnessHeader = prefVal;
+    const {nsMsgSearchAttrib} = Components.interfaces;
+    if (customHeaders.length - curHeaders.length + newHeaders.length >=
+            (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
+        showAlert("customHeaderOverflow");
+        return false;
+    }
+
+    setHeadersPref("mailnews.customHeaders", customHeaders, ": ", curUserHeaders, newHeaders);
+    prefs.setCharPref("extensions.rspamd-spamness.header", newUserHeaders.join(", "));
 
     // flush to disk
     prefs.savePrefFile(null);
@@ -173,6 +168,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefValue) {
         const bundle = document.getElementById("bundle_custom");
         const alertText = bundle.getString(strId);
         window.alert(alertText);
+        const prefEl = document.getElementById("headerNameForm");
         if (prefEl) prefEl.focus();
     }
 };

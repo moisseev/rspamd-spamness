@@ -53,8 +53,7 @@ RspamdSpamness.onLoad = function () {
         prefs.clearUserPref("extensions.rspamd-spamness.trainingButtons.defaultAction");
     }
 
-    RspamdSpamness.previousSpamnessHeader = prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-    RspamdSpamness.syncHeaderPrefs(RspamdSpamness.previousSpamnessHeader);
+    RspamdSpamness.syncHeaderPrefs(prefs.getCharPref("extensions.rspamd-spamness.header"));
     RspamdSpamness.setBtnCmdLabels();
     RspamdSpamness.hideTrnButtons();
     RspamdSpamness.Message.changeSymOrder();
