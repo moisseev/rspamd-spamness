@@ -99,7 +99,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
             return isRFC5322HeaderName(h);
         });
         if (!valid) {
-            showAlert("colonInHeaderName");
+            showAlert("bundle_custom", "colonInHeaderName");
             return false;
         }
     }
@@ -110,7 +110,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     const {nsMsgSearchAttrib} = Components.interfaces;
     if (customHeaders.length - curHeaders.length + newHeaders.length >=
             (nsMsgSearchAttrib.kNumMsgSearchAttributes - nsMsgSearchAttrib.OtherHeader - 1)) {
-        showAlert("customHeaderOverflow");
+        showAlert("bundle_filter", "customHeaderOverflow");
         return false;
     }
 
@@ -164,8 +164,8 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
         }
     }
 
-    function showAlert(strId) {
-        const bundle = document.getElementById("bundle_custom");
+    function showAlert(strBundleId, strId) {
+        const bundle = document.getElementById(strBundleId);
         const alertText = bundle.getString(strId);
         window.alert(alertText);
         const prefEl = document.getElementById("headerNameForm");

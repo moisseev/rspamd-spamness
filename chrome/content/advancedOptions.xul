@@ -16,6 +16,8 @@
     <stringbundleset id="stringbundleset">
           <stringbundle id="bundle_custom"
                         src="chrome://messenger/locale/custom.properties" />
+          <stringbundle id="bundle_filter"
+                        src="chrome://messenger/locale/filter.properties" />
     </stringbundleset>
 
     <script type="application/x-javascript"
