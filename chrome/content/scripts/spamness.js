@@ -49,15 +49,22 @@ RspamdSpamness.getMetricClass = function (rule) {
     return null;
 };
 
+function getUserHeaders() {
+    const chdrs = Services.prefs.getCharPref("extensions.rspamd-spamness.header").trim().toLowerCase();
+    return (chdrs === "")
+        ? []
+        : chdrs.split(", ");
+}
+
 RspamdSpamness.getHeaderStr = function (hdr) {
     let headerStr = null;
-    const header = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
-    if (header) {
-        headerStr = hdr.getStringProperty(header);
-        if ((/: \S+ \[[-\d.]+ \/ [-\d.]+\]/).test(headerStr))
-            return headerStr;
-    }
-    return hdr.getStringProperty("x-spamd-result") || null;
+    const userHeaders = getUserHeaders();
+    userHeaders.some(function (headerName) {
+        if (!headerName) return false;
+        headerStr = hdr.getStringProperty(headerName);
+        return ((/: \S+ \[[-\d.]+ \/ [-\d.]+\]/).test(headerStr));
+    });
+    return headerStr || hdr.getStringProperty("x-spamd-result") || null;
 };
 
 RspamdSpamness.getScoreByHdr = function (hdr) {
@@ -70,9 +77,9 @@ RspamdSpamness.getScoreByHdr = function (hdr) {
         /(?:, | [(])score=([-\d.]+?)(?:[, ]|$)/
     ];
 
-    const customHdr = Services.prefs.getCharPref("extensions.rspamd-spamness.header").toLowerCase();
+    const userHeaders = getUserHeaders();
     let score = Number.NaN;
-    [customHdr, ...RspamdSpamness.scoreHeaders].some(function (headerName) {
+    [...userHeaders, ...RspamdSpamness.scoreHeaders].some(function (headerName) {
         const headerStr = hdr.getStringProperty(headerName);
         if (!headerStr) return false;
         re.some(function (regexp) {
@@ -91,7 +98,7 @@ RspamdSpamness.getScoreByHdr = function (hdr) {
 RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     const {prefs} = Services;
     const customHeaders = getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
-    const curUserHeaders = getHeadersPref("extensions.rspamd-spamness.header", ", ");
+    const curUserHeaders = getUserHeaders();
     const newUserHeaders = prefVal.toLowerCase().split(/, */);
 
     if (newUserHeaders.length) {
