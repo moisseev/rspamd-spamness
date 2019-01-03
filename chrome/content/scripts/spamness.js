@@ -101,7 +101,7 @@ RspamdSpamness.syncHeaderPrefs = function (prefVal) {
     const curUserHeaders = getUserHeaders();
     const newUserHeaders = prefVal.toLowerCase().split(/, */);
 
-    if (newUserHeaders.length) {
+    if (prefVal !== "") {
         const valid = newUserHeaders.every(function (h) {
             return isRFC5322HeaderName(h);
         });
