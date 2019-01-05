@@ -27,16 +27,14 @@
            value="&spamnessOptions.prefHeaderName.label;"/>
     <textbox id="headerNameForm"/>
 
-    <description class="caveat">
-        &spamnessOptions.prefHeaderName.scoreHeaders;
-        <span id="scoreHeaders"></span>
-    </description>
+    <description class="caveat" id="scoreHeaders"></description>
     <description class="caveat">
         &spamnessOptions.prefHeaderName.explain;
     </description>
 
     <script>
         document.getElementById('headerNameForm').value = window.arguments[0];
-        document.getElementById("scoreHeaders").textContent = RspamdSpamness.scoreHeaders.join(", ");
+        document.getElementById("scoreHeaders").textContent =
+            "&spamnessOptions.prefHeaderName.scoreHeaders; " + RspamdSpamness.scoreHeaders.join(", ");
     </script>
 </dialog>
