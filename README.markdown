@@ -7,7 +7,7 @@ on the server-side and embedded in message headers.
 ![screenshot](https://cloud.githubusercontent.com/assets/2275981/12062734/4021734a-afb3-11e5-8558-626fedd797ee.png
 "Rspamd-spamness adds a column to the thread pane (message list) and a header to the message pane. The size and saturation of a circle reflects larger or smaller spam score.")
 
-## Requirements
+## Supported mail headers
 
 The add-on uses extended Rspamd headers added by [Rspamd proxy worker](https://rspamd.com/doc/workers/rspamd_proxy.html) (`X-Spamd-Result`) and (from version 0.8.0) headers added by Exim (`X-Spam-Score` and `X-Spam-Report`).
 
@@ -24,6 +24,14 @@ spamd {
         extended_spam_headers = yes;
 };
 ~~~
+
+### Third-party spam filters
+
+The add-on (from version 0.9.0) also supports SpamAssassin-based spam filters (e.g. `SpamAssassin`, `MailScanner`). The support is limited to displaying the total message score in the column.
+
+### Headers processing order
+
+The add-on looks for a spam score header in the message until it finds a matched header name in this order: user-defined `Additional mail headers` (if specified in the `Advanced options`), then hardcoded default headers (`X-Spamd-result`, `X-Spam-Score`, `X-Spam-Status`, `X-MailScanner-SpamCheck`). If a matched header is found the add-on does not try other headers even it cannot find score in the header.
 
 ## Installation
 
