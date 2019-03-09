@@ -6,6 +6,7 @@ var RspamdSpamness = {
     scoreHeaders: [
         "x-spamd-result",
         "x-spam-score",
+        "x-rspamd-score",
         "x-spam-status",
         "x-mailscanner-spamcheck"
     ],

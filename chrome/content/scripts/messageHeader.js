@@ -133,24 +133,30 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         }
     }
 
-    // Get symbols from Exim header
     if (msg.folder) {
         MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
+
+            // Get symbols from Haraka header
+            [RspamdSpamness.Message.headerStr] = getHeaderBody(aMimeMsg.headers, "x-rspamd-report");
+            if (RspamdSpamness.Message.headerStr) {
+                const s = RspamdSpamness.Message.headerStr.match(/\S/);
+                if (s) {
+                    displayScoreRulesHeaders(RspamdSpamness.Message.headerStr);
+                    return;
+                }
+            }
+
+            // Get symbols from Exim header
             [RspamdSpamness.Message.headerStr] = getHeaderBody(aMimeMsg.headers, "x-spam-report");
             if (RspamdSpamness.Message.headerStr) {
                 const s = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
                 if (s) {
                     displayScoreRulesHeaders(s[1]);
+                    return;
                 }
             }
-        }, true, {
-            partsOnDemand: true
-        });
-    }
 
-    // Get symbols from LDA mode header
-    if (msg.folder) {
-        MsgHdrToMimeMessage(msg, null, function (aMsgHdr, aMimeMsg) {
+            // Get symbols from LDA mode header
             const hdrBody = getHeaderBody(aMimeMsg.headers, "x-spam-result");
             if (hdrBody) {
                 RspamdSpamness.Message.headerStr = b64DecodeUnicode(hdrBody);

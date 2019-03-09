@@ -9,7 +9,10 @@ on the server-side and embedded in message headers.
 
 ## Supported mail headers
 
-The add-on uses extended Rspamd headers added by [Rspamd proxy worker](https://rspamd.com/doc/workers/rspamd_proxy.html) (`X-Spamd-Result`) and (from version 0.8.0) headers added by Exim (`X-Spam-Score` and `X-Spam-Report`).
+The add-on uses:
+- extended Rspamd headers added by [Rspamd proxy worker](https://rspamd.com/doc/workers/rspamd_proxy.html) (`X-Spamd-Result`);
+- headers added by [Haraka](http://haraka.github.io/manual/plugins/rspamd.html) (`X-Rspamd-Score` and `X-Rspamd-Report`) from version 0.9.1;
+- headers added by Exim (`X-Spam-Score` and `X-Spam-Report`) from version 0.8.0.
 
 To enable extended spam headers in [Milter headers module](https://rspamd.com/doc/modules/milter_headers.html) add the following line to `local.d/milter_headers.conf`:
 ~~~
@@ -31,7 +34,7 @@ The add-on (from version 0.9.0) also supports SpamAssassin-based spam filters (e
 
 ### Headers processing order
 
-The add-on looks for a spam score header in the message until it finds a matched header name in this order: user-defined `Additional mail headers` (if specified in the `Advanced options`), then hardcoded default headers (`X-Spamd-result`, `X-Spam-Score`, `X-Spam-Status`, `X-MailScanner-SpamCheck`). If a matched header is found the add-on does not try other headers even it cannot find score in the header.
+The add-on looks for a spam score header in the message until it finds a matched header name in this order: user-defined `Additional mail headers` (if specified in the `Advanced options`), then hardcoded default headers (`X-Spamd-result`, `X-Spam-Score`, `X-Rspamd-Score`, `X-Spam-Status`, `X-MailScanner-SpamCheck`). If a matched header is found the add-on does not try other headers even it cannot find score in the header.
 
 ## Installation
 
