@@ -38,8 +38,10 @@ The add-on looks for a spam score header in the message until it finds a matched
 
 ## Installation
 
-This add-on is available from the [Mozilla Add-ons site]
-(https://addons.mozilla.org/en-US/thunderbird/addon/rspamd-spamness/).
+Where to get the add-on:
+- you can download the [latest release](https://github.com/moisseev/rspamd-spamness/releases/latest) from the [Releases](https://github.com/moisseev/rspamd-spamness/releases/) page;
+- versions reviewed by `moz://a` are available from the [Tunderbird Add-ons page](https://addons.thunderbird.net/thunderbird/addon/rspamd-spamness/);
+- you can [create XPI installer](#creating-xpi-installer) from source code.
 
 To use Rspamd-spamness, you'll need to both re-build folder indices for folders that contain Rspamd-scored mail and enable the `Spam score` column display for each folder.  If you've installed Rspamd-spamness ahead of setting up any of your accounts, you can completely ignore the rest of this section - you're all set.
 
@@ -62,6 +64,35 @@ To add the buttons, you need to:
 - the `Customize Toolbar` window will launch. From there you can drag-and-drop the buttons into your toolbar.
 
 You also need to specify training folder location URIs in the add-on options. A folder URI can be found at `General Information` tab of the `Folder Properties`.
+
+## Creating XPI installer
+
+The `XPI` installation package is just a `ZIP` file with a different extension.
+
+Zip the contents of the add-on's directory (not the add-on directory itself) excluding hidden files and folders (whose names begin with a period), and rename the ZIP file to have an `.xpi` extension (or just drag and drop the ZIP to `Add-ons Manager` tab.).
+
+So the ZIP file should have the following structure:
+
+~~~
+rspamd-spamness-master.zip
+├── chrome/
+├── defaults/
+├── chrome.manifest
+├── install.rdf
+└── ... (other files and directories)
+~~~
+
+and **not** this structure:
+
+~~~
+rspamd-spamness-master.zip
+└── rspamd-spamness-master/
+    ├── chrome/
+    ├── defaults/
+    ├── chrome.manifest
+    ├── install.rdf
+    └── ... (other files and directories)
+~~~
 
 ## Credits
 
