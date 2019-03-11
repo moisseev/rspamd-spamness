@@ -126,9 +126,9 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         converter.charset = "UTF-8";
         RspamdSpamness.Message.headerStr = converter.ConvertToUnicode(RspamdSpamness.Message.headerStr);
 
-        const s = RspamdSpamness.Message.headerStr.match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
+        const [, s] = RspamdSpamness.Message.headerStr.match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
         if (s) {
-            displayScoreRulesHeaders(s[1]);
+            displayScoreRulesHeaders(s);
             return;
         }
     }
@@ -139,7 +139,7 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             // Get symbols from Haraka header
             [RspamdSpamness.Message.headerStr] = getHeaderBody(aMimeMsg.headers, "x-rspamd-report");
             if (RspamdSpamness.Message.headerStr) {
-                const s = RspamdSpamness.Message.headerStr.match(/\S/);
+                const s = RspamdSpamness.Message.headerStr.match(/\S/).input;
                 if (s) {
                     displayScoreRulesHeaders(RspamdSpamness.Message.headerStr);
                     return;
@@ -149,32 +149,30 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             // Get symbols from Exim header
             [RspamdSpamness.Message.headerStr] = getHeaderBody(aMimeMsg.headers, "x-spam-report");
             if (RspamdSpamness.Message.headerStr) {
-                const s = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
+                const [, s] = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
                 if (s) {
-                    displayScoreRulesHeaders(s[1]);
+                    displayScoreRulesHeaders(s);
                     return;
                 }
             }
 
             // Get symbols from LDA mode header
-            const hdrBody = getHeaderBody(aMimeMsg.headers, "x-spam-result");
-            if (hdrBody) {
-                RspamdSpamness.Message.headerStr = b64DecodeUnicode(hdrBody);
-                if (RspamdSpamness.Message.headerStr) {
-                    const metric = JSON.parse(RspamdSpamness.Message.headerStr).default;
-                    let s = null;
-                    for (let item in metric) { // eslint-disable-line prefer-const
-                        if (!{}.hasOwnProperty.call(metric, item)) continue;
-                        const symbol = metric[item];
-                        if (symbol.name) {
-                            s += " " + symbol.name +
-                                "(" + symbol.score.toFixed(2) + ")" +
-                                "[" + (symbol.options ? symbol.options.join(", ") : "") + "]";
-                        }
+            [RspamdSpamness.Message.headerStr] = getHeaderBody(aMimeMsg.headers, "x-spam-result");
+            if (RspamdSpamness.Message.headerStr) {
+                RspamdSpamness.Message.headerStr = b64DecodeUnicode(RspamdSpamness.Message.headerStr);
+                const metric = JSON.parse(RspamdSpamness.Message.headerStr).default;
+                let s = "";
+                for (let item in metric) { // eslint-disable-line prefer-const
+                    if (!{}.hasOwnProperty.call(metric, item)) continue;
+                    const symbol = metric[item];
+                    if (symbol.name) {
+                        s += " " + symbol.name +
+                            "(" + symbol.score.toFixed(2) + ")" +
+                            "[" + (symbol.options ? symbol.options.join(", ") : "") + "]";
                     }
-                    if (s) {
-                        displayScoreRulesHeaders(s);
-                    }
+                }
+                if (s) {
+                    displayScoreRulesHeaders(s);
                 }
             }
         }, true, {
