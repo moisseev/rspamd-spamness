@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Rspamd-spamness",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Rspamd-spamness  基于标准 Rspamd 得分，提供了一种以颜色和大小为基础的视觉度量，用来表示一个消息与垃圾邮件相似程度。",
+    "description": "Description of the extension."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "applications": {
+    "gecko": {
+      "id": "rspamd-spamness@alexander.moisseev",
+      "strict_min_version": "68.0"
+    }
+  },
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "default_locale": "en",
+  "version": "0.9.1+1",
+  "author": "Alexander Moisseev (moiseev@mezonplus.ru)",
+  "homepage_url": "https://github.com/moisseev/rspamd-spamness",
+  "icons": {
+    "32": "skin/icon32x32.png"
+  },
+  "legacy": {
+    "type": "xul",
+    "options": {
+      "page": "chrome://Rspamd-spamness/content/options.xul",
+      "open_in_tab": true
+    }
+  }
+}

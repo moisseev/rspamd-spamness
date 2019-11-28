@@ -227,8 +227,9 @@ RspamdSpamness.greet = function () {
 };
 
 RspamdSpamness.openAddonOptions = function () {
-    AddonManager.getAddonByID("rspamd-spamness@alexander.moisseev", function (addon) {
+    AddonManager.getAddonByID("rspamd-spamness@alexander.moisseev").then(function (addon) {
         const {optionsURL} = addon;
+
         const type = Number(addon.optionsType);
         if (type === AddonManager.OPTIONS_TYPE_INLINE) {
             window.BrowserOpenAddonsMgr("addons://detail/" + encodeURIComponent(addon.id) + "/preferences");
