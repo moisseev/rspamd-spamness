@@ -284,7 +284,7 @@ RspamdSpamness.moveMessage = function (folder, isDefault) {
         ? accountPref
         : "extensions.rspamd-spamness.uri.folder" + folder);
 
-    const destination = MailUtils.getFolderForURI(URI);
+    const destination = MailUtils.getExistingFolder(URI);
     if (
         folder === "TrainHam" && (
             isDefault && RspamdSpamness.trainingButtonHamDefaultAction === "copy" ||
