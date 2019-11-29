@@ -3,7 +3,8 @@
   "applications": {
     "gecko": {
       "id": "rspamd-spamness@alexander.moisseev",
-      "strict_min_version": "68.0"
+      "strict_min_version": "68.0",
+      "strict_max_version": "68.*"
     }
   },
   "name": "__MSG_extensionName__",
