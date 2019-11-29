@@ -13,5 +13,5 @@
 
     <html:textarea id="rulesDlgTextbox" class="plain" style="background-color: transparent; overflow:hidden; height:auto; padding:0" flex="1" readonly="true" />
 
-    <script src="chrome://rspamd-spamness/content/scripts/rules-dialog.js" type="application/javascript"/> 
+    <script src="chrome://rspamd-spamness/content/scripts/rules-dialog.js" type="application/javascript"/>
 </dialog>

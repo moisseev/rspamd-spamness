@@ -1,3 +1,7 @@
+/* exported resizeTextbox */
+
+"use strict";
+
 function resizeTextbox() {
     let box = document.getElementById("rulesDlgTextbox");
     box.value = window.arguments[0];
