@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Rspamd-spamness",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Fornece uma escala visual colorida da importância do spam, baseada na sua pontuação Rspamd.",
+    "description": "Description of the extension."
+  }
+}

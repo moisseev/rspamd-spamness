@@ -6,20 +6,12 @@
 <!DOCTYPE window SYSTEM "chrome://rspamd-spamness/locale/messageHeader.dtd">
 
 <dialog title="&spamness.rulesMessageHeader.label;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        onload="document.getElementById('rulesDlgTextbox').setSelectionRange(0,0);"
+        onload="document.getElementById('rulesDlgTextbox').setSelectionRange(0,0);resizeTextbox();"
         buttons=",">
 
-    <textbox id="rulesDlgTextbox" class="plain" style="background-color: transparent;" flex="1"
-        multiline="true" readonly="true"
-        onoverflow="this.height = this.inputField.scrollHeight;" />
+    <html:textarea id="rulesDlgTextbox" class="plain" style="background-color: transparent; overflow:hidden; height:auto; padding:0" flex="1" readonly="true" />
 
-    <script>
-        document.getElementById("rulesDlgTextbox").value = window.arguments[0];
-
-        // Center the dialog window
-        const w = screen.availWidth/2 - this.width/2;
-        const h = screen.availHeight/2 - this.height/2;
-        window.moveTo(w,h);
-    </script>
+    <script src="chrome://rspamd-spamness/content/scripts/rules-dialog.js" type="application/javascript"/> 
 </dialog>

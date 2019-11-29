@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Rspamd-spamness",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Tillhandahåller en färg- och storleksbaserad visuell bedömningsindikator för risken att ett meddelande är skräppost, baserat på dess normaliserade Rspamd-klassificering.",
+    "description": "Description of the extension."
+  }
+}

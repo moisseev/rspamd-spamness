@@ -227,8 +227,9 @@ RspamdSpamness.greet = function () {
 };
 
 RspamdSpamness.openAddonOptions = function () {
-    AddonManager.getAddonByID("rspamd-spamness@alexander.moisseev", function (addon) {
+    AddonManager.getAddonByID("rspamd-spamness@alexander.moisseev").then(function (addon) {
         const {optionsURL} = addon;
+
         const type = Number(addon.optionsType);
         if (type === AddonManager.OPTIONS_TYPE_INLINE) {
             window.BrowserOpenAddonsMgr("addons://detail/" + encodeURIComponent(addon.id) + "/preferences");
@@ -283,7 +284,7 @@ RspamdSpamness.moveMessage = function (folder, isDefault) {
         ? accountPref
         : "extensions.rspamd-spamness.uri.folder" + folder);
 
-    const destination = MailUtils.getFolderForURI(URI);
+    const destination = MailUtils.getExistingFolder(URI);
     if (
         folder === "TrainHam" && (
             isDefault && RspamdSpamness.trainingButtonHamDefaultAction === "copy" ||

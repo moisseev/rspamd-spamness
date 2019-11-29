@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "Rspamd-spamness",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Permite comparar mensajes según su puntuación de Rspamd visualmente midiéndolos por color o tamaño.",
+    "description": "Description of the extension."
+  }
+}
