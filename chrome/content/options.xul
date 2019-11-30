@@ -89,7 +89,7 @@
             </vbox>
             <vbox flex="1" />
         </hbox>
-	<script src="chrome://global/content/preferencesBindings.js" type="application/javascript"/>
+        <script src="chrome://global/content/preferencesBindings.js" type="application/javascript"/>
         <script src="chrome://rspamd-spamness/content/scripts/preferences.js" type="application/javascript"/> 
         <script>
             "use strict";
