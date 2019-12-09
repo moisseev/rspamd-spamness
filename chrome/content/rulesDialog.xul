@@ -8,10 +8,10 @@
 <dialog title="&spamness.rulesMessageHeader.label;"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        onload="document.getElementById('rulesDlgTextbox').setSelectionRange(0,0);resizeTextbox();"
+        onload="document.getElementById('rulesDlgTextbox');resizeTextbox();"
         buttons=",">
 
-    <html:textarea id="rulesDlgTextbox" class="plain" style="background-color: transparent; overflow:hidden; height:auto; padding:0" flex="1" readonly="true" />
+    <html:textarea id="rulesDlgTextbox" class="plain" style="background-color: transparent" wrap="off" readonly="true" />
 
     <script src="chrome://rspamd-spamness/content/scripts/rules-dialog.js" type="application/javascript"/>
 </dialog>

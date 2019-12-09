@@ -337,7 +337,7 @@ RspamdSpamness.Message.openRulesDialog = function () {
 
     window.openDialog(
         "chrome://rspamd-spamness/content/rulesDialog.xul", "",
-        "chrome,modal,dialog,width=720,height=420,centerscreen,resizable",
+        "chrome,modal,dialog,centerscreen,resizable",
         content
     );
 };
