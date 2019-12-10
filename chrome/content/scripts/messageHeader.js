@@ -126,9 +126,9 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
         converter.charset = "UTF-8";
         RspamdSpamness.Message.headerStr = converter.ConvertToUnicode(RspamdSpamness.Message.headerStr);
 
-        const [, s] = RspamdSpamness.Message.headerStr.match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
-        if (s) {
-            displayScoreRulesHeaders(s);
+        const m = RspamdSpamness.Message.headerStr.match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
+        if (m) {
+            displayScoreRulesHeaders(m[1]);
             return;
         }
     }
@@ -149,9 +149,9 @@ RspamdSpamness.Message.displayHeaders = function (update_rules) {
             // Get symbols from Exim header
             [RspamdSpamness.Message.headerStr] = getHeaderBody(aMimeMsg.headers, "x-spam-report");
             if (RspamdSpamness.Message.headerStr) {
-                const [, s] = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
-                if (s) {
-                    displayScoreRulesHeaders(s);
+                const m = RspamdSpamness.Message.headerStr.match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
+                if (m) {
+                    displayScoreRulesHeaders(m[1]);
                     return;
                 }
             }
