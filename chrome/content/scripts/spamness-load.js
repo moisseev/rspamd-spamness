@@ -75,6 +75,8 @@ RspamdSpamness.onLoad = function () {
 
     prefObserver.register();
     Services.obs.addObserver(toolbarObserver, "mail:updateToolbarItems", false);
+
+    window.matchMedia("(prefers-color-scheme: dark)").addListener(RspamdSpamness.setTheme);
 };
 
 RspamdSpamness.onUnload = function () {

@@ -335,3 +335,41 @@ RspamdSpamness.hideTrnButtons = function () {
         elements[i].hidden = hide;
     }
 };
+
+RspamdSpamness.setTheme = function () {
+
+    /**
+     * Determine whether the color is light or dark.
+     * (idea from https://awik.io/determine-color-bright-dark-using-javascript/)
+     * @param {string} - Hex or RGB color code
+     * @returns {sring} - Color brightness ("light" or "dark").
+     */
+    function lightOrDark(color) {
+        const c = color.trim();
+        let rgb = [];
+
+        if (c.match(/^rgb/)) {
+            rgb = c.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+        } else if (c.match(/^#(?:[a-f0-9]{3}){1,2}$/i)) {
+            // Convert HEX to RGB: https://gist.github.com/jed/983661
+            const hex = Number("0x" + c.slice(1).replace(c.length > 4 && /./g, "$&$&"));
+            // eslint-disable-next-line no-bitwise
+            rgb = [hex >> 16, hex >> 8 & 255, hex & 255];
+        } else {
+            if (c !== "-moz-dialog") {
+                RspamdSpamness.err("Unsupported color value format: " + color);
+            }
+            return "light";
+        }
+
+        const [, r, g, b] = rgb;
+        // HSP Color Model equation from http://alienryderflex.com/hsp.html
+        const brightness = Math.sqrt(0.299 * r * r + 0.587 * g * g + 0.114 * b * b);
+        if (brightness < 127.5) return "dark";
+        return "light";
+    }
+
+    const o = window.getComputedStyle(document.documentElement);
+    const theme = lightOrDark(o.getPropertyValue("--toolbar-bgcolor"));
+    document.documentElement.setAttribute("data-theme", theme);
+};

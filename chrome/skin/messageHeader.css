@@ -12,24 +12,44 @@ mail-link:hover {
     margin: -1px 0px -1px 0px;
 }
 
+:root {
+    --greyl: #d8e0f6;
+    --ham: #d4ebc8;
+    --spam: #f0d0c8;
+
+    --hover-greyl: #abc1fc;
+    --hover-ham: #b4eba8;
+    --hover-spam: #f0b0a8;
+}
+
+[data-theme="dark"] {
+    --greyl: #0943e7;
+    --ham: #369903;
+    --spam: #bf2600;
+
+    --hover-greyl: #91aeff;
+    --hover-ham: #65c26d;
+    --hover-spam: #cc776c;
+}
+
 .linkDisplayButtonGreyl {
-    background-color: #d8e0f6;
+    background-color: var(--greyl);
 }
 .linkDisplayButtonHam {
-    background-color: #d4ebc8;
+    background-color: var(--ham);
 }
 .linkDisplayButtonSpam {
-    background-color: #f0d0c8;
+    background-color: var(--spam);
 }
 
 .linkDisplayButtonGreyl:hover {
-    background-color: #abc1fc;
+    background-color: var(--hover-greyl);
 }
 .linkDisplayButtonHam:hover {
-    background-color: #b4eba8;
+    background-color: var(--hover-ham);
 }
 .linkDisplayButtonSpam:hover {
-    background-color: #f0b0a8;
+    background-color: var(--hover-spam);
 }
 
 .linkSeparator {

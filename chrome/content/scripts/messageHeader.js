@@ -348,6 +348,7 @@ RspamdSpamness.Message.onLoad = function () {
         // Do nothing.
     };
     listener.onEndHeaders = function () {
+        RspamdSpamness.setTheme();
         RspamdSpamness.Message.displayHeaders();
     };
     gMessageListeners.push(listener);
