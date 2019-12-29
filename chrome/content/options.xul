@@ -52,16 +52,21 @@
                             <label class="header">&spamnessOptions.captionTrainingButtonsGroup.label;</label>
                         </hbox>
                         <checkbox preference="extensions.rspamd-spamness.trainingButtons.enabled" label="&spamnessOptions.prefTrainingButtons.enabled.label;" />
-                        <hbox>
-                            <label control="folderTrainHam" flex="1" value="&spamnessOptions.prefFolderURITrainHam.label;" />
-                            <textbox id="folderTrainHam" size="80" preference="extensions.rspamd-spamness.uri.folderTrainHam"
-                                     tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
-                        </hbox>
-                        <hbox>
-                            <label control="folderTrainSpam" flex="1" value="&spamnessOptions.prefFolderURITrainSpam.label;" />
-                            <textbox id="folderTrainSpam" size="80" preference="extensions.rspamd-spamness.uri.folderTrainSpam"
-                                     tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
-                        </hbox>
+                        <groupbox flex="1">
+                            <hbox class="groupbox-title">
+                                <label class="header">&spamnessOptions.captionDefaultTrainingFolderURIGroup.label;</label>
+                            </hbox>
+                            <hbox>
+                                <label control="folderTrainHam" flex="1" value="&spamnessOptions.Ham.label;" />
+                                <textbox id="folderTrainHam" size="80" preference="extensions.rspamd-spamness.uri.folderTrainHam"
+                                         tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
+                            </hbox>
+                            <hbox>
+                                <label control="folderTrainSpam" flex="1" value="&spamnessOptions.Spam.label;" />
+                                <textbox id="folderTrainSpam" size="80" preference="extensions.rspamd-spamness.uri.folderTrainSpam"
+                                         tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
+                            </hbox>
+                        </groupbox>
                         <hbox>
                             <label control="account-options-button" value="&spamnessOptions.account.dialog.title;" />
                             <button id="account-options-button" label="&spamnessOptions.prefAdvOptionsBtn.label;" oncommand="openAccountOptions();" />

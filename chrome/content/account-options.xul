@@ -40,8 +40,8 @@
                         <label crop="end" class="account-name" />
                     </vbox>
                     <vbox>
-                        <label crop="end" flex="1" class="folder-label" value="&spamnessOptions.account.Ham.label;" />
-                        <label crop="end" flex="1" class="folder-label" value="&spamnessOptions.account.Spam.label;" />
+                        <label crop="end" flex="1" class="folder-label" value="&spamnessOptions.Ham.label;" />
+                        <label crop="end" flex="1" class="folder-label" value="&spamnessOptions.Spam.label;" />
                     </vbox>
                     <vbox>
                         <html:input class="folder-location" data-tooltip="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
