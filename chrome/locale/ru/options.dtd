@@ -19,7 +19,7 @@
 <!ENTITY spamnessOptions.prefHeaderName.explain "Примечание: После изменения заголовков необходимо переиндексировать папки. Для этого откройте свойства каждой папки и нажмите кнопку 'Починить папку'.">
 
 <!ENTITY spamnessOptions.prefAdvOptions.title "Дополнительные настройки">
-<!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Открыть..">
+<!ENTITY spamnessOptions.prefAdvOptionsBtn.label "Открыть">
 
 <!ENTITY spamnessOptions.captionTrainingButtonsGroup.label "Настройки кнопок обучения">
 <!ENTITY spamnessOptions.prefTrainingButtons.enabled.label "Включить кнопки обучения">
@@ -27,5 +27,13 @@
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.label "Расположение [URI] папки 'Спам'">
 <!ENTITY spamnessOptions.prefFolderURITrainHam.tooltip "Узнать URI можно в свойствах папки, вкладка 'Основная информация', поле 'Адрес'">
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.tooltip "Узнать URI можно в свойствах папки, вкладка 'Основная информация', поле 'Адрес'">
+
+<!ENTITY spamnessOptions.account.dialog.title "Настройка расположения папок для учётных записей">
+<!ENTITY spamnessOptions.account.header.account.label "Учётная запись">
+<!ENTITY spamnessOptions.account.header.folder.label "Папка">
+<!ENTITY spamnessOptions.account.header.location.label "Расположение [URI]">
+<!ENTITY spamnessOptions.account.Ham.label "Не-спам:">
+<!ENTITY spamnessOptions.account.Spam.label "Спам:">
+<!ENTITY spamnessOptions.applyBtn.label "Применить">
 
 <!ENTITY spamnessOptions.prefTrainingButtonsDefaultAction.title "Действие по умолчанию для кнопок обучения">

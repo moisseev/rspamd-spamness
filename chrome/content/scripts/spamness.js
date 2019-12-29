@@ -250,6 +250,25 @@ RspamdSpamness.openAddonOptions = function () {
     });
 };
 
+RspamdSpamness.getFolderURI = function (account, folder) {
+    const prefServiceBranch = Components.classes["@mozilla.org/preferences-service;1"]
+        .getService(Components.interfaces.nsIPrefService).getBranch("");
+    let accountPref = "extensions.rspamd-spamness." + account.key + ".uri.folder" + folder;
+    let isDefault = false;
+
+    // Use default URI if account preference doesn't exist
+    if (!prefServiceBranch.getPrefType(accountPref)) {
+        accountPref = "extensions.rspamd-spamness.uri.folder" + folder;
+        isDefault = true;
+    }
+
+    const URI = prefServiceBranch.getPrefType(accountPref) ? Services.prefs.getCharPref(accountPref) : "";
+    return {
+        URI:       URI,
+        isDefault: isDefault
+    };
+};
+
 RspamdSpamness.moveMessage = function (folder, isDefault) {
     function findAccountFromFolder() {
         const theFolder = gMessageDisplay.displayedMessage.folder;
@@ -267,7 +286,7 @@ RspamdSpamness.moveMessage = function (folder, isDefault) {
                 const {subFolders} = rootFolder;
                 while (subFolders.hasMoreElements()) {
                     if (theFolder === subFolders.getNext().QueryInterface(Components.interfaces.nsIMsgFolder))
-                        return account.QueryInterface(Components.interfaces.nsIMsgAccount).key;
+                        return account.QueryInterface(Components.interfaces.nsIMsgAccount);
                 }
             }
         }
@@ -275,15 +294,11 @@ RspamdSpamness.moveMessage = function (folder, isDefault) {
         return null;
     }
 
-    const prefServiceBranch = Components.classes["@mozilla.org/preferences-service;1"]
-        .getService(Components.interfaces.nsIPrefService).getBranch("");
-    const accountPref = "extensions.rspamd-spamness." + findAccountFromFolder() + ".uri.folder" + folder;
-
-    // Use default URI if account preference doesn't exist
-    const URI = Services.prefs.getCharPref(prefServiceBranch.getPrefType(accountPref)
-        ? accountPref
-        : "extensions.rspamd-spamness.uri.folder" + folder);
-
+    const {URI} = RspamdSpamness.getFolderURI(findAccountFromFolder(), folder);
+    if (!URI) {
+        window.alert("Folder location is not set.");
+        return;
+    }
     const destination = MailUtils.getExistingFolder(URI);
     if (
         folder === "TrainHam" && (

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://rspamd-spamness/skin/account-options.css" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://rspamd-spamness/locale/options.dtd" >
+
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        id="account-options" title="&spamnessOptions.account.dialog.title;"
+        type="child"
+        buttons="accept,cancel,extra1"
+        onload="initAccountPrefs();"
+        buttonlabelextra1="&spamnessOptions.applyBtn.label;">
+
+    <script type="application/x-javascript" src="chrome://rspamd-spamness/content/scripts/spamness.js" />
+    <script type="application/x-javascript" src="chrome://rspamd-spamness/content/scripts/account-options.js" />
+
+    <vbox>
+        <vbox id="account-table-header">
+            <groupbox class="account-box">
+            <hbox>
+                <vbox>
+                    <label id="account-header-name" class="account-name" value="&spamnessOptions.account.header.account.label;" />
+                </vbox>
+                <vbox>
+                    <label id="account-header-folder" class="folder-label" value="&spamnessOptions.account.header.folder.label;" />
+                </vbox>
+                <vbox>
+                    <label id="account-header-location" class="folder-location" value="&spamnessOptions.account.header.location.label;" />
+                </vbox>
+            </hbox>
+            </groupbox>
+        </vbox>
+        <vbox id="account-box-container">
+            <groupbox id="account-box-template" class="account-box" hidden="true">
+                <hbox>
+                    <vbox>
+                        <label crop="end" class="account-name account-name-name" />
+                        <label crop="end" class="account-name" />
+                    </vbox>
+                    <vbox>
+                        <label crop="end" flex="1" class="folder-label" value="&spamnessOptions.account.Ham.label;" />
+                        <label crop="end" flex="1" class="folder-label" value="&spamnessOptions.account.Spam.label;" />
+                    </vbox>
+                    <vbox>
+                        <html:input class="folder-location" data-tooltip="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
+                        <html:input class="folder-location" data-tooltip="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
+                    </vbox>
+                </hbox>
+            </groupbox>
+        </vbox>
+    </vbox>
+</dialog>

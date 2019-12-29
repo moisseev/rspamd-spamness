@@ -62,6 +62,10 @@
                             <textbox id="folderTrainSpam" size="80" preference="extensions.rspamd-spamness.uri.folderTrainSpam"
                                      tooltiptext="&spamnessOptions.prefFolderURITrainHam.tooltip;" />
                         </hbox>
+                        <hbox>
+                            <label control="account-options-button" value="&spamnessOptions.account.dialog.title;" />
+                            <button id="account-options-button" label="&spamnessOptions.prefAdvOptionsBtn.label;" oncommand="openAccountOptions();" />
+                        </hbox>
                         <groupbox flex="1">
                             <hbox class="groupbox-title">
                                 <label class="header">&spamnessOptions.prefTrainingButtonsDefaultAction.title;</label>
@@ -99,7 +103,7 @@
             <vbox flex="1" />
         </hbox>
         <script src="chrome://global/content/preferencesBindings.js" type="application/javascript"/>
-        <script src="chrome://rspamd-spamness/content/scripts/preferences.js" type="application/javascript"/> 
+        <script src="chrome://rspamd-spamness/content/scripts/preferences.js" type="application/javascript"/>
         <script>
             "use strict";
             Components.utils.import("resource://gre/modules/Services.jsm");
@@ -111,6 +115,13 @@
                     "",
                     "chrome,modal,dialog,centerscreen",
                     previousSpamnessHeader
+                );
+            }
+            function openAccountOptions() {
+                window.openDialog(
+                    "chrome://rspamd-spamness/content/account-options.xul",
+                    "",
+                    "chrome,modal,dialog,centerscreen"
                 );
             }
         </script>

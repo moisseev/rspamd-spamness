@@ -1,0 +1,61 @@
+input, label {
+    margin: 2px;
+    padding: 1px 2px;
+}
+
+#account-table-header {
+    border: 1px solid silver;
+    border-bottom: none;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-weight: bold;
+}
+#account-table-header groupbox {
+    border: 1px solid transparent;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#account-box-container {
+    height: 556px;
+    padding: 3px 0px;
+    border: 1px solid silver;
+    overflow-y: scroll;
+}
+groupbox {
+    border: 1px solid silver;
+}
+.account-box {
+    margin: 2px 4px;
+}
+
+.account-name {
+    width: 250px;
+}
+.folder-label {
+    width: 60px;
+}
+.folder-location {
+    width: 540px;
+}
+
+.account-name-name {
+    font-weight: bold;
+}
+
+input {
+    border: 1px solid #7a7a7a;
+}
+input:hover {
+    border: 1px solid black;
+}
+input:focus {
+    border: 1px solid #0078d7;
+}
+input[id^="TrainHam"] {
+    background-color: #f4f9f1;
+
+}
+input[id^="TrainSpam"] {
+    background-color: #fBf3f1;
+}

@@ -28,4 +28,12 @@
 <!ENTITY spamnessOptions.prefFolderURITrainHam.tooltip "Can be found at 'General Information' tab of 'Folder Properties'">
 <!ENTITY spamnessOptions.prefFolderURITrainSpam.tooltip "Can be found at 'General Information' tab of 'Folder Properties'">
 
+<!ENTITY spamnessOptions.account.dialog.title "Per-account folder location settings">
+<!ENTITY spamnessOptions.account.header.account.label "Account">
+<!ENTITY spamnessOptions.account.header.folder.label "Folder">
+<!ENTITY spamnessOptions.account.header.location.label "Location [URI]">
+<!ENTITY spamnessOptions.account.Ham.label "Ham:">
+<!ENTITY spamnessOptions.account.Spam.label "Spam:">
+<!ENTITY spamnessOptions.applyBtn.label "Apply">
+
 <!ENTITY spamnessOptions.prefTrainingButtonsDefaultAction.title "Training buttons default action">
