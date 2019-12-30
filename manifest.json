@@ -20,7 +20,7 @@
   "legacy": {
     "type": "xul",
     "options": {
-      "page": "chrome://Rspamd-spamness/content/options.xul"
+      "page": "chrome://rspamd-spamness/content/options.xul"
     }
   }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet href="chrome://rspamd-spamness/skin/messageHeader.css" type="text/css"?>
 <?xml-stylesheet href="chrome://rspamd-spamness/content/bindings.css" type="text/css"?>
 
@@ -53,10 +53,10 @@
       <menuitem
               label="&spamness.popupRawExtendedHeader.label;"
               oncommand="RspamdSpamness.Message.openRulesDialog();"/>
-      <!--<menuseparator/>
+      <menuseparator/>
       <menuitem
               label="&spamnessOptions.title;"
-              oncommand="RspamdSpamness.openAddonOptions();"/>-->
+              oncommand='window.openDialog("chrome://rspamd-spamness/content/options.xul", "options");' />
     </menupopup>
   </popupset>
 

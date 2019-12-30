@@ -226,30 +226,6 @@ RspamdSpamness.greet = function () {
     RspamdSpamness.openTab(greetPage);
 };
 
-RspamdSpamness.openAddonOptions = function () {
-    AddonManager.getAddonByID("rspamd-spamness@alexander.moisseev").then(function (addon) {
-        const {optionsURL} = addon;
-
-        const type = Number(addon.optionsType);
-        if (type === AddonManager.OPTIONS_TYPE_INLINE) {
-            window.BrowserOpenAddonsMgr("addons://detail/" + encodeURIComponent(addon.id) + "/preferences");
-        } else if (type === AddonManager.OPTIONS_TYPE_TAB && "switchToTabHavingURI" in window) {
-            window.switchToTabHavingURI(optionsURL, true);
-        } else {
-            const windows = Services.wm.getEnumerator(null);
-            while (windows.hasMoreElements()) {
-                const win = windows.getNext();
-                if (win.document.documentURI === optionsURL) {
-                    win.focus();
-                    return null;
-                }
-            }
-            window.open(optionsURL, "", "chrome=no,titlebar,toolbar,centerscreen,dialog=no", null);
-        }
-        return null;
-    });
-};
-
 RspamdSpamness.getFolderURI = function (account, folder) {
     const prefServiceBranch = Components.classes["@mozilla.org/preferences-service;1"]
         .getService(Components.interfaces.nsIPrefService).getBranch("");
