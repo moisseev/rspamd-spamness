@@ -257,16 +257,8 @@ RspamdSpamness.moveMessage = function (folder, isDefault) {
 
         for (let i = 0; i < accounts.length; i++) {
             const account = accounts.queryElementAt(i, Components.interfaces.nsIMsgAccount);
-            const {rootFolder} = account.incomingServer;
-            if (rootFolder.hasSubFolders) {
-                const {subFolders} = rootFolder;
-                while (subFolders.hasMoreElements()) {
-                    if (theFolder === subFolders.getNext().QueryInterface(Components.interfaces.nsIMsgFolder))
-                        return account.QueryInterface(Components.interfaces.nsIMsgAccount);
-                }
-            }
+            if (account.incomingServer.rootFolder === theFolder.rootFolder) return account;
         }
-
         return null;
     }
 
