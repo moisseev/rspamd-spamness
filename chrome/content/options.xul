@@ -11,8 +11,7 @@
   %optionsDTD;
 ]>
 
-<dialog id="spamnessOptionsWindow" title="&spamnessOptions.title;" type="child"
-        buttons="accept,cancel"
+<dialog id="spamnessOptionsWindow" title="&spamnessOptions.title;" buttons="accept"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <vbox>
         <hbox>
