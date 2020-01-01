@@ -56,7 +56,7 @@
       <menuseparator/>
       <menuitem
               label="&spamnessOptions.title;"
-              oncommand='window.openDialog("chrome://rspamd-spamness/content/options.xul", "options");' />
+              oncommand='window.openDialog("chrome://rspamd-spamness/content/options.xul", "options", "centerscreen");' />
     </menupopup>
   </popupset>
 
