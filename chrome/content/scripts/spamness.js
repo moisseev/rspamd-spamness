@@ -332,7 +332,7 @@ RspamdSpamness.setTheme = function () {
         let rgb = [];
 
         if (c.match(/^rgb/)) {
-            rgb = c.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+            rgb = c.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d?(?:\.\d+)?))?\)$/);
         } else if (c.match(/^#(?:[a-f0-9]{3}){1,2}$/i)) {
             // Convert HEX to RGB: https://gist.github.com/jed/983661
             const hex = Number("0x" + c.slice(1).replace(c.length > 4 && /./g, "$&$&"));
