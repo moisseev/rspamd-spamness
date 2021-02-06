@@ -3,24 +3,66 @@
   "applications": {
     "gecko": {
       "id": "rspamd-spamness@alexander.moisseev",
-      "strict_min_version": "68.0",
-      "strict_max_version": "68.*"
+      "strict_min_version": "78.0"
     }
   },
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
-  "version": "1.1.1",
+  "version": "2.0.0a1",
   "author": "Alexander Moisseev (moiseev@mezonplus.ru)",
   "homepage_url": "https://github.com/moisseev/rspamd-spamness",
   "icons": {
-    "32": "chrome/skin/icon32x32.png",
-    "64": "chrome/skin/icon64x64.png"
+    "16": "images/icon.svg",
+    "32": "images/icon.svg",
+    "48": "images/icon.svg",
+    "64": "images/icon.svg",
+    "96": "images/icon.svg"
   },
-  "legacy": {
-    "type": "xul",
-    "options": {
-      "page": "chrome://rspamd-spamness/content/options.xul"
+  "background": {
+    "scripts": [
+      "scripts/libCommon.js",
+      "scripts/libBackground.js",
+      "scripts/messageHeader.js",
+      "scripts/background.js"
+    ]
+  },
+  "options_ui": {
+    "page": "options/options.html"
+  },
+  "permissions": ["accountsRead", "menus", "messagesRead", "notifications", "storage"],
+  "experiment_apis": {
+    "popup": {
+      "schema": "experiments/popup.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["popup"]],
+        "script": "experiments/popup.js"
+      }
+    },
+    "scoreColumn": {
+      "schema": "experiments/scoreColumn.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["scoreColumn"]],
+        "script": "experiments/scoreColumn.js"
+      }
+    },
+    "spamHeaders": {
+      "schema": "experiments/spamHeaders.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["spamHeaders"]],
+        "script": "experiments/spamHeaders.js"
+      }
+    },
+    "trainButtons": {
+      "schema": "experiments/trainButtons.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["trainButtons"]],
+        "script": "experiments/trainButtons.js"
+      }
     }
   }
 }

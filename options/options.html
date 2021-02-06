@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <link rel="stylesheet" type="text/css" href="chrome://global/skin/in-content/common.css"/>
+        <link rel="stylesheet" href="options-common.css"/>
+        <link rel="stylesheet" href="options.css"/>
+    </head>
+
+<body>
+    <div class="addon-detail-row description">
+        <details>
+            <summary><b>__MSG_spamnessInstalled.title__</b></summary>
+            <p>__MSG_spamnessInstalled.introduction.label__</p>
+            <details>
+                <summary><b>__MSG_spamnessInstalled.folderGroup.label__</b></summary>
+                <p>__MSG_spamnessInstalled.folderInstructions.label__</p>
+            </details>
+            <details>
+                <summary><b>__MSG_spamnessInstalled.columnGroup.label__</b></summary>
+                <p>__MSG_spamnessInstalled.columnInstructions.label__</p>
+            </details>
+        </details>
+
+    </div>
+
+    <div class="addon-detail-row" id="spamnessOptionsWindow">
+        <form>
+            <fieldset>
+                <legend class="groupbox-title">__MSG_spamnessOptions.captionDisplayColumnGroup.label__</legend>
+                <div role="radiogroup">
+                    <p>
+                        <input type="radio" name="columnDisplay" id="columnDisplay_both" value="both">
+                        <label for="columnDisplay_both">__MSG_spamnessOptions.prefShowBoth.label__</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="columnDisplay" id="columnDisplay_text" value="text">
+                        <label for="columnDisplay_text">__MSG_spamnessOptions.prefShowText.label__</label>
+                    </p>
+                    <p>
+                        <input type="radio" name="columnDisplay" id="columnDisplay_image" value="image">
+                        <label for="columnDisplay_image">__MSG_spamnessOptions.prefShowImage.label__</label>
+                    </p>
+                </div>
+                <p>
+                    <input type="checkbox" id="columnImageOnlyForPositive">
+                    <label for="columnImageOnlyForPositive">__MSG_spamnessOptions.prefDisplayColumnImageOnlyForPositive.label__</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend class="groupbox-title">__MSG_spamnessOptions.captionDisplayMessageGroup.label__</legend>
+                <p>
+                    <input type="checkbox" id="messageScore">
+                    <label for="messageScore">__MSG_spamnessOptions.prefDisplayMessageScore.label__</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="messageRules">
+                    <label for="messageRules">__MSG_spamnessOptions.prefDisplayMessageRules.label__</label>
+                </p>
+                <p>
+                    <label for="show_n_lines">__MSG_spamnessOptions.prefShowNLinesBeforeMore.label__</label>
+                    <input type="number" id="show_n_lines" size=2>
+                </p>
+                <p>
+                    <input type="checkbox" id="colorizeSymbols">
+                    <label for="colorizeSymbols">__MSG_spamnessOptions.prefHeadersColorizeSymbols.label__</label>
+                </p>
+            </fieldset>
+
+
+            <fieldset>
+                <legend class="groupbox-title">__MSG_spamnessOptions.captionTrainingButtonsGroup.label__</legend>
+                <p>
+                    <input type="checkbox" id="trainingButtons-enabled">
+                    <label for="trainingButtons-enabled">__MSG_spamnessOptions.prefTrainingButtons.enabled.label__</label>
+                </p>
+                <fieldset>
+                    <legend class="groupbox-title">__MSG_spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend__</legend>
+                    <label for="defaultTrainingFolderAccount">__MSG_spamnessOptions.accountSelector.label__</label>
+                    <select name="default-training-folder-account" id="defaultTrainingFolderAccount"></select>
+                    <p>
+                        <label for="folderTrainHam">__MSG_spamnessOptions.Ham.label__</label>
+                        <input type="text" id="folderTrainHam" size="80">
+                    </p>
+                    <p>
+                        <label for="folderTrainSpam">__MSG_spamnessOptions.Spam.label__</label>
+                        <input type="text" id="folderTrainSpam" size="80">
+                    </p>
+                </fieldset>
+                <p>
+                    <label for="account-options-button">__MSG_spamnessOptions.account.dialog.title__</label>
+                    <button id="account-options-button">__MSG_spamnessOptions.prefAdvOptionsBtn.label__</button>
+                </p>
+                <fieldset>
+                    <legend class="groupbox-title">__MSG_spamnessOptions.prefTrainingButtonsDefaultAction.title__</legend>
+                        <div>
+                            <label for="trainingButtonHamDefaultAction">__MSG_spamness.buttonTrainHam.label__</label>
+                            <select name="default-action-menupopup" id="trainingButtonHamDefaultAction">
+                                <option value="move">Move</option>
+                                <option value="copy">Copy</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="trainingButtonSpamDefaultAction">__MSG_spamness.buttonTrainSpam.label__</label>
+                            <select name="default-action-menupopup" id="trainingButtonSpamDefaultAction">
+                                <option value="move">Move</option>
+                                <option value="copy">Copy</option>
+                            </select>
+                        </div>
+                        <spacer/>
+                </fieldset>
+            </fieldset>
+
+            <p>
+                __MSG_spamnessOptions.prefAdvOptions.title__
+                <button id="advanced-options-button">__MSG_spamnessOptions.prefAdvOptionsBtn.label__</button>
+            </p>
+            <div class="btn-group">
+                <button type="submit">__MSG_spamnessOptions.saveBtn.label__</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/scripts/libBackground.js"></script>
+    <script src="/vendor/i18n.js"></script>
+    <script src="/scripts/translate.js"></script>
+    <script src="options.js"></script>
+</body>
+
+</html>

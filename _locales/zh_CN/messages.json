@@ -1,11 +1,57 @@
 {
-  "extensionName": {
-    "message": "Rspamd-spamness",
-    "description": "Name of the extension."
-  },
-
-  "extensionDescription": {
-    "message": "Rspamd-spamness  基于标准 Rspamd 得分，提供了一种以颜色和大小为基础的视觉度量，用来表示一个消息与垃圾邮件相似程度。",
-    "description": "Description of the extension."
-  }
+    "extensionDescription": {
+        "description": "Description of the extension.",
+        "message": "Rspamd-spamness  基于标准 Rspamd 得分，提供了一种以颜色和大小为基础的视觉度量，用来表示一个消息与垃圾邮件相似程度。"
+    },
+    "spamness.messageHeader.label": {
+        "message": "垃圾邮件"
+    },
+    "spamness.rulesMessageHeader.label": {
+        "message": "规则"
+    },
+    "spamnessColumn.label": {
+        "message": "垃圾邮件等级 [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "点击按垃圾邮件等级排序"
+    },
+    "spamnessInstalled.columnGroup.label": {
+        "message": "显示列"
+    },
+    "spamnessInstalled.columnInstructions.label": {
+        "message": "要在每个文件夹中显示垃圾邮件等级列，请点击列选择器并选择“垃圾邮件等级”列，确保它被选中后即可看到。要应用它到所有文件夹，请再次点击列选择器，滚动到底部的“将列设置应用到...”，“文件夹及其子项目...”并选择你账户的顶级文件夹。垃圾邮件等级列已经自动被添加到默认列设置中，但是不会作用于已有文件夹。"
+    },
+    "spamnessInstalled.folderGroup.label": {
+        "message": "重新索引文件夹"
+    },
+    "spamnessInstalled.folderInstructions.label": {
+        "message": "要重新索引文件夹，你需要选择此文件夹并从上下文菜单或编辑菜单中选择“属性...”，然后点击“修复文件夹”按钮。你需要对每个文件夹进行此操作，也可以使用这个试验性的按钮尝试为每个文件夹重建索引。"
+    },
+    "spamnessInstalled.introduction.label": {
+        "message": "感谢安装 Rspamd-spamness。使用 Rspamd-spamness 前，你需要为包含有 Rspamd 得分的邮件所在文件夹重建文件夹指数，并且为每个文件夹启用列显示。如果你是在设置账户前安装的 Rspamd-spamness，你可以完全忽略向导的其它部分 - 你已完成全部设置。"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "列显示"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "消息显示"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "在消息中显示触发的规则"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "在消息中显示得分"
+    },
+    "spamnessOptions.prefHeaderName.explain": {
+        "message": "注意：更改 Rspamd-spamness 使用的消息头需要重建所有文件夹指数，以使 Thunderbird 能读取每个消息的消息头值。打开每个文件夹的属性，然后点击重建文件夹按钮。"
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "显示视觉效果和得分"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "仅显示视觉效果"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "仅显示得分"
+    }
 }

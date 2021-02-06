@@ -1,0 +1,29 @@
+*|*:root {
+    --input-text-x-margin: 4px;
+    --input-text-x-padding: 8px;
+}
+body {
+    color: var(--in-content-page-color);
+}
+form {
+    margin: 8px;
+}
+.btn-group {
+    float: right;
+}
+.description {
+    color: var(--in-content-deemphasized-text);
+    font-size: smaller;
+}
+.description summary {
+    margin-bottom: 1em;
+}
+input[type="text"],
+select {
+    margin-right: var(--input-text-x-margin);
+    margin-left: var(--input-text-x-margin);
+    text-overflow: ellipsis;
+    width: calc(100% - 2 * var(--input-text-x-margin) - 2 * var(--input-text-x-padding) - 2px);
+    padding-right: var(--input-text-x-padding);
+    padding-left: var(--input-text-x-padding);
+}

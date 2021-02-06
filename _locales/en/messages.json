@@ -1,11 +1,169 @@
 {
-  "extensionName": {
-    "message": "Rspamd-spamness",
-    "description": "Name of the extension."
-  },
-
-  "extensionDescription": {
-    "message": "Provides a color- and size-based visual measurement of how spam-like an individual message is based on its normalized Rspamd score.",
-    "description": "Description of the extension."
-  }
+    "extensionDescription": {
+        "description": "Description of the extension.",
+        "message": "Provides a color- and size-based visual measurement of how spam-like an individual message is based on its normalized Rspamd score."
+    },
+    "extensionName": {
+        "description": "Name of the extension.",
+        "message": "Rspamd-spamness"
+    },
+    "spamness.alertText.colonInHeaderName": {
+        "message": "The header you entered contains an invalid character, such as ':', a non-printable character, a non-ascii character, or an eight bit ascii character. Please remove the invalid character and try again."
+    },
+    "spamness.alertText.destinationFolderAccountIsNotSet": {
+        "message": "Destination folder account is not set."
+    },
+    "spamness.alertText.destinationFolderLocationIsNotSet": {
+        "message": "Destination folder location is not set."
+    },
+    "spamness.alertText.destinationFolderNotFound": {
+        "message": "Destination folder not found."
+    },
+    "spamness.alertText.error_2147500037_workaround": {
+        "message": "Try to display any message in the destination folder account first."
+    },
+    "spamness.buttonTrainHam.label": {
+        "message": "Train ham"
+    },
+    "spamness.buttonTrainHam.tooltip": {
+        "message": "Move message to ham training folder"
+    },
+    "spamness.buttonTrainSpam.label": {
+        "message": "Train spam"
+    },
+    "spamness.buttonTrainSpam.tooltip": {
+        "message": "Move message to spam training folder"
+    },
+    "spamness.messageHeader.label": {
+        "message": "Score"
+    },
+    "spamness.popupGroup.label": {
+        "message": "Group symbols"
+    },
+    "spamness.popupRawExtendedHeader.label": {
+        "message": "Raw extended Rspamd header"
+    },
+    "spamness.popupSortByName.label": {
+        "message": "Sort symbols by name"
+    },
+    "spamness.popupSortByScore.label": {
+        "message": "Sort symbols by score"
+    },
+    "spamness.popupUngroup.label": {
+        "message": "Ungroup symbols"
+    },
+    "spamness.rulesMessageHeader.label": {
+        "message": "Rules"
+    },
+    "spamnessColumn.label": {
+        "message": "Spam score [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "Click to sort by Rspamd spam score"
+    },
+    "spamnessInstalled.columnGroup.label": {
+        "message": "Displaying the 'Spam score' column"
+    },
+    "spamnessInstalled.columnInstructions.label": {
+        "message": "To display the column in each folder, click the column picker and select the 'Spam score [Rspamd]' column, making sure it's checked and the new column is visible.  To apply it to all folders, click the column picker again, scrolling to the bottom to 'Apply columns to...', then 'Folder and its children...' and choose the top folder for your account.  The column has already been automatically added to the default columns set, but this doesn't affect existing folders."
+    },
+    "spamnessInstalled.folderGroup.label": {
+        "message": "Re-indexing folders"
+    },
+    "spamnessInstalled.folderInstructions.label": {
+        "message": "To re-index a folder, select it and choose 'Properties...' from the context or Edit menu, then click the 'Repair Folder' button.  You will need to do this for every folder."
+    },
+    "spamnessInstalled.introduction.label": {
+        "message": "Thanks for installing Rspamd-spamness.  To use Rspamd-spamness, you'll need to both re-build folder indices for folders that contain Rspamd-scored mail and enable the 'Spam score' column display for each folder.  If you've installed Rspamd-spamness ahead of setting up any of your accounts, you can completely ignore the rest of this guide - you're all set."
+    },
+    "spamnessInstalled.title": {
+        "message": "Rspamd-spamness Guide"
+    },
+    "spamnessOptions.Ham.label": {
+        "message": "Ham:"
+    },
+    "spamnessOptions.Spam.label": {
+        "message": "Spam:"
+    },
+    "spamnessOptions.account.dialog.title": {
+        "message": "Per-account folder location settings"
+    },
+    "spamnessOptions.account.header.account.label": {
+        "message": "Account"
+    },
+    "spamnessOptions.account.header.folder.label": {
+        "message": "Folder"
+    },
+    "spamnessOptions.account.header.location.label": {
+        "message": "Location"
+    },
+    "spamnessOptions.saveBtn.label": {
+        "message": "Save"
+    },
+    "spamnessOptions.cancelBtn.label": {
+        "message": "Cancel"
+    },
+    "spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend": {
+        "message": "Default training folders locations"
+    },
+    "spamnessOptions.accountSelector.label": {
+        "message": "Account"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "Column display"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "Message display"
+    },
+    "spamnessOptions.captionTrainingButtonsGroup.label": {
+        "message": "Training buttons settings"
+    },
+    "spamnessOptions.prefAdvOptions.title": {
+        "message": "Advanced options"
+    },
+    "spamnessOptions.prefAdvOptionsBtn.label": {
+        "message": "Open"
+    },
+    "spamnessOptions.prefDisplayColumnImageOnlyForPositive.label": {
+        "message": "Show visual only for positive score"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "Show rules fired in message"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "Show score in message"
+    },
+    "spamnessOptions.prefHeaderName.explain": {
+        "message": "Note: Changing the headers Rspamd-spamness uses will require rebuilding all folder indices so Thunderbird can read the headers values for each message.  Open each folder's properties, then click the 'Repair Folder' button."
+    },
+    "spamnessOptions.prefHeaderName.label": {
+        "message": "Additional mail headers to search for spam score in:"
+    },
+    "spamnessOptions.prefHeaderName.scoreHeaders": {
+        "message": "Default mail headers:"
+    },
+    "spamnessOptions.prefHeadersColorizeSymbols.label": {
+        "message": "Colorize symbols"
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "Show visual and score"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "Show only visual"
+    },
+    "spamnessOptions.prefShowNLinesBeforeMore.label": {
+        "message": "Number of lines to show for rules header before 'more' (0 - unlimited)"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "Show only score"
+    },
+    "spamnessOptions.prefTrainingButtons.enabled.label": {
+        "message": "Enable training buttons"
+    },
+    "spamnessOptions.prefTrainingButtonsDefaultAction.title": {
+        "message": "Training buttons default action"
+    },
+    "spamnessOptions.title": {
+        "message": "Rspamd-spamness options"
+    }
 }

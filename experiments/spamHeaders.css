@@ -1,0 +1,77 @@
+mail-link {
+    margin: 1px;
+    border-radius: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
+    display: inline-block;
+}
+mail-link::before {
+    content: '';
+    display: block;
+    margin-top: -0.1em;
+}
+mail-link:hover {
+    background-color: #aaa;
+}
+
+.linkDisplayButton {
+    display: inline-block;
+    margin: 0;
+}
+
+:root {
+    --greyl: #d8e0f6;
+    --ham: #d4ebc8;
+    --spam: #f0d0c8;
+    --hover-greyl: #abc1fc;
+    --hover-ham: #b4eba8;
+    --hover-spam: #f0b0a8;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --greyl: #0943e7;
+        --ham: #369903;
+        --spam: #bf2600;
+        --hover-greyl: #91aeff;
+        --hover-ham: #65c26d;
+        --hover-spam: #cc776c;
+    }
+}
+
+.linkDisplayButtonGreyl {
+    background-color: var(--greyl);
+}
+.linkDisplayButtonHam {
+    background-color: var(--ham);
+}
+.linkDisplayButtonSpam {
+    background-color: var(--spam);
+}
+
+.linkDisplayButtonGreyl:hover {
+    background-color: var(--hover-greyl);
+}
+.linkDisplayButtonHam:hover {
+    background-color: var(--hover-ham);
+}
+.linkDisplayButtonSpam:hover {
+    background-color: var(--hover-spam);
+}
+
+.linkSeparator {
+    display: inline-block;
+    margin: -0 -3px 0 0;
+}
+
+#expandedRspamdSpamnessRulesBox {
+    width: 100%;
+}
+
+#links {
+    display: inline-block;
+}
+.linksCollapsed {
+    overflow-y: hidden;
+    height: 100vh;
+}

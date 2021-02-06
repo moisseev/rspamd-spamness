@@ -1,9 +1,0 @@
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-
-mail-link {
-    -moz-binding: url("chrome://rspamd-spamness/content/bindings.xml#mail-link");
-}
-
-mail-multi-linkField {
-    -moz-binding: url("chrome://rspamd-spamness/content/bindings.xml#mail-multi-linkField");
-}

@@ -1,0 +1,12 @@
+html {
+    height: 100%;
+    /* Initialize window with scrollbar to measure it width. */
+    overflow: hidden;
+}
+body {
+    height: 100% !important;
+    /* Initialize window with scrollbar to measure it width. */
+    overflow: scroll;
+    /* We need to get lines max length, so do not wrap. */
+    white-space: pre;
+}

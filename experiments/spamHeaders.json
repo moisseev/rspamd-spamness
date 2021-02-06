@@ -1,0 +1,108 @@
+[
+  {
+    "namespace": "spamHeaders",
+    "functions": [
+      {
+        "name": "init",
+        "type": "function",
+        "parameters": []
+      },
+      {
+        "name": "removeHeight",
+        "description": "Remove 'height' attribute of the HTML element",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "tabId",
+            "type": "integer"
+          },
+          {
+            "name": "elementId",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "setHeaderHidden",
+        "description": "Set hidden attribute to the header",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "tabId",
+            "type": "integer"
+          },
+          {
+            "name": "elementId",
+            "type": "string"
+          },
+          {
+            "name": "hidden",
+            "description": "Hidden attribute value",
+            "type": "boolean"
+          }
+        ]
+      },
+      {
+        "name": "setHeaderValue",
+        "description": "Update the Received header value",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "tabId",
+            "type": "integer"
+          },
+          {
+            "name": "elementId",
+            "type": "string"
+          },
+          {
+            "name": "prop",
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "addSymbol",
+        "description": "Add symbol to the Rules header",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "tabId",
+            "type": "integer"
+          },
+          {
+            "name": "symbolClass",
+            "type": "string"
+          },
+          {
+            "name": "displayText",
+            "type": "string"
+          },
+          {
+            "name": "tooltiptext",
+            "type": "any"
+          }
+        ]
+      },
+      {
+        "name": "clearSymbolsHeader",
+        "description": "Clear the Rules header",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "tabId",
+            "type": "integer"
+          },
+          {
+            "name": "show_n_lines",
+            "type": "string"
+          }
+        ]
+      }
+    ]
+  }
+]

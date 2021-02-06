@@ -1,0 +1,13 @@
+fieldset {
+    margin-block: 0.5em;
+    border-radius: 4px;
+}
+button {
+    text-align: center;
+}
+
+input[type="checkbox"],
+input[type="radio"],
+label {
+    vertical-align: middle;
+}

@@ -1,11 +1,63 @@
 {
-  "extensionName": {
-    "message": "Rspamd-spamness",
-    "description": "Name of the extension."
-  },
-
-  "extensionDescription": {
-    "message": "Пружа визулени приказ у ком степену Rspamd сматра неку поруку нежељеном.",
-    "description": "Description of the extension."
-  }
+    "extensionDescription": {
+        "description": "Description of the extension.",
+        "message": "Пружа визулени приказ у ком степену Rspamd сматра неку поруку нежељеном."
+    },
+    "spamness.messageHeader.label": {
+        "message": "нежељено"
+    },
+    "spamness.rulesMessageHeader.label": {
+        "message": "правила"
+    },
+    "spamnessColumn.label": {
+        "message": "Оцена нежељености [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "Кликните да бисте поређали по оцени SpamAssassin"
+    },
+    "spamnessInstalled.columnGroup.label": {
+        "message": "Приказивање колоне"
+    },
+    "spamnessInstalled.columnInstructions.label": {
+        "message": "Да бисте приказали колону испред сваке фасцикле, кликните на колону и изаберите колону „Оцењивање нежељености [Rspamd]”. Да бисте је применили на све фасцикле, поново кликните на колону, на дну пронађите Примени колоне на... &gt; Фасциклу и подфасцикле... и изаберите главну фасциклу свог налога. Колона ће аутоматски бити додата подразумеванима, али неће утицати на постојеће фасцикле."
+    },
+    "spamnessInstalled.folderGroup.label": {
+        "message": "Поново индексирање фасцикли"
+    },
+    "spamnessInstalled.folderInstructions.label": {
+        "message": "Да бисте поново индексирали фасциклу, изаберите је и отворите њена својства из приручног менија или менија Уређивање. Притисните дугме „Поправи фасциклу”. Овај поступак морате поновити за сваку фасциклу, а можете искористити ово пробно дугме да бисте поново индексирали сваку фасциклу."
+    },
+    "spamnessInstalled.introduction.label": {
+        "message": "Хвала вам што сте инсталирали Rspamd-spamness. Да бисте га користили, поново направите фасциклу која садржи поруке које је оценио Rspamd, а потом омогућите приказ додатне колоне поред сваке фасцикле. Ако сте инсталирали Rspamd-spamness пре било каквих подешавања налога, занемарите остатак упутства, јер је све већ спремно!"
+    },
+    "spamnessInstalled.title": {
+        "message": "Упутство за Rspamd-spamness"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "Приказ колона"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "Приказ порука"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "Прикажи правила коришћена у поруци"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "Прикажи резултат у поруци"
+    },
+    "spamnessOptions.prefHeaderName.explain": {
+        "message": "Напомена: мењање заглавља коришћења Rspamd-spamness захтева поновно прављење индекса фасцикли, како би Тандерберд могао да прочита вредности и заглавља сваке поруке."
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "Прикажи визуелно и резултат"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "Прикажи само визуелно"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "Прикажи само резултат"
+    },
+    "spamnessOptions.title": {
+        "message": "Rspamd-spamness опције"
+    }
 }

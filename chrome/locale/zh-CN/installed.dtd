@@ -1,6 +1,0 @@
-<!ENTITY spamnessInstalled.title "Rspamd-spamness 向导">
-<!ENTITY spamnessInstalled.introduction.label "感谢安装 Rspamd-spamness。使用 Rspamd-spamness 前，你需要为包含有 Rspamd 得分的邮件所在文件夹重建文件夹指数，并且为每个文件夹启用列显示。如果你是在设置账户前安装的 Rspamd-spamness，你可以完全忽略向导的其它部分 - 你已完成全部设置。">
-<!ENTITY spamnessInstalled.folderGroup.label "重新索引文件夹">
-<!ENTITY spamnessInstalled.folderInstructions.label "要重新索引文件夹，你需要选择此文件夹并从上下文菜单或编辑菜单中选择“属性...”，然后点击“修复文件夹”按钮。你需要对每个文件夹进行此操作，也可以使用这个试验性的按钮尝试为每个文件夹重建索引。">
-<!ENTITY spamnessInstalled.columnGroup.label "显示列">
-<!ENTITY spamnessInstalled.columnInstructions.label "要在每个文件夹中显示垃圾邮件等级列，请点击列选择器并选择“垃圾邮件等级”列，确保它被选中后即可看到。要应用它到所有文件夹，请再次点击列选择器，滚动到底部的“将列设置应用到...”，“文件夹及其子项目...”并选择你账户的顶级文件夹。垃圾邮件等级列已经自动被添加到默认列设置中，但是不会作用于已有文件夹。">

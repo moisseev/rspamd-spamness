@@ -1,11 +1,165 @@
 {
-  "extensionName": {
-    "message": "Rspamd-spamness",
-    "description": "Name of the extension."
-  },
-
-  "extensionDescription": {
-    "message": "Дополнение позволяет наглядно отображать результаты обработки сообщения антиспам-системой Rspamd.",
-    "description": "Description of the extension."
-  }
+    "extensionDescription": {
+        "description": "Description of the extension.",
+        "message": "Дополнение позволяет наглядно отображать результаты обработки сообщения антиспам-системой Rspamd."
+    },
+    "spamness.alertText.colonInHeaderName": {
+        "message": "Введённый заголовок содержит запрещённый символ, например, «:»; непечатаемый символ; символ, не входящий в таблицу ASCII, или восьмибитный ASCII-символ. Удалите этот символ и попробуйте снова."
+    },
+    "spamness.alertText.destinationFolderAccountIsNotSet": {
+        "message": "Учетная запись папки назначения не настроена."
+    },
+    "spamness.alertText.destinationFolderLocationIsNotSet": {
+        "message": "Папка назначения не настроена."
+    },
+    "spamness.alertText.destinationFolderNotFound": {
+        "message": "Папка назначения не найдена."
+    },
+    "spamness.alertText.error_2147500037_workaround": {
+        "message": "Попробуйте сначала открыть любое письмо в учетной записи папки назначения."
+    },
+    "spamness.buttonTrainHam.label": {
+        "message": "Обучить как не-спам"
+    },
+    "spamness.buttonTrainHam.tooltip": {
+        "message": "Переместить сообщение в папку для обучения как не-спам"
+    },
+    "spamness.buttonTrainSpam.label": {
+        "message": "Обучить как спам"
+    },
+    "spamness.buttonTrainSpam.tooltip": {
+        "message": "Переместить сообщение в папку для обучения как спам"
+    },
+    "spamness.messageHeader.label": {
+        "message": "Оценка"
+    },
+    "spamness.popupGroup.label": {
+        "message": "Сгруппировать символы"
+    },
+    "spamness.popupRawExtendedHeader.label": {
+        "message": "Исходный расширенный заголовок Rspamd"
+    },
+    "spamness.popupSortByName.label": {
+        "message": "Сортировать символы по имени"
+    },
+    "spamness.popupSortByScore.label": {
+        "message": "Сортировать символы по оценке"
+    },
+    "spamness.popupUngroup.label": {
+        "message": "Разгруппировать символы"
+    },
+    "spamness.rulesMessageHeader.label": {
+        "message": "Правила"
+    },
+    "spamnessColumn.label": {
+        "message": "Оценка спама [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "Сортировать по оценке"
+    },
+    "spamnessInstalled.columnGroup.label": {
+        "message": "Отображение колонки 'Оценка спама [Rspamd]'"
+    },
+    "spamnessInstalled.columnInstructions.label": {
+        "message": "Для отображения колонки в каждой папке нажмите правой кнопкой мыши на заголовке любой колонки (например, 'Тема') и выберите колонку 'Оценка спама [Rspamd]'. Для отображения этой колонки во всех папках снова нажмите правой клавишей мыши на заголовке любой колонки, перейдите к выпадающему списку 'Применить набор колонок к...' - 'Папке и вложенным папкам' и выберите корневую папку вашей учетной записи электронной почты. Примечание: При нажатии пункта 'Набор колонок по-умолчанию' колонка 'Оценка спама [Rspamd]' автоматически отображается только в текущей папке; в других папках она отображаться не будет."
+    },
+    "spamnessInstalled.folderGroup.label": {
+        "message": "Переиндексация папок"
+    },
+    "spamnessInstalled.folderInstructions.label": {
+        "message": "Для переиндексации папки зайдите в ее свойства через контекстное меню либо через пункт меню 'Правка' и нажмите кнопку 'Починить папку'. Аналогичные действия нужно выполнить для каждой папки."
+    },
+    "spamnessInstalled.introduction.label": {
+        "message": "Спасибо за установку дополнения Rspamd-spamness. Для его использования вам необходимо переиндексировать все папки, в которых находится почта, проверенная антиспам-системой Rspamd и добавить колонку 'Оценка спама [Rspamd]'.  Если дополнение было установлено до настройки учетных записей электронной почты, то никаких дополнительных действий выполнять не нужно."
+    },
+    "spamnessInstalled.title": {
+        "message": "Настройка дополнения Rspamd-spamness"
+    },
+    "spamnessOptions.Ham.label": {
+        "message": "Не-спам:"
+    },
+    "spamnessOptions.Spam.label": {
+        "message": "Спам:"
+    },
+    "spamnessOptions.account.dialog.title": {
+        "message": "Настройка расположения папок для учётных записей"
+    },
+    "spamnessOptions.account.header.account.label": {
+        "message": "Учётная запись"
+    },
+    "spamnessOptions.account.header.folder.label": {
+        "message": "Папка"
+    },
+    "spamnessOptions.account.header.location.label": {
+        "message": "Расположение"
+    },
+    "spamnessOptions.saveBtn.label": {
+        "message": "Сохранить"
+    },
+    "spamnessOptions.cancelBtn.label": {
+        "message": "Отмена"
+    },
+    "spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend": {
+        "message": "Расположение папок по умолчанию"
+    },
+    "spamnessOptions.accountSelector.label": {
+        "message": "Учётная запись"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "Настройка отображения колонки"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "Настройки отображения сообщения"
+    },
+    "spamnessOptions.captionTrainingButtonsGroup.label": {
+        "message": "Настройки кнопок обучения"
+    },
+    "spamnessOptions.prefAdvOptions.title": {
+        "message": "Дополнительные настройки"
+    },
+    "spamnessOptions.prefAdvOptionsBtn.label": {
+        "message": "Открыть"
+    },
+    "spamnessOptions.prefDisplayColumnImageOnlyForPositive.label": {
+        "message": "Показывать значок только для положительной оценки"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "Отображать Правила в сообщении"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "Отображать Оценку в сообщении"
+    },
+    "spamnessOptions.prefHeaderName.explain": {
+        "message": "Примечание: После изменения заголовков необходимо переиндексировать папки. Для этого откройте свойства каждой папки и нажмите кнопку 'Починить папку'."
+    },
+    "spamnessOptions.prefHeaderName.label": {
+        "message": "Дополнительные заголовки, в которых искать спам-рейтинг:"
+    },
+    "spamnessOptions.prefHeaderName.scoreHeaders": {
+        "message": "Заголовки по умолчанию:"
+    },
+    "spamnessOptions.prefHeadersColorizeSymbols.label": {
+        "message": "Подкрашивать символы"
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "Показывать значок и оценку"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "Показывать только значок"
+    },
+    "spamnessOptions.prefShowNLinesBeforeMore.label": {
+        "message": "Кол-во строк для отображения Правил (0 - показать все строки)"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "Показывать только оценку"
+    },
+    "spamnessOptions.prefTrainingButtons.enabled.label": {
+        "message": "Включить кнопки обучения"
+    },
+    "spamnessOptions.prefTrainingButtonsDefaultAction.title": {
+        "message": "Действие по умолчанию для кнопок обучения"
+    },
+    "spamnessOptions.title": {
+        "message": "Настройки Rspamd-spamness"
+    }
 }

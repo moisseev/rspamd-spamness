@@ -1,0 +1,57 @@
+[
+  {
+    "namespace": "scoreColumn",
+    "functions": [
+      {
+        "name": "init",
+        "type": "function",
+        "parameters": []
+      },
+      {
+        "name": "setLocalStorage",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "newSettings",
+            "type": "object",
+            "properties": {
+              "display-columnImageOnlyForPositive": { "type": "boolean", "optional": true },
+              "header": { "type": "string", "optional": true },
+              "display-column": { "type": "string", "optional": true }
+            }
+          }
+        ]
+      },
+      {
+        "name": "getCharPref",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "prefName",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "setCharPref",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "prefName",
+            "type": "string"
+          },
+          {
+            "name": "newPref",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "name": "savePrefFile",
+        "type": "function",
+        "parameters": []
+      }
+    ]
+  }
+]

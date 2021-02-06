@@ -53,17 +53,12 @@ To display the column in each folder, click the column picker and select the `Sp
 
 ## Training Rspamd
 
-One of the training methods is collecting emails in special IMAP folders and processing them by script that call `rspamc`.
+One of the training methods is collecting emails in special IMAP folders and processing them by a script that calls `rspamc`.
 
-You can add toolbar buttons to move/copy messages to the training spam/ham folders in one click.
+You can enable toolbar buttons to move/copy messages to the training spam/ham folders on add-on settings page.
 ![move_buttons](https://cloud.githubusercontent.com/assets/2275981/18813761/36a41136-830e-11e6-8cf0-a9dd7042cc8b.png)
 
-To add the buttons, you need to:
-- right-click onto Thunderbird message pane header toolbar;
-- select `Customize…`;
-- the `Customize Toolbar` window will launch. From there you can drag-and-drop the buttons into your toolbar.
-
-You also need to specify training folder location URIs in the add-on options. A folder URI can be found at `General Information` tab of the `Folder Properties`.
+You also need to specify training folder locations.
 
 ## Creating XPI installer
 
@@ -93,7 +88,3 @@ rspamd-spamness-master.zip
     ├── install.rdf
     └── ... (other files and directories)
 ~~~
-
-## Credits
-
-Rspamd-spamness is a fork of the [Spamness add-on](https://addons.mozilla.org/en-US/thunderbird/addon/spamness/) by Ryan Lee.

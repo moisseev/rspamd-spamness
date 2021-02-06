@@ -1,0 +1,38 @@
+{
+    "spamness.messageHeader.label": {
+        "message": "Indesiderata"
+    },
+    "spamness.rulesMessageHeader.label": {
+        "message": "Regole"
+    },
+    "spamnessColumn.label": {
+        "message": "Livello di rischio spam [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "Fare clic per ordinare per livello di rischio spam secondo SpamAssassin"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "Aspetto nella colonna aggiuntiva"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "Aspetto nel messaggio"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "Mostra le regole"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "Mostra il punteggio"
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "Mostra grafica e punteggio"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "Mostra solo la grafica"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "Mostra solo il punteggio"
+    },
+    "spamnessOptions.title": {
+        "message": "Impostazioni di Rspamd-spamness"
+    }
+}

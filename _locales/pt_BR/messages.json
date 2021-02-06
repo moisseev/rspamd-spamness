@@ -1,11 +1,60 @@
 {
-  "extensionName": {
-    "message": "Rspamd-spamness",
-    "description": "Name of the extension."
-  },
-
-  "extensionDescription": {
-    "message": "Fornece uma escala visual colorida da importância do spam, baseada na sua pontuação Rspamd.",
-    "description": "Description of the extension."
-  }
+    "extensionDescription": {
+        "description": "Description of the extension.",
+        "message": "Fornece uma escala visual colorida da importância do spam, baseada na sua pontuação Rspamd."
+    },
+    "spamness.rulesMessageHeader.label": {
+        "message": "regras"
+    },
+    "spamnessColumn.label": {
+        "message": "Classificação dos Spans [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "Clique para organizar por meio do classificador de spans SpamAssassin"
+    },
+    "spamnessInstalled.columnGroup.label": {
+        "message": "Exibindo a Coluna"
+    },
+    "spamnessInstalled.columnInstructions.label": {
+        "message": "Para exibir a coluna em cada pasta, clique no seletor de coluna e selecione 'Classificação de Spam [Rspamd]', certificando-se que esteja selecionada e que a nova coluna está visível. Para aplicá-la a todas as pastas, clique no seletor de coluna novamente, rolando para baixo até 'Aplicar colunas em...', depois 'Pasta e sub-pastas...' e escolha a pasta principal para a sua conta. A coluna já foi automaticamente adicionada às colunas padrão, mas isto não afeta as pastas existentes."
+    },
+    "spamnessInstalled.folderGroup.label": {
+        "message": "Reindexando Pastas"
+    },
+    "spamnessInstalled.folderInstructions.label": {
+        "message": "Para reindexar uma pasta, selecione-a e escolha 'Propriedades...' a partir do menu de contexto ou menu Editar, depois tecle no botão 'Reparar Pasta'. Você terá que fazer isso para cada pasta, ou você pode usar esse botão experimental para tentar recriar um índice para cada pasta."
+    },
+    "spamnessInstalled.introduction.label": {
+        "message": "Obrigado por instalar o Rspamd-spamness. Para usar o Rspamd-spamness, você precisa reconstruir os índices das pastas que contêm o Rspamd-mensagem classificada e ativar a exibição da coluna para cada pasta. Se você instalou o Rspamd-spamness antes de configurar suas contas, você pode ignorar completamente o resto deste guia - você está pronto."
+    },
+    "spamnessInstalled.title": {
+        "message": "Guia do Rspamd-spamness"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "Exibição da coluna"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "Exibição de mensagens"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "Mostrar regras bloqueadas na mensagem"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "Mostrar mensagem do escore"
+    },
+    "spamnessOptions.prefHeaderName.explain": {
+        "message": "Nota: Ao alterar o cabeçalho o uso do Rspamd-spamness irá requerer que todos os índices de pastas sejam refeitos para que o Thunderbird possa ler os valores de cabeçalho de cada mensagem"
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "Mostrar visual e escore"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "Mostrar apenas o visual"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "Mostrar apenas o escore"
+    },
+    "spamnessOptions.title": {
+        "message": "Opções do Rspamd-spamness"
+    }
 }

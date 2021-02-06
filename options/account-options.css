@@ -1,0 +1,65 @@
+body {
+    font-size: 8pt;
+}
+table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+}
+input[type="text"] {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+#account-box-table {
+    border: 1px solid silver;
+}
+.account-box {
+    border: 1px solid silver;
+    white-space: nowrap;
+}
+.account-box td {
+    padding: 1px 3px;
+}
+
+.account-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 200px;
+}
+.account-name-name {
+    font-weight: bold;
+}
+.folder-location {
+    width: 100%;
+}
+
+:root {
+    --background-ham: #f4f9f1;
+    --background-spam: #fbf3f1;
+    --background-hover-ham: #e9f5e3;
+    --background-hover-spam: #f7e7e3;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-ham: #102d00;
+        --background-spam: #390b00;
+        --background-hover-ham: #1b4c01;
+        --background-hover-spam: #5f1300;
+    }
+}
+
+input[id^="TrainHam"] {
+    background-color: var(--background-ham);
+}
+input[id^="TrainSpam"] {
+    background-color: var(--background-spam);
+}
+input[id^="TrainHam"]:hover {
+    background-color: var(--background-hover-ham);
+}
+input[id^="TrainSpam"]:hover {
+    background-color: var(--background-hover-spam);
+}

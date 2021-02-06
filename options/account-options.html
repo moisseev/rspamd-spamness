@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>__MSG_spamnessOptions.account.dialog.title__</title>
+        <link rel="stylesheet" href="chrome://global/skin/global.css"/>
+        <link rel="stylesheet" href="chrome://global/skin/in-content/common.css"/>
+        <link rel="stylesheet" href="options-common.css"/>
+        <link rel="stylesheet" href="account-options.css"/>
+    </head>
+
+<body>
+    <form>
+        <table id="account-box-table">
+            <tbody id="account-box-container">
+                <tr id="account-table-header">
+                    <th id="account-header-name" class="account-name">
+                        __MSG_spamnessOptions.account.header.account.label__
+                    </th>
+                    <th id="account-header-folder" class="folder-label">
+                        __MSG_spamnessOptions.account.header.folder.label__
+                    </th>
+                    <th id="account-header-location" class="folder-location">
+                        __MSG_spamnessOptions.account.header.location.label__
+                    </th>
+                </tr>
+                <tr id="account-box-template" class="account-box">
+                    <td><table>
+                        <tr><td><span class="account-name account-name-name"></span></td></tr>
+                        <tr><td><span class="account-name"></span></td></tr>
+                    </table></td>
+                    <td><table>
+                        <tr><td flex="1" class="folder-label"><span>__MSG_spamnessOptions.Ham.label__</span></td></tr>
+                        <tr><td flex="1" class="folder-label"><span>__MSG_spamnessOptions.Spam.label__</span></td></tr>
+                    </table></td>
+                    <td><table>
+                        <tr><td><input type="text" class="folder-location"></td></tr>
+                        <tr><td><input type="text" class="folder-location"></td></tr>
+                    </table></td>
+                </tr>
+            </tbody>
+        </table>
+
+            <div class="btn-group">
+                <button type="submit" value="submit">__MSG_spamnessOptions.saveBtn.label__</button>
+                <button type="reset">__MSG_spamnessOptions.cancelBtn.label__</button>
+            </div>
+    </form>
+
+    <script src="/vendor/i18n.js"></script>
+    <script src="/scripts/translate.js"></script>
+    <script src="/scripts/libBackground.js"></script>
+    <script src="/scripts/libPopup.js"></script>
+    <script src="account-options.js"></script>
+</body>
+
+</html>

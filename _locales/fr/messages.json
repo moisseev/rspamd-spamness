@@ -1,0 +1,32 @@
+{
+    "spamness.rulesMessageHeader.label": {
+        "message": "règles"
+    },
+    "spamnessColumn.label": {
+        "message": "Notation du spam [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "Cliquez pour trier selon la notation du spam par SpamAssassin"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "Affichage des colonnes"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "Affichage des messages"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "Montrer les règles enfreinte dans les messages"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "Montrer le score dans les messages"
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "Afficher le visuel et le score"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "Afficher le visuel seulement"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "Afficher le score seulement"
+    }
+}

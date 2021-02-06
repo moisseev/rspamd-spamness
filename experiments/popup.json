@@ -1,0 +1,50 @@
+[
+  {
+    "namespace": "popup",
+    "functions": [
+      {
+        "name": "init",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          {
+            "name": "LSsymOrder",
+            "type": "string"
+          },
+          {
+            "name": "groupSymbols",
+            "type": "boolean"
+          }
+        ]
+      },
+      {
+        "name": "disableSymGroupingMenuitem",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "groupSymbols",
+            "type": "boolean"
+          }
+        ]
+      },
+      {
+        "name": "disableSymOrderMenuitem",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "order",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "name": "onSymbolPopupCommand",
+        "type": "function",
+        "async": true,
+        "parameters": []
+      }
+    ]
+  }
+]

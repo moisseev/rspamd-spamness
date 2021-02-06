@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>__MSG_spamnessOptions.prefAdvOptions.title__</title>
+        <link rel="stylesheet" type="text/css" href="chrome://global/skin/in-content/common.css"/>
+        <link rel="stylesheet" href="options-common.css"/>
+    </head>
+
+<body>
+    <form id="windowAdvancedOptions" title="&spamnessOptions.prefAdvOptions.title;">
+        <label for="headerNameForm">__MSG_spamnessOptions.prefHeaderName.label__</label>
+        <input type="text" id="headerNameForm"/>
+
+        <p class="description">__MSG_spamnessOptions.prefHeaderName.scoreHeaders__ <span id="scoreHeaders"></span></p>
+        <p class="description">__MSG_spamnessOptions.prefHeaderName.explain__</p>
+
+        <div class="btn-group">
+            <button type="submit" value="submit">__MSG_spamnessOptions.saveBtn.label__</button>
+            <button type="reset">__MSG_spamnessOptions.cancelBtn.label__</button>
+        </div>
+    </form>
+
+    <script src="/vendor/i18n.js"></script>
+    <script src="/scripts/translate.js"></script>
+    <script src="/scripts/libCommon.js"></script>
+    <script src="/scripts/libPopup.js"></script>
+    <script src="advancedOptions.js"></script>
+</body>
+
+</html>

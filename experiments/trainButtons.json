@@ -1,0 +1,41 @@
+[
+  {
+    "namespace": "trainButtons",
+    "functions": [
+      {
+        "name": "addButtonsToWindowById",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "windowId",
+            "type": "integer"
+          }
+        ]
+      },
+      {
+        "name": "removeButtons",
+        "type": "function",
+        "parameters": []
+      }
+    ],
+    "events": [
+      {
+        "name": "onButtonCommand",
+        "type": "function",
+        "async": true,
+        "parameters": [],
+        "extraParameters": [
+          {
+            "name": "targetId",
+            "type": "string"
+          },
+          {
+            "name": "windowId",
+            "description": "Register on the window with the ID",
+            "type": "integer"
+          }
+        ]
+      }
+    ]
+  }
+]

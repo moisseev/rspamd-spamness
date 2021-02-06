@@ -1,11 +1,60 @@
 {
-  "extensionName": {
-    "message": "Rspamd-spamness",
-    "description": "Name of the extension."
-  },
-
-  "extensionDescription": {
-    "message": "Permite comparar mensajes según su puntuación de Rspamd visualmente midiéndolos por color o tamaño.",
-    "description": "Description of the extension."
-  }
+    "extensionDescription": {
+        "description": "Description of the extension.",
+        "message": "Permite comparar mensajes según su puntuación de Rspamd visualmente midiéndolos por color o tamaño."
+    },
+    "spamness.rulesMessageHeader.label": {
+        "message": "reglas"
+    },
+    "spamnessColumn.label": {
+        "message": "Ratio de Spam [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "Pulsar para ordenar por ratio de SpamAssassin"
+    },
+    "spamnessInstalled.columnGroup.label": {
+        "message": "Mostrar la columna"
+    },
+    "spamnessInstalled.columnInstructions.label": {
+        "message": "Para mostrar la columna en cada carpeta, pulse sobre la columna y selección 'Puntuar Spam [Rspamd]', asegurándose que está marcada y que la nueva columna es visible. Para aplicar a todas las columnas, pulse sobre la columna de nuevo, vaya al botón 'Aplicar columnas a...', entonces 'Carpeta y subcarpetas...' y elija la primera carpeta de su cuenta. La columna ya ha sido automáticamente añadida al conjunto de columnas predeterminadas, aunque no afectará a la carpetas existentes."
+    },
+    "spamnessInstalled.folderGroup.label": {
+        "message": "Reindizar carpetas"
+    },
+    "spamnessInstalled.folderInstructions.label": {
+        "message": "Para reindizar una carpeta, selecciónela y elija 'Propiedades...' en el menú contextual o en el menú Editar, entonces pulse sobre 'Reparar carpeta'. Necesitará repetirlo en cada carpeta, o utilizar este botón experimental para intentar reconstruir el índice en cada carpeta."
+    },
+    "spamnessInstalled.introduction.label": {
+        "message": "Gracias por instalar Rspamd-spamness. Para utilizarlo, necesitará reconstruir indices de carpetas que contengan mensajes puntuados por Rspamd y activar la visualización de columna para cada carpeta. Si ha instalado Rspamd-spamness antes de configurar sus cuentas, puede ignorar el resto de esta guía."
+    },
+    "spamnessInstalled.title": {
+        "message": "Guía Rspamd-spamness"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "Columna de pantalla"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "Mensaje de pantalla"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "Mostrar reglas activadas en mensaje"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "Mostrar puntuación en mensaje"
+    },
+    "spamnessOptions.prefHeaderName.explain": {
+        "message": "Nota: las modificaciones de cabecera de Rspamd-spamness requerirán la reconstrucción de todos los índices de carpeta para que Thunderbird pueda leer los valores de la cabecera para cada mensaje"
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "Mostrar visual y la puntuación"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "Mostrar solo visual"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "Mostrar solo puntuación"
+    },
+    "spamnessOptions.title": {
+        "message": "Opciones de Rspamd-spamness"
+    }
 }

@@ -1,11 +1,63 @@
 {
-  "extensionName": {
-    "message": "Rspamd-spamness",
-    "description": "Name of the extension."
-  },
-
-  "extensionDescription": {
-    "message": "Tillhandahåller en färg- och storleksbaserad visuell bedömningsindikator för risken att ett meddelande är skräppost, baserat på dess normaliserade Rspamd-klassificering.",
-    "description": "Description of the extension."
-  }
+    "extensionDescription": {
+        "description": "Description of the extension.",
+        "message": "Tillhandahåller en färg- och storleksbaserad visuell bedömningsindikator för risken att ett meddelande är skräppost, baserat på dess normaliserade Rspamd-klassificering."
+    },
+    "spamness.messageHeader.label": {
+        "message": "skräppost"
+    },
+    "spamness.rulesMessageHeader.label": {
+        "message": "regler"
+    },
+    "spamnessColumn.label": {
+        "message": "Skräppostklassificering [Rspamd]"
+    },
+    "spamnessColumnToolTip.label": {
+        "message": "Klicka för att sortera efter SpamAssassins skräppostklassificering"
+    },
+    "spamnessInstalled.columnGroup.label": {
+        "message": "Visning av kolumnen"
+    },
+    "spamnessInstalled.columnInstructions.label": {
+        "message": "För att visa kolumnen i varje mapp, klicka på kolumnväljaren och markera kolumnen &quot;Skräppostklassificering&quot;. Säkerställ att den är markerad och att den nya kolumnen visas.  För att tillämpa detta på alla mappar, klicka återigen på kolumnväljaren, rulla till botten av &quot;Använd kolumnerna på…&quot;, sedan &quot;Mapp och alla dess undermappar…&quot; och välj den översta mappen i ditt konto.  Kolumnen har redan lagts till i standardkolumnuppsättningen, men det påverkar inte befintliga mappar."
+    },
+    "spamnessInstalled.folderGroup.label": {
+        "message": "Omindexering av mappar"
+    },
+    "spamnessInstalled.folderInstructions.label": {
+        "message": "För att omindexera en mapp, markera den och välj &quot;Egenskaper…&quot; i snabbmenyn eller gå till Redigera-menyn, välj &quot;Mappegenskaper&quot; och klicka på knappen &quot;Reparera mapp&quot;.  Du kommer att behöva göra detta för varje mapp eller använda denna experimentella knapp för att försöka återskapa indexet för alla mappar."
+    },
+    "spamnessInstalled.introduction.label": {
+        "message": "Tack för att du installerar Rspamd-spamness.  För att använda Rspamd-spamness måste du både återskapa mappindex för mappar som innehåller Rspamd-rankade meddelanden och aktivera kolumnvisningen för varje mapp.  Om du har installerat Rspamd-spamness innan du har skapat och konfigurerat dina konton, så kan du strunta i resten av denna guide - då är du redan redo."
+    },
+    "spamnessInstalled.title": {
+        "message": "Guide för Rspamd-spamness"
+    },
+    "spamnessOptions.captionDisplayColumnGroup.label": {
+        "message": "Kolumnvisning"
+    },
+    "spamnessOptions.captionDisplayMessageGroup.label": {
+        "message": "Meddelandevisning"
+    },
+    "spamnessOptions.prefDisplayMessageRules.label": {
+        "message": "Visa utlösta regler i meddelanden"
+    },
+    "spamnessOptions.prefDisplayMessageScore.label": {
+        "message": "Visa poängbedömning i meddelanden"
+    },
+    "spamnessOptions.prefHeaderName.explain": {
+        "message": "Obs.: Om du ändrar i huvudet som Rspamd-spamness använder, så måste alla mappindex återskapas för att Thunderbird skall kunna läsa huvudets värden för varje meddelande"
+    },
+    "spamnessOptions.prefShowBoth.label": {
+        "message": "Visa visuell indikator och poängbedömning"
+    },
+    "spamnessOptions.prefShowImage.label": {
+        "message": "Visa endast visuell indikator"
+    },
+    "spamnessOptions.prefShowText.label": {
+        "message": "Visa endast poängbedömning"
+    },
+    "spamnessOptions.title": {
+        "message": "Inställningar för Rspamd-spamness"
+    }
 }
