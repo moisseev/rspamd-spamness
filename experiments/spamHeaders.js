@@ -19,10 +19,27 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
         Services.scriptloader.loadSubScript(extension.getURL("experiments/libExperiments.js"));
 
         let maxHeight = null;
+
         function getDocumentByTabId(tabId) {
             const target = ExtensionParent.apiManager.global.tabTracker.getTab(tabId);
             const window = Components.utils.getGlobalForObject(target);
             return window.document;
+        }
+
+        function toggleHeaderHeight(document, value) {
+            const headerRowValue = document.getElementById("expandedRspamdSpamnessRulesBox");
+            const button = document.getElementById("heightButton");
+            if (value === "+") {
+                button.value = "-";
+                headerRowValue.classList.remove("fieldCollapsed");
+                headerRowValue.style["max-height"] = null;
+            } else {
+                button.value = "+";
+                headerRowValue.classList.add("fieldCollapsed");
+                headerRowValue.style["max-height"] = maxHeight;
+            }
+            button.innerHTML = "<div>" + button.value + "</div>";
+            document.getElementById("expandedHeaderView").removeAttribute("height");
         }
 
         context.callOnClose(this);
@@ -64,7 +81,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     while (parent.firstChild) {
                         parent.removeChild(parent.firstChild);
                     }
-                    parent.style["max-height"] = maxHeight;
+                    toggleHeaderHeight(document, "-");
                 },
 
                 init() {
@@ -141,34 +158,19 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                                 headerRowValue.id = "expandedRspamdSpamnessRulesBox";
 
                                 const hbox = document.createXULElement("hbox");
-                                hbox.classList.add("headerValueBox");
+                                hbox.id = "rulesHeaderValueBox";
                                 hbox.flex = "1";
 
                                 const div = document.createXULElement("div");
-                                div.classList.add("headerValue", "linksCollapsed");
+                                div.classList.add("headerValue");
                                 div.id = "links";
                                 div.flex = "1";
                                 hbox.appendChild(div);
                                 headerRowValue.appendChild(hbox);
 
-                                const more = document.createXULElement("label");
-                                more.classList.add("moreIndicator");
-                                more.value = "more";
-                                function moreOnClick() {
-                                    if (more.value === "more") {
-                                        div.classList.remove("linksCollapsed");
-                                        div.style["max-height"] = null;
-                                        more.value = "less";
-                                    } else {
-                                        div.classList.add("linksCollapsed");
-                                        more.value = "more";
-                                        div.style["max-height"] = maxHeight;
-                                    }
-                                    const element = document.getElementById("expandedHeaderView");
-                                    element.removeAttribute("height");
-                                }
-                                more.addEventListener("click", moreOnClick);
-                                headerRowValue.appendChild(more);
+                                const button = document.createElement("button");
+                                button.id = "heightButton";
+                                headerRowValue.appendChild(button);
 
                                 return headerRowValue;
                             }
@@ -216,6 +218,12 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                             if (expandedHeaders2) {
                                 createHeaderRow("score");
                                 createHeaderRow("rules");
+
+                                const button = document.getElementById("heightButton");
+                                button.addEventListener("click", function () {
+                                    toggleHeaderHeight(document, button.value);
+                                });
+                                toggleHeaderHeight(document);
                             } else {
                                 throw Error("Could not find the expandedHeaders2 element");
                             }
