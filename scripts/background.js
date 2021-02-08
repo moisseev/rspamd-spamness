@@ -180,14 +180,20 @@ browser.storage.local.get().then((localStorage) => {
     });
 });
 
+let lastDisplayedMessageId = null;
+
 browser.mailTabs.onSelectedMessagesChanged.addListener((tab, selectedMessages) => {
     if (selectedMessages.messages.length !== 1) return;
+    // The same message was reselected (e.g. after column sorting)
+    if (selectedMessages.messages[0].id === lastDisplayedMessageId) return;
+    // Hide headers until message is loaded
     ["expandedRspamdSpamnessRow", "expandedRspamdSpamnessRulesRow"].forEach(function (id) {
         browser.spamHeaders.setHeaderHidden(tab.id, id, true);
     });
 });
 
 browser.messageDisplay.onMessageDisplayed.addListener((tab, message) => {
+    lastDisplayedMessageId = message.id;
     browser.messages.getFull(message.id).then(async (messagepart) => {
         const {headers} = messagepart;
         if (headers) {
