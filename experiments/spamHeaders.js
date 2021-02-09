@@ -170,6 +170,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
                                 const button = document.createElement("button");
                                 button.id = "heightButton";
+                                button.classList.add("toolbarbutton-1");
                                 headerRowValue.appendChild(button);
 
                                 return headerRowValue;
