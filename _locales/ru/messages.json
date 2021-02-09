@@ -100,7 +100,7 @@
         "message": "Отмена"
     },
     "spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend": {
-        "message": "Расположение папок по умолчанию"
+        "message": "Расположение папок по умолчанию (для всех учетных записей)"
     },
     "spamnessOptions.accountSelector.label": {
         "message": "Учётная запись"

@@ -104,7 +104,7 @@
         "message": "Cancel"
     },
     "spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend": {
-        "message": "Default training folders locations"
+        "message": "Default training folders locations (for all accounts)"
     },
     "spamnessOptions.accountSelector.label": {
         "message": "Account"
