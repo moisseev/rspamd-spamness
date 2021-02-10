@@ -15,4 +15,8 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - run: ./node_modules/.bin/eslint -v
       - run: ./node_modules/.bin/eslint ./
+      - run: ./node_modules/.bin/stylelint -v
+      - run: npm show stylelint-config-standard version
+      - run: ./node_modules/.bin/stylelint ./**/*.css ./**/*.html ./**/*.js
