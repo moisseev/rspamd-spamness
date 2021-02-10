@@ -29,16 +29,24 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
         function toggleHeaderHeight(document, value) {
             const headerRowValue = document.getElementById("expandedRspamdSpamnessRulesBox");
             const button = document.getElementById("heightButton");
-            if (value === "+") {
-                button.value = "-";
+            if (value === "expand") {
+                button.value = "collapse";
                 headerRowValue.classList.remove("fieldCollapsed");
                 headerRowValue.style["max-height"] = null;
             } else {
-                button.value = "+";
+                button.value = "expand";
                 headerRowValue.classList.add("fieldCollapsed");
                 headerRowValue.style["max-height"] = maxHeight;
             }
-            button.innerHTML = "<div>" + button.value + "</div>";
+            const svgPathCommands = {
+                collapse: "M2 5h3v-3m0 3l-4 -4M10 2v3h3m-3 0l4 -4M2 10h3v3m0 -3l-4 4M10 13v-3h3m-3 0l4 4",
+                expand: "M1 5V1h4m-4 0l4 4M10 1h4v4m0-4l-4 4M1 10v4h4m-4 0l4 -4M10 14h4v-4m0 4l-4 -4"
+            };
+            button.innerHTML =
+                `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" width="16" height="16"
+                    fill="none" stroke="currentColor" stroke-linecap="round">
+                    <path d="${svgPathCommands[button.value]}"/>
+                </svg>`;
             document.getElementById("expandedHeaderView").removeAttribute("height");
         }
 
@@ -81,7 +89,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     while (parent.firstChild) {
                         parent.removeChild(parent.firstChild);
                     }
-                    toggleHeaderHeight(document, "-");
+                    toggleHeaderHeight(document, "collapse");
                 },
 
                 init() {

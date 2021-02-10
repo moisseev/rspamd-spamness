@@ -85,7 +85,7 @@ mail-link:hover {
     min-width: unset;
     margin-top: 2px;
     margin-bottom: 2px;
-}
-#heightButton > div {
-    width: 0.7em;
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+    shape-rendering: crispEdges;
 }
