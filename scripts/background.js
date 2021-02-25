@@ -55,51 +55,48 @@ async function moveMessage(buttonId) {
         ids = [message.id];
     }
     const {accountId} = message.folder;
+    const trainFolder = {
+        rspamdSpamnessButtonHam: "TrainHam",
+        rspamdSpamnessButtonSpam: "TrainSpam"
+    };
+    const {account, path} = await libBackground.getDestination(accountId, trainFolder[buttonId]);
+    if (!account) {
+        libBackground.displayNotification("spamness.alertText.destinationFolderAccountIsNotSet");
+        return;
+    }
+    if (!path) {
+        libBackground.displayNotification("spamness.alertText.destinationFolderLocationIsNotSet");
+        return;
+    }
+    const folders = path.trim().replace(/(^\/|\/$)/g, "").split("/");
+    const destination = folders.reduce(function (prev, curr, i, arr) {
+        const folder = (i) ? prev.subFolders : prev.folders;
+        const subFolder = folder.find((f) => f.name === curr);
+        // Break loop by mutating iterated copy
+        if (!subFolder) arr.splice(1);
+        return subFolder;
+    }, account);
 
-    browser.accounts.get(accountId).then(async (srcAccount) => {
-        const trainFolder = {
-            rspamdSpamnessButtonHam: "TrainHam",
-            rspamdSpamnessButtonSpam: "TrainSpam"
-        };
-        const {account, path} = await libBackground.getFolderPath(srcAccount, trainFolder[buttonId]);
-        if (!account) {
-            libBackground.displayNotification("spamness.alertText.destinationFolderAccountIsNotSet");
-            return;
-        }
-        if (!path) {
-            libBackground.displayNotification("spamness.alertText.destinationFolderLocationIsNotSet");
-            return;
-        }
-        const folders = path.trim().replace(/(^\/|\/$)/g, "").split("/");
-        const destination = folders.reduce(function (prev, curr, i, arr) {
-            const folder = (i) ? prev.subFolders : prev.folders;
-            const subFolder = folder.find((f) => f.name === curr);
-            // Break loop by mutating iterated copy
-            if (!subFolder) arr.splice(1);
-            return subFolder;
-        }, account);
+    if (typeof destination === "undefined") {
+        libBackground.displayNotification("spamness.alertText.destinationFolderNotFound");
+        return;
+    }
 
-        if (typeof destination === "undefined") {
-            libBackground.displayNotification("spamness.alertText.destinationFolderNotFound");
-            return;
-        }
-
-        browser.storage.local.get().then((localStorage) => {
-            const action = (buttonId === "rspamdSpamnessButtonHam" &&
-                    (localStorage["trainingButtonHam-defaultAction"] === "copy") ||
-                buttonId === "rspamdSpamnessButtonSpam" &&
-                    (localStorage["trainingButtonSpam-defaultAction"] === "copy"))
-                ? "copy"
-                : "move";
-            browser.messages[action](ids, destination).catch(function (error) {
-                libBackground.error(error);
-                if ((/^Unexpected error (copy|mov)ing messages: 2147500037$/).test(error.message)) {
-                    libBackground.displayNotification(
-                        "spamness.alertText.error_2147500037_workaround",
-                        error.message + "\n\n"
-                    );
-                }
-            });
+    browser.storage.local.get().then((localStorage) => {
+        const action = (buttonId === "rspamdSpamnessButtonHam" &&
+                (localStorage["trainingButtonHam-defaultAction"] === "copy") ||
+            buttonId === "rspamdSpamnessButtonSpam" &&
+                (localStorage["trainingButtonSpam-defaultAction"] === "copy"))
+            ? "copy"
+            : "move";
+        browser.messages[action](ids, destination).catch(function (error) {
+            libBackground.error(error);
+            if ((/^Unexpected error (copy|mov)ing messages: 2147500037$/).test(error.message)) {
+                libBackground.displayNotification(
+                    "spamness.alertText.error_2147500037_workaround",
+                    error.message + "\n\n"
+                );
+            }
         });
     });
 }

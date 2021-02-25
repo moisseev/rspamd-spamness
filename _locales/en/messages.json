@@ -86,7 +86,13 @@
         "message": "Spam:"
     },
     "spamnessOptions.account.dialog.title": {
-        "message": "Per-account folder location settings"
+        "message": "Per-account folder settings"
+    },
+    "spamnessOptions.account.header.source.label": {
+        "message": "Source"
+    },
+    "spamnessOptions.account.header.destination.label": {
+        "message": "Destination"
     },
     "spamnessOptions.account.header.account.label": {
         "message": "Account"
@@ -104,7 +110,7 @@
         "message": "Cancel"
     },
     "spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend": {
-        "message": "Default training folders locations (for all accounts)"
+        "message": "Default destination folders (for all accounts)"
     },
     "spamnessOptions.accountSelector.label": {
         "message": "Account"

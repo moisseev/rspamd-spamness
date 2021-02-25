@@ -1,4 +1,4 @@
-/* global browser, libBackground, messenger */
+/* global browser, libBackground, libOptions, messenger */
 
 "use strict";
 
@@ -20,36 +20,7 @@ async function init() {
     document.querySelector("#trainingButtonHamDefaultAction").value = localStorage["trainingButtonHam-defaultAction"];
     document.querySelector("#trainingButtonSpamDefaultAction").value = localStorage["trainingButtonSpam-defaultAction"];
 
-    (async function populateSelect() {
-        const select = document.getElementById("defaultTrainingFolderAccount");
-
-        const unset = document.createElement("option");
-        unset.value = "";
-        unset.selected = true;
-        select.appendChild(unset);
-
-        (await messenger.runtime.getBackgroundPage()).browser.accounts.list().then((accounts) => {
-            for (const account of accounts) {
-                // Skip IM and RSS accounts
-                const {type} = account;
-                if (type === "im" || type === "rss") continue;
-
-                const option = document.createElement("option");
-                option.value = account.id;
-                if (account.id === localStorage.defaultTrainingFolderAccount) option.selected = true;
-
-                option.text = account.name;
-                const {identities} = account;
-                if (identities.length) {
-                    // Get default identity (index = 0)
-                    const [identity] = account.identities;
-                    option.text += " - " + identity.name + " <" + identity.email + ">";
-                }
-
-                select.appendChild(option);
-            }
-        });
-    })();
+    libOptions.populateSelect("#defaultTrainingFolderAccount", localStorage.defaultTrainingFolderAccount);
 }
 
 async function saveOptions(e) {

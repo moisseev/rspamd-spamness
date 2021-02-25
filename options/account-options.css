@@ -11,8 +11,12 @@ input[type="text"] {
     padding-bottom: 2px;
 }
 
-#account-box-table {
+#account-box-table,
+#account-box-table col {
     border: 1px solid silver;
+}
+.second-level-header th {
+    font-weight: normal;
 }
 .account-box {
     border: 1px solid silver;
@@ -30,6 +34,11 @@ input[type="text"] {
 }
 .account-name-name {
     font-weight: bold;
+}
+.folder-account {
+    width: 200px;
+    min-height: unset;
+    line-height: normal !important;
 }
 .folder-location {
     width: 100%;
@@ -51,15 +60,18 @@ input[type="text"] {
     }
 }
 
-input[id^="TrainHam"] {
-    background-color: var(--background-ham);
+select {
+    border: 1px solid var(--in-content-box-border-color);
 }
-input[id^="TrainSpam"] {
-    background-color: var(--background-spam);
+.ham {
+    background-color: var(--background-ham) !important;
 }
-input[id^="TrainHam"]:hover {
-    background-color: var(--background-hover-ham);
+.spam {
+    background-color: var(--background-spam) !important;
 }
-input[id^="TrainSpam"]:hover {
-    background-color: var(--background-hover-spam);
+.ham:hover {
+    background-color: var(--background-hover-ham) !important;
+}
+.spam:hover {
+    background-color: var(--background-hover-spam) !important;
 }

@@ -82,7 +82,13 @@
         "message": "Спам:"
     },
     "spamnessOptions.account.dialog.title": {
-        "message": "Настройка расположения папок для учётных записей"
+        "message": "Настройка папок для отдельных учётных записей"
+    },
+    "spamnessOptions.account.header.source.label": {
+        "message": "Источник"
+    },
+    "spamnessOptions.account.header.destination.label": {
+        "message": "Получатель"
     },
     "spamnessOptions.account.header.account.label": {
         "message": "Учётная запись"
@@ -100,7 +106,7 @@
         "message": "Отмена"
     },
     "spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend": {
-        "message": "Расположение папок по умолчанию (для всех учетных записей)"
+        "message": "Папки назначения по умолчанию (для всех учетных записей)"
     },
     "spamnessOptions.accountSelector.label": {
         "message": "Учётная запись"

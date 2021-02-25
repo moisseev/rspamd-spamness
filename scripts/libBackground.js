@@ -24,23 +24,26 @@ libBackground.displayNotification = function (messageName, string = "") {
     });
 };
 
-libBackground.getFolderPath = async function (account, folder) {
-    let destAccount = account;
-    let key = account.id + "-folder" + folder;
+libBackground.getDestination = async function (accountId, folder) {
+    const accountKey = accountId + "-account" + folder;
+    let folderKey = accountId + "-folder" + folder;
     let isDefault = false;
     const localStorage = await browser.storage.local.get();
+    const defaultTrainingFolderAccount = await browser.accounts.get(localStorage.defaultTrainingFolderAccount);
 
     // Use default folder if account preference doesn't exist
-    if (!localStorage[key]) {
-        key = "folder" + folder;
+    if (!localStorage[accountKey]) {
+        folderKey = "folder" + folder;
         isDefault = true;
-        destAccount = await browser.accounts.get(localStorage.defaultTrainingFolderAccount);
     }
 
     return {
-        account: destAccount,
+        account: localStorage[accountKey]
+            ? await browser.accounts.get(localStorage[accountKey])
+            : defaultTrainingFolderAccount,
+        defaultTrainingFolderAccount: defaultTrainingFolderAccount,
         isDefault: isDefault,
-        path: localStorage[key] ? localStorage[key] : ""
+        path: localStorage[folderKey] ? localStorage[folderKey] : ""
     };
 };
 

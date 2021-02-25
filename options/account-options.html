@@ -13,15 +13,24 @@
 <body>
     <form>
         <table id="account-box-table">
+            <col>
+            <colgroup span="3"></colgroup>
             <tbody id="account-box-container">
-                <tr id="account-table-header">
-                    <th id="account-header-name" class="account-name">
+                <tr>
+                    <th>__MSG_spamnessOptions.account.header.source.label__</th>
+                    <th colspan="3" scope="colgroup">__MSG_spamnessOptions.account.header.destination.label__</th>
+                </tr>
+                <tr class="second-level-header">
+                    <th scope="col" id="account-header-name" class="account-name">
                         __MSG_spamnessOptions.account.header.account.label__
                     </th>
-                    <th id="account-header-folder" class="folder-label">
+                    <th scope="col" id="account-header-folder" class="folder-label">
                         __MSG_spamnessOptions.account.header.folder.label__
                     </th>
-                    <th id="account-header-location" class="folder-location">
+                    <th scope="col" id="account-header-location" class="folder-account-col">
+                        __MSG_spamnessOptions.account.header.account.label__
+                    </th>
+                    <th scope="col" id="account-header-location" class="folder-location">
                         __MSG_spamnessOptions.account.header.location.label__
                     </th>
                 </tr>
@@ -33,6 +42,10 @@
                     <td><table>
                         <tr><td flex="1" class="folder-label"><span>__MSG_spamnessOptions.Ham.label__</span></td></tr>
                         <tr><td flex="1" class="folder-label"><span>__MSG_spamnessOptions.Spam.label__</span></td></tr>
+                    </table></td>
+                    <td><table>
+                        <tr><td><select class="folder-account"></select></td></tr>
+                        <tr><td><select class="folder-account"></select></td></tr>
                     </table></td>
                     <td><table>
                         <tr><td><input type="text" class="folder-location"></td></tr>
@@ -52,6 +65,7 @@
     <script src="/scripts/translate.js"></script>
     <script src="/scripts/libBackground.js"></script>
     <script src="/scripts/libPopup.js"></script>
+    <script src="/scripts/libOptions.js"></script>
     <script src="account-options.js"></script>
 </body>
 
