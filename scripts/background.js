@@ -71,7 +71,8 @@ async function moveMessage(buttonId) {
     const folders = path.trim().replace(/(^\/|\/$)/g, "").split("/");
     const destination = folders.reduce(function (prev, curr, i, arr) {
         const folder = (i) ? prev.subFolders : prev.folders;
-        const subFolder = folder.find((f) => f.name === curr);
+        const subFolder =
+            folder.find((f) => f.path.replace(/.*[/]/, "") === decodeURIComponent(curr) || f.name === curr);
         // Break loop by mutating iterated copy
         if (!subFolder) arr.splice(1);
         return subFolder;
