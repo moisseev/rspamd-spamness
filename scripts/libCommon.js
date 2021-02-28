@@ -29,8 +29,8 @@ libCommon.getImageSrc = function (normalized) {
     return img;
 };
 
-libCommon.getUserHeaders = function (localStorage) {
-    const chdrs = localStorage.header.trim().toLowerCase();
+libCommon.getUserHeaders = function (header) {
+    const chdrs = header.trim().toLowerCase();
     return (chdrs === "")
         ? []
         : chdrs.split(", ");
@@ -41,11 +41,11 @@ libCommon.getUserHeaders = function (localStorage) {
  * Returns NaN if a header or message score not found.
  *
  * @param {object} hdr - Message headers object.
- * @param {object} localStorage
+ * @param {string} header
  * @param {boolean} [XPC] - hdr is an XPConnect wrapped object
  * @returns {number} - Message score
  */
-libCommon.getScoreByHdr = function (hdr, localStorage, XPC) {
+libCommon.getScoreByHdr = function (hdr, header, XPC) {
     const re = [
         // X-Spamd-Result: Rspamd (milter)
         /: \S+ \[([-\d.]+?) \//,
@@ -55,7 +55,7 @@ libCommon.getScoreByHdr = function (hdr, localStorage, XPC) {
         /(?:, | [(])score=([-\d.]+?)(?:[, ]|$)/
     ];
 
-    const userHeaders = libCommon.getUserHeaders(localStorage);
+    const userHeaders = libCommon.getUserHeaders(header);
     let score = Number.NaN;
     [...userHeaders, ...libCommon.scoreHeaders].some(function (headerName) {
         const headerStr = XPC ? hdr.getStringProperty(headerName) : hdr[headerName];

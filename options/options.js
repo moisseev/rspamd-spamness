@@ -3,7 +3,7 @@
 "use strict";
 
 async function init() {
-    const localStorage = await browser.storage.local.get();
+    const localStorage = await browser.storage.local.get(libBackground.defaultOptions.keys);
 
     document.querySelector("#columnDisplay_" + localStorage["display-column"]).checked = true;
     document.querySelector("#columnImageOnlyForPositive").checked = localStorage["display-columnImageOnlyForPositive"];
@@ -26,7 +26,7 @@ async function init() {
 async function saveOptions(e) {
     e.preventDefault();
 
-    const localStorage = await browser.storage.local.get();
+    const localStorage = await browser.storage.local.get(libBackground.defaultOptions.keys);
 
     /* eslint-disable sort-keys */
     browser.storage.local.set({

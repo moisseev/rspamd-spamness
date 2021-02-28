@@ -9,7 +9,7 @@ const messageHeader = {};
  * @param {boolean} [update_rules=false] - Just redraw "Rules" header, leave other headers as they are.
  * @returns {void}
  */
-messageHeader.displayHeaders = function (update_rules, tab, message, headers, headerStr, localStorage) {
+messageHeader.displayHeaders = async function (update_rules, tab, message, headers) {
     const id = {
         score: {
             hdr: {
@@ -29,6 +29,16 @@ messageHeader.displayHeaders = function (update_rules, tab, message, headers, he
         }
     };
 
+    const localStorage = await browser.storage.local.get([
+        "display-messageRules",
+        "display-messageScore",
+        "header",
+        "headers-show_n_lines",
+        "headers-symbols_order",
+        "headers-colorizeSymbols",
+        "headers-group_symbols"
+    ]);
+
     const show = {
         rules: localStorage["display-messageRules"],
         score: update_rules ? false : localStorage["display-messageScore"]
@@ -47,16 +57,16 @@ messageHeader.displayHeaders = function (update_rules, tab, message, headers, he
         return;
 
     // Get symbols from milter header
-    messageHeader.headerStr = headerStr;
-    if (messageHeader.headerStr) {
+    let headerStr = await libBackground.getHeaderStr(headers);
+    if (headerStr) {
 
         /*
          * const converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
          *     .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
          * converter.charset = "UTF-8";
-         * messageHeader.headerStr = converter.ConvertToUnicode(messageHeader.headerStr);
+         * headerStr = converter.ConvertToUnicode(headerStr);
          */
-        const m = messageHeader.headerStr[0].match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
+        const m = headerStr[0].match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
         if (m) {
             displayScoreRulesHeaders(headers, m[1]);
             return;
@@ -64,19 +74,19 @@ messageHeader.displayHeaders = function (update_rules, tab, message, headers, he
     }
 
     // Get symbols from Haraka header
-    messageHeader.headerStr = headers["x-rspamd-report"] || null;
-    if (messageHeader.headerStr) {
-        const s = messageHeader.headerStr[0].match(/\S/).input;
+    headerStr = headers["x-rspamd-report"] || null;
+    if (headerStr) {
+        const s = headerStr[0].match(/\S/).input;
         if (s) {
-            displayScoreRulesHeaders(headers, messageHeader.headerStr[0]);
+            displayScoreRulesHeaders(headers, headerStr[0]);
             return;
         }
     }
 
     // Get symbols from Exim header
-    messageHeader.headerStr = headers["x-spam-report"] || null;
-    if (messageHeader.headerStr) {
-        const m = messageHeader.headerStr[0].match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
+    headerStr = headers["x-spam-report"] || null;
+    if (headerStr) {
+        const m = headerStr[0].match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
         if (m) {
             displayScoreRulesHeaders(headers, m[1]);
             return;
@@ -84,10 +94,10 @@ messageHeader.displayHeaders = function (update_rules, tab, message, headers, he
     }
 
     // Get symbols from LDA mode header
-    messageHeader.headerStr = headers["x-spam-result"] || null;
-    if (messageHeader.headerStr) {
-        messageHeader.headerStr[0] = b64DecodeUnicode(messageHeader.headerStr[0]);
-        const metric = JSON.parse(messageHeader.headerStr[0]).default;
+    headerStr = headers["x-spam-result"] || null;
+    if (headerStr) {
+        headerStr[0] = b64DecodeUnicode(headerStr[0]);
+        const metric = JSON.parse(headerStr[0]).default;
         let s = "";
         for (const item in metric) {
             if (!{}.hasOwnProperty.call(metric, item)) continue;
@@ -122,7 +132,7 @@ messageHeader.displayHeaders = function (update_rules, tab, message, headers, he
 
         if (show.score) {
             const parsed = [];
-            parsed.score = libCommon.getScoreByHdr(hdr, localStorage);
+            parsed.score = libCommon.getScoreByHdr(hdr, localStorage.header);
             browser.spamHeaders
                 .setHeaderHidden(tab.id, "expandedRspamdSpamnessRow", (parsed.score === null));
 
@@ -242,11 +252,7 @@ messageHeader.updateHeaders = function () {
         browser.messageDisplay.getDisplayedMessage(tabs[0].id).then((message) => {
             browser.messages.getFull(message.id).then(async (messagepart) => {
                 const {headers} = messagepart;
-                if (headers) {
-                    const localStorage = await browser.storage.local.get();
-                    const headerStr = await libBackground.getHeaderStr(headers);
-                    messageHeader.displayHeaders(true, tabs[0], message, headers, headerStr, localStorage);
-                }
+                if (headers) await messageHeader.displayHeaders(true, tabs[0], message, headers);
             });
         });
     });

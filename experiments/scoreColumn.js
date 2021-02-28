@@ -58,7 +58,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                 // Do nothing.
             },
             getSortLongForRow: function (hdr) {
-                return libCommon.getScoreByHdr(hdr, localStorage, true) * 1e4 + 1e8;
+                return libCommon.getScoreByHdr(hdr, localStorage.header, true) * 1e4 + 1e8;
             },
             getSortStringForRow: function () {
                 return null;
@@ -69,7 +69,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
         };
 
         RspamdSpamnessColumn.getScoreByRow = function (row) {
-            return libCommon.getScoreByHdr(window.gDBView.getMsgHdrAt(row), localStorage, true);
+            return libCommon.getScoreByHdr(window.gDBView.getMsgHdrAt(row), localStorage.header, true);
         };
 
         RspamdSpamnessColumn.dbObserver = {

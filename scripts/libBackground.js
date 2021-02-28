@@ -2,7 +2,23 @@
 
 "use strict";
 
-const libBackground = {};
+const libBackground = {
+    defaultOptions: {
+        "defaultTrainingFolderAccount": "",
+        "display-column": "both",
+        "display-columnImageOnlyForPositive": false,
+        "display-messageRules": true,
+        "display-messageScore": true,
+        "header": "",
+        "headers-colorizeSymbols": true,
+        "headers-group_symbols": true,
+        "headers-show_n_lines": "3",
+        "headers-symbols_order": "score",
+        "trainingButtonHam-defaultAction": "move",
+        "trainingButtonSpam-defaultAction": "move",
+        "trainingButtons-enabled": true
+    }
+};
 
 libBackground.createPopupWindow = function (url, width = 480, height = 300) {
     const {messenger} = window.browser.extension.getBackgroundPage();
@@ -28,29 +44,31 @@ libBackground.getDestination = async function (accountId, folder) {
     const accountKey = accountId + "-account" + folder;
     let folderKey = accountId + "-folder" + folder;
     let isDefault = false;
-    const localStorage = await browser.storage.local.get();
+    const localStorage = await browser.storage.local.get([accountKey, "defaultTrainingFolderAccount"]);
+    const account = localStorage[accountKey];
     const defaultTrainingFolderAccount = await browser.accounts.get(localStorage.defaultTrainingFolderAccount);
 
     // Use default folder if account preference doesn't exist
-    if (!localStorage[accountKey]) {
+    if (!account) {
         folderKey = "folder" + folder;
         isDefault = true;
     }
 
+    const path = (await browser.storage.local.get(folderKey))[folderKey];
     return {
-        account: localStorage[accountKey]
-            ? await browser.accounts.get(localStorage[accountKey])
+        account: account
+            ? await browser.accounts.get(account)
             : defaultTrainingFolderAccount,
         defaultTrainingFolderAccount: defaultTrainingFolderAccount,
         isDefault: isDefault,
-        path: localStorage[folderKey] ? localStorage[folderKey] : ""
+        path: path || ""
     };
 };
 
 libBackground.getHeaderStr = async function (headers) {
     let headerStr = null;
-    const localStorage = await browser.storage.local.get();
-    const userHeaders = await libCommon.getUserHeaders(localStorage);
+    const {header} = await browser.storage.local.get("header");
+    const userHeaders = await libCommon.getUserHeaders(header);
     userHeaders.some(function (headerName) {
         if (!headerName) return false;
         headerStr = headers[headerName];
@@ -61,8 +79,8 @@ libBackground.getHeaderStr = async function (headers) {
 
 libBackground.syncHeaderPrefs = async function (prefVal) {
     const customHeaders = await getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
-    const localStorage = await browser.storage.local.get();
-    const curUserHeaders = libCommon.getUserHeaders(localStorage);
+    const {header} = await browser.storage.local.get("header");
+    const curUserHeaders = libCommon.getUserHeaders(header);
     const newUserHeaders = prefVal.toLowerCase().split(/, */);
 
     if (prefVal !== "") {

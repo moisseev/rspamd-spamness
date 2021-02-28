@@ -2,22 +2,6 @@
 
 "use strict";
 
-const defaultOptions = {
-    "defaultTrainingFolderAccount": "",
-    "display-column": "both",
-    "display-columnImageOnlyForPositive": false,
-    "display-messageRules": true,
-    "display-messageScore": true,
-    "header": "",
-    "headers-colorizeSymbols": true,
-    "headers-group_symbols": true,
-    "headers-show_n_lines": "3",
-    "headers-symbols_order": "score",
-    "trainingButtonHam-defaultAction": "move",
-    "trainingButtonSpam-defaultAction": "move",
-    "trainingButtons-enabled": true
-};
-
 function disableSymGroupingMenuitem(group) {
     browser.menus.update("rspamdSpamnessSymbolPopupGroup", {enabled: !group});
     browser.menus.update("rspamdSpamnessSymbolPopupUngroup", {enabled: group});
@@ -83,23 +67,24 @@ async function moveMessage(buttonId) {
         return;
     }
 
-    browser.storage.local.get().then((localStorage) => {
-        const action = (buttonId === "rspamdSpamnessButtonHam" &&
-                (localStorage["trainingButtonHam-defaultAction"] === "copy") ||
-            buttonId === "rspamdSpamnessButtonSpam" &&
-                (localStorage["trainingButtonSpam-defaultAction"] === "copy"))
-            ? "copy"
-            : "move";
-        browser.messages[action](ids, destination).catch(function (error) {
-            libBackground.error(error);
-            if ((/^Unexpected error (copy|mov)ing messages: 2147500037$/).test(error.message)) {
-                libBackground.displayNotification(
-                    "spamness.alertText.error_2147500037_workaround",
-                    error.message + "\n\n"
-                );
-            }
+    browser.storage.local.get(["trainingButtonHam-defaultAction", "trainingButtonSpam-defaultAction"])
+        .then(({localStorage}) => {
+            const action = (buttonId === "rspamdSpamnessButtonHam" &&
+                    (localStorage["trainingButtonHam-defaultAction"] === "copy") ||
+                buttonId === "rspamdSpamnessButtonSpam" &&
+                    (localStorage["trainingButtonSpam-defaultAction"] === "copy"))
+                ? "copy"
+                : "move";
+            browser.messages[action](ids, destination).catch(function (error) {
+                libBackground.error(error);
+                if ((/^Unexpected error (copy|mov)ing messages: 2147500037$/).test(error.message)) {
+                    libBackground.displayNotification(
+                        "spamness.alertText.error_2147500037_workaround",
+                        error.message + "\n\n"
+                    );
+                }
+            });
         });
-    });
 }
 function addTrainButtonsListener(windowId) {
     ["rspamdSpamnessButtonHam", "rspamdSpamnessButtonSpam"]
@@ -124,12 +109,12 @@ function addTrainButtonsToNormalWindows() {
     });
 }
 
-browser.storage.local.get().then((localStorage) => {
+browser.storage.local.get(libBackground.defaultOptions.keys).then((localStorage) => {
     const missing = {};
-    for (const k in defaultOptions) {
+    for (const k in libBackground.defaultOptions) {
         if (!Object.prototype.hasOwnProperty.call(localStorage, k)) {
-            missing[k] = defaultOptions[k];
-            localStorage[k] = defaultOptions[k];
+            missing[k] = libBackground.defaultOptions[k];
+            localStorage[k] = libBackground.defaultOptions[k];
         }
     }
     if (Object.keys(missing).length > 0) browser.storage.local.set(missing);
@@ -194,11 +179,7 @@ browser.messageDisplay.onMessageDisplayed.addListener((tab, message) => {
     lastDisplayedMessageId = message.id;
     browser.messages.getFull(message.id).then(async (messagepart) => {
         const {headers} = messagepart;
-        if (headers) {
-            const localStorage = await browser.storage.local.get();
-            const headerStr = await libBackground.getHeaderStr(headers);
-            messageHeader.displayHeaders(false, tab, message, headers, headerStr, localStorage);
-        }
+        if (headers) await messageHeader.displayHeaders(false, tab, message, headers);
     });
 });
 
@@ -223,8 +204,8 @@ browser.runtime.onMessage.addListener(function handleMessage(request, sender, se
 });
 
 browser.windows.onCreated.addListener(async (window) => {
-    const localStorage = await browser.storage.local.get();
-    if (localStorage["trainingButtons-enabled"]) {
+    const {trainingButtonsEnabled} = await browser.storage.local.get("trainingButtons-enabled");
+    if (trainingButtonsEnabled) {
         addTrainButtonsToWindow(window);
     }
 });

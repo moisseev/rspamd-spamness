@@ -14,8 +14,8 @@ function saveOptions(e) {
 }
 
 function restoreOptions() {
-    browser.storage.local.get().then((res) => {
-        document.getElementById("headerNameForm").value = res.header.toLowerCase();
+    browser.storage.local.get("header").then(({header}) => {
+        document.getElementById("headerNameForm").value = header.toLowerCase();
         document.getElementById("scoreHeaders").textContent = libCommon.scoreHeaders.join(", ");
     });
 }
