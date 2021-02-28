@@ -68,7 +68,7 @@ async function moveMessage(buttonId) {
     }
 
     browser.storage.local.get(["trainingButtonHam-defaultAction", "trainingButtonSpam-defaultAction"])
-        .then(({localStorage}) => {
+        .then((localStorage) => {
             const action = (buttonId === "rspamdSpamnessButtonHam" &&
                     (localStorage["trainingButtonHam-defaultAction"] === "copy") ||
                 buttonId === "rspamdSpamnessButtonSpam" &&
