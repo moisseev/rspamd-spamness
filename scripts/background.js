@@ -95,15 +95,15 @@ function addTrainButtonsListener(windowId) {
         });
 }
 function addTrainButtonsToWindow(window) {
-    // Skip popup, devtools, etc.
-    if (window.type !== "normal") return;
-
     browser.trainButtons.addButtonsToWindowById(window.id);
     addTrainButtonsListener(window.id);
 }
 function addTrainButtonsToNormalWindows() {
     browser.windows.getAll().then((windows) => {
         windows.forEach(function (window) {
+            // Skip popup, devtools, etc.
+            if (window.type !== "normal") return;
+
             addTrainButtonsToWindow(window);
         });
     });
@@ -132,35 +132,6 @@ browser.storage.local.get(libBackground.defaultOptions.keys).then((localStorage)
 
     disableSymGroupingMenuitem(localStorage["headers-group_symbols"]);
     disableSymOrderMenuitem(localStorage["headers-symbols_order"]);
-
-    browser.popup.init(localStorage["headers-symbols_order"], localStorage["headers-group_symbols"]).then(() => {
-        browser.popup.onSymbolPopupCommand.addListener(function (id) {
-            switch (id) {
-            case "copyMenuitem":
-                break;
-            case "rspamdSpamnessSymbolPopupSortByName":
-                sortSymbols("name");
-                break;
-            case "rspamdSpamnessSymbolPopupSortByScore":
-                sortSymbols("score");
-                break;
-            case "rspamdSpamnessSymbolPopupGroup":
-                groupSymbols(true);
-                break;
-            case "rspamdSpamnessSymbolPopupUngroup":
-                groupSymbols(false);
-                break;
-            case "rspamdSpamnessSymbolPopupOpenRulesDialog":
-                libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200);
-                break;
-            case "rspamdSpamnessSymbolPopupOptions":
-                browser.runtime.openOptionsPage();
-                break;
-            default:
-                libBackground.error("Unknown menuitem id: " + id);
-            }
-        });
-    });
 });
 
 let lastDisplayedMessageId = null;
@@ -204,10 +175,45 @@ browser.runtime.onMessage.addListener(function handleMessage(request, sender, se
 });
 
 browser.windows.onCreated.addListener(async (window) => {
-    const {trainingButtonsEnabled} = await browser.storage.local.get("trainingButtons-enabled");
-    if (trainingButtonsEnabled) {
+    // Skip popup, devtools, etc.
+    if (window.type !== "normal") return;
+
+    const localStorage =
+        await browser.storage.local.get(["trainingButtons-enabled", "headers-symbols_order", "headers-group_symbols"]);
+    if (localStorage["trainingButtons-enabled"]) {
         addTrainButtonsToWindow(window);
     }
+
+    browser.popup.addPopupToWindowById(
+        window.id,
+        localStorage["headers-symbols_order"], localStorage["headers-group_symbols"]
+    );
+    browser.popup.onSymbolPopupCommand.addListener(function (id) {
+        switch (id) {
+        case "copyMenuitem":
+            break;
+        case "rspamdSpamnessSymbolPopupSortByName":
+            sortSymbols("name");
+            break;
+        case "rspamdSpamnessSymbolPopupSortByScore":
+            sortSymbols("score");
+            break;
+        case "rspamdSpamnessSymbolPopupGroup":
+            groupSymbols(true);
+            break;
+        case "rspamdSpamnessSymbolPopupUngroup":
+            groupSymbols(false);
+            break;
+        case "rspamdSpamnessSymbolPopupOpenRulesDialog":
+            libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200);
+            break;
+        case "rspamdSpamnessSymbolPopupOptions":
+            browser.runtime.openOptionsPage();
+            break;
+        default:
+            libBackground.error("Unknown menuitem id: " + id);
+        }
+    });
 });
 
 (function appendPopup() {

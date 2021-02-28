@@ -3,10 +3,13 @@
     "namespace": "popup",
     "functions": [
       {
-        "name": "init",
+        "name": "addPopupToWindowById",
         "type": "function",
-        "async": true,
         "parameters": [
+          {
+            "name": "windowId",
+            "type": "integer"
+          },
           {
             "name": "LSsymOrder",
             "type": "string"
