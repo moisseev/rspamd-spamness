@@ -57,16 +57,16 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
         return;
 
     // Get symbols from milter header
-    let headerStr = await libBackground.getHeaderStr(headers);
-    if (headerStr) {
+    messageHeader.headerStr = await libBackground.getHeaderStr(headers);
+    if (messageHeader.headerStr) {
 
         /*
          * const converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
          *     .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
          * converter.charset = "UTF-8";
-         * headerStr = converter.ConvertToUnicode(headerStr);
+         * messageHeader.headerStr = converter.ConvertToUnicode(messageHeader.headerStr);
          */
-        const m = headerStr[0].match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
+        const m = messageHeader.headerStr[0].match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
         if (m) {
             displayScoreRulesHeaders(headers, m[1]);
             return;
@@ -74,19 +74,19 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
     }
 
     // Get symbols from Haraka header
-    headerStr = headers["x-rspamd-report"] || null;
-    if (headerStr) {
-        const s = headerStr[0].match(/\S/).input;
+    messageHeader.headerStr = headers["x-rspamd-report"] || null;
+    if (messageHeader.headerStr) {
+        const s = messageHeader.headerStr[0].match(/\S/).input;
         if (s) {
-            displayScoreRulesHeaders(headers, headerStr[0]);
+            displayScoreRulesHeaders(headers, messageHeader.headerStr[0]);
             return;
         }
     }
 
     // Get symbols from Exim header
-    headerStr = headers["x-spam-report"] || null;
-    if (headerStr) {
-        const m = headerStr[0].match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
+    messageHeader.headerStr = headers["x-spam-report"] || null;
+    if (messageHeader.headerStr) {
+        const m = messageHeader.headerStr[0].match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
         if (m) {
             displayScoreRulesHeaders(headers, m[1]);
             return;
@@ -94,10 +94,10 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
     }
 
     // Get symbols from LDA mode header
-    headerStr = headers["x-spam-result"] || null;
-    if (headerStr) {
-        headerStr[0] = b64DecodeUnicode(headerStr[0]);
-        const metric = JSON.parse(headerStr[0]).default;
+    messageHeader.headerStr = headers["x-spam-result"] || null;
+    if (messageHeader.headerStr) {
+        messageHeader.headerStr[0] = b64DecodeUnicode(messageHeader.headerStr[0]);
+        const metric = JSON.parse(messageHeader.headerStr[0]).default;
         let s = "";
         for (const item in metric) {
             if (!{}.hasOwnProperty.call(metric, item)) continue;
