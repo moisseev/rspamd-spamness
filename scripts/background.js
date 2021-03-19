@@ -99,11 +99,8 @@ function addTrainButtonsToWindow(window) {
     addTrainButtonsListener(window.id);
 }
 function addTrainButtonsToNormalWindows() {
-    browser.windows.getAll().then((windows) => {
+    browser.windows.getAll({windowTypes: ["normal"]}).then((windows) => {
         windows.forEach(function (window) {
-            // Skip popup, devtools, etc.
-            if (window.type !== "normal") return;
-
             addTrainButtonsToWindow(window);
         });
     });
