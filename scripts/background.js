@@ -128,8 +128,6 @@ browser.storage.local.get(libBackground.defaultOptions.keys).then((localStorage)
     });
     browser.scoreColumn.init();
 
-    if (localStorage["trainingButtons-enabled"]) addTrainButtonsToNormalWindows();
-
     disableSymGroupingMenuitem(localStorage["headers-group_symbols"]);
     disableSymOrderMenuitem(localStorage["headers-symbols_order"]);
 });
@@ -174,10 +172,7 @@ browser.runtime.onMessage.addListener(function handleMessage(request, sender, se
     }
 });
 
-browser.windows.onCreated.addListener(async (window) => {
-    // Skip popup, devtools, etc.
-    if (window.type !== "normal") return;
-
+async function addControlsToWindow(window) {
     const localStorage =
         await browser.storage.local.get(["trainingButtons-enabled", "headers-symbols_order", "headers-group_symbols"]);
     if (localStorage["trainingButtons-enabled"]) {
@@ -214,6 +209,18 @@ browser.windows.onCreated.addListener(async (window) => {
             libBackground.error("Unknown menuitem id: " + id);
         }
     });
+}
+
+browser.windows.getAll({windowTypes: ["normal"]}).then((windows) => {
+    windows.forEach(function (window) {
+        addControlsToWindow(window);
+    });
+});
+
+browser.windows.onCreated.addListener((window) => {
+    // Skip popup, devtools, etc.
+    if (window.type !== "normal") return;
+    addControlsToWindow(window);
 });
 
 (function appendPopup() {
