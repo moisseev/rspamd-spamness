@@ -5,7 +5,6 @@
 
 /* eslint-disable no-var */
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
-var {ExtensionSupport} = ChromeUtils.import("resource:///modules/ExtensionSupport.jsm");
 var {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
 var doc = null;
 /* eslint-enable no-var */
@@ -123,6 +122,5 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
     // eslint-disable-next-line class-methods-use-this
     close() {
         doc.getElementById("rspamdSpamnessSymbolPopup").remove();
-        ExtensionSupport.unregisterWindowListener("popupListener");
     }
 };
