@@ -1,4 +1,4 @@
-/* global ChromeUtils */
+/* global ChromeUtils, libExperiments */
 /* exported popup */
 
 "use strict";
@@ -6,19 +6,44 @@
 /* eslint-disable no-var */
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 var {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
-var doc = null;
 /* eslint-enable no-var */
 
 // eslint-disable-next-line no-var
 var popup = class extends ExtensionCommon.ExtensionAPI {
     getAPI(context) {
-        function disableSymGroupingMenuitem(group) {
-            doc.getElementById("rspamdSpamnessSymbolPopupGroup").disabled = (group);
-            doc.getElementById("rspamdSpamnessSymbolPopupUngroup").disabled = (!group);
+        let doc = null;
+
+        const {ExtensionParent} =
+            ChromeUtils.import("resource://gre/modules/ExtensionParent.jsm");
+        const extension = ExtensionParent.GlobalManager
+            .getExtension("rspamd-spamness@alexander.moisseev");
+        Services.scriptloader.loadSubScript(extension.getURL("experiments/libExperiments.js"));
+
+        function disableSymGroupingMenuitem(document, group) {
+            document.getElementById("rspamdSpamnessSymbolPopupGroup").disabled = (group);
+            document.getElementById("rspamdSpamnessSymbolPopupUngroup").disabled = (!group);
         }
-        function disableSymOrderMenuitem(order) {
-            doc.getElementById("rspamdSpamnessSymbolPopupSortByName").disabled = (order === "name");
-            doc.getElementById("rspamdSpamnessSymbolPopupSortByScore").disabled = (order === "score");
+        function disableSymOrderMenuitem(document, order) {
+            document.getElementById("rspamdSpamnessSymbolPopupSortByName").disabled = (order === "name");
+            document.getElementById("rspamdSpamnessSymbolPopupSortByScore").disabled = (order === "score");
+        }
+        function disableMenuitem(item, value) {
+            ["mail:3pane", "mail:messageWindow"].forEach((windowType) => {
+                for (const window of Services.wm.getEnumerator(windowType)) {
+                    const {document} = window;
+                    switch (item) {
+                    case "group":
+                        disableSymGroupingMenuitem(document, value);
+                        break;
+                    case "order":
+                        disableSymOrderMenuitem(document, value);
+                        break;
+                    default:
+                        // eslint-disable-next-line no-console
+                        console.error("Unknown context menu item: " + item);
+                    }
+                }
+            });
         }
 
         context.callOnClose(this);
@@ -85,8 +110,8 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
 
                         doc.getElementById("mainPopupSet").appendChild(menupopup);
 
-                        disableSymGroupingMenuitem(group);
-                        disableSymOrderMenuitem(order);
+                        disableSymGroupingMenuitem(doc, group);
+                        disableSymOrderMenuitem(doc, order);
                     }
 
                     if (expandedHeaders2) {
@@ -96,10 +121,10 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                     }
                 },
                 disableSymGroupingMenuitem(group) {
-                    disableSymGroupingMenuitem(group);
+                    disableMenuitem("group", group);
                 },
                 disableSymOrderMenuitem(order) {
-                    disableSymOrderMenuitem(order);
+                    disableMenuitem("order", order);
                 },
                 onSymbolPopupCommand: new ExtensionCommon.EventManager({
                     context,
@@ -121,6 +146,6 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
 
     // eslint-disable-next-line class-methods-use-this
     close() {
-        doc.getElementById("rspamdSpamnessSymbolPopup").remove();
+        libExperiments.removeElements(["rspamdSpamnessSymbolPopup"]);
     }
 };

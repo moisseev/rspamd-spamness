@@ -141,6 +141,21 @@ browser.mailTabs.onSelectedMessagesChanged.addListener((tab, selectedMessages) =
     });
 });
 
+browser.windows.getAll({populate: true, windowTypes: ["normal", "messageDisplay"]}).then((windows) => {
+    windows.forEach(function (window) {
+        window.tabs.filter((tab) => !tab.mailTab && tab.active)
+            .forEach(function (tab) {
+                browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
+                    if (!message) return;
+                    browser.messages.getFull(message.id).then(async (messagepart) => {
+                        const {headers} = messagepart;
+                        if (headers) await messageHeader.displayHeaders(false, tab, message, headers);
+                    });
+                });
+            });
+    });
+});
+
 browser.messageDisplay.onMessageDisplayed.addListener((tab, message) => {
     lastDisplayedMessageId = message.id;
     browser.messages.getFull(message.id).then(async (messagepart) => {
@@ -170,6 +185,7 @@ browser.runtime.onMessage.addListener(function handleMessage(request, sender, se
 });
 
 async function addControlsToWindow(window) {
+    browser.spamHeaders.addHeadersToWindowById(window.id);
     const localStorage =
         await browser.storage.local.get(["trainingButtons-enabled", "headers-symbols_order", "headers-group_symbols"]);
     if (localStorage["trainingButtons-enabled"]) {
@@ -208,7 +224,7 @@ async function addControlsToWindow(window) {
     });
 }
 
-browser.windows.getAll({windowTypes: ["normal"]}).then((windows) => {
+browser.windows.getAll({windowTypes: ["normal", "messageDisplay"]}).then((windows) => {
     windows.forEach(function (window) {
         addControlsToWindow(window);
     });
@@ -216,7 +232,7 @@ browser.windows.getAll({windowTypes: ["normal"]}).then((windows) => {
 
 browser.windows.onCreated.addListener((window) => {
     // Skip popup, devtools, etc.
-    if (window.type !== "normal") return;
+    if (window.type !== "normal" && window.type !== "messageDisplay") return;
     addControlsToWindow(window);
 });
 
@@ -275,5 +291,3 @@ browser.windows.onCreated.addListener((window) => {
         () => browser.runtime.openOptionsPage()
     );
 }());
-
-browser.spamHeaders.init();

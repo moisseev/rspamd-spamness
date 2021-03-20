@@ -3,9 +3,14 @@
     "namespace": "spamHeaders",
     "functions": [
       {
-        "name": "init",
+        "name": "addHeadersToWindowById",
         "type": "function",
-        "parameters": []
+        "parameters": [
+          {
+            "name": "windowId",
+            "type": "integer"
+          }
+        ]
       },
       {
         "name": "removeHeight",

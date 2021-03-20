@@ -248,11 +248,13 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
 };
 
 messageHeader.updateHeaders = function () {
-    browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
-        browser.messageDisplay.getDisplayedMessage(tabs[0].id).then((message) => {
-            browser.messages.getFull(message.id).then(async (messagepart) => {
-                const {headers} = messagepart;
-                if (headers) await messageHeader.displayHeaders(true, tabs[0], message, headers);
+    browser.tabs.query({active: true}).then((tabs) => {
+        tabs.forEach(function (tab) {
+            browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
+                browser.messages.getFull(message.id).then(async (messagepart) => {
+                    const {headers} = messagepart;
+                    if (headers) await messageHeader.displayHeaders(true, tab, message, headers);
+                });
             });
         });
     });
