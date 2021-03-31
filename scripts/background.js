@@ -143,7 +143,7 @@ browser.mailTabs.onSelectedMessagesChanged.addListener((tab, selectedMessages) =
 
 browser.windows.getAll({populate: true, windowTypes: ["normal", "messageDisplay"]}).then((windows) => {
     windows.forEach(function (window) {
-        window.tabs.filter((tab) => !tab.mailTab && tab.active)
+        window.tabs.filter((tab) => tab.active)
             .forEach(function (tab) {
                 browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
                     if (!message) return;
