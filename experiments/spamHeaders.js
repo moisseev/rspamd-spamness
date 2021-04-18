@@ -166,6 +166,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                         };
 
                         const element = document.createElement("tr");
+                        element.hidden = true;
                         element.id = rows[row].id;
 
                         const headerRowTitle = document.createElement("th");
