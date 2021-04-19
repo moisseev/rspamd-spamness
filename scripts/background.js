@@ -151,7 +151,8 @@ browser.windows.getAll({populate: true, windowTypes: ["normal", "messageDisplay"
                         const {headers} = messagepart;
                         if (headers) await messageHeader.displayHeaders(false, tab, message, headers);
                     });
-                });
+                // Thundebird fails to get messages from external files and attachments.
+                }).catch((e) => libBackground.error(e));
             });
     });
 });
