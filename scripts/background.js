@@ -150,7 +150,7 @@ browser.windows.getAll({populate: true, windowTypes: ["normal", "messageDisplay"
                     browser.messages.getFull(message.id).then(async (messagepart) => {
                         const {headers} = messagepart;
                         if (headers) await messageHeader.displayHeaders(false, tab, message, headers);
-                    });
+                    }).catch((e) => libBackground.error(e));
                 // Thundebird fails to get messages from external files and attachments.
                 }).catch((e) => libBackground.error(e));
             });
@@ -162,7 +162,7 @@ browser.messageDisplay.onMessageDisplayed.addListener((tab, message) => {
     browser.messages.getFull(message.id).then(async (messagepart) => {
         const {headers} = messagepart;
         if (headers) await messageHeader.displayHeaders(false, tab, message, headers);
-    });
+    }).catch((e) => libBackground.error(e));
 });
 
 browser.runtime.onMessage.addListener(function handleMessage(request, sender, sendResponse) {

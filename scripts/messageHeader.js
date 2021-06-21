@@ -254,7 +254,7 @@ messageHeader.updateHeaders = function () {
                 browser.messages.getFull(message.id).then(async (messagepart) => {
                     const {headers} = messagepart;
                     if (headers) await messageHeader.displayHeaders(true, tab, message, headers);
-                });
+                }).catch((e) => libBackground.error(e));
             });
         });
     });
