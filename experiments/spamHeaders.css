@@ -1,3 +1,5 @@
+/* stylelint-disable selector-class-pattern */
+
 mail-link {
     margin: 1px;
     border-radius: 2px;
@@ -6,7 +8,7 @@ mail-link {
     display: inline-block;
 }
 mail-link::before {
-    content: '';
+    content: "";
     display: block;
     margin-top: -0.1em;
 }
@@ -63,6 +65,8 @@ mail-link:hover {
     display: inline-block;
     margin: -0 -3px 0 0;
 }
+
+/* stylelint-disable selector-id-pattern */
 
 #expandedRspamdSpamnessRulesBox {
     width: 100%;
