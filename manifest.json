@@ -30,7 +30,7 @@
   "options_ui": {
     "page": "options/options.html"
   },
-  "permissions": ["accountsRead", "menus", "messagesRead", "notifications", "storage"],
+  "permissions": ["accountsRead", "menus", "messagesMove", "messagesRead", "notifications", "storage"],
   "experiment_apis": {
     "popup": {
       "schema": "experiments/popup.json",
