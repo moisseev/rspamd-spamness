@@ -225,14 +225,20 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                 },
 
                 clearSymbolsHeader(tabId, show_n_lines) {
-                    maxHeight = "calc((1px + 1.4em) * " + show_n_lines + " + 0.2em + 3px)";
-
                     const document = getDocumentByTabId(tabId);
                     const parent = document.getElementById("links");
                     while (parent.firstChild) {
                         parent.removeChild(parent.firstChild);
                     }
-                    toggleHeaderHeight(document, "collapse");
+
+                    if (show_n_lines === "0") {
+                        maxHeight = "auto";
+                        document.getElementById("heightButton").hidden = true;
+                        document.getElementById("expandedRspamdSpamnessRulesBox").classList.remove("fieldCollapsed");
+                    } else {
+                        maxHeight = "calc((1px + 1.4em) * " + show_n_lines + " + 0.2em + 3px)";
+                        toggleHeaderHeight(document, "collapse");
+                    }
                 },
 
                 removeHeight(tabId, elementId) {
