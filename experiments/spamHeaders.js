@@ -237,6 +237,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                         document.getElementById("expandedRspamdSpamnessRulesBox").classList.remove("fieldCollapsed");
                     } else {
                         maxHeight = "calc((1px + 1.4em) * " + show_n_lines + " + 0.2em + 3px)";
+                        document.getElementById("heightButton").hidden = false;
                         toggleHeaderHeight(document, "collapse");
                     }
                 },
