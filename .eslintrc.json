@@ -43,6 +43,7 @@
         "padded-blocks": "off",
         "prefer-arrow-callback": "off",
         "prefer-named-capture-group": "off",
+        "prefer-object-has-own": "off",
         "prefer-template": "off",
         "quote-props" : ["error", "consistent-as-needed"],
         "require-jsdoc": "off",
