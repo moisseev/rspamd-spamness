@@ -83,7 +83,6 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
                         const scoreHeader = document.createXULElement("mail-headerfield");
                         scoreHeader.id = "rspamdSpamnessScoreHeader";
-                        scoreHeader.headerValue = "";
                         hbox.appendChild(scoreHeader);
 
                         const bayesVbox = document.createXULElement("vbox");
@@ -94,7 +93,6 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
                         const bayesHeader = document.createXULElement("mail-headerfield");
                         bayesHeader.id = "rspamdSpamnessBayesHeader";
-                        bayesHeader.headerValue = "";
                         hbox.appendChild(bayesHeader);
 
                         const fuzzyVbox = document.createXULElement("vbox");
@@ -105,12 +103,10 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
                         const fuzzyHeader = document.createXULElement("mail-headerfield");
                         fuzzyHeader.id = "rspamdSpamnessFuzzyHeader";
-                        fuzzyHeader.headerValue = "";
                         hbox.appendChild(fuzzyHeader);
 
                         const scanTimeHeader = document.createXULElement("mail-headerfield");
                         scanTimeHeader.id = "rspamdSpamnessScanTimeHeader";
-                        scanTimeHeader.headerValue = "";
                         hbox.appendChild(scanTimeHeader);
 
                         headerRowValue.appendChild(hbox);
