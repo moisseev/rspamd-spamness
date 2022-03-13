@@ -8,6 +8,7 @@
     "parserOptions": {
         "ecmaVersion": 8
     },
+    "plugins": ["html"],
     "rules": {
         "array-element-newline": ["error", "consistent"],
         "camelcase": "off",
