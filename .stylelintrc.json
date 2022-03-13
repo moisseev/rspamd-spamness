@@ -19,6 +19,9 @@
         "rule-empty-line-before": null,
         "selector-type-no-unknown": [true, {
             "ignoreTypes": ["mail-link"]
+        }],
+        "value-keyword-case": ["lower", {
+            "ignoreKeywords": ["crispEdges"]
         }]
     }
 }
