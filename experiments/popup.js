@@ -11,6 +11,7 @@ var {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
 // eslint-disable-next-line no-var
 var popup = class extends ExtensionCommon.ExtensionAPI {
     getAPI(context) {
+        const [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
         let doc = null;
 
         const {ExtensionParent} =
@@ -52,7 +53,8 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                 addPopupToWindowById(windowId, order, group) {
                     const window = Services.wm.getOuterWindowWithId(windowId);
                     doc = window.document;
-                    const expandedHeaders2 = doc.getElementById("expandedHeaders2");
+                    const expandedHeaders2 = doc
+                        .getElementById(majorVersion < 100 ? "expandedHeaders2" : "extraHeadersArea");
 
                     function appendPopup() {
                         const menupopup = doc.createXULElement("menupopup");

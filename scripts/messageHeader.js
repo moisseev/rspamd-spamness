@@ -50,8 +50,10 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
         }).join(""));
     }
 
+    const browserInfo = await browser.runtime.getBrowserInfo();
+    const [majorVersion] = browserInfo.version.split(".", 1);
     // TB doesn't recalculate header height if it is already set.
-    browser.spamHeaders.removeHeight(tab.id, "expandedHeaderView");
+    if (majorVersion < 100) browser.spamHeaders.removeHeight(tab.id, "expandedHeaderView");
 
     if (!show.score && !show.rules)
         return;

@@ -17,6 +17,8 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
     }
 
     getAPI(context) {
+        const [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
+
         const {ExtensionParent} =
             ChromeUtils.import("resource://gre/modules/ExtensionParent.jsm");
         const extension = ExtensionParent.GlobalManager
@@ -32,7 +34,8 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
 
                 const toolbarbutton = window.document.createXULElement("toolbarbutton");
                 toolbarbutton.id = toolbarbuttonId;
-                toolbarbutton.classList.add("toolbarbutton-1", "msgHeaderView-button");
+                toolbarbutton.classList
+                    .add("toolbarbutton-1", majorVersion < 100 ? "msgHeaderView-button" : "message-header-view-button");
                 toolbarbutton.label = context.extension.localeData
                     .localizeMessage("spamness.buttonTrain" + cls + ".label");
                 toolbarbutton.setAttribute(

@@ -22,6 +22,7 @@
         "function-call-argument-newline": "off",
         "id-length": ["error", { "min": 1 }],
         "max-len": ["error", { "code": 120 }],
+        "max-lines": ["error", 400],
         "max-lines-per-function": ["warn", 250],
         "max-params": ["warn", 6],
         "max-statements": ["warn", 50],

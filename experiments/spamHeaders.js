@@ -7,6 +7,7 @@
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 var {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
 /* eslint-enable no-var */
+const [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
 // eslint-disable-next-line no-var
 var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
     // eslint-disable-next-line max-lines-per-function
@@ -46,7 +47,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     fill="none" stroke="currentColor" stroke-linecap="round">
                     <path d="${svgPathCommands[button.value]}"/>
                 </svg>`;
-            document.getElementById("expandedHeaderView").removeAttribute("height");
+            if (majorVersion < 100) document.getElementById("expandedHeaderView").removeAttribute("height");
         }
 
         context.callOnClose(this);
@@ -68,7 +69,8 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                         referenceNode.parentNode.insertBefore(link, referenceNode);
                     })();
 
-                    const expandedHeaders2 = document.getElementById("expandedHeaders2");
+                    const expandedHeaders2 = document
+                        .getElementById(majorVersion < 100 ? "expandedHeaders2" : "extraHeadersArea");
 
                     function scoreHeaderRowValue() {
                         const headerRowValue = document.createElement("td");
@@ -161,19 +163,25 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                             }
                         };
 
-                        const element = document.createElement("tr");
+                        const element = document.createElement(majorVersion < 100 ? "tr" : "div");
                         element.hidden = true;
                         element.id = rows[row].id;
+                        element.classList.add("message-header-row");
 
-                        const headerRowTitle = document.createElement("th");
                         const headerRowTitleLabel = document.createXULElement("label");
                         headerRowTitleLabel.id = rows[row].titleLabel.id;
-                        headerRowTitleLabel.classList.add("headerName");
+                        headerRowTitleLabel.classList.add(majorVersion < 100 ? "headerName" : "message-header-label");
                         headerRowTitleLabel.value = rows[row].titleLabel.value;
                         headerRowTitleLabel.control = rows[row].titleLabel.control;
-                        headerRowTitle.appendChild(headerRowTitleLabel);
 
-                        element.appendChild(headerRowTitle);
+                        if (majorVersion < 100) {
+                            const headerRowTitle = document.createElement("th");
+                            headerRowTitle.appendChild(headerRowTitleLabel);
+                            element.appendChild(headerRowTitle);
+                        } else {
+                            element.appendChild(headerRowTitleLabel);
+                        }
+
                         element.appendChild(rows[row].value);
                         expandedHeaders2.appendChild(element);
                     }
@@ -246,10 +254,27 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                 },
 
                 setHeaderHidden(tabId, elementId, hidden) {
+                    // Ensure that the all visible labels have the same size.
+                    function syncGridColumnWidths(document) {
+                        const allHeaderLabels = document
+                            .querySelectorAll(".message-header-row:not([hidden]) .message-header-label");
+
+                        // Clear existing style.
+                        for (const label of allHeaderLabels) {
+                            label.style.minWidth = null;
+                        }
+
+                        const minWidth = Math.max(...Array.from(allHeaderLabels, (i) => i.clientWidth));
+                        for (const label of allHeaderLabels) {
+                            label.style.minWidth = `${minWidth}px`;
+                        }
+                    }
+
                     const document = getDocumentByTabId(tabId);
                     if (!document) return;
                     const element = document.getElementById(elementId);
                     element.hidden = hidden;
+                    if (majorVersion >= 100) syncGridColumnWidths(document);
                 },
 
                 setHeaderValue(tabId, elementId, prop, value) {
@@ -273,6 +298,6 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
             "expandedRspamdSpamnessRow",
             "expandedRspamdSpamnessRulesRow",
             "rspamd-spamness-css"
-        ], true);
+        ], majorVersion < 100);
     }
 };
