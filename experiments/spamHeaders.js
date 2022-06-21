@@ -285,7 +285,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     if (prop === "src") {
                         element[prop] = extension.rootURI.resolve(value);
                     } else {
-                        element[prop] = value;
+                        element.textContent = value;
                     }
                 },
             },
