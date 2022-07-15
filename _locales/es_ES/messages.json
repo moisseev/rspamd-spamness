@@ -10,7 +10,7 @@
         "message": "Ratio de Spam [Rspamd]"
     },
     "spamnessColumnToolTip.label": {
-        "message": "Pulsar para ordenar por ratio de SpamAssassin"
+        "message": "Pulsar para ordenar por ratio de Rspamd"
     },
     "spamnessInstalled.columnGroup.label": {
         "message": "Mostrar la columna"

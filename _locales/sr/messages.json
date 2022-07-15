@@ -13,7 +13,7 @@
         "message": "Оцена нежељености [Rspamd]"
     },
     "spamnessColumnToolTip.label": {
-        "message": "Кликните да бисте поређали по оцени SpamAssassin"
+        "message": "Кликните да бисте поређали по оцени Rspamd"
     },
     "spamnessInstalled.columnGroup.label": {
         "message": "Приказивање колоне"

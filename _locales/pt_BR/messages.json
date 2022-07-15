@@ -10,7 +10,7 @@
         "message": "Classificação dos Spans [Rspamd]"
     },
     "spamnessColumnToolTip.label": {
-        "message": "Clique para organizar por meio do classificador de spans SpamAssassin"
+        "message": "Clique para organizar por meio do classificador de spans Rspamd"
     },
     "spamnessInstalled.columnGroup.label": {
         "message": "Exibindo a Coluna"

@@ -9,7 +9,7 @@
         "message": "Livello di rischio spam [Rspamd]"
     },
     "spamnessColumnToolTip.label": {
-        "message": "Fare clic per ordinare per livello di rischio spam secondo SpamAssassin"
+        "message": "Fare clic per ordinare per livello di rischio spam secondo Rspamd"
     },
     "spamnessOptions.captionDisplayColumnGroup.label": {
         "message": "Aspetto nella colonna aggiuntiva"

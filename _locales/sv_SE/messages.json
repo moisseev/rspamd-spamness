@@ -13,7 +13,7 @@
         "message": "Skräppostklassificering [Rspamd]"
     },
     "spamnessColumnToolTip.label": {
-        "message": "Klicka för att sortera efter SpamAssassins skräppostklassificering"
+        "message": "Klicka för att sortera efter Rspamds skräppostklassificering"
     },
     "spamnessInstalled.columnGroup.label": {
         "message": "Visning av kolumnen"
