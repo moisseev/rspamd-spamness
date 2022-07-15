@@ -6,7 +6,7 @@
         "message": "Notation du spam [Rspamd]"
     },
     "spamnessColumnToolTip.label": {
-        "message": "Cliquez pour trier selon la notation du spam par SpamAssassin"
+        "message": "Cliquez pour trier selon la notation du spam par Rspamd"
     },
     "spamnessOptions.captionDisplayColumnGroup.label": {
         "message": "Affichage des colonnes"
