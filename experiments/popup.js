@@ -77,7 +77,7 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                         copyMenuitem.setAttribute("oncommand", `Cc['@mozilla.org/widget/clipboardhelper;1']
                             .getService(Ci.nsIClipboardHelper)
                             .copyString(window.getSelection().isCollapsed ?
-                                document.popupNode.textContent :
+                                event.currentTarget.parentNode.headerField.textContent :
                                 window.getSelection().toString());`);
                         menupopup.appendChild(copyMenuitem);
 

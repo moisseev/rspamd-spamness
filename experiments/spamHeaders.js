@@ -215,8 +215,13 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     description.classList.add("linkDisplayButton");
                     description.role = "textbox";
                     description["aria-readonly"] = true;
-                    description.setAttribute("context", "rspamdSpamnessSymbolPopup");
-                    description.setAttribute("popup", "rspamdSpamnessSymbolPopup");
+                    ["click", "contextmenu"].forEach((e) => {
+                        description.addEventListener(e, (event) => {
+                            const popup = document.getElementById("rspamdSpamnessSymbolPopup");
+                            popup.headerField = event.target;
+                            popup.openPopupAtScreen(event.screenX, event.screenY, true);
+                        });
+                    });
                     description.innerHTML = displayText;
                     link.appendChild(description);
                     const comma = document.createXULElement("description");
