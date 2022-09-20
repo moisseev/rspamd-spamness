@@ -122,12 +122,10 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
                         const hbox = document.createXULElement("hbox");
                         hbox.id = "rulesHeaderValueBox";
-                        hbox.flex = "1";
 
                         const div = document.createXULElement("div");
                         div.classList.add("headerValue");
                         div.id = "links";
-                        div.flex = "1";
                         hbox.appendChild(div);
                         headerRowValue.appendChild(hbox);
 
@@ -245,7 +243,9 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                         document.getElementById("heightButton").hidden = true;
                         document.getElementById("expandedRspamdSpamnessRulesBox").classList.remove("fieldCollapsed");
                     } else {
-                        maxHeight = "calc((1px + 1.4em) * " + show_n_lines + " + 0.2em + 3px)";
+                        const {lineHeight} = document.defaultView.getComputedStyle(parent, null);
+                        const numericLineHeight = (lineHeight === "normal") ? "1em" : lineHeight;
+                        maxHeight = "calc((" + numericLineHeight + " + 0.1em + 2px) * " + show_n_lines + ")";
                         document.getElementById("heightButton").hidden = false;
                         toggleHeaderHeight(document, "collapse");
                     }

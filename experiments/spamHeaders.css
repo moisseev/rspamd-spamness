@@ -69,10 +69,12 @@ mail-link:hover {
 /* stylelint-disable selector-id-pattern */
 
 #expandedRspamdSpamnessRulesBox {
+    display: flex;
     width: 100%;
 }
 
 #rulesHeaderValueBox {
+    display: flex;
     overflow-y: inherit;
 }
 #links {
@@ -81,10 +83,9 @@ mail-link:hover {
 }
 .fieldCollapsed {
     overflow-y: hidden;
-    height: 100vh;
 }
 #heightButton {
-    height: 100%;
+    height: auto;
     min-height: calc(1.6em + 2px);
     min-width: unset;
     margin-top: 2px;
