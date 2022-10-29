@@ -28,6 +28,9 @@ mail-link:hover {
     --hover-greyl: #abc1fc;
     --hover-ham: #b4eba8;
     --hover-spam: #f0b0a8;
+    --no-action: var(--ham);
+    --add-header: var(--spam);
+    --rewrite-subject: var(--spam);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -72,6 +75,9 @@ mail-link:hover {
 #expandedRspamdSpamnessRow mail-headerfield {
     padding-left: 0.2em;
     padding-right: 0.2em;
+}
+#rspamdSpamnessActionHeader {
+    border-radius: 2px;
 }
 
 #expandedRspamdSpamnessRulesBox {

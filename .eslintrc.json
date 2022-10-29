@@ -14,6 +14,7 @@
         "camelcase": "off",
         "capitalized-comments": "off",
         "comma-dangle": ["error", "only-multiline"],
+        "complexity": ["error", 22],
         "curly": "off",
         "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
         "dot-location": ["error", "property"],

@@ -190,6 +190,11 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
                 : "";
             browser.spamHeaders
                 .setHeaderValue(tab.id, "rspamdSpamnessScanTimeHeader", "headerValue", scanTimeStr);
+
+            const action = headers["x-rspamd-action"] || null;
+            const actionStr = (action && action[0].length) ? action[0] : "";
+            browser.spamHeaders
+                .setHeaderValue(tab.id, "rspamdSpamnessActionHeader", "headerValue", actionStr);
         }
 
         if (show.rules) {

@@ -111,6 +111,10 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                         scanTimeHeader.id = "rspamdSpamnessScanTimeHeader";
                         hbox.appendChild(scanTimeHeader);
 
+                        const actionHeader = document.createXULElement("mail-headerfield");
+                        actionHeader.id = "rspamdSpamnessActionHeader";
+                        hbox.appendChild(actionHeader);
+
                         headerRowValue.appendChild(hbox);
 
                         return headerRowValue;
@@ -292,6 +296,11 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     } else {
                         element.textContent = value;
                     }
+
+                    element.style["background-color"] = (elementId === "rspamdSpamnessActionHeader" &&
+                      ["no action", "rewrite subject", "add header"].includes(value))
+                        ? "var(--" + value.replace(/\s/g, "-") + ")"
+                        : null;
                 },
             },
         };
