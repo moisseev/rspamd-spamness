@@ -213,6 +213,12 @@ async function addControlsToWindow(window) {
         case "rspamdSpamnessSymbolPopupUngroup":
             groupSymbols(false);
             break;
+        case "rspamdSpamnessSymbolTrainHam":
+            moveMessage("rspamdSpamnessButtonHam");
+            break;
+        case "rspamdSpamnessSymbolTrainSpam":
+            moveMessage("rspamdSpamnessButtonSpam");
+            break;
         case "rspamdSpamnessSymbolPopupOpenRulesDialog":
             libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200);
             break;
@@ -242,9 +248,10 @@ browser.windows.onCreated.addListener((window) => {
         if (browser.runtime.lastError) libBackground.error(browser.runtime.lastError);
     }
 
-    function appendMenuitem(id, label, command) {
+    function appendMenuitem(id, label, command, icons) {
         browser.menus.create({
             contexts: ["all"],
+            icons: icons,
             id: id,
             onclick: command,
             title: messenger.i18n.getMessage(label)
@@ -278,6 +285,19 @@ browser.windows.onCreated.addListener((window) => {
         "rspamdSpamnessSymbolPopupUngroup",
         "spamness.popupUngroup.label",
         () => groupSymbols(false)
+    );
+    menuseparator();
+    appendMenuitem(
+        "rspamdSpamnessSymbolTrainHam",
+        "spamness.buttonTrainHam.label",
+        () => moveMessage("rspamdSpamnessButtonHam"),
+        {16: "images/arrow-down.png"}
+    );
+    appendMenuitem(
+        "rspamdSpamnessSymbolTrainSpam",
+        "spamness.buttonTrainSpam.label",
+        () => moveMessage("rspamdSpamnessButtonSpam"),
+        {16: "images/arrow-up.png"}
     );
     menuseparator();
     appendMenuitem(

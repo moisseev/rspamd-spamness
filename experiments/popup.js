@@ -101,6 +101,15 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                         );
                         menuseparator();
                         appendMenuitem(
+                            "rspamdSpamnessSymbolTrainHam",
+                            "spamness.buttonTrainHam.label"
+                        );
+                        appendMenuitem(
+                            "rspamdSpamnessSymbolTrainSpam",
+                            "spamness.buttonTrainSpam.label"
+                        );
+                        menuseparator();
+                        appendMenuitem(
                             "rspamdSpamnessSymbolPopupOpenRulesDialog",
                             "spamness.popupRawExtendedHeader.label"
                         );
