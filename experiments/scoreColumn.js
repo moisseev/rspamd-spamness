@@ -118,16 +118,19 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                                     .localizeMessage("spamnessColumnToolTip.label"));
                                 treeCol.setAttribute("width", "60px");
 
-                                const splitter = document.createXULElement("splitter");
-                                splitter.setAttribute("id", "spamScoreColSplitter");
-                                splitter.classList.add("tree-splitter");
-                                splitter.setAttribute("resizeafter", "farthest");
-                                splitter.style["-moz-box-ordinal-group"] = 42;
-
                                 const threadCols = document.getElementById("threadCols");
-                                const threadCol = document.getElementById("threadCol");
-                                threadCols.insertBefore(treeCol, threadCol);
-                                threadCols.insertBefore(splitter, threadCol);
+                                threadCols.appendChild(treeCol);
+
+                                // Restore persistent attributes. TB bug 1607575 and 1612055.
+                                const attributes = Services.xulStore.getAttributeEnumerator(document.URL, columnId);
+                                for (const attribute of attributes) {
+                                    const value = Services.xulStore.getValue(document.URL, columnId, attribute);
+                                    if (attribute === "ordinal") {
+                                        treeCol.ordinal = value;
+                                    } else {
+                                        treeCol.setAttribute(attribute, value);
+                                    }
+                                }
                             })();
 
                             Services.obs.addObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);
