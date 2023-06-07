@@ -3,7 +3,6 @@
         "eslint": "*",
         "eslint-plugin-html": "*",
         "stylelint-config-standard": "*",
-        "postcss-html": "*",
-        "@stylelint/postcss-css-in-js": "*"
+        "postcss-html": "*"
     }
 }
