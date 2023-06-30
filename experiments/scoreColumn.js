@@ -1,4 +1,4 @@
-/* global ChromeUtils, libCommon, libExperiments */
+/* global ChromeUtils, libCommon, libExperiments, globalThis */
 /* exported scoreColumn */
 
 "use strict";
@@ -6,7 +6,7 @@
 /* eslint-disable no-var */
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 var {ExtensionSupport} = ChromeUtils.import("resource:///modules/ExtensionSupport.jsm");
-var {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
+const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 /* eslint-enable no-var */
 
 const RspamdSpamnessColumn = {};
