@@ -1,11 +1,11 @@
-/* global ChromeUtils, libExperiments */
+/* global ChromeUtils, libExperiments, globalThis */
 /* exported trainButtons */
 
 "use strict";
 
 /* eslint-disable no-var */
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
-var {Services} = ChromeUtils.import("resource://gre/modules/Services.jsm");
+const Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 /* eslint-enable no-var */
 
 // eslint-disable-next-line no-var
