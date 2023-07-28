@@ -23,22 +23,27 @@ function sortSymbols(order) {
     messageHeader.updateHeaders();
 }
 
-async function moveMessage(buttonId) {
+async function moveMessage(buttonId, windowId, tabIndex) {
     let ids = [];
     let message = null;
     const tabs = await browser.tabs.query({active: true, currentWindow: true});
-    if (tabs[0].mailTab) {
-        // The tab is a Thunderbird 3-pane tab
+
+    // A Thunderbird 3-pane tab or context menu
+    if (windowId === "contextMenuPopup" || tabs[0].mailTab && tabs[0].type === "normal") {
         const messageList = await browser.mailTabs.getSelectedMessages();
         if (!messageList.messages.length) return;
         ids = messageList.messages.map((msg) => msg.id);
         [message] = messageList.messages;
+
+    // A message pane tab or message display window
     } else {
-        // The tab is not a Thunderbird 3-pane tab, presumable a message pane tab
-        message = await browser.messageDisplay.getDisplayedMessage(tabs[0].id);
+        const window = await browser.windows.get(windowId, {populate: true});
+        const tabId = (window.type === "messageDisplay") ? window.tabs[tabIndex].id : tabs[0].id;
+        message = await browser.messageDisplay.getDisplayedMessage(tabId);
         ids = [message.id];
     }
-    const {accountId} = message.folder;
+
+    const accountId = (message.external) ? null : message.folder.accountId;
     const trainFolder = {
         rspamdSpamnessButtonHam: "TrainHam",
         rspamdSpamnessButtonSpam: "TrainSpam"
@@ -75,6 +80,12 @@ async function moveMessage(buttonId) {
                     (localStorage["trainingButtonSpam-defaultAction"] === "copy"))
                 ? "copy"
                 : "move";
+
+            if (action === "move" && message.external) {
+                libBackground.displayNotification("spamness.alertText.moveNotPermittedForExternalMessages");
+                return;
+            }
+
             browser.messages[action](ids, destination).catch(function (error) {
                 libBackground.error(error);
                 if ((/^Unexpected error (copy|mov)ing messages: 2147500037$/).test(error.message)) {
@@ -86,22 +97,39 @@ async function moveMessage(buttonId) {
             });
         });
 }
-function addTrainButtonsListener(windowId) {
-    ["rspamdSpamnessButtonHam", "rspamdSpamnessButtonSpam"]
-        .forEach(function (targetId) {
+function addTrainButtonsToWindow(windowId, tabIndex) {
+    browser.trainButtons.addButtonsToWindowById(windowId, tabIndex).then((targetIds) => {
+        targetIds.forEach(function (targetId) {
             browser.trainButtons.onButtonCommand.addListener((buttonId) => {
-                moveMessage(buttonId);
-            }, targetId, windowId);
+                moveMessage(buttonId, windowId, tabIndex);
+            }, targetId, windowId, tabIndex);
         });
+    });
 }
-function addTrainButtonsToWindow(window) {
-    browser.trainButtons.addButtonsToWindowById(window.id);
-    addTrainButtonsListener(window.id);
-}
-function addTrainButtonsToNormalWindows() {
-    browser.windows.getAll({windowTypes: ["normal"]}).then((windows) => {
+
+function initMessageHeader(justAddButtons) {
+    browser.windows.getAll({populate: true, windowTypes: ["normal", "messageDisplay"]}).then((windows) => {
         windows.forEach(function (window) {
-            addTrainButtonsToWindow(window);
+            window.tabs
+                .filter((tab) => (window.type === "normal" &&
+                    (tab.mailTab || tab.type === "messageDisplay") ||
+                    window.type === "messageDisplay"))
+                .forEach((tab) => {
+                    if (justAddButtons) {
+                        addTrainButtonsToWindow(tab.windowId, tab.index);
+                    } else {
+                        browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
+                            if (!message) return;
+                            addControlsToWindow(tab.windowId, tab.index);
+
+                            browser.messages.getFull(message.id).then(async (messagepart) => {
+                                const {headers} = messagepart;
+                                if (headers) await messageHeader.displayHeaders(false, tab, message, headers);
+                            }).catch((e) => libBackground.error(e));
+                        // Thundebird fails to get messages from external files and attachments.
+                        }).catch((e) => libBackground.error(e));
+                    }
+                });
         });
     });
 }
@@ -137,27 +165,15 @@ browser.mailTabs.onSelectedMessagesChanged.addListener((tab, selectedMessages) =
     if (selectedMessages.messages[0].id === lastDisplayedMessageId) return;
     // Hide headers until message is loaded
     ["expandedRspamdSpamnessRow", "expandedRspamdSpamnessRulesRow"].forEach(function (id) {
-        browser.spamHeaders.setHeaderHidden(tab.id, id, true);
+        browser.spamHeaders.setHeaderHidden(tab.windowId, tab.index, id, true);
     });
 });
 
-browser.windows.getAll({populate: true, windowTypes: ["normal", "messageDisplay"]}).then((windows) => {
-    windows.forEach(function (window) {
-        window.tabs.filter((tab) => tab.active)
-            .forEach(function (tab) {
-                browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
-                    if (!message) return;
-                    browser.messages.getFull(message.id).then(async (messagepart) => {
-                        const {headers} = messagepart;
-                        if (headers) await messageHeader.displayHeaders(false, tab, message, headers);
-                    }).catch((e) => libBackground.error(e));
-                // Thundebird fails to get messages from external files and attachments.
-                }).catch((e) => libBackground.error(e));
-            });
-    });
-});
+initMessageHeader();
 
 browser.messageDisplay.onMessageDisplayed.addListener((tab, message) => {
+    addControlsToWindow(tab.windowId, tab.index);
+
     lastDisplayedMessageId = message.id;
     browser.messages.getFull(message.id).then(async (messagepart) => {
         const {headers} = messagepart;
@@ -168,7 +184,7 @@ browser.messageDisplay.onMessageDisplayed.addListener((tab, message) => {
 browser.runtime.onMessage.addListener(function handleMessage(request, sender, sendResponse) {
     switch (request.method) {
     case "addTrainButtonsToNormalWindows":
-        addTrainButtonsToNormalWindows();
+        initMessageHeader(true);
         break;
     case "getRulesDialogContent":
         (function () {
@@ -185,63 +201,53 @@ browser.runtime.onMessage.addListener(function handleMessage(request, sender, se
     }
 });
 
-async function addControlsToWindow(window) {
-    browser.spamHeaders.addHeadersToWindowById(window.id);
+async function addControlsToWindow(windowId, tabIndex) {
+    browser.spamHeaders.addHeadersToWindowById(windowId, tabIndex);
     const localStorage =
         await browser.storage.local.get(["trainingButtons-enabled", "headers-symbols_order", "headers-group_symbols"]);
     if (localStorage["trainingButtons-enabled"]) {
-        addTrainButtonsToWindow(window);
+        addTrainButtonsToWindow(windowId, tabIndex);
     }
 
     browser.popup.addPopupToWindowById(
-        window.id,
+        windowId, tabIndex,
         localStorage["headers-symbols_order"], localStorage["headers-group_symbols"]
-    );
-    browser.popup.onSymbolPopupCommand.addListener(function (id) {
-        switch (id) {
-        case "copyMenuitem":
-            break;
-        case "rspamdSpamnessSymbolPopupSortByName":
-            sortSymbols("name");
-            break;
-        case "rspamdSpamnessSymbolPopupSortByScore":
-            sortSymbols("score");
-            break;
-        case "rspamdSpamnessSymbolPopupGroup":
-            groupSymbols(true);
-            break;
-        case "rspamdSpamnessSymbolPopupUngroup":
-            groupSymbols(false);
-            break;
-        case "rspamdSpamnessSymbolTrainHam":
-            moveMessage("rspamdSpamnessButtonHam");
-            break;
-        case "rspamdSpamnessSymbolTrainSpam":
-            moveMessage("rspamdSpamnessButtonSpam");
-            break;
-        case "rspamdSpamnessSymbolPopupOpenRulesDialog":
-            libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200);
-            break;
-        case "rspamdSpamnessSymbolPopupOptions":
-            browser.runtime.openOptionsPage();
-            break;
-        default:
-            libBackground.error("Unknown menuitem id: " + id);
-        }
+    ).then((success) => {
+        if (!success) return;
+        browser.popup.onSymbolPopupCommand.addListener(function (id) {
+            switch (id) {
+            case "copyMenuitem":
+                break;
+            case "rspamdSpamnessSymbolPopupSortByName":
+                sortSymbols("name");
+                break;
+            case "rspamdSpamnessSymbolPopupSortByScore":
+                sortSymbols("score");
+                break;
+            case "rspamdSpamnessSymbolPopupGroup":
+                groupSymbols(true);
+                break;
+            case "rspamdSpamnessSymbolPopupUngroup":
+                groupSymbols(false);
+                break;
+            case "rspamdSpamnessSymbolTrainHam":
+                moveMessage("rspamdSpamnessButtonHam", windowId, tabIndex);
+                break;
+            case "rspamdSpamnessSymbolTrainSpam":
+                moveMessage("rspamdSpamnessButtonSpam", windowId, tabIndex);
+                break;
+            case "rspamdSpamnessSymbolPopupOpenRulesDialog":
+                libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200);
+                break;
+            case "rspamdSpamnessSymbolPopupOptions":
+                browser.runtime.openOptionsPage();
+                break;
+            default:
+                libBackground.error("Unknown menuitem id: " + id);
+            }
+        });
     });
 }
-
-browser.windows.getAll({windowTypes: ["normal", "messageDisplay"]}).then((windows) => {
-    windows.forEach(function (window) {
-        addControlsToWindow(window);
-    });
-});
-
-browser.windows.onCreated.addListener((window) => {
-    // Skip popup, devtools, etc.
-    if (window.type !== "normal" && window.type !== "messageDisplay") return;
-    addControlsToWindow(window);
-});
 
 (function appendPopup() {
     function onCreated() {
@@ -290,13 +296,13 @@ browser.windows.onCreated.addListener((window) => {
     appendMenuitem(
         "rspamdSpamnessSymbolTrainHam",
         "spamness.buttonTrainHam.label",
-        () => moveMessage("rspamdSpamnessButtonHam"),
+        () => moveMessage("rspamdSpamnessButtonHam", "contextMenuPopup"),
         {16: "images/arrow-down.png"}
     );
     appendMenuitem(
         "rspamdSpamnessSymbolTrainSpam",
         "spamness.buttonTrainSpam.label",
-        () => moveMessage("rspamdSpamnessButtonSpam"),
+        () => moveMessage("rspamdSpamnessButtonSpam", "contextMenuPopup"),
         {16: "images/arrow-up.png"}
     );
     menuseparator();

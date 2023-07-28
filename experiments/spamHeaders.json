@@ -9,21 +9,10 @@
           {
             "name": "windowId",
             "type": "integer"
-          }
-        ]
-      },
-      {
-        "name": "removeHeight",
-        "description": "Remove 'height' attribute of the HTML element",
-        "type": "function",
-        "parameters": [
-          {
-            "name": "tabId",
-            "type": "integer"
           },
           {
-            "name": "elementId",
-            "type": "string"
+            "name": "tabIndex",
+            "type": "integer"
           }
         ]
       },
@@ -33,7 +22,11 @@
         "type": "function",
         "parameters": [
           {
-            "name": "tabId",
+            "name": "windowId",
+            "type": "integer"
+          },
+          {
+            "name": "tabIndex",
             "type": "integer"
           },
           {
@@ -53,7 +46,11 @@
         "type": "function",
         "parameters": [
           {
-            "name": "tabId",
+            "name": "windowId",
+            "type": "integer"
+          },
+          {
+            "name": "tabIndex",
             "type": "integer"
           },
           {
@@ -76,7 +73,11 @@
         "type": "function",
         "parameters": [
           {
-            "name": "tabId",
+            "name": "windowId",
+            "type": "integer"
+          },
+          {
+            "name": "tabIndex",
             "type": "integer"
           },
           {
@@ -99,7 +100,11 @@
         "type": "function",
         "parameters": [
           {
-            "name": "tabId",
+            "name": "windowId",
+            "type": "integer"
+          },
+          {
+            "name": "tabIndex",
             "type": "integer"
           },
           {

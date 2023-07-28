@@ -22,6 +22,9 @@
     "spamness.alertText.error_2147500037_workaround": {
         "message": "Try to display any message in the destination folder account first."
     },
+    "spamness.alertText.moveNotPermittedForExternalMessages": {
+        "message": "Move operation is not permitted for external messages."
+    },
     "spamness.buttonTrainHam.label": {
         "message": "Train ham"
     },

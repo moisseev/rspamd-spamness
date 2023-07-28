@@ -1,4 +1,4 @@
-/* global ChromeUtils, Components, libExperiments, globalThis */
+/* global ChromeUtils, libExperiments, globalThis */
 /* exported spamHeaders */
 
 "use strict";
@@ -6,8 +6,8 @@
 /* eslint-disable no-var */
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 var Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
+var [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
 /* eslint-enable no-var */
-const [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
 // eslint-disable-next-line no-var
 var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
     // eslint-disable-next-line max-lines-per-function
@@ -20,10 +20,158 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
         let maxHeight = null;
 
-        function getDocumentByTabId(tabId) {
-            const target = ExtensionParent.apiManager.global.tabTracker.getTab(tabId);
-            const window = Components.utils.getGlobalForObject(target);
-            return window.document;
+        function addHeadersToWindowById(windowId, tabIndex) {
+            const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
+
+            (function loadCSS() {
+                const href = extension.rootURI.resolve("experiments/spamHeaders.css");
+
+                const link = document.createElement("link");
+                link.id = "rspamd-spamness-css";
+                link.rel = "stylesheet";
+                link.href = href;
+
+                if (majorVersion < 91) {
+                    const referenceNode = document.getElementById("navigation-toolbox");
+                    referenceNode.parentNode.insertBefore(link, referenceNode);
+                } else {
+                    document.head.appendChild(link);
+                }
+            })();
+
+            const expandedHeaders2 = document
+                .getElementById(majorVersion < 100 ? "expandedHeaders2" : "extraHeadersArea");
+
+            function scoreHeaderRowValue() {
+                const headerRowValue = document.createElement("td");
+
+                const hbox = document.createXULElement("hbox");
+
+                const scoreVbox = document.createXULElement("vbox");
+                const scoreIcon = document.createXULElement("image");
+                scoreIcon.id = "rspamdSpamnessScoreIcon";
+                scoreVbox.appendChild(scoreIcon);
+                hbox.appendChild(scoreVbox);
+
+                const scoreHeader = document.createXULElement("mail-headerfield");
+                scoreHeader.id = "rspamdSpamnessScoreHeader";
+                hbox.appendChild(scoreHeader);
+
+                const bayesVbox = document.createXULElement("vbox");
+                const bayesIcon = document.createXULElement("image");
+                bayesIcon.id = "rspamdSpamnessBayesIcon";
+                bayesVbox.appendChild(bayesIcon);
+                hbox.appendChild(bayesVbox);
+
+                const bayesHeader = document.createXULElement("mail-headerfield");
+                bayesHeader.id = "rspamdSpamnessBayesHeader";
+                hbox.appendChild(bayesHeader);
+
+                const fuzzyVbox = document.createXULElement("vbox");
+                const fuzzyIcon = document.createXULElement("image");
+                fuzzyIcon.id = "rspamdSpamnessFuzzyIcon";
+                fuzzyVbox.appendChild(fuzzyIcon);
+                hbox.appendChild(fuzzyVbox);
+
+                const fuzzyHeader = document.createXULElement("mail-headerfield");
+                fuzzyHeader.id = "rspamdSpamnessFuzzyHeader";
+                hbox.appendChild(fuzzyHeader);
+
+                const scanTimeHeader = document.createXULElement("mail-headerfield");
+                scanTimeHeader.id = "rspamdSpamnessScanTimeHeader";
+                hbox.appendChild(scanTimeHeader);
+
+                const actionHeader = document.createXULElement("mail-headerfield");
+                actionHeader.id = "rspamdSpamnessActionHeader";
+                hbox.appendChild(actionHeader);
+
+                headerRowValue.appendChild(hbox);
+
+                return headerRowValue;
+            }
+
+            function rulesHeaderRowValue() {
+                const headerRowValue = document.createXULElement("mail-multi-linkField");
+                headerRowValue.id = "expandedRspamdSpamnessRulesBox";
+
+                const hbox = document.createXULElement("hbox");
+                hbox.id = "rulesHeaderValueBox";
+
+                const div = document.createXULElement("div");
+                div.classList.add("headerValue");
+                div.id = "links";
+                hbox.appendChild(div);
+                headerRowValue.appendChild(hbox);
+
+                const button = document.createElement("button");
+                button.id = "heightButton";
+                button.classList.add("toolbarbutton-1");
+                headerRowValue.appendChild(button);
+
+                return headerRowValue;
+            }
+
+            function createHeaderRow(row) {
+                const rows = {
+                    rules: {
+                        id: "expandedRspamdSpamnessRulesRow",
+                        titleLabel: {
+                            control: "expandedRspamdSpamnessRulesBox",
+                            id: "expandedRspamdSpamnessRulesLabel",
+                            value: context.extension.localeData
+                                .localizeMessage("spamness.rulesMessageHeader.label")
+                        },
+                        value: rulesHeaderRowValue(),
+                    },
+                    score: {
+                        id: "expandedRspamdSpamnessRow",
+                        titleLabel: {
+                            control: "rspamdSpamnessScoreHeader",
+                            id: "expandedRspamdSpamnessLabel",
+                            value: context.extension.localeData
+                                .localizeMessage("spamness.messageHeader.label")
+                        },
+                        value: scoreHeaderRowValue(),
+                    }
+                };
+
+                const element = document.createElement(majorVersion < 100 ? "tr" : "div");
+                element.hidden = true;
+                element.id = rows[row].id;
+                element.classList.add("message-header-row");
+
+                const headerRowTitleLabel = document.createXULElement("label");
+                headerRowTitleLabel.id = rows[row].titleLabel.id;
+                headerRowTitleLabel.classList.add(majorVersion < 100 ? "headerName" : "message-header-label");
+                headerRowTitleLabel.value = rows[row].titleLabel.value;
+                headerRowTitleLabel.control = rows[row].titleLabel.control;
+
+                if (majorVersion < 100) {
+                    const headerRowTitle = document.createElement("th");
+                    headerRowTitle.appendChild(headerRowTitleLabel);
+                    element.appendChild(headerRowTitle);
+                } else {
+                    element.appendChild(headerRowTitleLabel);
+                }
+
+                element.appendChild(rows[row].value);
+                expandedHeaders2.appendChild(element);
+            }
+
+            if (expandedHeaders2) {
+                if (!document.getElementById("expandedRspamdSpamnessRow")) createHeaderRow("score");
+                if (!document.getElementById("expandedRspamdSpamnessRulesRow")) {
+                    createHeaderRow("rules");
+
+                    const button = document.getElementById("heightButton");
+                    button.addEventListener("click", function () {
+                        toggleHeaderHeight(document, button.value);
+                    });
+                }
+                toggleHeaderHeight(document);
+            } else {
+                throw Error("Could not find the expandedHeaders2 element");
+            }
         }
 
         function toggleHeaderHeight(document, value) {
@@ -53,157 +201,12 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
         context.callOnClose(this);
         return {
             spamHeaders: {
-                addHeadersToWindowById(windowId) {
-                    const window = Services.wm.getOuterWindowWithId(windowId);
-                    const {document} = window;
-
-                    (function loadCSS() {
-                        const href = extension.rootURI.resolve("experiments/spamHeaders.css");
-
-                        const link = document.createElement("link");
-                        link.id = "rspamd-spamness-css";
-                        link.rel = "stylesheet";
-                        link.href = href;
-
-                        const referenceNode = document.getElementById("navigation-toolbox");
-                        referenceNode.parentNode.insertBefore(link, referenceNode);
-                    })();
-
-                    const expandedHeaders2 = document
-                        .getElementById(majorVersion < 100 ? "expandedHeaders2" : "extraHeadersArea");
-
-                    function scoreHeaderRowValue() {
-                        const headerRowValue = document.createElement("td");
-
-                        const hbox = document.createXULElement("hbox");
-
-                        const scoreVbox = document.createXULElement("vbox");
-                        const scoreIcon = document.createXULElement("image");
-                        scoreIcon.id = "rspamdSpamnessScoreIcon";
-                        scoreVbox.appendChild(scoreIcon);
-                        hbox.appendChild(scoreVbox);
-
-                        const scoreHeader = document.createXULElement("mail-headerfield");
-                        scoreHeader.id = "rspamdSpamnessScoreHeader";
-                        hbox.appendChild(scoreHeader);
-
-                        const bayesVbox = document.createXULElement("vbox");
-                        const bayesIcon = document.createXULElement("image");
-                        bayesIcon.id = "rspamdSpamnessBayesIcon";
-                        bayesVbox.appendChild(bayesIcon);
-                        hbox.appendChild(bayesVbox);
-
-                        const bayesHeader = document.createXULElement("mail-headerfield");
-                        bayesHeader.id = "rspamdSpamnessBayesHeader";
-                        hbox.appendChild(bayesHeader);
-
-                        const fuzzyVbox = document.createXULElement("vbox");
-                        const fuzzyIcon = document.createXULElement("image");
-                        fuzzyIcon.id = "rspamdSpamnessFuzzyIcon";
-                        fuzzyVbox.appendChild(fuzzyIcon);
-                        hbox.appendChild(fuzzyVbox);
-
-                        const fuzzyHeader = document.createXULElement("mail-headerfield");
-                        fuzzyHeader.id = "rspamdSpamnessFuzzyHeader";
-                        hbox.appendChild(fuzzyHeader);
-
-                        const scanTimeHeader = document.createXULElement("mail-headerfield");
-                        scanTimeHeader.id = "rspamdSpamnessScanTimeHeader";
-                        hbox.appendChild(scanTimeHeader);
-
-                        const actionHeader = document.createXULElement("mail-headerfield");
-                        actionHeader.id = "rspamdSpamnessActionHeader";
-                        hbox.appendChild(actionHeader);
-
-                        headerRowValue.appendChild(hbox);
-
-                        return headerRowValue;
-                    }
-
-                    function rulesHeaderRowValue() {
-                        const headerRowValue = document.createXULElement("mail-multi-linkField");
-                        headerRowValue.id = "expandedRspamdSpamnessRulesBox";
-
-                        const hbox = document.createXULElement("hbox");
-                        hbox.id = "rulesHeaderValueBox";
-
-                        const div = document.createXULElement("div");
-                        div.classList.add("headerValue");
-                        div.id = "links";
-                        hbox.appendChild(div);
-                        headerRowValue.appendChild(hbox);
-
-                        const button = document.createElement("button");
-                        button.id = "heightButton";
-                        button.classList.add("toolbarbutton-1");
-                        headerRowValue.appendChild(button);
-
-                        return headerRowValue;
-                    }
-
-                    function createHeaderRow(row) {
-                        const rows = {
-                            rules: {
-                                id: "expandedRspamdSpamnessRulesRow",
-                                titleLabel: {
-                                    control: "expandedRspamdSpamnessRulesBox",
-                                    id: "expandedRspamdSpamnessRulesLabel",
-                                    value: context.extension.localeData
-                                        .localizeMessage("spamness.rulesMessageHeader.label")
-                                },
-                                value: rulesHeaderRowValue(),
-                            },
-                            score: {
-                                id: "expandedRspamdSpamnessRow",
-                                titleLabel: {
-                                    control: "rspamdSpamnessScoreHeader",
-                                    id: "expandedRspamdSpamnessLabel",
-                                    value: context.extension.localeData
-                                        .localizeMessage("spamness.messageHeader.label")
-                                },
-                                value: scoreHeaderRowValue(),
-                            }
-                        };
-
-                        const element = document.createElement(majorVersion < 100 ? "tr" : "div");
-                        element.hidden = true;
-                        element.id = rows[row].id;
-                        element.classList.add("message-header-row");
-
-                        const headerRowTitleLabel = document.createXULElement("label");
-                        headerRowTitleLabel.id = rows[row].titleLabel.id;
-                        headerRowTitleLabel.classList.add(majorVersion < 100 ? "headerName" : "message-header-label");
-                        headerRowTitleLabel.value = rows[row].titleLabel.value;
-                        headerRowTitleLabel.control = rows[row].titleLabel.control;
-
-                        if (majorVersion < 100) {
-                            const headerRowTitle = document.createElement("th");
-                            headerRowTitle.appendChild(headerRowTitleLabel);
-                            element.appendChild(headerRowTitle);
-                        } else {
-                            element.appendChild(headerRowTitleLabel);
-                        }
-
-                        element.appendChild(rows[row].value);
-                        expandedHeaders2.appendChild(element);
-                    }
-
-                    if (expandedHeaders2) {
-                        createHeaderRow("score");
-                        createHeaderRow("rules");
-
-                        const button = document.getElementById("heightButton");
-                        button.addEventListener("click", function () {
-                            toggleHeaderHeight(document, button.value);
-                        });
-                        toggleHeaderHeight(document);
-                    } else {
-                        throw Error("Could not find the expandedHeaders2 element");
-                    }
+                addHeadersToWindowById(windowId, tabIndex) {
+                    addHeadersToWindowById(windowId, tabIndex);
                 },
 
-                addSymbol(tabId, symbolClass, displayText, tooltiptext) {
-                    const document = getDocumentByTabId(tabId);
+                addSymbol(windowId, tabIndex, symbolClass, displayText, tooltiptext) {
+                    const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     if (!document) return;
 
                     const link = document.createXULElement("mail-link");
@@ -235,8 +238,8 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     links.appendChild(link);
                 },
 
-                clearSymbolsHeader(tabId, show_n_lines) {
-                    const document = getDocumentByTabId(tabId);
+                clearSymbolsHeader(windowId, tabIndex, show_n_lines) {
+                    const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     const parent = document.getElementById("links");
                     while (parent.firstChild) {
                         parent.removeChild(parent.firstChild);
@@ -255,14 +258,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     }
                 },
 
-                removeHeight(tabId, elementId) {
-                    const document = getDocumentByTabId(tabId);
-                    if (!document) return;
-                    const element = document.getElementById(elementId);
-                    element.removeAttribute("height");
-                },
-
-                setHeaderHidden(tabId, elementId, hidden) {
+                setHeaderHidden(windowId, tabIndex, elementId, hidden) {
                     // Ensure that the all visible labels have the same size.
                     function syncGridColumnWidths(document) {
                         const allHeaderLabels = document
@@ -279,15 +275,18 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                         }
                     }
 
-                    const document = getDocumentByTabId(tabId);
+                    const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     if (!document) return;
                     const element = document.getElementById(elementId);
-                    element.hidden = hidden;
-                    if (majorVersion >= 100) syncGridColumnWidths(document);
+
+                    if (element) {
+                        element.hidden = hidden;
+                        if (majorVersion >= 100) syncGridColumnWidths(document);
+                    }
                 },
 
-                setHeaderValue(tabId, elementId, prop, value) {
-                    const document = getDocumentByTabId(tabId);
+                setHeaderValue(windowId, tabIndex, elementId, prop, value) {
+                    const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     if (!document) return;
 
                     const element = document.getElementById(elementId);

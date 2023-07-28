@@ -5,9 +5,14 @@
       {
         "name": "addButtonsToWindowById",
         "type": "function",
+        "async": true,
         "parameters": [
           {
             "name": "windowId",
+            "type": "integer"
+          },
+          {
+            "name": "tabIndex",
             "type": "integer"
           }
         ]
@@ -32,6 +37,10 @@
           {
             "name": "windowId",
             "description": "Register on the window with the ID",
+            "type": "integer"
+          },
+          {
+            "name": "tabIndex",
             "type": "integer"
           }
         ]

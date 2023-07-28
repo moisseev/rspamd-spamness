@@ -163,7 +163,6 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
     close() {
         libExperiments.removeElements([
             "spamScoreCol",
-            "spamScoreColSplitter",
             "rspamd-spamness-messenger-css"
         ]);
         Services.obs.removeObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);

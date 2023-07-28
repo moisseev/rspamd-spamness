@@ -50,11 +50,6 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
         }).join(""));
     }
 
-    const browserInfo = await browser.runtime.getBrowserInfo();
-    const [majorVersion] = browserInfo.version.split(".", 1);
-    // TB doesn't recalculate header height if it is already set.
-    if (majorVersion < 100) browser.spamHeaders.removeHeight(tab.id, "expandedHeaderView");
-
     if (!show.score && !show.rules)
         return;
 
@@ -136,10 +131,13 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
             const parsed = [];
             parsed.score = libCommon.getScoreByHdr(hdr, localStorage.header);
             browser.spamHeaders
-                .setHeaderHidden(tab.id, "expandedRspamdSpamnessRow", (parsed.score === null));
+                .setHeaderHidden(tab.windowId, tab.index, "expandedRspamdSpamnessRow", (parsed.score === null));
 
             if (parsed.score === null) {
-                browser.spamHeaders.setHeaderValue(tab.id, "expandedRspamdSpamnessRow", "headerValue", "");
+                browser.spamHeaders.setHeaderValue(
+                    tab.windowId, tab.index,
+                    "expandedRspamdSpamnessRow", "headerValue", ""
+                );
                 return;
             }
 
@@ -172,11 +170,11 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
             for (const key in id.score.hdr) {
                 if (!{}.hasOwnProperty.call(id.score.hdr, key)) continue;
                 browser.spamHeaders.setHeaderValue(
-                    tab.id, id.score.hdr[key].icon,
+                    tab.windowId, tab.index, id.score.hdr[key].icon,
                     "src", libCommon.getImageSrc(parsed[key])
                 );
                 browser.spamHeaders.setHeaderValue(
-                    tab.id, id.score.hdr[key].score,
+                    tab.windowId, tab.index, id.score.hdr[key].score,
                     "headerValue", hdrVal[key]
                 );
             }
@@ -189,17 +187,17 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
                 ? "Scan time: " + scanTime[0]
                 : "";
             browser.spamHeaders
-                .setHeaderValue(tab.id, "rspamdSpamnessScanTimeHeader", "headerValue", scanTimeStr);
+                .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessScanTimeHeader", "headerValue", scanTimeStr);
 
             const action = headers["x-rspamd-action"] || null;
             const actionStr = (action && action[0].length) ? action[0] : "";
             browser.spamHeaders
-                .setHeaderValue(tab.id, "rspamdSpamnessActionHeader", "headerValue", actionStr);
+                .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessActionHeader", "headerValue", actionStr);
         }
 
         if (show.rules) {
             browser.spamHeaders
-                .clearSymbolsHeader(tab.id, localStorage["headers-show_n_lines"]);
+                .clearSymbolsHeader(tab.windowId, tab.index, localStorage["headers-show_n_lines"]);
 
             let noSymbols = true;
             const parsed_symbols = [];
@@ -243,13 +241,13 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
                 })
                 .forEach((s) => {
                     browser.spamHeaders.addSymbol(
-                        tab.id, ((colorize_symbols ? getMetricClass(s.name) : null) || ""),
+                        tab.windowId, tab.index, ((colorize_symbols ? getMetricClass(s.name) : null) || ""),
                         s.name, s.options
                     );
                     noSymbols = false;
                 });
 
-            browser.spamHeaders.setHeaderHidden(tab.id, "expandedRspamdSpamnessRulesRow", noSymbols);
+            browser.spamHeaders.setHeaderHidden(tab.windowId, tab.index, "expandedRspamdSpamnessRulesRow", noSymbols);
         }
     }
 };
@@ -262,7 +260,7 @@ messageHeader.updateHeaders = function () {
                     const {headers} = messagepart;
                     if (headers) await messageHeader.displayHeaders(true, tab, message, headers);
                 }).catch((e) => libBackground.error(e));
-            });
+            }).catch((e) => libBackground.error(e));
         });
     });
 };

@@ -6,12 +6,12 @@
 /* eslint-disable no-var */
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 var Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
+var [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
 /* eslint-enable no-var */
 
 // eslint-disable-next-line no-var
 var popup = class extends ExtensionCommon.ExtensionAPI {
     getAPI(context) {
-        const [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
         let doc = null;
 
         const {ExtensionParent} =
@@ -29,19 +29,34 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
             document.getElementById("rspamdSpamnessSymbolPopupSortByScore").disabled = (order === "score");
         }
         function disableMenuitem(item, value) {
+            function disableItem(window, tabIndex) {
+                const {document} = libExperiments.getContentWindow(window, tabIndex);
+
+                if (!document.getElementById("rspamdSpamnessSymbolPopup")) return;
+
+                switch (item) {
+                case "group":
+                    disableSymGroupingMenuitem(document, value);
+                    break;
+                case "order":
+                    disableSymOrderMenuitem(document, value);
+                    break;
+                default:
+                    // eslint-disable-next-line no-console
+                    console.error("Unknown context menu item: " + item);
+                }
+            }
+
             ["mail:3pane", "mail:messageWindow"].forEach((windowType) => {
                 for (const window of Services.wm.getEnumerator(windowType)) {
-                    const {document} = window;
-                    switch (item) {
-                    case "group":
-                        disableSymGroupingMenuitem(document, value);
-                        break;
-                    case "order":
-                        disableSymOrderMenuitem(document, value);
-                        break;
-                    default:
-                        // eslint-disable-next-line no-console
-                        console.error("Unknown context menu item: " + item);
+                    if (window.gTabmail) {
+                        window.gTabmail.tabInfo.forEach((tab, tabIndex) => {
+                            if (["mail3PaneTab", "mailMessageTab"].some((n) => n === tab.mode.name)) {
+                                disableItem(window, tabIndex);
+                            }
+                        });
+                    } else {
+                        disableItem(window);
                     }
                 }
             });
@@ -50,9 +65,8 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
         context.callOnClose(this);
         return {
             popup: {
-                addPopupToWindowById(windowId, order, group) {
-                    const window = Services.wm.getOuterWindowWithId(windowId);
-                    doc = window.document;
+                addPopupToWindowById(windowId, tabIndex, order, group) {
+                    doc = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     const expandedHeaders2 = doc
                         .getElementById(majorVersion < 100 ? "expandedHeaders2" : "extraHeadersArea");
 
@@ -126,10 +140,14 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                     }
 
                     if (expandedHeaders2) {
-                        appendPopup();
+                        if (!doc.getElementById("rspamdSpamnessSymbolPopup")) {
+                            appendPopup();
+                            return true;
+                        }
                     } else {
                         throw Error("Could not find the expandedHeaders2 element.");
                     }
+                    return false;
                 },
                 disableSymGroupingMenuitem(group) {
                     disableMenuitem("group", group);

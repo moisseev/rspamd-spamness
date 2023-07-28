@@ -18,6 +18,9 @@
     "spamness.alertText.error_2147500037_workaround": {
         "message": "Попробуйте сначала открыть любое письмо в учетной записи папки назначения."
     },
+    "spamness.alertText.moveNotPermittedForExternalMessages": {
+        "message": "Перемещение не разрешено для внешних писем."
+    },
     "spamness.buttonTrainHam.label": {
         "message": "Обучить как не-спам"
     },
