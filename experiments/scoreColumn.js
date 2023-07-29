@@ -7,6 +7,7 @@
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 var {ExtensionSupport} = ChromeUtils.import("resource:///modules/ExtensionSupport.jsm");
 var Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
+var [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
 /* eslint-enable no-var */
 
 const RspamdSpamnessColumn = {};
@@ -89,6 +90,8 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                     return Services.prefs.getCharPref(prefName);
                 },
                 init() {
+                    if (majorVersion > 110) return;
+
                     // Listen for the main Thunderbird windows opening.
                     ExtensionSupport.registerWindowListener("scoreColumnListener", {
                         chromeURLs: ["chrome://messenger/content/messenger.xhtml"],
@@ -161,6 +164,8 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
 
     // eslint-disable-next-line class-methods-use-this
     close() {
+        if (majorVersion > 110) return;
+
         libExperiments.removeElements([
             "spamScoreCol",
             "rspamd-spamness-messenger-css"

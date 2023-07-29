@@ -11,3 +11,13 @@ input[type="radio"],
 label {
     vertical-align: middle;
 }
+#column-display-fieldset {
+    display: flex;
+    flex-direction: column;
+}
+#column-display-note {
+    color: black;
+    background-color: #ffe900;
+    border-radius: 4px;
+    padding: 4px 8px;
+}

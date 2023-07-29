@@ -3,6 +3,14 @@
 "use strict";
 
 async function init() {
+    browser.runtime.getBrowserInfo().then((browserInfo) => {
+        const [majorVersion] = browserInfo.version.split(".", 1);
+        if (majorVersion > 110) {
+            document.querySelector("#column-display-fieldset").disabled = true;
+            document.querySelector("#column-display-note").removeAttribute("hidden");
+        }
+    });
+
     const localStorage = await browser.storage.local.get(libBackground.defaultOptions.keys);
 
     document.querySelector("#columnDisplay_" + localStorage["display-column"]).checked = true;

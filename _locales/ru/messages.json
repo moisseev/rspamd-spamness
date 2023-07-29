@@ -117,6 +117,9 @@
     "spamnessOptions.captionDisplayColumnGroup.label": {
         "message": "Настройка отображения колонки"
     },
+    "spamnessOptions.columnDisplayGroup.note": {
+        "message": "Функция несовместима с этой версией Thunderbird. Поддерживаемые версии: 78.0 - 110.*."
+    },
     "spamnessOptions.captionDisplayMessageGroup.label": {
         "message": "Настройки отображения сообщения"
     },

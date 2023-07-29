@@ -121,6 +121,9 @@
     "spamnessOptions.captionDisplayColumnGroup.label": {
         "message": "Column display"
     },
+    "spamnessOptions.columnDisplayGroup.note": {
+        "message": "The feature is incompatible with this Thunderbird version. Supported versions: 78.0 - 110.*."
+    },
     "spamnessOptions.captionDisplayMessageGroup.label": {
         "message": "Message display"
     },
