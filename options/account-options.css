@@ -11,15 +11,10 @@ input[type="text"] {
     padding-bottom: 2px;
 }
 
-#account-box-table,
-#account-box-table col {
-    border: 1px solid silver;
-}
 .second-level-header th {
     font-weight: normal;
 }
 .account-box {
-    border: 1px solid silver;
     white-space: nowrap;
 }
 .account-box td {
@@ -35,6 +30,11 @@ input[type="text"] {
 .account-name-name {
     font-weight: bold;
 }
+.folder-account,
+.folder-location {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
 .folder-account {
     width: 200px;
     min-height: unset;
@@ -42,6 +42,14 @@ input[type="text"] {
 }
 .folder-location {
     width: 100%;
+}
+
+#account-box-table,
+#account-box-table col,
+.account-box,
+.folder-account,
+.folder-account:hover {
+    border: 1px solid silver !important;
 }
 
 :root {
