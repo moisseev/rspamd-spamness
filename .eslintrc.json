@@ -3,59 +3,67 @@
         "browser": true,
         "es6": true
     },
-    "extends": "eslint:all",
+    "extends": [
+        "eslint:all",
+        "plugin:@stylistic/all-extends"
+    ],
     "ignorePatterns": ["**/vendor/i18n.js"],
     "parserOptions": {
         "ecmaVersion": 8
     },
-    "plugins": ["html"],
+    "plugins": [
+        "@stylistic",
+        "html"
+    ],
     "rules": {
-        "array-element-newline": ["error", "consistent"],
         "camelcase": "off",
         "capitalized-comments": "off",
-        "comma-dangle": ["error", "only-multiline"],
         "complexity": ["error", 22],
         "curly": "off",
-        "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
-        "dot-location": ["error", "property"],
         "func-names": "off",
         "func-style": ["error", "declaration"],
-        "function-call-argument-newline": "off",
         "id-length": ["error", { "min": 1 }],
-        "max-len": ["error", { "code": 120 }],
         "max-lines": ["error", 400],
         "max-lines-per-function": ["warn", 250],
         "max-params": ["warn", 6],
         "max-statements": ["warn", 50],
-        "multiline-ternary": ["error", "always-multiline"],
-        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 4 }],
         "no-alert": "off",
         "no-continue": "off",
-        "no-extra-parens": ["error", "functions"],
         "no-implicit-globals": "off",
         "no-magic-numbers": "off",
-        "no-mixed-operators": "off",
         "no-plusplus": "off",
         "no-ternary": "off",
         "no-use-before-define": ["error", { "functions": false }],
-        "nonblock-statement-body-position": "off",
-        "object-curly-newline": ["error", { "consistent": true }],
-        "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
         "object-shorthand": "off",
         "one-var": "off",
-        "padded-blocks": "off",
         "prefer-arrow-callback": "off",
         "prefer-named-capture-group": "off",
         "prefer-object-has-own": "off",
         "prefer-template": "off",
-        "quote-props" : ["error", "consistent-as-needed"],
         "require-jsdoc": "off",
         "require-unicode-regexp": "off",
-        "space-before-function-paren": ["error", {
+        "strict": ["error", "global"],
+
+        "@stylistic/array-element-newline": ["error", "consistent"],
+        "@stylistic/comma-dangle": ["error", "only-multiline"],
+        "@stylistic/dot-location": ["error", "property"],
+        "@stylistic/function-call-argument-newline": "off",
+        "@stylistic/max-len": ["error", { "code": 120 }],
+        "@stylistic/multiline-ternary": ["error", "always-multiline"],
+        "@stylistic/newline-per-chained-call": ["error", { "ignoreChainWithDepth": 4 }],
+        "@stylistic/no-extra-parens": ["error", "functions"],
+        "@stylistic/nonblock-statement-body-position": "off",
+        "@stylistic/object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
+        "@stylistic/padded-blocks": "off",
+        "@stylistic/quote-props" : ["error", "consistent-as-needed"],
+        "@stylistic/space-before-function-paren": ["error", {
             "anonymous": "always",
             "named": "never"
         }],
-        "strict": ["error", "global"],
-        "wrap-iife": ["error", "any"]
+
+        // Temporary rules
+        "@stylistic/indent": ["error", 4, { "SwitchCase": 0 }],
+        "@stylistic/no-mixed-operators": "off",
+        "@stylistic/wrap-iife": ["error", "any"]
     }
 }

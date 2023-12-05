@@ -1,6 +1,7 @@
 {
     "devDependencies": {
         "eslint": "*",
+        "@stylistic/eslint-plugin": "*",
         "eslint-plugin-html": "*",
         "stylelint-config-standard": "*",
         "postcss-html": "*"
