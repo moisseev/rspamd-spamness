@@ -3,6 +3,7 @@
         "eslint": "*",
         "@stylistic/eslint-plugin": "*",
         "eslint-plugin-html": "*",
+        "stylelint": "*",
         "stylelint-config-standard": "*",
         "postcss-html": "*"
     }
