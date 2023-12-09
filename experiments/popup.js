@@ -35,15 +35,15 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                 if (!document.getElementById("rspamdSpamnessSymbolPopup")) return;
 
                 switch (item) {
-                case "group":
-                    disableSymGroupingMenuitem(document, value);
-                    break;
-                case "order":
-                    disableSymOrderMenuitem(document, value);
-                    break;
-                default:
-                    // eslint-disable-next-line no-console
-                    console.error("Unknown context menu item: " + item);
+                    case "group":
+                        disableSymGroupingMenuitem(document, value);
+                        break;
+                    case "order":
+                        disableSymOrderMenuitem(document, value);
+                        break;
+                    default:
+                        // eslint-disable-next-line no-console
+                        console.error("Unknown context menu item: " + item);
                 }
             }
 

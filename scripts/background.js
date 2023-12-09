@@ -183,21 +183,21 @@ browser.messageDisplay.onMessageDisplayed.addListener((tab, message) => {
 
 browser.runtime.onMessage.addListener(function handleMessage(request, sender, sendResponse) {
     switch (request.method) {
-    case "addTrainButtonsToNormalWindows":
-        initMessageHeader(true);
-        break;
-    case "getRulesDialogContent":
-        (function () {
-            const re = /( +(?:(?:Symbol?: )?[^) ]+\)(?:\[[^\]]*\])?|Message-ID: [^ ]+?))/g;
-            const content = messageHeader.headerStr[0].replace(re, "\n$1");
-            sendResponse({response: content});
-        })();
-        break;
-    case "syncHeaderPrefs":
-        libBackground.syncHeaderPrefs(request.data);
-        break;
-    default:
-        libBackground.error("Unknown request: " + request);
+        case "addTrainButtonsToNormalWindows":
+            initMessageHeader(true);
+            break;
+        case "getRulesDialogContent":
+            (function () {
+                const re = /( +(?:(?:Symbol?: )?[^) ]+\)(?:\[[^\]]*\])?|Message-ID: [^ ]+?))/g;
+                const content = messageHeader.headerStr[0].replace(re, "\n$1");
+                sendResponse({response: content});
+            })();
+            break;
+        case "syncHeaderPrefs":
+            libBackground.syncHeaderPrefs(request.data);
+            break;
+        default:
+            libBackground.error("Unknown request: " + request);
     }
 });
 
@@ -216,34 +216,34 @@ async function addControlsToWindow(windowId, tabIndex) {
         if (!success) return;
         browser.popup.onSymbolPopupCommand.addListener(function (id) {
             switch (id) {
-            case "copyMenuitem":
-                break;
-            case "rspamdSpamnessSymbolPopupSortByName":
-                sortSymbols("name");
-                break;
-            case "rspamdSpamnessSymbolPopupSortByScore":
-                sortSymbols("score");
-                break;
-            case "rspamdSpamnessSymbolPopupGroup":
-                groupSymbols(true);
-                break;
-            case "rspamdSpamnessSymbolPopupUngroup":
-                groupSymbols(false);
-                break;
-            case "rspamdSpamnessSymbolTrainHam":
-                moveMessage("rspamdSpamnessButtonHam", windowId, tabIndex);
-                break;
-            case "rspamdSpamnessSymbolTrainSpam":
-                moveMessage("rspamdSpamnessButtonSpam", windowId, tabIndex);
-                break;
-            case "rspamdSpamnessSymbolPopupOpenRulesDialog":
-                libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200);
-                break;
-            case "rspamdSpamnessSymbolPopupOptions":
-                browser.runtime.openOptionsPage();
-                break;
-            default:
-                libBackground.error("Unknown menuitem id: " + id);
+                case "copyMenuitem":
+                    break;
+                case "rspamdSpamnessSymbolPopupSortByName":
+                    sortSymbols("name");
+                    break;
+                case "rspamdSpamnessSymbolPopupSortByScore":
+                    sortSymbols("score");
+                    break;
+                case "rspamdSpamnessSymbolPopupGroup":
+                    groupSymbols(true);
+                    break;
+                case "rspamdSpamnessSymbolPopupUngroup":
+                    groupSymbols(false);
+                    break;
+                case "rspamdSpamnessSymbolTrainHam":
+                    moveMessage("rspamdSpamnessButtonHam", windowId, tabIndex);
+                    break;
+                case "rspamdSpamnessSymbolTrainSpam":
+                    moveMessage("rspamdSpamnessButtonSpam", windowId, tabIndex);
+                    break;
+                case "rspamdSpamnessSymbolPopupOpenRulesDialog":
+                    libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200);
+                    break;
+                case "rspamdSpamnessSymbolPopupOptions":
+                    browser.runtime.openOptionsPage();
+                    break;
+                default:
+                    libBackground.error("Unknown menuitem id: " + id);
             }
         });
     });
