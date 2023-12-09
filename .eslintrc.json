@@ -62,6 +62,7 @@
         }],
 
         // Temporary rules
+        "@stylistic/indent-binary-ops": "off",
         "@stylistic/no-mixed-operators": "off",
         "@stylistic/wrap-iife": ["error", "any"]
     }
