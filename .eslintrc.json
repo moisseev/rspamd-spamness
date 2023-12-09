@@ -61,9 +61,8 @@
             "named": "never"
         }],
 
-        // Temporary rules
+        // Temporarily disabled rules
         "@stylistic/indent-binary-ops": "off",
-        "@stylistic/no-mixed-operators": "off",
-        "@stylistic/wrap-iife": ["error", "any"]
+        "@stylistic/no-mixed-operators": "off"
     }
 }

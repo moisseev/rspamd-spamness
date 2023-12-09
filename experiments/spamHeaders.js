@@ -37,7 +37,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                 } else {
                     document.head.appendChild(link);
                 }
-            })();
+            }());
 
             const expandedHeaders2 = document
                 .getElementById(majorVersion < 100 ? "expandedHeaders2" : "extraHeadersArea");

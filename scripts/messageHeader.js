@@ -211,7 +211,7 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
                     [, s.name, s.score, s.options] = parsed_symbol;
                     a.push(s);
                 }
-            })(parsed_symbols);
+            }(parsed_symbols));
 
             const symOrder = localStorage["headers-symbols_order"].toLowerCase();
             const compare = (symOrder === "name")

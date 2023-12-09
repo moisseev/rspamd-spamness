@@ -106,7 +106,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
 
                                 const referenceNode = document.getElementById("tabmail-container");
                                 referenceNode.parentNode.insertBefore(link, referenceNode.previousSibling);
-                            })();
+                            }());
                             (function addColumn() {
                                 const columnId = "spamScoreCol";
                                 if (document.getElementById(columnId)) return;
@@ -134,7 +134,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                                         treeCol.setAttribute(attribute, value);
                                     }
                                 }
-                            })();
+                            }());
 
                             Services.obs.addObserver(RspamdSpamnessColumn.dbObserver, "MsgCreateDBView", false);
 

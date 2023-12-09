@@ -191,7 +191,7 @@ browser.runtime.onMessage.addListener(function handleMessage(request, sender, se
                 const re = /( +(?:(?:Symbol?: )?[^) ]+\)(?:\[[^\]]*\])?|Message-ID: [^ ]+?))/g;
                 const content = messageHeader.headerStr[0].replace(re, "\n$1");
                 sendResponse({response: content});
-            })();
+            }());
             break;
         case "syncHeaderPrefs":
             libBackground.syncHeaderPrefs(request.data);
