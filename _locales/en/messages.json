@@ -64,6 +64,9 @@
     "spamnessColumnToolTip.label": {
         "message": "Click to sort by Rspamd spam score"
     },
+    "spamnessIconColumn.label": {
+        "message": "Spam visual [Rspamd]"
+    },
     "spamnessInstalled.columnGroup.label": {
         "message": "Displaying the 'Spam score' column"
     },
@@ -123,6 +126,9 @@
     },
     "spamnessOptions.columnDisplayGroup.note": {
         "message": "The feature is incompatible with this Thunderbird version. Supported versions: 78.0 - 110.*."
+    },
+    "spamnessOptions.columnDisplayGroup.note-cc": {
+        "message": "This feature is experimental in this Thunderbird version. The radio buttons affect the default column visibility. Disabling/enabling the extension or restarting Thunderbird is required for the changes to take effect."
     },
     "spamnessOptions.captionDisplayMessageGroup.label": {
         "message": "Message display"

@@ -9,7 +9,7 @@
     ],
     "ignorePatterns": ["**/vendor/i18n.js"],
     "parserOptions": {
-        "ecmaVersion": 8
+        "ecmaVersion": 9
     },
     "plugins": [
         "@stylistic",

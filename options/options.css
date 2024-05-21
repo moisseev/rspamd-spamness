@@ -15,7 +15,7 @@ label {
     display: flex;
     flex-direction: column;
 }
-#column-display-note {
+.column-display-note {
     color: black;
     background-color: #ffe900;
     border-radius: 4px;

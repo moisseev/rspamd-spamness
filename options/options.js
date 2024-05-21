@@ -2,14 +2,43 @@
 
 "use strict";
 
+let SupernovaCC = null;
+let majorVersion = null;
+let minorVersion = null;
+
 async function init() {
-    browser.runtime.getBrowserInfo().then((browserInfo) => {
-        const [majorVersion] = browserInfo.version.split(".", 1);
-        if (majorVersion > 110) {
-            document.querySelector("#column-display-fieldset").disabled = true;
-            document.querySelector("#column-display-note").removeAttribute("hidden");
+    // Add timeout to a promise
+    function promiseTimeout(promise, timeout, exception) {
+        let timer = null;
+        const timeoutPromise = new Promise((_, reject) => {
+            timer = setTimeout(() => reject(exception), timeout);
+        });
+        return Promise.race([promise, timeoutPromise])
+            .finally(() => clearTimeout(timer));
+    }
+
+    const timeoutError = Symbol("promise timeout");
+    try {
+        // In Thunderbird 78, the promise never resolves in this script but works in background.js
+        const browserInfo = await promiseTimeout(messenger.runtime.getBrowserInfo(), 100, timeoutError);
+        [majorVersion, minorVersion] = browserInfo.version.split(".", 2).map((v) => parseInt(v, 10));
+        // Thunderbird Supernova with custom column handlers support
+        SupernovaCC = majorVersion > 115 || (majorVersion === 115 && minorVersion >= 10);
+    } catch (e) {
+        if (e === timeoutError) {
+            libBackground.error("Timeout occurred while fetching browser info.");
+        } else {
+            // Throw other errors
+            throw e;
         }
-    });
+    }
+
+    if (SupernovaCC) {
+        document.querySelector("#column-display-note-cc").removeAttribute("hidden");
+    } else if (majorVersion > 110) {
+        document.querySelector("#column-display-fieldset").disabled = true;
+        document.querySelector("#column-display-note").removeAttribute("hidden");
+    }
 
     const localStorage = await browser.storage.local.get(libBackground.defaultOptions.keys);
 
@@ -60,6 +89,11 @@ async function saveOptions(e) {
         "display-column": document.querySelector("input[name='columnDisplay']:checked").value,
         "display-columnImageOnlyForPositive": document.querySelector("#columnImageOnlyForPositive").checked
     });
+
+    if (SupernovaCC &&
+        localStorage["display-columnImageOnlyForPositive"] !==
+        document.querySelector("#columnImageOnlyForPositive").checked)
+        browser.scoreColumn.refreshCustomColumn("spamIconCol");
 
     if (!localStorage["trainingButtons-enabled"] && document.querySelector("#trainingButtons-enabled").checked) {
         browser.runtime.sendMessage({method: "addTrainButtonsToNormalWindows"});

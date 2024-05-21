@@ -12,21 +12,21 @@ var libCommon = {
     ]
 };
 
-libCommon.getImageSrc = function (normalized) {
+libCommon.getImageSrc = function (normalized, id) {
     let img = null;
     let level = null;
     if (isNaN(normalized)) {
-        img = "images/symbol-null.png";
+        img = "symbol-null";
     } else if (normalized < 0) {
         level = Math.round(Math.log(Math.abs(normalized) + 1));
         level = (level >= 5) ? 4 : level;
-        img = "images/ham" + level + ".png";
+        img = "ham" + level;
     } else {
         level = Math.round(Math.log(normalized + 1));
         level = (level >= 5) ? 4 : level;
-        img = "images/spam" + level + ".png";
+        img = "spam" + level;
     }
-    return img;
+    return id ? img : "images/" + img + ".png";
 };
 
 libCommon.getUserHeaders = function (header) {

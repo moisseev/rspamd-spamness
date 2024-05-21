@@ -60,6 +60,9 @@
     "spamnessColumnToolTip.label": {
         "message": "Сортировать по оценке"
     },
+    "spamnessIconColumn.label": {
+        "message": "Индикатор спама [Rspamd]"
+    },
     "spamnessInstalled.columnGroup.label": {
         "message": "Отображение колонки 'Оценка спама [Rspamd]'"
     },
@@ -119,6 +122,9 @@
     },
     "spamnessOptions.columnDisplayGroup.note": {
         "message": "Функция несовместима с этой версией Thunderbird. Поддерживаемые версии: 78.0 - 110.*."
+    },
+    "spamnessOptions.columnDisplayGroup.note-cc": {
+        "message": "В данной версии Thunderbird это экспериментальная функция. Радиокнопки управляют видимостью столбцов по умолчанию. Для применения изменений необходимо отключить/включить расширение или перезапустить Thunderbird."
     },
     "spamnessOptions.captionDisplayMessageGroup.label": {
         "message": "Настройки отображения сообщения"

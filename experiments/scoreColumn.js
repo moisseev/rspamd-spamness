@@ -7,10 +7,15 @@
 var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 var {ExtensionSupport} = ChromeUtils.import("resource:///modules/ExtensionSupport.jsm");
 var Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
-var [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
+var [majorVersion, minorVersion] = Services.appinfo.platformVersion.split(".", 2).map((v) => parseInt(v, 10));
 /* eslint-enable no-var */
 
 const RspamdSpamnessColumn = {};
+// Thunderbird Supernova with custom column handlers support
+const SupernovaCC = majorVersion > 115 || (majorVersion === 115 && minorVersion >= 10);
+const ThreadPaneColumns = SupernovaCC
+    ? ChromeUtils.importESModule("chrome://messenger/content/thread-pane-columns.mjs").ThreadPaneColumns
+    : null;
 
 // eslint-disable-next-line no-var
 var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
@@ -90,6 +95,60 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                     return Services.prefs.getCharPref(prefName);
                 },
                 init() {
+                    function getScore(hdr) {
+                        const score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
+                        return (isNaN(score)) ? "" : score.toFixed(2);
+                    }
+
+                    function getImageId(hdr) {
+                        const score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
+                        if (localStorage["display-columnImageOnlyForPositive"] && score <= 0)
+                            return "";
+                        return libCommon.getImageSrc(score, true);
+                    }
+
+                    function addCustomColumn(id, properties) {
+                        ThreadPaneColumns.addCustomColumn(id, {
+                            name: context.extension.localeData.localizeMessage("spamnessColumn.label"),
+                            sortCallback: (hdr) => getScore(hdr) * 1e4 + 1e8,
+                            sortable: true,
+                            ...properties
+                        });
+                    }
+
+                    if (SupernovaCC) {
+                        const iconCellDefinitions = [];
+                        [{alt: "H", name: "ham"}, {alt: "S", name: "spam"}].forEach((c) => {
+                            for (let i = 0; i < 5; i++) {
+                                iconCellDefinitions.push({
+                                    alt: c.alt,
+                                    id: c.name + i,
+                                    title: c.name,
+                                    url: extension.getURL("images/" + c.name + i + ".png")
+                                });
+                            }
+                        });
+
+                        addCustomColumn("spamIconCol", {
+                            hidden: (localStorage["display-column"] === "text"),
+                            icon: true,
+                            iconCallback: getImageId,
+                            iconCellDefinitions: iconCellDefinitions,
+                            iconHeaderUrl: extension.getURL("images/icon12.svg"),
+                            name: context.extension.localeData.localizeMessage("spamnessIconColumn.label"),
+                            resizable: false,
+                            textCallback: true
+                        });
+
+                        addCustomColumn("spamScoreCol", {
+                            hidden: (localStorage["display-column"] === "image"),
+                            name: context.extension.localeData.localizeMessage("spamnessColumn.label"),
+                            textCallback: getScore
+                        });
+
+                        return;
+                    }
+
                     if (majorVersion > 110) return;
 
                     // Listen for the main Thunderbird windows opening.
@@ -146,6 +205,9 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                         }
                     });
                 },
+                refreshCustomColumn(id) {
+                    ThreadPaneColumns.refreshCustomColumn(id);
+                },
                 savePrefFile() {
                     Services.prefs.savePrefFile(null);
                 },
@@ -164,6 +226,11 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
 
     // eslint-disable-next-line class-methods-use-this
     close() {
+        if (SupernovaCC) {
+            ["spamIconCol", "spamScoreCol"].forEach((c) => ThreadPaneColumns.removeCustomColumn(c));
+            return;
+        }
+
         if (majorVersion > 110) return;
 
         libExperiments.removeElements([

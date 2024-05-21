@@ -8,6 +8,16 @@
         "parameters": []
       },
       {
+        "name": "refreshCustomColumn",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string"
+          }
+        ]
+      },
+      {
         "name": "setLocalStorage",
         "type": "function",
         "parameters": [
