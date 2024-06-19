@@ -1,4 +1,4 @@
-/* global ChromeUtils, libCommon, libExperiments, globalThis */
+/* global ChromeUtils, libCommon, libExperiments, libHeader, globalThis */
 /* exported scoreColumn */
 
 "use strict";
@@ -41,6 +41,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
             .getExtension("rspamd-spamness@alexander.moisseev");
         Services.scriptloader.loadSubScript(extension.getURL("scripts/libCommon.js"));
         Services.scriptloader.loadSubScript(extension.getURL("experiments/libExperiments.js"));
+        Services.scriptloader.loadSubScript(extension.getURL("scripts/libHeader.js"));
 
         RspamdSpamnessColumn.handler = {
             getCellProperties: function () {
@@ -95,29 +96,34 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                     return Services.prefs.getCharPref(prefName);
                 },
                 init() {
-                    function getScore(hdr) {
-                        const score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
+                    function getScore(hdr, column) {
+                        let score = null;
+                        if (column === "spamness") {
+                            score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
+                        } else {
+                            const symbols = libHeader.getSymbols(hdr, localStorage.header, true, window);
+                            if (!symbols) return "";
+                            score = parseFloat(libHeader.parseHeaders(symbols).parsed[column]);
+                        }
                         return (isNaN(score)) ? "" : score.toFixed(2);
                     }
 
-                    function getImageId(hdr) {
-                        const score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
-                        if (localStorage["display-columnImageOnlyForPositive"] && score <= 0)
-                            return "";
+                    function getImageId(hdr, column) {
+                        let score = null;
+                        if (column === "spamness") {
+                            score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
+                            if (localStorage["display-columnImageOnlyForPositive"] && score <= 0)
+                                return "";
+                        } else {
+                            const symbols = libHeader.getSymbols(hdr, localStorage.header, true, window);
+                            if (!symbols) return "";
+                            score = parseFloat(libHeader.parseHeaders(symbols).parsed[column]);
+                        }
                         return libCommon.getImageSrc(score, true);
                     }
 
-                    function addCustomColumn(id, properties) {
-                        ThreadPaneColumns.addCustomColumn(id, {
-                            name: context.extension.localeData.localizeMessage("spamnessColumn.label"),
-                            sortCallback: (hdr) => getScore(hdr) * 1e4 + 1e8,
-                            sortable: true,
-                            ...properties
-                        });
-                    }
-
+                    const iconCellDefinitions = [];
                     if (SupernovaCC) {
-                        const iconCellDefinitions = [];
                         [{alt: "H", name: "ham"}, {alt: "S", name: "spam"}].forEach((c) => {
                             for (let i = 0; i < 5; i++) {
                                 iconCellDefinitions.push({
@@ -128,26 +134,33 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                                 });
                             }
                         });
-
-                        addCustomColumn("spamIconCol", {
-                            hidden: (localStorage["display-column"] === "text"),
-                            icon: true,
-                            iconCallback: getImageId,
-                            iconCellDefinitions: iconCellDefinitions,
-                            iconHeaderUrl: extension.getURL("images/icon12.svg"),
-                            name: context.extension.localeData.localizeMessage("spamnessIconColumn.label"),
-                            resizable: false,
-                            textCallback: true
-                        });
-
-                        addCustomColumn("spamScoreCol", {
-                            hidden: (localStorage["display-column"] === "image"),
-                            name: context.extension.localeData.localizeMessage("spamnessColumn.label"),
-                            textCallback: getScore
-                        });
-
-                        return;
                     }
+
+                    function addCustomColumn(id, column, icon) {
+                        const properties = icon
+                            ? {
+                                icon: true,
+                                iconCallback: (hdr) => getImageId(hdr, column),
+                                iconCellDefinitions: iconCellDefinitions,
+                                iconHeaderUrl: extension.getURL("images/" + column + ".svg"),
+                                resizable: false,
+                                textCallback: true
+                            }
+                            : {
+                                textCallback: (hdr) => getScore(hdr, column)
+                            };
+
+                        ThreadPaneColumns.addCustomColumn(id, {
+                            hidden: (localStorage["display-column"] === (icon ? "text" : "image")),
+                            name: context.extension.localeData
+                                .localizeMessage(column + (icon ? "Icon" : "") + "Column.label"),
+                            sortCallback: (hdr) => getScore(hdr) * 1e4 + 1e8,
+                            sortable: true,
+                            ...properties
+                        });
+                    }
+
+                    if (SupernovaCC) iterateColumns(addCustomColumn);
 
                     if (majorVersion > 110) return;
 
@@ -226,10 +239,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
 
     // eslint-disable-next-line class-methods-use-this
     close() {
-        if (SupernovaCC) {
-            ["spamIconCol", "spamScoreCol"].forEach((c) => ThreadPaneColumns.removeCustomColumn(c));
-            return;
-        }
+        if (SupernovaCC) iterateColumns((id) => ThreadPaneColumns.removeCustomColumn(id));
 
         if (majorVersion > 110) return;
 
@@ -241,3 +251,12 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
         ExtensionSupport.unregisterWindowListener("scoreColumnListener");
     }
 };
+
+function iterateColumns(callback) {
+    ["spamness", "bayes", "fuzzy"].forEach((column) => {
+        [true, false].forEach((icon) => {
+            const id = column + (icon ? "Icon" : "Score") + "Col";
+            callback(id, column, icon);
+        });
+    });
+}

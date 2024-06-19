@@ -93,7 +93,7 @@ async function saveOptions(e) {
     if (SupernovaCC &&
         localStorage["display-columnImageOnlyForPositive"] !==
         document.querySelector("#columnImageOnlyForPositive").checked)
-        browser.scoreColumn.refreshCustomColumn("spamIconCol");
+        browser.scoreColumn.refreshCustomColumn("spamnessIconCol");
 
     if (!localStorage["trainingButtons-enabled"] && document.querySelector("#trainingButtons-enabled").checked) {
         browser.runtime.sendMessage({method: "addTrainButtonsToNormalWindows"});

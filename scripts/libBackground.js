@@ -65,19 +65,14 @@ libBackground.getDestination = async function (accountId, folder) {
     };
 };
 
-libBackground.getHeaderStr = async function (headers) {
-    let headerStr = null;
-    const {header} = await browser.storage.local.get("header");
-    const userHeaders = await libCommon.getUserHeaders(header);
-    userHeaders.some(function (headerName) {
-        if (!headerName) return false;
-        headerStr = headers[headerName];
-        return ((/: \S+ \[[-\d.]+ \/ [-\d.]+\]/).test(headerStr));
-    });
-    return headerStr || headers["x-spamd-result"] || null;
-};
-
 libBackground.syncHeaderPrefs = async function (prefVal) {
+
+    /*
+     * Add headers containing symbols to "mailnews.customHeaders" for support of Bayes and Fuzzy columns,
+     * if symbols are managed separately from score headers.
+     */
+    const symbolHeaders = ["x-rspamd-report", "x-spam-result"];
+
     const customHeaders = await getHeadersPref("mailnews.customHeaders", /\s*:\s*/);
     const {header} = await browser.storage.local.get("header");
     const curUserHeaders = libCommon.getUserHeaders(header);
@@ -93,7 +88,7 @@ libBackground.syncHeaderPrefs = async function (prefVal) {
         }
     }
 
-    const newHeaders = [...libCommon.scoreHeaders, ...newUserHeaders];
+    const newHeaders = [...libCommon.scoreHeaders, ...symbolHeaders, ...newUserHeaders];
     setHeadersPref("mailnews.customHeaders", customHeaders, ": ", curUserHeaders, newHeaders);
 
     const setting = {header: newUserHeaders.join(", ")};

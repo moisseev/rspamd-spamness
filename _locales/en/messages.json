@@ -59,13 +59,25 @@
         "message": "Rules"
     },
     "spamnessColumn.label": {
-        "message": "Spam score [Rspamd]"
+        "message": "Spam [Rspamd] score"
+    },
+    "bayesColumn.label": {
+        "message": "Bayes [Rspamd] score"
+    },
+    "fuzzyColumn.label": {
+        "message": "Fuzzy [Rspamd] score"
     },
     "spamnessColumnToolTip.label": {
         "message": "Click to sort by Rspamd spam score"
     },
     "spamnessIconColumn.label": {
-        "message": "Spam visual [Rspamd]"
+        "message": "Spam [Rspamd] visual"
+    },
+    "bayesIconColumn.label": {
+        "message": "Bayes [Rspamd] visual"
+    },
+    "fuzzyIconColumn.label": {
+        "message": "Fuzzy [Rspamd] visual"
     },
     "spamnessInstalled.columnGroup.label": {
         "message": "Displaying the 'Spam score' column"

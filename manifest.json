@@ -24,6 +24,7 @@
     "scripts": [
       "scripts/libCommon.js",
       "scripts/libBackground.js",
+      "scripts/libHeader.js",
       "scripts/messageHeader.js",
       "scripts/background.js"
     ]

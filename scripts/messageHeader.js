@@ -1,4 +1,4 @@
-/* global browser, libBackground, libCommon */
+/* global browser, libBackground, libCommon, libHeader */
 
 "use strict";
 
@@ -44,211 +44,136 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
         score: update_rules ? false : localStorage["display-messageScore"]
     };
 
-    function b64DecodeUnicode(str) {
-        return decodeURIComponent(atob(str).split("").map(function (c) {
-            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(""));
+    if (!show.score && !show.rules) return;
+
+    const symbols = await libHeader.getSymbols(headers, localStorage.header);
+
+    if (symbols === null) return;
+
+    function getMetricClass(rule) {
+        if (rule.match(/^GREYLIST\(/))
+            return "linkDisplayButtonGreyl";
+
+        const metric = rule.match(/\(([-\d.]+)\)$/);
+        const metricScore = (metric)
+            ? metric[1]
+            : null;
+        if (metricScore < 0) {
+            return "linkDisplayButtonHam";
+        } else if (metricScore > 0) {
+            return "linkDisplayButtonSpam";
+        }
+        return null;
     }
 
-    if (!show.score && !show.rules)
-        return;
+    if (show.score) {
+        const score = libCommon.getScoreByHdr(headers, localStorage.header);
 
-    // Get symbols from milter header
-    messageHeader.headerStr = await libBackground.getHeaderStr(headers);
-    if (messageHeader.headerStr) {
+        browser.spamHeaders
+            .setHeaderHidden(tab.windowId, tab.index, "expandedRspamdSpamnessRow", (score === null));
 
-        /*
-         * const converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
-         *     .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
-         * converter.charset = "UTF-8";
-         * messageHeader.headerStr = converter.ConvertToUnicode(messageHeader.headerStr);
-         */
-        const m = messageHeader.headerStr[0].match(/: \S+ \[[-\d.]+ \/ [-\d.]+\] *(.*)$/);
-        if (m) {
-            displayScoreRulesHeaders(headers, m[1]);
+        if (score === null) {
+            browser.spamHeaders.setHeaderValue(
+                tab.windowId, tab.index,
+                "expandedRspamdSpamnessRow", "headerValue", ""
+            );
             return;
         }
+
+        const {fuzzySymbolsCount, parsed} = libHeader.parseHeaders(symbols);
+        parsed.score = score;
+
+        const fuzzyCounter = (fuzzySymbolsCount > 1)
+            ? "{" + fuzzySymbolsCount + "}"
+            : "";
+
+        const hdrVal = {
+            bayes: parsed.bayes + parsed.bayesOptions + ", Fuzzy" + fuzzyCounter + ":",
+            fuzzy: parsed.fuzzy + " )",
+            score: parsed.score + " ( Bayes:"
+        };
+
+        for (const key in id.score.hdr) {
+            if (!{}.hasOwnProperty.call(id.score.hdr, key)) continue;
+            browser.spamHeaders.setHeaderValue(
+                tab.windowId, tab.index, id.score.hdr[key].icon,
+                "src", libCommon.getImageSrc(parsed[key])
+            );
+            browser.spamHeaders.setHeaderValue(
+                tab.windowId, tab.index, id.score.hdr[key].score,
+                "headerValue", hdrVal[key]
+            );
+        }
+
+        let scanTime = headers["x-rspamd-scan-time"] || null;
+        if (!scanTime || !scanTime[0].length) {
+            scanTime = headers["x-spam-scan-time"] || [""];
+        }
+        const scanTimeStr = (scanTime[0].length)
+            ? "Scan time: " + scanTime[0]
+            : "";
+        browser.spamHeaders
+            .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessScanTimeHeader", "headerValue", scanTimeStr);
+
+        const action = headers["x-rspamd-action"] || null;
+        const actionStr = (action && action[0].length) ? action[0] : "";
+        browser.spamHeaders
+            .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessActionHeader", "headerValue", actionStr);
     }
 
-    // Get symbols from Haraka header
-    messageHeader.headerStr = headers["x-rspamd-report"] || null;
-    if (messageHeader.headerStr) {
-        const s = messageHeader.headerStr[0].match(/\S/).input;
-        if (s) {
-            displayScoreRulesHeaders(headers, messageHeader.headerStr[0]);
-            return;
-        }
-    }
+    if (show.rules) {
+        browser.spamHeaders
+            .clearSymbolsHeader(tab.windowId, tab.index, localStorage["headers-show_n_lines"]);
 
-    // Get symbols from Exim header
-    messageHeader.headerStr = headers["x-spam-report"] || null;
-    if (messageHeader.headerStr) {
-        const m = messageHeader.headerStr[0].match(/^Action: [ a-z]+?(Symbol: .*)Message-ID:/);
-        if (m) {
-            displayScoreRulesHeaders(headers, m[1]);
-            return;
-        }
-    }
+        let noSymbols = true;
+        const parsed_symbols = [];
 
-    // Get symbols from LDA mode header
-    messageHeader.headerStr = headers["x-spam-result"] || null;
-    if (messageHeader.headerStr) {
-        messageHeader.headerStr[0] = b64DecodeUnicode(messageHeader.headerStr[0]);
-        const metric = JSON.parse(messageHeader.headerStr[0]).default;
-        let s = "";
-        for (const item in metric) {
-            if (!{}.hasOwnProperty.call(metric, item)) continue;
-            const symbol = metric[item];
-            if (symbol.name) {
-                s += " " + symbol.name +
-                    "(" + symbol.score.toFixed(2) + ")" +
-                    "[" + (symbol.options ? symbol.options.join(", ") : "") + "]";
+        (function (a) {
+            let parsed_symbol = [];
+            let s = [];
+            const re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
+            while ((parsed_symbol = re.exec(symbols)) !== null) {
+                s = [];
+                [, s.name, s.score, s.options] = parsed_symbol;
+                a.push(s);
             }
-        }
-        if (s) {
-            displayScoreRulesHeaders(headers, s);
-        }
-    }
+        }(parsed_symbols));
 
-    function displayScoreRulesHeaders(hdr, symbols) {
-        function getMetricClass(rule) {
-            if (rule.match(/^GREYLIST\(/))
-                return "linkDisplayButtonGreyl";
-
-            const metric = rule.match(/\(([-\d.]+)\)$/);
-            const metricScore = (metric)
-                ? metric[1]
-                : null;
-            if (metricScore < 0) {
-                return "linkDisplayButtonHam";
-            } else if (metricScore > 0) {
-                return "linkDisplayButtonSpam";
+        const symOrder = localStorage["headers-symbols_order"].toLowerCase();
+        const compare = (symOrder === "name")
+            ? function (a, b) {
+                return a.name.localeCompare(b.name);
             }
-            return null;
-        }
-
-        if (show.score) {
-            const parsed = [];
-            parsed.score = libCommon.getScoreByHdr(hdr, localStorage.header);
-            browser.spamHeaders
-                .setHeaderHidden(tab.windowId, tab.index, "expandedRspamdSpamnessRow", (parsed.score === null));
-
-            if (parsed.score === null) {
-                browser.spamHeaders.setHeaderValue(
-                    tab.windowId, tab.index,
-                    "expandedRspamdSpamnessRow", "headerValue", ""
-                );
-                return;
-            }
-
-            const b = symbols.match(/BAYES_(?:HAM|SPAM)\(([-\d.]+)\)(\[[^\]]+?\])?/);
-            parsed.bayes = (b) ? b[1] : "undefined";
-            parsed.bayesOptions = (b && b[2]) ? " " + b[2] : "";
-
-            const re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d.]+)\)/g;
-            let fuzzySymbols = [];
-            parsed.fuzzy = 0;
-            let fuzzySymbolsCount = 0;
-            while ((fuzzySymbols = re.exec(symbols)) !== null) {
-                parsed.fuzzy += parseFloat(fuzzySymbols[1]);
-                fuzzySymbolsCount++;
-            }
-            parsed.fuzzy = (parsed.fuzzy)
-                ? Number(parseFloat(parsed.fuzzy).toFixed(10))
-                : "undefined";
-
-            const fuzzyCounter = (fuzzySymbolsCount > 1)
-                ? "{" + fuzzySymbolsCount + "}"
-                : "";
-
-            const hdrVal = {
-                bayes: parsed.bayes + parsed.bayesOptions + ", Fuzzy" + fuzzyCounter + ":",
-                fuzzy: parsed.fuzzy + " )",
-                score: parsed.score + " ( Bayes:"
+            : function (a, b) {
+                return Math.abs(a.score) < Math.abs(b.score);
             };
 
-            for (const key in id.score.hdr) {
-                if (!{}.hasOwnProperty.call(id.score.hdr, key)) continue;
-                browser.spamHeaders.setHeaderValue(
-                    tab.windowId, tab.index, id.score.hdr[key].icon,
-                    "src", libCommon.getImageSrc(parsed[key])
-                );
-                browser.spamHeaders.setHeaderValue(
-                    tab.windowId, tab.index, id.score.hdr[key].score,
-                    "headerValue", hdrVal[key]
-                );
-            }
-
-            let scanTime = headers["x-rspamd-scan-time"] || null;
-            if (!scanTime || !scanTime[0].length) {
-                scanTime = headers["x-spam-scan-time"] || [""];
-            }
-            const scanTimeStr = (scanTime[0].length)
-                ? "Scan time: " + scanTime[0]
-                : "";
-            browser.spamHeaders
-                .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessScanTimeHeader", "headerValue", scanTimeStr);
-
-            const action = headers["x-rspamd-action"] || null;
-            const actionStr = (action && action[0].length) ? action[0] : "";
-            browser.spamHeaders
-                .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessActionHeader", "headerValue", actionStr);
-        }
-
-        if (show.rules) {
-            browser.spamHeaders
-                .clearSymbolsHeader(tab.windowId, tab.index, localStorage["headers-show_n_lines"]);
-
-            let noSymbols = true;
-            const parsed_symbols = [];
-
-            (function (a) {
-                let parsed_symbol = [];
-                let s = [];
-                const re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
-                while ((parsed_symbol = re.exec(symbols)) !== null) {
-                    s = [];
-                    [, s.name, s.score, s.options] = parsed_symbol;
-                    a.push(s);
+        const colorize_symbols = localStorage["headers-colorizeSymbols"];
+        const group_symbols = localStorage["headers-group_symbols"];
+        parsed_symbols
+            .sort(function (a, b) {
+                function group(s) {
+                    if (s.score > 0) return 3;
+                    if (s.score < 0) return 2;
+                    if ((/^GREYLIST\(/).test(s.name)) return 1;
+                    return 0;
                 }
-            }(parsed_symbols));
 
-            const symOrder = localStorage["headers-symbols_order"].toLowerCase();
-            const compare = (symOrder === "name")
-                ? function (a, b) {
-                    return a.name.localeCompare(b.name);
+                if (group_symbols) {
+                    if (group(a) < group(b)) return 1;
+                    if (group(a) > group(b)) return -1;
                 }
-                : function (a, b) {
-                    return Math.abs(a.score) < Math.abs(b.score);
-                };
+                return compare(a, b);
+            })
+            .forEach((s) => {
+                browser.spamHeaders.addSymbol(
+                    tab.windowId, tab.index, ((colorize_symbols ? getMetricClass(s.name) : null) || ""),
+                    s.name, s.options
+                );
+                noSymbols = false;
+            });
 
-            const colorize_symbols = localStorage["headers-colorizeSymbols"];
-            const group_symbols = localStorage["headers-group_symbols"];
-            parsed_symbols
-                .sort(function (a, b) {
-                    function group(s) {
-                        if (s.score > 0) return 3;
-                        if (s.score < 0) return 2;
-                        if ((/^GREYLIST\(/).test(s.name)) return 1;
-                        return 0;
-                    }
-
-                    if (group_symbols) {
-                        if (group(a) < group(b)) return 1;
-                        if (group(a) > group(b)) return -1;
-                    }
-                    return compare(a, b);
-                })
-                .forEach((s) => {
-                    browser.spamHeaders.addSymbol(
-                        tab.windowId, tab.index, ((colorize_symbols ? getMetricClass(s.name) : null) || ""),
-                        s.name, s.options
-                    );
-                    noSymbols = false;
-                });
-
-            browser.spamHeaders.setHeaderHidden(tab.windowId, tab.index, "expandedRspamdSpamnessRulesRow", noSymbols);
-        }
+        browser.spamHeaders.setHeaderHidden(tab.windowId, tab.index, "expandedRspamdSpamnessRulesRow", noSymbols);
     }
 };
 

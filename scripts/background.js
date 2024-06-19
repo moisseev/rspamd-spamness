@@ -1,4 +1,4 @@
-/* global browser, libBackground, messenger, messageHeader */
+/* global browser, libBackground, libHeader, messenger, messageHeader */
 
 "use strict";
 
@@ -189,7 +189,7 @@ browser.runtime.onMessage.addListener(function handleMessage(request, sender, se
         case "getRulesDialogContent":
             (function () {
                 const re = /( +(?:(?:Symbol?: )?[^) ]+\)(?:\[[^\]]*\])?|Message-ID: [^ ]+?))/g;
-                const content = messageHeader.headerStr[0].replace(re, "\n$1");
+                const content = libHeader.headerStr[0].replace(re, "\n$1");
                 sendResponse({response: content});
             }());
             break;

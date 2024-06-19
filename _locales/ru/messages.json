@@ -55,13 +55,25 @@
         "message": "Правила"
     },
     "spamnessColumn.label": {
-        "message": "Оценка спама [Rspamd]"
+        "message": "Спам [Rspamd] оценка"
+    },
+    "bayesColumn.label": {
+        "message": "Bayes [Rspamd] оценка"
+    },
+    "fuzzyColumn.label": {
+        "message": "Fuzzy [Rspamd] оценка"
     },
     "spamnessColumnToolTip.label": {
         "message": "Сортировать по оценке"
     },
     "spamnessIconColumn.label": {
-        "message": "Индикатор спама [Rspamd]"
+        "message": "Спам [Rspamd] индикатор"
+    },
+    "bayesIconColumn.label": {
+        "message": "Bayes [Rspamd] индикатор"
+    },
+    "fuzzyIconColumn.label": {
+        "message": "Fuzzy [Rspamd] индикатор"
     },
     "spamnessInstalled.columnGroup.label": {
         "message": "Отображение колонки 'Оценка спама [Rspamd]'"
