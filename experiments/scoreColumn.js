@@ -154,7 +154,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                             hidden: (localStorage["display-column"] === (icon ? "text" : "image")),
                             name: context.extension.localeData
                                 .localizeMessage(column + (icon ? "Icon" : "") + "Column.label"),
-                            sortCallback: (hdr) => getScore(hdr) * 1e4 + 1e8,
+                            sortCallback: (hdr) => getScore(hdr, column) * 1e4 + 1e8,
                             sortable: true,
                             ...properties
                         });
