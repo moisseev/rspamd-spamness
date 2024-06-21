@@ -253,8 +253,9 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
 };
 
 function iterateColumns(callback) {
-    ["spamness", "bayes", "fuzzy"].forEach((column) => {
+    ["spamness", "bayes", "bayesOptions", "fuzzy"].forEach((column) => {
         [true, false].forEach((icon) => {
+            if (icon && column === "bayesOptions") return;
             const id = column + (icon ? "Icon" : "Score") + "Col";
             callback(id, column, icon);
         });

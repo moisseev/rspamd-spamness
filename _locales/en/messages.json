@@ -64,6 +64,9 @@
     "bayesColumn.label": {
         "message": "Bayes [Rspamd] score"
     },
+    "bayesOptionsColumn.label": {
+        "message": "%, Bayes [Rspamd] probability"
+    },
     "fuzzyColumn.label": {
         "message": "Fuzzy [Rspamd] score"
     },

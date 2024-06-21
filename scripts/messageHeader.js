@@ -88,7 +88,9 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
             : "";
 
         const hdrVal = {
-            bayes: parsed.bayes + parsed.bayesOptions + ", Fuzzy" + fuzzyCounter + ":",
+            bayes: parsed.bayes +
+                (parsed.bayesOptions ? " [" + parsed.bayesOptions + "%]" : "") +
+                ", Fuzzy" + fuzzyCounter + ":",
             fuzzy: parsed.fuzzy + " )",
             score: parsed.score + " ( Bayes:"
         };

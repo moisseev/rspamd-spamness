@@ -95,9 +95,9 @@ libHeader.getSymbols = function (headers, header, XPC, window) {
 libHeader.parseHeaders = function (symbols) {
     const parsed = [];
 
-    const b = symbols.match(/BAYES_(?:HAM|SPAM)\(([-\d.]+)\)(\[[^\]]+?\])?/);
+    const b = symbols.match(/BAYES_(?:HAM|SPAM)\((([-])?[\d.]+)\)(?:\[([^\]]+?)%\])?/);
     parsed.bayes = (b) ? b[1] : "undefined";
-    parsed.bayesOptions = (b && b[2]) ? " " + b[2] : "";
+    parsed.bayesOptions = (b && b[3]) ? (b[2] || "") + b[3] : "";
 
     const re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d.]+)\)/g;
     let fuzzySymbols = [];
