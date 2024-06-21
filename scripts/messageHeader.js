@@ -48,8 +48,6 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
 
     const symbols = await libHeader.getSymbols(headers, localStorage.header);
 
-    if (symbols === null) return;
-
     function getMetricClass(rule) {
         if (rule.match(/^GREYLIST\(/))
             return "linkDisplayButtonGreyl";
@@ -69,31 +67,34 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
     if (show.score) {
         const score = libCommon.getScoreByHdr(headers, localStorage.header);
 
-        browser.spamHeaders
-            .setHeaderHidden(tab.windowId, tab.index, "expandedRspamdSpamnessRow", (score === null));
-
-        if (score === null) {
-            browser.spamHeaders.setHeaderValue(
-                tab.windowId, tab.index,
-                "expandedRspamdSpamnessRow", "headerValue", ""
-            );
-            return;
-        }
-
-        const {fuzzySymbolsCount, parsed} = libHeader.parseHeaders(symbols);
-        parsed.score = score;
-
-        const fuzzyCounter = (fuzzySymbolsCount > 1)
-            ? "{" + fuzzySymbolsCount + "}"
-            : "";
-
-        const hdrVal = {
-            bayes: parsed.bayes +
-                (parsed.bayesOptions ? " [" + parsed.bayesOptions + "%]" : "") +
-                ", Fuzzy" + fuzzyCounter + ":",
-            fuzzy: parsed.fuzzy + " )",
-            score: parsed.score + " ( Bayes:"
+        let parsed = {
+            bayes: NaN,
+            fuzzy: NaN,
+            score: score
         };
+        let hdrVal = {};
+
+        if (symbols === null) {
+            hdrVal = {
+                bayes: "",
+                fuzzy: "",
+                score: Number.isNaN(score) ? "" : score.toString()
+            };
+        } else {
+            const {fuzzySymbolsCount, parsed: p} = libHeader.parseHeaders(symbols);
+            parsed = {...parsed, ...p};
+            const fuzzyCounter = (fuzzySymbolsCount > 1)
+                ? "{" + fuzzySymbolsCount + "}"
+                : "";
+
+            hdrVal = {
+                bayes: parsed.bayes +
+                    (parsed.bayesOptions ? " [" + parsed.bayesOptions + "%]" : "") +
+                    ", Fuzzy" + fuzzyCounter + ":",
+                fuzzy: parsed.fuzzy + " )",
+                score: score + " ( Bayes:"
+            };
+        }
 
         for (const key in id.score.hdr) {
             if (!{}.hasOwnProperty.call(id.score.hdr, key)) continue;
@@ -121,9 +122,14 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
         const actionStr = (action && action[0].length) ? action[0] : "";
         browser.spamHeaders
             .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessActionHeader", "headerValue", actionStr);
+
+        browser.spamHeaders.setHeaderHidden(
+            tab.windowId, tab.index, "expandedRspamdSpamnessRow",
+            Number.isNaN(score) && symbols === null && !scanTimeStr && !actionStr
+        );
     }
 
-    if (show.rules) {
+    if (show.rules && (symbols !== null)) {
         browser.spamHeaders
             .clearSymbolsHeader(tab.windowId, tab.index, localStorage["headers-show_n_lines"]);
 

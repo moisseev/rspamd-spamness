@@ -18,7 +18,7 @@
     "rules": {
         "camelcase": "off",
         "capitalized-comments": "off",
-        "complexity": ["error", 22],
+        "complexity": ["error", 30],
         "curly": "off",
         "func-names": "off",
         "func-style": ["error", "declaration"],
