@@ -4,7 +4,7 @@
     "gecko": {
       "id": "rspamd-spamness@alexander.moisseev",
       "strict_min_version": "78.0",
-      "strict_max_version": "127.*"
+      "strict_max_version": "128.*"
     }
   },
   "name": "__MSG_extensionName__",

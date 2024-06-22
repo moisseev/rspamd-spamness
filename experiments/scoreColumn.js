@@ -13,8 +13,10 @@ var [majorVersion, minorVersion] = Services.appinfo.platformVersion.split(".", 2
 const RspamdSpamnessColumn = {};
 // Thunderbird Supernova with custom column handlers support
 const SupernovaCC = majorVersion > 115 || (majorVersion === 115 && minorVersion >= 10);
+const ThreadPaneColumnsURI = "chrome://messenger/content/" +
+    ((majorVersion < 128) ? "thread-pane-columns" : "ThreadPaneColumns") + ".mjs";
 const ThreadPaneColumns = SupernovaCC
-    ? ChromeUtils.importESModule("chrome://messenger/content/thread-pane-columns.mjs").ThreadPaneColumns
+    ? ChromeUtils.importESModule(ThreadPaneColumnsURI).ThreadPaneColumns
     : null;
 
 // eslint-disable-next-line no-var
