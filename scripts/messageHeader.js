@@ -48,8 +48,10 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
 
     const symbols = await libHeader.getSymbols(headers, localStorage.header);
 
+    const specialSymbolsRe = /^(GREYLIST|SPAMTRAP)\(/;
+
     function getMetricClass(rule) {
-        if (rule.match(/^GREYLIST\(/))
+        if (rule.match(specialSymbolsRe))
             return "linkDisplayButtonGreyl";
 
         const metric = rule.match(/\(([-\d.]+)\)$/);
@@ -163,7 +165,7 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
                 function group(s) {
                     if (s.score > 0) return 3;
                     if (s.score < 0) return 2;
-                    if ((/^GREYLIST\(/).test(s.name)) return 1;
+                    if ((specialSymbolsRe).test(s.name)) return 1;
                     return 0;
                 }
 
