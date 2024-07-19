@@ -1,10 +1,10 @@
 {
     "devDependencies": {
-        "eslint": "*",
         "@stylistic/eslint-plugin": "*",
+        "eslint": "^9.7.0",
         "eslint-plugin-html": "*",
+        "postcss-html": "*",
         "stylelint": "*",
-        "stylelint-config-standard": "*",
-        "postcss-html": "*"
+        "stylelint-config-standard": "*"
     }
 }

@@ -6,8 +6,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - run: npm install
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
       - run: npm ls
       - run: ./node_modules/.bin/eslint ./
       - run: ./node_modules/.bin/stylelint ./**/*.css ./**/*.html ./**/*.js

@@ -13,7 +13,9 @@ var libCommon = {
 };
 
 libCommon.getImageSrc = function (normalized, id) {
+    // eslint-disable-next-line no-useless-assignment
     let img = null;
+    // eslint-disable-next-line no-useless-assignment
     let level = null;
     if (isNaN(normalized)) {
         img = "symbol-null";

@@ -99,6 +99,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                 },
                 init() {
                     function getScore(hdr, column) {
+                        // eslint-disable-next-line no-useless-assignment
                         let score = null;
                         if (column === "spamness") {
                             score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
@@ -111,6 +112,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                     }
 
                     function getImageId(hdr, column) {
+                        // eslint-disable-next-line no-useless-assignment
                         let score = null;
                         if (column === "spamness") {
                             score = libCommon.getScoreByHdr(hdr, localStorage.header, true);

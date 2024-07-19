@@ -74,6 +74,7 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
             fuzzy: NaN,
             score: score
         };
+        // eslint-disable-next-line no-useless-assignment
         let hdrVal = {};
 
         if (symbols === null) {
@@ -139,6 +140,7 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
         const parsed_symbols = [];
 
         (function (a) {
+            // eslint-disable-next-line no-useless-assignment
             let parsed_symbol = [];
             const re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
             while ((parsed_symbol = re.exec(symbols)) !== null) {

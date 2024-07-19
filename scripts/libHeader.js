@@ -100,6 +100,7 @@ libHeader.parseHeaders = function (symbols) {
     parsed.bayesOptions = (b && b[3]) ? (b[2] || "") + b[3] : "";
 
     const re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d.]+)\)/g;
+    // eslint-disable-next-line no-useless-assignment
     let fuzzySymbols = [];
     parsed.fuzzy = 0;
     let fuzzySymbolsCount = 0;
