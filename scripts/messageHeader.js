@@ -140,10 +140,9 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
 
         (function (a) {
             let parsed_symbol = [];
-            let s = [];
             const re = /(\S+\(([^)]+)\))(\[.*?\])?/g;
             while ((parsed_symbol = re.exec(symbols)) !== null) {
-                s = [];
+                const s = [];
                 [, s.name, s.score, s.options] = parsed_symbol;
                 a.push(s);
             }
