@@ -1,9 +1,13 @@
 # Rspamd-spamness
 
-This is a Thunderbird add-on that visualizes [Rspamd](https://rspamd.com) spam scores generated on the server-side and embedded in message headers.
+This is a Thunderbird add-on that visualizes [Rspamd](https://rspamd.com) spam scores generated on the server side and embedded in message headers.
 
 ![Screenshot](https://github.com/user-attachments/assets/b0474846-7955-4ec3-9ca9-4a6068a4cc31
 "Rspamd-spamness adds columns to the thread pane (message list) and a header to the message pane. The size and saturation of a circle reflect larger or smaller spam scores.")
+
+## Introduction
+
+The **Rspamd-spamness** add-on is designed primarily for mail system administrators who utilize Rspamd, a high-performance spam filtering system. This add-on provides a visual representation of spam scores, allowing administrators to monitor and manage spam filtering more effectively across their email services. While its primary audience is system administrators, the add-on also benefits email users by helping them identify potentially spammy emails based on their assigned scores.
 
 ## Supported mail headers
 
@@ -40,21 +44,35 @@ The add-on searches for a spam score header in the message until it finds a matc
 
 ## Installation
 
-Where to get the add-on:
+To install the **Rspamd-spamness** add-on, choose one of the following options:
 
-- You can download the [latest release](https://github.com/moisseev/rspamd-spamness/releases/latest) from the [Releases](https://github.com/moisseev/rspamd-spamness/releases) page.
-- Versions reviewed by `moz://a` are available from the [Thunderbird Add-ons page](https://addons.thunderbird.net/thunderbird/addon/rspamd-spamness/).
-- You can [create an XPI installer](#creating-xpi-installer) from the source code.
+- Download the [latest release](https://github.com/moisseev/rspamd-spamness/releases/latest) directly from the [Releases](https://github.com/moisseev/rspamd-spamness/releases) page.
+- Access versions reviewed by `moz://a` from the [Thunderbird Add-ons page](https://addons.thunderbird.net/thunderbird/addon/rspamd-spamness/).
+- If you need to install a specific commit, you can [create an XPI installer](#creating-xpi-installer) from the source code.
 
-To use Rspamd-spamness, you will need to reindex folders that contain Rspamd-scored mail, as well as enable the `Spam score` column display for each folder. If you've installed Rspamd-spamness prior to setting up your accounts, you can ignore the rest of this section — you're all set.
+### Reindexing folders
 
-### Re-indexing folders
+After installation, you will need to reindex your email folders that contain Rspamd-scored mail and enable score and indicator columns display for each folder. If you installed Rspamd-spamness before setting up your email accounts, you can skip the rest of this section — you're all set.
 
-To re-index a folder, select it and choose `Properties...` from the context or `Edit` menu. Then click the `Repair Folder` button. You will need to do this for every folder.
+To reindex a folder:
 
-### Displaying the 'Spam score' column
+1. Select the folder you wish to reindex.
+2. Right-click on the folder and choose `Properties` (or select `Edit` from the Menu Bar and then `Folder Properties`).
+3. Click the `Repair Folder` button.
 
-To display the column in each folder, click the column picker and select the `Spam score` column, ensuring it's checked and the new column is visible. To apply it to all folders, click the column picker again, scroll to the bottom to `Apply columns to...`, then select `Folder and its children...` and choose the top folder for your account. The column has already been automatically added to the default columns set, but this won't affect existing folders.
+Repeat these steps for each folder containing Rspamd-scored mail.
+
+### Displaying the score and indicator columns
+
+To add score and indicator columns to your Message List:
+
+1. Click the column picker (the small icon located in the column header area).
+2. Select the appropriate columns from the list.
+
+To apply these column settings to all folders of your account:
+
+1. Click the column picker again.
+2. Scroll down to `Apply columns to...`, select `Folder and its children...`, and then choose the top folder of your account.
 
 ## Training Rspamd
 
