@@ -1,13 +1,16 @@
+<img src="images/icon.svg" alt="Logo" align="right" height="48px" />
+
 # Rspamd-spamness
 
 This is a Thunderbird add-on that visualizes [Rspamd](https://rspamd.com) spam scores generated on the server side and embedded in message headers.
 
-![Screenshot](https://github.com/user-attachments/assets/b0474846-7955-4ec3-9ca9-4a6068a4cc31
-"Rspamd-spamness adds columns to the thread pane (message list) and a header to the message pane. The size and saturation of a circle reflect larger or smaller spam scores.")
 
 ## Introduction
 
 The **Rspamd-spamness** add-on is designed primarily for mail system administrators who utilize Rspamd, a high-performance spam filtering system. This add-on provides a visual representation of spam scores, allowing administrators to monitor and manage spam filtering more effectively across their email services. While its primary audience is system administrators, the add-on also benefits email users by helping them identify potentially spammy emails based on their assigned scores.
+
+![Screenshot](https://github.com/user-attachments/assets/b0474846-7955-4ec3-9ca9-4a6068a4cc31
+"Rspamd-spamness adds columns to the thread pane (message list) and a header to the message pane. The size and saturation of a circle reflect larger or smaller spam scores.")
 
 ## Supported mail headers
 
