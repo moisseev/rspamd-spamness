@@ -2,8 +2,8 @@
 
 This is a Thunderbird add-on that visualizes [Rspamd](https://rspamd.com) spam scores generated on the server-side and embedded in message headers.
 
-![screenshot](https://cloud.githubusercontent.com/assets/2275981/12062734/4021734a-afb3-11e5-8558-626fedd797ee.png
-"Rspamd-spamness adds a column to the thread pane (message list) and a header to the message pane. The size and saturation of a circle reflect larger or smaller spam scores.")
+![Screenshot](https://github.com/user-attachments/assets/b0474846-7955-4ec3-9ca9-4a6068a4cc31
+"Rspamd-spamness adds columns to the thread pane (message list) and a header to the message pane. The size and saturation of a circle reflect larger or smaller spam scores.")
 
 ## Supported mail headers
 
@@ -62,7 +62,7 @@ One of the methods for training Rspamd involves collecting emails in special IMA
 
 You can enable toolbar buttons to move or copy messages to the training spam/ham folders on the add-on settings page.
 
-![move_buttons](https://cloud.githubusercontent.com/assets/2275981/18813761/36a41136-830e-11e6-8cf0-a9dd7042cc8b.png)
+![Train buttons screenshot](https://github.com/user-attachments/assets/9538e3fa-c46c-4c59-84bd-1f2f7f000d46)
 
 You will also need to specify the locations of your training folders.
 
