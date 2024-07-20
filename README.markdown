@@ -10,7 +10,7 @@ This is a Thunderbird add-on that visualizes [Rspamd](https://rspamd.com) spam s
 The add-on utilizes the following headers:
 
 - Extended Rspamd headers added by the [Rspamd proxy worker](https://rspamd.com/doc/workers/rspamd_proxy.html) (`X-Spamd-Result`);
-- Headers added by [Haraka](http://haraka.github.io/manual/plugins/rspamd.html) (`X-Rspamd-Score` and `X-Rspamd-Report`) from version 0.9.1;
+- Headers added by [Haraka](http://haraka.github.io/plugins/rspamd) (`X-Rspamd-Score` and `X-Rspamd-Report`) from version 0.9.1;
 - Headers added by Exim (`X-Spam-Score` and `X-Spam-Report`) from version 0.8.0.
 
 To enable extended spam headers in the [Milter headers module](https://rspamd.com/doc/modules/milter_headers.html), add the following line to `local.d/milter_headers.conf`:
@@ -19,7 +19,7 @@ To enable extended spam headers in the [Milter headers module](https://rspamd.co
 extended_spam_headers = true;
 ~~~
 
-To enable headers in Exim, refer to the "Integration with Exim MTA" section of the [MTA integration](https://rspamd.com/doc/integration.html) document.
+To enable headers in Exim, refer to the "Integration with Exim MTA" section of the [MTA integration](https://rspamd.com/doc/tutorials/integration.html) document.
 
 To enable extended spam headers in [Rmilter](https://www.rspamd.com/rmilter) (deprecated), add the following line to `rmilter.conf`:
 
