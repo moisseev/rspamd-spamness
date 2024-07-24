@@ -32,9 +32,12 @@ libBackground.createPopupWindow = function (url, width = 480, height = 300) {
 };
 
 libBackground.displayNotification = function (messageName, string = "") {
+    const translatedMessage = string + browser.i18n.getMessage(messageName);
+    // eslint-disable-next-line no-console
+    console.warn("Rspamd-spamness warning:", translatedMessage);
     browser.notifications.create({
         iconUrl: browser.extension.getURL("images/icon.svg"),
-        message: string + browser.i18n.getMessage(messageName),
+        message: translatedMessage,
         title: "Rspamd-spamness",
         type: "basic"
     });
