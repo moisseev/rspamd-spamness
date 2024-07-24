@@ -106,6 +106,9 @@
     "spamnessOptions.Spam.label": {
         "message": "Spam:"
     },
+    "spamnessOptions.folderCaseSensitivity.note": {
+        "message": "Folder names may be case sensitive depending on the IMAP server. For local Thunderbird folders, case sensitivity may depend on the underlying file system."
+    },
     "spamnessOptions.account.dialog.title": {
         "message": "Per-account folder settings"
     },

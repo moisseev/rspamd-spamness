@@ -102,6 +102,9 @@
     "spamnessOptions.Spam.label": {
         "message": "Спам:"
     },
+    "spamnessOptions.folderCaseSensitivity.note": {
+        "message": "Имена папок могут учитывать регистр в зависимости от IMAP-сервера. Для локальных папок Thunderbird чувствительность к регистру может зависеть от файловой системы."
+    },
     "spamnessOptions.account.dialog.title": {
         "message": "Настройка папок для отдельных учётных записей"
     },
