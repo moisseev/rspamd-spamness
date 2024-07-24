@@ -36,7 +36,7 @@ libBackground.displayNotification = function (messageName, string = "") {
     // eslint-disable-next-line no-console
     console.warn("Rspamd-spamness warning:", translatedMessage);
     browser.notifications.create({
-        iconUrl: browser.extension.getURL("images/icon.svg"),
+        iconUrl: browser.runtime.getURL("images/icon.svg"),
         message: translatedMessage,
         title: "Rspamd-spamness",
         type: "basic"
