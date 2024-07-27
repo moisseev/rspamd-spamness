@@ -33,7 +33,10 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
                 const toolbarbuttonId = "rspamdSpamnessButton" + cls;
                 if (document.getElementById(toolbarbuttonId)) return;
 
+                // The button container
                 const toolbarbutton = document.createXULElement("toolbarbutton");
+                toolbarbutton.setAttribute("is", "toolbarbutton-menu-button");
+                toolbarbutton.setAttribute("type", majorVersion < 111 ? "menu-button" : "menu");
                 toolbarbutton.id = toolbarbuttonId;
                 toolbarbutton.classList
                     .add("toolbarbutton-1", majorVersion < 100 ? "msgHeaderView-button" : "message-header-view-button");
@@ -43,15 +46,44 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
                         .localizeMessage("spamness.buttonTrain" + cls + ".tooltip")
                 );
 
+                const primaryButton = document.createXULElement("toolbarbutton");
+                primaryButton.classList.add("box-inherit", "toolbarbutton-menubutton-button");
+
                 const img = document.createElement("img");
                 img.src = imageURL;
-                toolbarbutton.appendChild(img);
+                primaryButton.appendChild(img);
 
                 const label = document.createElement("label");
                 if (majorVersion < 110) label.style.display = "-moz-inline-box";
                 label.innerHTML = context.extension.localeData
                     .localizeMessage("spamness.buttonTrain" + cls + ".label");
-                toolbarbutton.appendChild(label);
+                label.setAttribute("value", "label");
+                primaryButton.appendChild(label);
+
+                toolbarbutton.appendChild(primaryButton);
+
+                const dropmarker = document.createXULElement("dropmarker");
+                dropmarker.classList.add("toolbarbutton-menubutton-dropmarker");
+                toolbarbutton.appendChild(dropmarker);
+
+                const menupopup = document.createXULElement("menupopup");
+
+                const moveItem = document.createXULElement("menuitem");
+                moveItem.setAttribute("label", "Move");
+                moveItem.setAttribute("data-action", "move");
+
+                const copyItem = document.createXULElement("menuitem");
+                copyItem.setAttribute("label", "Copy");
+                copyItem.setAttribute("data-action", "copy");
+
+                menupopup.appendChild(moveItem);
+                menupopup.appendChild(copyItem);
+                toolbarbutton.appendChild(menupopup);
+
+                dropmarker.addEventListener("click", (event) => {
+                    event.stopPropagation();
+                    menupopup.openPopup(toolbarbutton, "after_end", 0, 0, true, false);
+                });
 
                 toolbar.insertBefore(toolbarbutton, toolbar.firstChild);
                 targetIds.push(toolbarbuttonId);
@@ -77,14 +109,15 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
                     context,
                     name: "trainButtons.onButtonCommand",
                     register(fire, targetId, windowId, tabIndex) {
-                        function callback(event) {
-                            return fire.async(event.target.id);
+                        function handleButtonClick(event) {
+                            const selectedAction = event.target.dataset.action;
+                            return fire.async(selectedAction);
                         }
                         const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                         const target = document.getElementById(targetId);
-                        target.addEventListener("command", callback);
+                        target.addEventListener("command", handleButtonClick);
                         return function () {
-                            target.removeEventListener("command", callback);
+                            target.removeEventListener("command", handleButtonClick);
                         };
                     }
                 }).api(),

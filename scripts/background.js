@@ -23,8 +23,10 @@ function sortSymbols(order) {
     messageHeader.updateHeaders();
 }
 
-async function moveMessage(buttonId, windowId, tabIndex) {
+async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
+    // eslint-disable-next-line no-useless-assignment
     let ids = [];
+    // eslint-disable-next-line no-useless-assignment
     let message = null;
     const tabs = await browser.tabs.query({active: true, currentWindow: true});
 
@@ -58,7 +60,7 @@ async function moveMessage(buttonId, windowId, tabIndex) {
         return;
     }
     const folders = path.trim().replace(/(^\/|\/$)/g, "").split("/");
-    const destination = folders.reduce(function (prev, curr, i, arr) {
+    const destination = folders.reduce((prev, curr, i, arr) => {
         const folder = (i) ? prev.subFolders : prev.folders;
         const subFolder =
             folder.find((f) => f.path.replace(/.*[/]/, "") === decodeURIComponent(curr) || f.name === curr);
@@ -72,36 +74,40 @@ async function moveMessage(buttonId, windowId, tabIndex) {
         return;
     }
 
-    browser.storage.local.get(["trainingButtonHam-defaultAction", "trainingButtonSpam-defaultAction"])
-        .then((localStorage) => {
-            const action = (buttonId === "rspamdSpamnessButtonHam" &&
-                (localStorage["trainingButtonHam-defaultAction"] === "copy") ||
-                buttonId === "rspamdSpamnessButtonSpam" &&
-                (localStorage["trainingButtonSpam-defaultAction"] === "copy"))
-                ? "copy"
-                : "move";
+    async function getDefaultAction() {
+        const localStorage =
+            await browser.storage.local.get(["trainingButtonHam-defaultAction", "trainingButtonSpam-defaultAction"]);
+        return (buttonId === "rspamdSpamnessButtonHam" &&
+            (localStorage["trainingButtonHam-defaultAction"] === "copy") ||
+            buttonId === "rspamdSpamnessButtonSpam" &&
+            (localStorage["trainingButtonSpam-defaultAction"] === "copy"))
+            ? "copy"
+            : "move";
+    }
 
-            if (action === "move" && message.external) {
-                libBackground.displayNotification("spamness.alertText.moveNotPermittedForExternalMessages");
-                return;
-            }
+    const action = selectedAction || await getDefaultAction();
 
-            browser.messages[action](ids, destination).catch(function (error) {
-                libBackground.error(error);
-                if ((/^Unexpected error (copy|mov)ing messages: 2147500037$/).test(error.message)) {
-                    libBackground.displayNotification(
-                        "spamness.alertText.error_2147500037_workaround",
-                        error.message + "\n\n"
-                    );
-                }
-            });
-        });
+    if (action === "move" && message.external) {
+        libBackground.displayNotification("spamness.alertText.moveNotPermittedForExternalMessages");
+        return;
+    }
+
+    browser.messages[action](ids, destination).catch(function (error) {
+        libBackground.error(error);
+        if ((/^Unexpected error (copy|mov)ing messages: 2147500037$/).test(error.message)) {
+            libBackground.displayNotification(
+                "spamness.alertText.error_2147500037_workaround",
+                error.message + "\n\n"
+            );
+        }
+    });
 }
+
 function addTrainButtonsToWindow(windowId, tabIndex) {
     browser.trainButtons.addButtonsToWindowById(windowId, tabIndex).then((targetIds) => {
         targetIds.forEach(function (targetId) {
-            browser.trainButtons.onButtonCommand.addListener((buttonId) => {
-                moveMessage(buttonId, windowId, tabIndex);
+            browser.trainButtons.onButtonCommand.addListener((selectedAction) => {
+                moveMessage(targetId, windowId, tabIndex, selectedAction);
             }, targetId, windowId, tabIndex);
         });
     });
