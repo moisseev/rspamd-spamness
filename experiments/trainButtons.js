@@ -57,7 +57,6 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
                 if (majorVersion < 110) label.style.display = "-moz-inline-box";
                 label.innerHTML = context.extension.localeData
                     .localizeMessage("spamness.buttonTrain" + cls + ".label");
-                label.setAttribute("value", "label");
                 primaryButton.appendChild(label);
 
                 toolbarbutton.appendChild(primaryButton);
