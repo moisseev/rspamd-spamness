@@ -3,6 +3,12 @@
         "description": "Description of the extension.",
         "message": "Дополнение позволяет наглядно отображать результаты обработки сообщения антиспам-системой Rspamd."
     },
+    "spamness.action.label.copy": {
+        "message": "Копировать"
+    },
+    "spamness.action.label.move": {
+        "message": "Переместить"
+    },
     "spamness.alertText.colonInHeaderName": {
         "message": "Введённый заголовок содержит запрещённый символ, например, «:»; непечатаемый символ; символ, не входящий в таблицу ASCII, или восьмибитный ASCII-символ. Удалите этот символ и попробуйте снова."
     },

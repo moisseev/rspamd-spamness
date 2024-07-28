@@ -67,16 +67,15 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
 
                 const menupopup = document.createXULElement("menupopup");
 
-                const moveItem = document.createXULElement("menuitem");
-                moveItem.setAttribute("label", "Move");
-                moveItem.setAttribute("data-action", "move");
+                ["move", "copy"].forEach((action) => {
+                    const item = document.createXULElement("menuitem");
+                    const itemLabel = context.extension.localeData.localizeMessage("spamness.action.label." + action);
+                    item.setAttribute("label", itemLabel);
+                    item.setAttribute("data-action", action);
 
-                const copyItem = document.createXULElement("menuitem");
-                copyItem.setAttribute("label", "Copy");
-                copyItem.setAttribute("data-action", "copy");
+                    menupopup.appendChild(item);
+                });
 
-                menupopup.appendChild(moveItem);
-                menupopup.appendChild(copyItem);
                 toolbarbutton.appendChild(menupopup);
 
                 dropmarker.addEventListener("click", (event) => {
