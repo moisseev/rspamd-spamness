@@ -29,8 +29,8 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
             const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
             const toolbar = document.getElementById("header-view-toolbar");
 
-            function appendToolbarButton(cls, imageURL) {
-                const toolbarbuttonId = "rspamdSpamnessButton" + cls;
+            function appendToolbarButton(hamSpam, imageURL) {
+                const toolbarbuttonId = "rspamdSpamnessButton" + hamSpam;
                 if (document.getElementById(toolbarbuttonId)) return;
 
                 // The button container
@@ -43,7 +43,7 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
                 toolbarbutton.setAttribute(
                     "tooltiptext",
                     context.extension.localeData
-                        .localizeMessage("spamness.buttonTrain" + cls + ".tooltip")
+                        .localizeMessage("spamness.buttonTrain" + hamSpam + ".tooltip")
                 );
 
                 const primaryButton = document.createXULElement("toolbarbutton");
@@ -56,7 +56,7 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
                 const label = document.createElement("label");
                 if (majorVersion < 110) label.style.display = "-moz-inline-box";
                 label.innerHTML = context.extension.localeData
-                    .localizeMessage("spamness.buttonTrain" + cls + ".label");
+                    .localizeMessage("spamness.buttonTrain" + hamSpam + ".label");
                 primaryButton.appendChild(label);
 
                 toolbarbutton.appendChild(primaryButton);
