@@ -103,10 +103,10 @@
         "message": "Настройка дополнения Rspamd-spamness"
     },
     "spamnessOptions.Ham.label": {
-        "message": "Не спам:"
+        "message": "Не спам"
     },
     "spamnessOptions.Spam.label": {
-        "message": "Спам:"
+        "message": "Спам"
     },
     "spamnessOptions.folderCaseSensitivity.note": {
         "message": "Имена папок могут учитывать регистр в зависимости от IMAP-сервера. Для локальных папок Thunderbird чувствительность к регистру может зависеть от файловой системы."
