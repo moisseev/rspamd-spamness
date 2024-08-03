@@ -28,10 +28,10 @@
         "message": "Перемещение не разрешено для внешних писем."
     },
     "spamness.buttonTrainHam.label": {
-        "message": "Обучить как не-спам"
+        "message": "Обучить как не спам"
     },
     "spamness.buttonTrainHam.tooltip": {
-        "message": "Переместить сообщение в папку для обучения как не-спам"
+        "message": "Переместить сообщение в папку для обучения как не спам"
     },
     "spamness.buttonTrainSpam.label": {
         "message": "Обучить как спам"
@@ -103,7 +103,7 @@
         "message": "Настройка дополнения Rspamd-spamness"
     },
     "spamnessOptions.Ham.label": {
-        "message": "Не-спам:"
+        "message": "Не спам:"
     },
     "spamnessOptions.Spam.label": {
         "message": "Спам:"
