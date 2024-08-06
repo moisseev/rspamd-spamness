@@ -13,6 +13,12 @@
     "spamness.action.label.move": {
         "message": "Move"
     },
+    "spamness.action.label.bayes": {
+        "message": "Bayes"
+    },
+    "spamness.action.label.fuzzy": {
+        "message": "Fuzzy"
+    },
     "spamness.alertText.colonInHeaderName": {
         "message": "The header you entered contains an invalid character, such as ':', a non-printable character, a non-ascii character, or an eight bit ascii character. Please remove the invalid character and try again."
     },
@@ -30,6 +36,21 @@
     },
     "spamness.alertText.moveNotPermittedForExternalMessages": {
         "message": "Move operation is not permitted for external messages."
+    },
+    "spamness.alertText.failedToSendRequestToRspamd": {
+        "message": "Failed to send request to Rspamd."
+    },
+    "spamness.alertText.pleaseConfigure": {
+        "message": "Please configure"
+    },
+    "spamness.alertText.missingFlagFor": {
+        "message": "Missing flag for "
+    },
+    "spamness.alertText.trainingAborted": {
+        "message": "Training aborted."
+    },
+    "spamness.alertText.messageTrainedAs": {
+        "message": "Message trained as "
     },
     "spamness.buttonTrainHam.label": {
         "message": "Train ham"
@@ -139,6 +160,9 @@
     "spamnessOptions.cancelBtn.label": {
         "message": "Cancel"
     },
+    "spamnessOptions.fieldsetFolderSettings.legend": {
+        "message": "Folder settings"
+    },
     "spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend": {
         "message": "Default destination folders (for all accounts)"
     },
@@ -201,6 +225,30 @@
     },
     "spamnessOptions.prefTrainingButtons.enabled.label": {
         "message": "Enable training buttons"
+    },
+    "spamnessOptions.HTTP.title": {
+        "message": "Rspamd HTTP API settings"
+    },
+    "spamnessOptions.serverBaseUrl.label": {
+        "message": "Rspamd server base URL"
+    },
+    "spamnessOptions.serverBaseUrl.note": {
+        "message": "Avoid sending data over unencrypted connections. For better security, consider using HTTPS with a reverse proxy in front of Rspamd."
+    },
+    "spamnessOptions.serverPassword.label": {
+        "message": "Rspamd server password"
+    },
+    "spamnessOptions.serverPassword.note": {
+        "message": "Password is stored in plain text. Use with caution."
+    },
+    "spamnessOptions.fieldsetFuzzySettings.legend": {
+        "message": "Fuzzy settings"
+    },
+    "spamnessOptions.fuzzyFlag.label": {
+        "message": "Flag"
+    },
+    "spamnessOptions.fuzzyWeight.label": {
+        "message": "Weight"
     },
     "spamnessOptions.prefTrainingButtonsDefaultAction.title": {
         "message": "Training buttons default action"

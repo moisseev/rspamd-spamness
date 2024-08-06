@@ -54,6 +54,14 @@ async function init() {
     document.querySelector("#folderTrainHam").value = localStorage.folderTrainHam;
     document.querySelector("#folderTrainSpam").value = localStorage.folderTrainSpam;
 
+    document.querySelector("#serverBaseUrl").value = localStorage.serverBaseUrl;
+    document.querySelector("#serverPassword").value = localStorage.serverPassword;
+
+    document.querySelector("#fuzzyFlagHam").value = localStorage.fuzzyFlagHam;
+    document.querySelector("#fuzzyWeightHam").value = localStorage.fuzzyWeightHam;
+    document.querySelector("#fuzzyFlagSpam").value = localStorage.fuzzyFlagSpam;
+    document.querySelector("#fuzzyWeightSpam").value = localStorage.fuzzyWeightSpam;
+
     document.querySelector("#trainingButtonHamDefaultAction").value = localStorage["trainingButtonHam-defaultAction"];
     document.querySelector("#trainingButtonSpamDefaultAction").value = localStorage["trainingButtonSpam-defaultAction"];
 
@@ -80,6 +88,14 @@ async function saveOptions(e) {
         "folderTrainHam": document.querySelector("#folderTrainHam").value,
         "folderTrainSpam": document.querySelector("#folderTrainSpam").value,
 
+        "serverBaseUrl": document.querySelector("#serverBaseUrl").value,
+        "serverPassword": document.querySelector("#serverPassword").value,
+
+        "fuzzyFlagHam": document.querySelector("#fuzzyFlagHam").value,
+        "fuzzyWeightHam": document.querySelector("#fuzzyWeightHam").value,
+        "fuzzyFlagSpam": document.querySelector("#fuzzyFlagSpam").value,
+        "fuzzyWeightSpam": document.querySelector("#fuzzyWeightSpam").value,
+
         "trainingButtonHam-defaultAction": document.querySelector("#trainingButtonHamDefaultAction").value,
         "trainingButtonSpam-defaultAction": document.querySelector("#trainingButtonSpamDefaultAction").value
     });
@@ -102,11 +118,32 @@ async function saveOptions(e) {
     }
 }
 
+function isValidUrl(url) {
+    try {
+        // eslint-disable-next-line no-new
+        new URL(url);
+        return true;
+    // eslint-disable-next-line no-unused-vars
+    } catch (_) {
+        return false;
+    }
+}
+
+function urlInputFeedback(isValid) {
+    const urlInput = document.querySelector("#serverBaseUrl");
+    if (isValid) {
+        urlInput.classList.remove("input-invalid");
+    } else {
+        urlInput.classList.add("input-invalid");
+    }
+}
+
 document.querySelector("#account-options-button").addEventListener("click", function () {
     libBackground.createPopupWindow("/options/account-options.html", 891, 612);
 });
 document.querySelector("#advanced-options-button").addEventListener("click", function () {
     libBackground.createPopupWindow("/options/advancedOptions.html");
 });
+document.querySelector("#serverBaseUrl").addEventListener("input", (e) => urlInputFeedback(isValidUrl(e.target.value)));
 document.addEventListener("DOMContentLoaded", init);
 document.querySelector("form").addEventListener("submit", saveOptions);

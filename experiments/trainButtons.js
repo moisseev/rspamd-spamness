@@ -67,7 +67,7 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
 
                 const menupopup = document.createXULElement("menupopup");
 
-                ["move", "copy"].forEach((action) => {
+                ["move", "copy", "bayes", "fuzzy"].forEach((action) => {
                     const item = document.createXULElement("menuitem");
                     const itemLabel = context.extension.localeData.localizeMessage("spamness.action.label." + action);
                     item.setAttribute("label", itemLabel);

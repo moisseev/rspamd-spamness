@@ -23,6 +23,79 @@ function sortSymbols(order) {
     messageHeader.updateHeaders();
 }
 
+async function sendMessageToRspamd(message, buttonId, action) {
+    const localStorage = await browser.storage.local.get([
+        "fuzzyFlagHam",
+        "fuzzyWeightHam",
+        "fuzzyFlagSpam",
+        "fuzzyWeightSpam",
+        "serverPassword",
+        "serverBaseUrl"
+    ]);
+
+    if (!localStorage.serverBaseUrl) {
+        libBackground.displayNotification(
+            "spamnessOptions.serverBaseUrl.label",
+            browser.i18n.getMessage("spamness.alertText.pleaseConfigure")
+        );
+        return;
+    }
+
+    const hamSpam = (buttonId === "rspamdSpamnessButtonHam") ? "Ham" : "Spam";
+
+    const headers = new Headers();
+
+    if (action === "fuzzy") {
+        const flag = localStorage[`fuzzyFlag${hamSpam}`];
+        if (!flag) {
+            libBackground.displayNotification(
+                "spamness.alertText.trainingAborted",
+                browser.i18n.getMessage("spamness.alertText.missingFlagFor") + hamSpam + "."
+            );
+            // Abort training
+            return;
+        }
+        headers.append("Flag", flag);
+
+        const weight = localStorage[`fuzzyWeight${hamSpam}`];
+        if (weight) headers.append("Weight", weight);
+    }
+
+    if (localStorage.serverPassword) headers.append("Password", localStorage.serverPassword);
+
+    const endpoint = {
+        bayes: "/learn" + hamSpam.toLowerCase(),
+        fuzzy: "/fuzzyadd"
+    };
+
+    try {
+        const serverUrl = new URL(endpoint[action], localStorage.serverBaseUrl);
+        const file = await browser.messages.getRaw(message.id);
+
+        const response = await fetch(serverUrl, {
+            body: file,
+            headers: headers,
+            method: "POST",
+        });
+
+        if (response.ok) {
+            if (response.status === 200) {
+                libBackground.displayNotification(
+                    null,
+                    browser.i18n.getMessage("spamness.alertText.messageTrainedAs") + hamSpam,
+                    "info"
+                );
+            } else {
+                libBackground.displayNotification(null, `Status: ${response.status}\n${response.statusText}`, "info");
+            }
+        } else {
+            libBackground.displayNotification(null, `Status: ${response.status}\n${response.statusText}`);
+        }
+    } catch (e) {
+        libBackground.displayNotification("spamness.alertText.failedToSendRequestToRspamd", e.message);
+    }
+}
+
 async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
     // eslint-disable-next-line no-useless-assignment
     let ids = [];
@@ -43,6 +116,22 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
         const tabId = (window.type === "messageDisplay") ? window.tabs[tabIndex].id : tabs[0].id;
         message = await browser.messageDisplay.getDisplayedMessage(tabId);
         ids = [message.id];
+    }
+
+    async function getDefaultAction() {
+        const localStorage =
+            await browser.storage.local.get(["trainingButtonHam-defaultAction", "trainingButtonSpam-defaultAction"]);
+        return (buttonId === "rspamdSpamnessButtonHam" && localStorage["trainingButtonHam-defaultAction"] === "copy" ||
+            buttonId === "rspamdSpamnessButtonSpam" && localStorage["trainingButtonSpam-defaultAction"] === "copy")
+            ? "copy"
+            : "move";
+    }
+
+    const action = selectedAction || await getDefaultAction();
+
+    if (["bayes", "fuzzy"].includes(action)) {
+        await sendMessageToRspamd(message, buttonId, action);
+        return;
     }
 
     const accountId = (message.external) ? null : message.folder.accountId;
@@ -73,19 +162,6 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
         libBackground.displayNotification("spamness.alertText.destinationFolderNotFound");
         return;
     }
-
-    async function getDefaultAction() {
-        const localStorage =
-            await browser.storage.local.get(["trainingButtonHam-defaultAction", "trainingButtonSpam-defaultAction"]);
-        return (buttonId === "rspamdSpamnessButtonHam" &&
-            (localStorage["trainingButtonHam-defaultAction"] === "copy") ||
-            buttonId === "rspamdSpamnessButtonSpam" &&
-            (localStorage["trainingButtonSpam-defaultAction"] === "copy"))
-            ? "copy"
-            : "move";
-    }
-
-    const action = selectedAction || await getDefaultAction();
 
     if (action === "move" && message.external) {
         libBackground.displayNotification("spamness.alertText.moveNotPermittedForExternalMessages");

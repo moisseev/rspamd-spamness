@@ -80,23 +80,69 @@
                     <label for="trainingButtons-enabled">__MSG_spamnessOptions.prefTrainingButtons.enabled.label__</label>
                 </p>
                 <fieldset>
-                    <legend class="groupbox-title">__MSG_spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend__</legend>
-                    <label for="defaultTrainingFolderAccount">__MSG_spamnessOptions.accountSelector.label__</label>
-                    <select name="default-training-folder-account" id="defaultTrainingFolderAccount"></select>
+                    <legend class="groupbox-title">__MSG_spamnessOptions.fieldsetFolderSettings.legend__</legend>
+                    <fieldset>
+                        <legend class="groupbox-title">__MSG_spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend__</legend>
+                        <label for="defaultTrainingFolderAccount">__MSG_spamnessOptions.accountSelector.label__</label>
+                        <select name="default-training-folder-account" id="defaultTrainingFolderAccount"></select>
+                        <p>
+                            <label for="folderTrainHam">__MSG_spamnessOptions.Ham.label__</label>
+                            <input type="text" id="folderTrainHam">
+                        </p>
+                        <p>
+                            <label for="folderTrainSpam">__MSG_spamnessOptions.Spam.label__</label>
+                            <input type="text" id="folderTrainSpam">
+                        </p>
+                        <span class="description">__MSG_spamnessOptions.folderCaseSensitivity.note__</span>
+                    </fieldset>
                     <p>
-                        <label for="folderTrainHam">__MSG_spamnessOptions.Ham.label__</label>
-                        <input type="text" id="folderTrainHam" size="80">
+                        <label for="account-options-button">__MSG_spamnessOptions.account.dialog.title__</label>
+                        <button id="account-options-button">__MSG_spamnessOptions.prefAdvOptionsBtn.label__</button>
                     </p>
-                    <p>
-                        <label for="folderTrainSpam">__MSG_spamnessOptions.Spam.label__</label>
-                        <input type="text" id="folderTrainSpam" size="80">
-                    </p>
-                    <span class="description">__MSG_spamnessOptions.folderCaseSensitivity.note__</span>
                 </fieldset>
-                <p>
-                    <label for="account-options-button">__MSG_spamnessOptions.account.dialog.title__</label>
-                    <button id="account-options-button">__MSG_spamnessOptions.prefAdvOptionsBtn.label__</button>
-                </p>
+                <fieldset>
+                    <legend class="groupbox-title">__MSG_spamnessOptions.HTTP.title__</legend>
+                    <div>
+                        <label for="serverBaseUrl">__MSG_spamnessOptions.serverBaseUrl.label__</label>
+                        <input type="text" id="serverBaseUrl">
+                    </div>
+                    <span class="description">__MSG_spamnessOptions.serverBaseUrl.note__</span>
+                    <div>
+                        <label for="serverPassword">__MSG_spamnessOptions.serverPassword.label__</label>
+                        <input type="password" id="serverPassword">
+                    </div>
+                    <span class="description">__MSG_spamnessOptions.serverPassword.note__</span>
+
+                    <fieldset class="fuzzy-settings">
+                        <legend class="groupbox-title">__MSG_spamnessOptions.fieldsetFuzzySettings.legend__</legend>
+                        <fieldset>
+                            <legend class="groupbox-title">__MSG_spamnessOptions.Ham.label__</legend>
+                            <div class="fuzzy-settings-group">
+                                <div class="fuzzy-group">
+                                    <label for="fuzzyFlagHam">__MSG_spamnessOptions.fuzzyFlag.label__</label>
+                                    <input type="number" id="fuzzyFlagHam" size="2" min="1" step="1">
+                                </div>
+                                <div class="fuzzy-group">
+                                    <label for="fuzzyWeightHam">__MSG_spamnessOptions.fuzzyWeight.label__</label>
+                                    <input type="number" id="fuzzyWeightHam" size="2" step="1">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend class="groupbox-title">__MSG_spamnessOptions.Spam.label__</legend>
+                            <div class="fuzzy-settings-group">
+                                <div class="fuzzy-group">
+                                    <label for="fuzzyFlagSpam">__MSG_spamnessOptions.fuzzyFlag.label__</label>
+                                    <input type="number" id="fuzzyFlagSpam" size="2" min="1" step="1">
+                                </div>
+                                <div class="fuzzy-group">
+                                    <label for="fuzzyWeightSpam">__MSG_spamnessOptions.fuzzyWeight.label__</label>
+                                    <input type="number" id="fuzzyWeightSpam" size="2" step="1">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </fieldset>
+                </fieldset>
                 <fieldset>
                     <legend class="groupbox-title">__MSG_spamnessOptions.prefTrainingButtonsDefaultAction.title__</legend>
                         <div>

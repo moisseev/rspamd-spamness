@@ -21,3 +21,26 @@ label {
     border-radius: 4px;
     padding: 4px 8px;
 }
+
+.fuzzy-settings {
+    display: flex;
+    gap: 10px;
+}
+.fuzzy-settings > fieldset {
+    flex: 1;
+}
+.fuzzy-settings-group {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+.fuzzy-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-invalid {
+    outline: 2px solid var(--in-content-border-invalid) !important;
+    outline-offset: -1px;
+    -moz-outline-radius: 4px;
+}

@@ -27,6 +27,21 @@
     "spamness.alertText.moveNotPermittedForExternalMessages": {
         "message": "Перемещение не разрешено для внешних писем."
     },
+    "spamness.alertText.failedToSendRequestToRspamd": {
+        "message": "Не удалось отправить запрос к Rspamd."
+    },
+    "spamness.alertText.pleaseConfigure": {
+        "message": "Пожалуйста, настройте"
+    },
+    "spamness.alertText.missingFlagFor": {
+        "message": "Отсутствует флаг для "
+    },
+    "spamness.alertText.trainingAborted": {
+        "message": "Обучение прервано."
+    },
+    "spamness.alertText.messageTrainedAs": {
+        "message": "Сообщение обучено как "
+    },
     "spamness.buttonTrainHam.label": {
         "message": "Обучить как не спам"
     },
@@ -135,6 +150,9 @@
     "spamnessOptions.cancelBtn.label": {
         "message": "Отмена"
     },
+    "spamnessOptions.fieldsetFolderSettings.legend": {
+        "message": "Настройки папок"
+    },
     "spamnessOptions.fieldsetDefaultTrainingFolderLocations.legend": {
         "message": "Папки назначения по умолчанию (для всех учетных записей)"
     },
@@ -197,6 +215,30 @@
     },
     "spamnessOptions.prefTrainingButtons.enabled.label": {
         "message": "Включить кнопки обучения"
+    },
+    "spamnessOptions.HTTP.title": {
+        "message": "Настройки HTTP API Rspamd"
+    },
+    "spamnessOptions.serverBaseUrl.label": {
+        "message": "Основной URL сервера Rspamd"
+    },
+    "spamnessOptions.serverBaseUrl.note": {
+        "message": "Избегайте передачи данных через незащищенные соединения. Для большей безопасности рекомендуется использовать HTTPS с обратным прокси перед Rspamd."
+    },
+    "spamnessOptions.serverPassword.label": {
+        "message": "Пароль сервера Rspamd"
+    },
+    "spamnessOptions.serverPassword.note": {
+        "message": "Пароль хранится в открытом виде. Используйте с осторожностью."
+    },
+    "spamnessOptions.fieldsetFuzzySettings.legend": {
+        "message": "Настройки Fuzzy"
+    },
+    "spamnessOptions.fuzzyFlag.label": {
+        "message": "Флаг"
+    },
+    "spamnessOptions.fuzzyWeight.label": {
+        "message": "Вес"
     },
     "spamnessOptions.prefTrainingButtonsDefaultAction.title": {
         "message": "Действие по умолчанию для кнопок обучения"
