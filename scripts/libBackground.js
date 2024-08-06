@@ -31,10 +31,18 @@ libBackground.createPopupWindow = function (url, width = 480, height = 300) {
     });
 };
 
-libBackground.displayNotification = function (messageName, string = "") {
-    const translatedMessage = string + browser.i18n.getMessage(messageName);
+libBackground.displayNotification = function (messageName, string = "", logLevel = "warn") {
+    const useStringOnly = !messageName || messageName.trim() === "";
+    const translatedMessage = useStringOnly
+        ? string
+        : string + "\n\n" + browser.i18n.getMessage(messageName);
+
+    const validLogLevels = ["log", "info", "warn", "error"];
+    const logMethod = validLogLevels.includes(logLevel) ? logLevel : "warn";
+
     // eslint-disable-next-line no-console
-    console.warn("Rspamd-spamness warning:", translatedMessage);
+    console[logMethod]("Rspamd-spamness:", translatedMessage);
+
     browser.notifications.create({
         iconUrl: browser.runtime.getURL("images/icon.svg"),
         message: translatedMessage,
