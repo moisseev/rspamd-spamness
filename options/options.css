@@ -5,6 +5,10 @@ fieldset {
 button {
     text-align: center;
 }
+/* Numeric input width calculation is broken in Thunderbird 115 and 128b */
+input[type="number"] {
+    min-width: 4.6em;
+}
 
 input[type="checkbox"],
 input[type="radio"],
