@@ -270,7 +270,7 @@ browser.runtime.onMessage.addListener(function handleMessage(request, sender, se
             break;
         case "getRulesDialogContent":
             (function () {
-                const re = /( +(?:(?:Symbol?: )?[^) ]+\)(?:\[[^\]]*\])?|Message-ID: [^ ]+?))/g;
+                const re = /([\t ]+(?:(?:Symbol?: )?[^)\t ]+\)(?:\[[^\]]*\])?|Message-ID: [^ ]+?))/g;
                 const content = libHeader.headerStr[0].replace(re, "\n$1");
                 sendResponse({response: content});
             }());
