@@ -65,6 +65,7 @@ async function sendMessageToRspamd(message, buttonId, action) {
 
     const endpoint = {
         bayes: "/learn" + hamSpam.toLowerCase(),
+        check: "/checkv2",
         fuzzy: "/fuzzyadd"
     };
 
@@ -80,11 +81,21 @@ async function sendMessageToRspamd(message, buttonId, action) {
 
         if (response.ok) {
             if (response.status === 200) {
-                libBackground.displayNotification(
-                    null,
-                    browser.i18n.getMessage("spamness.alertText.messageTrainedAs") + hamSpam,
-                    "info"
-                );
+                if (action === "check") {
+                    const {symbols} = await response.json();
+                    const filteredKeys = Object.keys(symbols).filter((s) => (/(BAYES_|FUZZY_)/).test(s)).sort();
+                    const msg = filteredKeys.reduce((prev, k) => {
+                        const s = symbols[k];
+                        return prev + s.name + "(" + s.score.toFixed(2) + ")[" + s.options[0] + "]\n";
+                    }, "");
+                    libBackground.displayNotification(null, msg, "info");
+                } else {
+                    libBackground.displayNotification(
+                        null,
+                        browser.i18n.getMessage("spamness.alertText.messageTrainedAs") + hamSpam,
+                        "info"
+                    );
+                }
             } else {
                 libBackground.displayNotification(null, `Status: ${response.status}\n${response.statusText}`, "info");
             }
@@ -129,7 +140,7 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
 
     const action = selectedAction || await getDefaultAction();
 
-    if (["bayes", "fuzzy"].includes(action)) {
+    if (["bayes", "fuzzy", "check"].includes(action)) {
         await sendMessageToRspamd(message, buttonId, action);
         return;
     }

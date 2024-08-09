@@ -9,6 +9,9 @@
     "spamness.action.label.move": {
         "message": "Переместить"
     },
+    "spamness.action.label.check": {
+        "message": "Проверить"
+    },
     "spamness.alertText.colonInHeaderName": {
         "message": "Введённый заголовок содержит запрещённый символ, например, «:»; непечатаемый символ; символ, не входящий в таблицу ASCII, или восьмибитный ASCII-символ. Удалите этот символ и попробуйте снова."
     },
