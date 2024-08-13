@@ -43,6 +43,9 @@
     "spamness.alertText.failedToSendRequestToRspamd": {
         "message": "Failed to send request to Rspamd."
     },
+    "spamness.alertText.failedToParseResponse": {
+        "message": "Failed to parse response."
+    },
     "spamness.alertText.pleaseConfigure": {
         "message": "Please configure"
     },

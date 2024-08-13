@@ -42,7 +42,6 @@ async function sendMessageToRspamd(message, buttonId, action) {
     }
 
     const hamSpam = (buttonId === "rspamdSpamnessButtonHam") ? "Ham" : "Spam";
-
     const headers = new Headers();
 
     if (action === "fuzzy") {
@@ -63,33 +62,41 @@ async function sendMessageToRspamd(message, buttonId, action) {
 
     if (localStorage.serverPassword) headers.append("Password", localStorage.serverPassword);
 
+    function parseSymbols(symbols) {
+        const regexp = action === "bayes" ? /BAYES_/ : /(BAYES_|FUZZY_)/;
+        return Object.keys(symbols)
+            .filter((s) => regexp.test(s))
+            .sort()
+            .map((k) => {
+                const s = symbols[k];
+                return `${s.name} (${s.score.toFixed(2)}) [${s.options[0]}]`;
+            })
+            .join("\n");
+    }
+
+    async function handleResponse(response) {
+        try {
+            const {symbols} = await response.json();
+            return [null, parseSymbols(symbols), "info"];
+        } catch (error) {
+            return ["spamness.alertText.failedToParseResponse", `${error.name}: ${error.message}`, "error"];
+        }
+    }
+
     const endpoint = {
         bayes: "/learn" + hamSpam.toLowerCase(),
         check: "/checkv2",
         fuzzy: "/fuzzyadd"
     };
+    const file = await browser.messages.getRaw(message.id);
 
-    try {
-        const serverUrl = new URL(endpoint[action], localStorage.serverBaseUrl);
-        const file = await browser.messages.getRaw(message.id);
-
-        const response = await fetch(serverUrl, {
-            body: file,
-            headers: headers,
-            method: "POST",
-        });
-
-        if (response.ok) {
+    async function sendRequestToRspamd(endpointType) {
+        async function displayResponseNotification(response) {
             if (response.status === 200) {
                 if (action === "check") {
-                    const {symbols} = await response.json();
-                    const filteredKeys = Object.keys(symbols).filter((s) => (/(BAYES_|FUZZY_)/).test(s)).sort();
-                    const msg = filteredKeys.reduce((prev, k) => {
-                        const s = symbols[k];
-                        return prev + s.name + "(" + s.score.toFixed(2) + ")[" + s.options[0] + "]\n";
-                    }, "");
-                    libBackground.displayNotification(null, msg, "info");
-                } else {
+                    const [messageName, string, logLevel] = await handleResponse(response);
+                    libBackground.displayNotification(messageName, string, logLevel);
+                } else if (action !== "bayes") {
                     libBackground.displayNotification(
                         null,
                         browser.i18n.getMessage("spamness.alertText.messageTrainedAs") + hamSpam,
@@ -97,13 +104,57 @@ async function sendMessageToRspamd(message, buttonId, action) {
                     );
                 }
             } else {
-                libBackground.displayNotification(null, `Status: ${response.status}\n${response.statusText}`, "info");
+                libBackground.displayNotification(
+                    null,
+                    `Status: ${response.status}\n${response.statusText}`,
+                    "info"
+                );
             }
-        } else {
-            libBackground.displayNotification(null, `Status: ${response.status}\n${response.statusText}`);
         }
-    } catch (e) {
-        libBackground.displayNotification("spamness.alertText.failedToSendRequestToRspamd", e.message);
+
+        const serverUrl = new URL(endpoint[endpointType], localStorage.serverBaseUrl);
+        try {
+            const response = await fetch(serverUrl, {
+                body: file,
+                headers: headers,
+                method: "POST",
+            });
+
+            if (response.ok) {
+                await displayResponseNotification(response);
+            } else {
+                libBackground.displayNotification(null, `Status: ${response.status}\n${response.statusText}`);
+            }
+
+            return response;
+        } catch (error) {
+            libBackground.displayNotification("spamness.alertText.failedToSendRequestToRspamd", error.message);
+            return null;
+        }
+    }
+
+    if (action === "bayes") {
+        const bayesRequestSequence = ["check", "bayes", "check"];
+        const responses = [];
+        for (const endpointType of bayesRequestSequence) {
+            // eslint-disable-next-line no-await-in-loop
+            const response = await sendRequestToRspamd(endpointType);
+            if (response && response.status === 200) {
+                responses.push(response);
+            } else {
+                break;
+            }
+        }
+
+        if (responses.length < 2) return;
+
+        let msg = "1. " + (await handleResponse(responses[0]))[1] +
+            "\n2. " + browser.i18n.getMessage("spamness.alertText.messageTrainedAs") + hamSpam;
+        if (responses.length > 2) msg += "\n3. " + (await handleResponse(responses[2]))[1];
+
+        libBackground.displayNotification(null, msg, "info");
+    } else {
+        await sendRequestToRspamd(action);
     }
 }
 

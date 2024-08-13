@@ -33,6 +33,9 @@
     "spamness.alertText.failedToSendRequestToRspamd": {
         "message": "Не удалось отправить запрос к Rspamd."
     },
+    "spamness.alertText.failedToParseResponse": {
+        "message": "Не удалось извлечь информацию из ответа."
+    },
     "spamness.alertText.pleaseConfigure": {
         "message": "Пожалуйста, настройте"
     },
