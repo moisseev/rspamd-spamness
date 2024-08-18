@@ -262,6 +262,9 @@
     "spamnessOptions.statusMessage.serverIsWritable": {
         "message": "Server is writable."
     },
+    "spamnessOptions.statusMessage.corsError": {
+        "message": "CORS error. Check the 'neighbours' list in the Rspamd options settings."
+    },
     "spamnessOptions.statusMessage.requestCancelled": {
         "message": "Request was cancelled."
     },

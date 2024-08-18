@@ -252,6 +252,9 @@
     "spamnessOptions.statusMessage.serverIsWritable": {
         "message": "Сервер доступен для записи."
     },
+    "spamnessOptions.statusMessage.corsError": {
+        "message": "Ошибка CORS. Проверьте список 'neighbours' в настройках Rspamd."
+    },
     "spamnessOptions.statusMessage.requestCancelled": {
         "message": "Запрос был отменен."
     },

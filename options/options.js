@@ -191,7 +191,9 @@ async function checkServerStatus() {
             }
         }
     } catch (error) {
-        if (error.name === "AbortError") {
+        if (error.message.includes("NetworkError") && await fetchWithNoCorsCheck()) {
+            updateStatusMessage("spamnessOptions.statusMessage.corsError");
+        } else if (error.name === "AbortError") {
             updateStatusMessage("spamnessOptions.statusMessage.requestCancelled", "", "orange");
         } else {
             updateStatusMessage("spamnessOptions.statusMessage.errorCheckingServer", `${error.message}`);
@@ -199,6 +201,16 @@ async function checkServerStatus() {
     } finally {
         loadingSpinner.classList.add("spinner-hidden");
         document.querySelector("#check-server-status-button").disabled = false;
+    }
+
+    async function fetchWithNoCorsCheck() {
+        try {
+            await fetch(`${serverBaseUrl}/ping`, {mode: "no-cors"});
+            return true;
+        // eslint-disable-next-line no-unused-vars
+        } catch (_) {
+            return false;
+        }
     }
 }
 
