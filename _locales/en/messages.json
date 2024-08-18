@@ -247,6 +247,27 @@
     "spamnessOptions.serverPassword.note": {
         "message": "Password is stored in plain text. Use with caution."
     },
+    "spamnessOptions.statusMessage.invalidUrl": {
+        "message": "Invalid server URL."
+    },
+    "spamnessOptions.statusMessage.pingFailed": {
+        "message": "API ping failed:"
+    },
+    "spamnessOptions.statusMessage.serverStatus": {
+        "message": "Server status:"
+    },
+    "spamnessOptions.statusMessage.serverIsReadOnly": {
+        "message": "Server is read-only."
+    },
+    "spamnessOptions.statusMessage.serverIsWritable": {
+        "message": "Server is writable."
+    },
+    "spamnessOptions.statusMessage.requestCancelled": {
+        "message": "Request was cancelled."
+    },
+    "spamnessOptions.statusMessage.errorCheckingServer": {
+        "message": "Error checking server:"
+    },
     "spamnessOptions.fieldsetFuzzySettings.legend": {
         "message": "Fuzzy settings"
     },

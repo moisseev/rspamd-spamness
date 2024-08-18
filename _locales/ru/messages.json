@@ -237,6 +237,27 @@
     "spamnessOptions.serverPassword.note": {
         "message": "Пароль хранится в открытом виде. Используйте с осторожностью."
     },
+    "spamnessOptions.statusMessage.invalidUrl": {
+        "message": "Некорректный URL сервера."
+    },
+    "spamnessOptions.statusMessage.pingFailed": {
+        "message": "Ошибка пинга API:"
+    },
+    "spamnessOptions.statusMessage.serverStatus": {
+        "message": "Статус сервера:"
+    },
+    "spamnessOptions.statusMessage.serverIsReadOnly": {
+        "message": "Сервер доступен только для чтения."
+    },
+    "spamnessOptions.statusMessage.serverIsWritable": {
+        "message": "Сервер доступен для записи."
+    },
+    "spamnessOptions.statusMessage.requestCancelled": {
+        "message": "Запрос был отменен."
+    },
+    "spamnessOptions.statusMessage.errorCheckingServer": {
+        "message": "Ошибка проверки сервера:"
+    },
     "spamnessOptions.fieldsetFuzzySettings.legend": {
         "message": "Настройки Fuzzy"
     },

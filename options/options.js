@@ -138,6 +138,78 @@ function urlInputFeedback(isValid) {
     }
 }
 
+let abortController = new AbortController();
+
+async function checkServerStatus() {
+    const loadingSpinner = document.querySelector("#loading-spinner");
+    const serverBaseUrl = document.querySelector("#serverBaseUrl").value;
+    const serverPassword = document.querySelector("#serverPassword").value;
+
+    function updateStatusMessage(messageName, dynamicText, color = "red") {
+        const statusMessageElement = document.querySelector("#server-status-message");
+
+        let message = messageName ? browser.i18n.getMessage(messageName) : "";
+        if (dynamicText) message += ` ${dynamicText}`;
+
+        statusMessageElement.textContent = message;
+        statusMessageElement.style.color = color;
+    }
+
+    if (!isValidUrl(serverBaseUrl)) {
+        updateStatusMessage("spamnessOptions.statusMessage.invalidUrl");
+        return;
+    }
+
+    updateStatusMessage();
+    loadingSpinner.classList.remove("spinner-hidden");
+    document.querySelector("#check-server-status-button").disabled = true;
+
+    abortController = new AbortController();
+    const {signal} = abortController;
+
+    try {
+        const pingResponse = await fetch(`${serverBaseUrl}/ping`, {signal});
+        if (!pingResponse.ok || await pingResponse.text() !== "pong\r\n") {
+            updateStatusMessage(
+                "spamnessOptions.statusMessage.pingFailed",
+                `${pingResponse.status} ${pingResponse.statusText}`
+            );
+        } else {
+            const statResponse = await fetch(`${serverBaseUrl}/stat`, {headers: {Password: serverPassword}, signal});
+            if (statResponse.ok) {
+                const statData = await statResponse.json();
+                updateStatusMessage(
+                    `spamnessOptions.statusMessage.serverIs${statData.read_only ? "ReadOnly" : "Writable"}`,
+                    "",
+                    statData.read_only ? "orange" : "green"
+                );
+            } else {
+                updateStatusMessage(
+                    "spamnessOptions.statusMessage.serverStatus",
+                    `${statResponse.status} ${statResponse.statusText}`
+                );
+            }
+        }
+    } catch (error) {
+        if (error.name === "AbortError") {
+            updateStatusMessage("spamnessOptions.statusMessage.requestCancelled", "", "orange");
+        } else {
+            updateStatusMessage("spamnessOptions.statusMessage.errorCheckingServer", `${error.message}`);
+        }
+    } finally {
+        loadingSpinner.classList.add("spinner-hidden");
+        document.querySelector("#check-server-status-button").disabled = false;
+    }
+}
+
+function handleInputChange() {
+    if (abortController) abortController.abort();
+}
+document.querySelector("#serverBaseUrl").addEventListener("input", handleInputChange);
+document.querySelector("#serverPassword").addEventListener("input", handleInputChange);
+
+document.querySelector("#check-server-status-button").addEventListener("click", checkServerStatus);
+
 document.querySelector("#account-options-button").addEventListener("click", function () {
     libBackground.createPopupWindow("/options/account-options.html", 891, 612);
 });
