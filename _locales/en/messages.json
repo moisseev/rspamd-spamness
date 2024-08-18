@@ -247,6 +247,9 @@
     "spamnessOptions.serverPassword.note": {
         "message": "Password is stored in plain text. Use with caution."
     },
+    "spamnessOptions.checkServerStatus.label": {
+        "message": "Check server status"
+    },
     "spamnessOptions.statusMessage.invalidUrl": {
         "message": "Invalid server URL."
     },

@@ -237,6 +237,9 @@
     "spamnessOptions.serverPassword.note": {
         "message": "Пароль хранится в открытом виде. Используйте с осторожностью."
     },
+    "spamnessOptions.checkServerStatus.label": {
+        "message": "Проверить статус сервера"
+    },
     "spamnessOptions.statusMessage.invalidUrl": {
         "message": "Некорректный URL сервера."
     },
