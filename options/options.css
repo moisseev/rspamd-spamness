@@ -61,20 +61,6 @@ label {
     font-weight: bold;
     margin: 0;
 }
-
-.spinner {
-    border: 3px solid rgba(0 0 0 / 0.1);
-    border-left: 3px solid #ff6300;
-    border-right: 3px solid #4ac6ff;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-.spinner-hidden {
-    display: none;
+:root {
+    --spinner-size: 24px;
 }

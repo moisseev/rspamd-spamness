@@ -1,0 +1,25 @@
+:root {
+    --spinner-border-color: rgba(0 0 0 / 0.1);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --spinner-border-color: rgba(255 255 255 / 0.3);
+    }
+}
+
+.spinner {
+    border: 3px solid var(--spinner-border-color);
+    border-left: 3px solid #ff6300;
+    border-right: 3px solid #4ac6ff;
+    border-radius: 50%;
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.spinner-hidden {
+    display: none !important;
+}

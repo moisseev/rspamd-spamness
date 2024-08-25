@@ -2,6 +2,9 @@
 
 "use strict";
 
+const notificationSound = new Audio("sounds/notification.mp3");
+notificationSound.volume = 0.3;
+
 function disableSymGroupingMenuitem(group) {
     browser.menus.update("rspamdSpamnessSymbolPopupGroup", {enabled: !group});
     browser.menus.update("rspamdSpamnessSymbolPopupUngroup", {enabled: group});
@@ -23,7 +26,7 @@ function sortSymbols(order) {
     messageHeader.updateHeaders();
 }
 
-async function sendMessageToRspamd(message, buttonId, action) {
+async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action) {
     const localStorage = await browser.storage.local.get([
         "fuzzyFlagHam",
         "fuzzyWeightHam",
@@ -90,27 +93,43 @@ async function sendMessageToRspamd(message, buttonId, action) {
     };
     const file = await browser.messages.getRaw(message.id);
 
+    function setNotificationAreaValue(messageName, string = "", logLevel = "warn", playSound = true) {
+        const {logMethod, translatedMessage} = libBackground.prepareNotificationDetails(messageName, string, logLevel);
+
+        browser.spamHeaders
+            .setHeaderValue(windowId, tabIndex, "rspamdSpamnessNotificationArea", "headerValue", translatedMessage);
+        browser.spamHeaders
+            .setHeaderValue(windowId, tabIndex, "rspamdSpamnessNotificationArea", "notificationClass", logMethod);
+
+        if (playSound && (messageName || string)) notificationSound.play();
+    }
+
     async function sendRequestToRspamd(endpointType) {
         async function displayResponseNotification(response) {
             if (response.status === 200) {
                 if (action === "check") {
                     const [messageName, string, logLevel] = await handleResponse(response);
-                    libBackground.displayNotification(messageName, string, logLevel);
+                    if (logLevel === "info") {
+                        setNotificationAreaValue(messageName, string, logLevel);
+                    } else {
+                        libBackground.displayNotification(messageName, string, logLevel);
+                    }
                 } else if (action !== "bayes") {
-                    libBackground.displayNotification(
+                    setNotificationAreaValue(
                         null,
-                        browser.i18n.getMessage("spamness.alertText.messageTrainedAs") + hamSpam,
+                        browser.i18n.getMessage("spamness.alertText.trainedAs") + hamSpam,
                         "info"
                     );
                 }
             } else {
-                libBackground.displayNotification(
-                    null,
-                    `Status: ${response.status}\n${response.statusText}`,
-                    "info"
-                );
+                setNotificationAreaValue(null, `Status: ${response.status}\n${response.statusText}`, "log");
             }
         }
+
+        setNotificationAreaValue();
+        browser.spamHeaders.setHeaderHidden(windowId, tabIndex, "expandedRspamdSpamnessRow", false);
+        browser.spamHeaders
+            .setHeaderValue(windowId, tabIndex, "in-progress-spinner", "classListRemove", "spinner-hidden");
 
         const serverUrl = new URL(endpoint[endpointType], localStorage.serverBaseUrl);
         try {
@@ -128,8 +147,12 @@ async function sendMessageToRspamd(message, buttonId, action) {
 
             return response;
         } catch (error) {
+            setNotificationAreaValue();
             libBackground.displayNotification("spamness.alertText.failedToSendRequestToRspamd", error.message);
             return null;
+        } finally {
+            browser.spamHeaders
+                .setHeaderValue(windowId, tabIndex, "in-progress-spinner", "classListAdd", "spinner-hidden");
         }
     }
 
@@ -148,11 +171,11 @@ async function sendMessageToRspamd(message, buttonId, action) {
 
         if (responses.length < 2) return;
 
-        let msg = "1. " + (await handleResponse(responses[0]))[1] +
-            "\n2. " + browser.i18n.getMessage("spamness.alertText.messageTrainedAs") + hamSpam;
-        if (responses.length > 2) msg += "\n3. " + (await handleResponse(responses[2]))[1];
+        let msg = "Bayes: " + (await handleResponse(responses[0]))[1] +
+            " 🡆 " + browser.i18n.getMessage("spamness.alertText.trainedAs") + hamSpam;
+        if (responses.length > 2) msg += " 🡆 " + (await handleResponse(responses[2]))[1];
 
-        libBackground.displayNotification(null, msg, "info");
+        setNotificationAreaValue(null, msg, "info");
     } else {
         await sendRequestToRspamd(action);
     }
@@ -192,7 +215,7 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
     const action = selectedAction || await getDefaultAction();
 
     if (["bayes", "fuzzy", "check"].includes(action)) {
-        await sendMessageToRspamd(message, buttonId, action);
+        await sendMessageToRspamd(message, buttonId, windowId, tabIndex, action);
         return;
     }
 

@@ -55,8 +55,8 @@
     "spamness.alertText.trainingAborted": {
         "message": "Training aborted."
     },
-    "spamness.alertText.messageTrainedAs": {
-        "message": "Message trained as "
+    "spamness.alertText.trainedAs": {
+        "message": "Trained as "
     },
     "spamness.buttonTrainHam.label": {
         "message": "Train ham"

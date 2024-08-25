@@ -25,12 +25,16 @@ mail-link:hover {
     --greyl: #d8e0f6;
     --ham: #d4ebc8;
     --spam: #f0d0c8;
+    --warn: #fff9c4;
     --hover-greyl: #abc1fc;
     --hover-ham: #b4eba8;
     --hover-spam: #f0b0a8;
+    --hover-warn: #f7e88c;
     --no-action: var(--ham);
     --add-header: var(--spam);
     --rewrite-subject: var(--spam);
+    --notification-text-color: #4f4f4f;
+    --spinner-size: 9px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,30 +42,62 @@ mail-link:hover {
         --greyl: #0943e7;
         --ham: #369903;
         --spam: #bf2600;
+        --warn: #ffe900;
         --hover-greyl: #91aeff;
         --hover-ham: #65c26d;
         --hover-spam: #cc776c;
+        --hover-warn: #ffff66;
+        --notification-text-color: #e0e0e0;
     }
 }
 
+/* stylelint-disable selector-id-pattern */
+#expandedRspamdSpamnessRow hbox {
+    display: block;
+}
+#expandedRspamdSpamnessRow hbox > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+#rspamdSpamnessNotificationArea {
+    border: 1px solid #bbbbbb;
+    color: var(--notification-text-color);
+    border-radius: 2px;
+}
+#rspamdSpamnessNotificationArea.hidden {
+    display: none;
+}
+
+#rspamdSpamnessNotificationArea.log,
 .linkDisplayButtonGreyl {
     background-color: var(--greyl);
 }
+#rspamdSpamnessNotificationArea.info,
 .linkDisplayButtonHam {
     background-color: var(--ham);
 }
+#rspamdSpamnessNotificationArea.error,
 .linkDisplayButtonSpam {
     background-color: var(--spam);
 }
+#rspamdSpamnessNotificationArea.warn {
+    background-color: var(--warn);
+}
 
+#rspamdSpamnessNotificationArea.log:hover,
 .linkDisplayButtonGreyl:hover {
     background-color: var(--hover-greyl);
 }
+#rspamdSpamnessNotificationArea.info:hover,
 .linkDisplayButtonHam:hover {
     background-color: var(--hover-ham);
 }
+#rspamdSpamnessNotificationArea.error:hover,
 .linkDisplayButtonSpam:hover {
     background-color: var(--hover-spam);
+}
+#rspamdSpamnessNotificationArea.warn:hover {
+    background-color: var(--hover-warn);
 }
 
 .linkSeparator {
@@ -69,15 +105,15 @@ mail-link:hover {
     margin: -0 -3px 0 0;
 }
 
-/* stylelint-disable selector-id-pattern */
-
 /* stylelint-disable-next-line selector-type-no-unknown */
-#expandedRspamdSpamnessRow mail-headerfield {
+#expandedRspamdSpamnessRow mail-headerfield,
+#rspamdSpamnessNotificationArea {
     padding-left: 0.2em;
     padding-right: 0.2em;
 }
 #rspamdSpamnessActionHeader {
     border-radius: 2px;
+    margin-right: 0.2em;
 }
 
 #expandedRspamdSpamnessRulesBox {

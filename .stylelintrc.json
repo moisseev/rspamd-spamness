@@ -14,7 +14,7 @@
         "comment-empty-line-before": null,
         "rule-empty-line-before": null,
         "selector-type-no-unknown": [true, {
-            "ignoreTypes": ["mail-link"]
+            "ignoreTypes": ["hbox", "mail-link"]
         }],
         "value-keyword-case": ["lower", {
             "ignoreKeywords": ["crispEdges"]

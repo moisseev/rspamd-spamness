@@ -24,19 +24,19 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
             const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
 
             (function loadCSS() {
-                const href = extension.rootURI.resolve("experiments/spamHeaders.css");
+                ["content/spinner.css", "experiments/spamHeaders.css"].forEach((href, index) => {
+                    const link = document.createElement("link");
+                    link.id = "rspamd-spamness-css-" + index;
+                    link.rel = "stylesheet";
+                    link.href = extension.rootURI.resolve(href);
 
-                const link = document.createElement("link");
-                link.id = "rspamd-spamness-css";
-                link.rel = "stylesheet";
-                link.href = href;
-
-                if (majorVersion < 91) {
-                    const referenceNode = document.getElementById("navigation-toolbox");
-                    referenceNode.parentNode.insertBefore(link, referenceNode);
-                } else {
-                    document.head.appendChild(link);
-                }
+                    if (majorVersion < 91) {
+                        const referenceNode = document.getElementById("navigation-toolbox");
+                        referenceNode.parentNode.insertBefore(link, referenceNode);
+                    } else {
+                        document.head.appendChild(link);
+                    }
+                });
             }());
 
             const expandedHeaders2 = document
@@ -84,6 +84,16 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                 const actionHeader = document.createXULElement("mail-headerfield");
                 actionHeader.id = "rspamdSpamnessActionHeader";
                 hbox.appendChild(actionHeader);
+
+                const notificationVbox = document.createXULElement("vbox");
+                notificationVbox.id = "rspamdSpamnessNotificationArea";
+                notificationVbox.classList.add("hidden");
+                hbox.appendChild(notificationVbox);
+
+                const spinner = document.createElement("div");
+                spinner.id = "in-progress-spinner";
+                spinner.className = "spinner spinner-hidden";
+                hbox.appendChild(spinner);
 
                 headerRowValue.appendChild(hbox);
 
@@ -292,14 +302,29 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     const element = document.getElementById(elementId);
                     if (prop === "src") {
                         element[prop] = extension.rootURI.resolve(value);
+                    } else if (prop === "notificationClass") {
+                        if (elementId === "rspamdSpamnessNotificationArea") {
+                            const validLogLevels = ["log", "info", "warn", "error"];
+                            validLogLevels.forEach((level) => element.classList.remove(level));
+                            element.classList.add(value.toLowerCase());
+                        }
+                    } else if (prop === "classListAdd") {
+                        element.classList.add(value);
+                    } else if (prop === "classListRemove") {
+                        element.classList.remove(value);
                     } else {
                         element.textContent = value;
-                    }
 
-                    element.style["background-color"] = (elementId === "rspamdSpamnessActionHeader" &&
-                      ["no action", "rewrite subject", "add header"].includes(value))
-                        ? "var(--" + value.replace(/\s/g, "-") + ")"
-                        : null;
+                        if (elementId === "rspamdSpamnessActionHeader") {
+                            element.style["background-color"] =
+                              ["no action", "rewrite subject", "add header"].includes(value)
+                                  ? "var(--" + value.replace(/\s/g, "-") + ")"
+                                  : null;
+                        }
+
+                        // Hide notification area border if content is empty.
+                        if (elementId === "rspamdSpamnessNotificationArea") element.classList.toggle("hidden", !value);
+                    }
                 },
             },
         };
@@ -310,7 +335,8 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
         libExperiments.removeElements([
             "expandedRspamdSpamnessRow",
             "expandedRspamdSpamnessRulesRow",
-            "rspamd-spamness-css"
+            "rspamd-spamness-css-0",
+            "rspamd-spamness-css-1",
         ], majorVersion < 100);
     }
 };

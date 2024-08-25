@@ -45,8 +45,8 @@
     "spamness.alertText.trainingAborted": {
         "message": "Обучение прервано."
     },
-    "spamness.alertText.messageTrainedAs": {
-        "message": "Сообщение обучено как "
+    "spamness.alertText.trainedAs": {
+        "message": "Обучено как "
     },
     "spamness.buttonTrainHam.label": {
         "message": "Обучить как не спам"

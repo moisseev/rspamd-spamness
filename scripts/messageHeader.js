@@ -126,6 +126,9 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
         browser.spamHeaders
             .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessActionHeader", "headerValue", actionStr);
 
+        browser.spamHeaders
+            .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessNotificationArea", "headerValue", "");
+
         browser.spamHeaders.setHeaderHidden(
             tab.windowId, tab.index, "expandedRspamdSpamnessRow",
             Number.isNaN(score) && symbols === null && !scanTimeStr && !actionStr

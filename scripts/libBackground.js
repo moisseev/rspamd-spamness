@@ -37,7 +37,7 @@ libBackground.createPopupWindow = function (url, width = 480, height = 300) {
     });
 };
 
-libBackground.displayNotification = function (messageName, string = "", logLevel = "warn") {
+libBackground.prepareNotificationDetails = function (messageName, string = "", logLevel = "warn") {
     const useStringOnly = !messageName || messageName.trim() === "";
     const translatedMessage = useStringOnly
         ? string
@@ -45,6 +45,12 @@ libBackground.displayNotification = function (messageName, string = "", logLevel
 
     const validLogLevels = ["log", "info", "warn", "error"];
     const logMethod = validLogLevels.includes(logLevel) ? logLevel : "warn";
+
+    return {logMethod, translatedMessage};
+};
+
+libBackground.displayNotification = function (messageName, string = "", logLevel = "warn") {
+    const {logMethod, translatedMessage} = libBackground.prepareNotificationDetails(messageName, string, logLevel);
 
     // eslint-disable-next-line no-console
     console[logMethod]("Rspamd-spamness:", translatedMessage);
