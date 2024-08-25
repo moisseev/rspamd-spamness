@@ -25,8 +25,13 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
             (function loadCSS() {
                 ["content/spinner.css", "experiments/spamHeaders.css"].forEach((href, index) => {
+                    const elementId = "rspamd-spamness-css-" + index;
+                    const element = document.getElementById(elementId);
+
+                    if (element) return;
+
                     const link = document.createElement("link");
-                    link.id = "rspamd-spamness-css-" + index;
+                    link.id = elementId;
                     link.rel = "stylesheet";
                     link.href = extension.rootURI.resolve(href);
 
