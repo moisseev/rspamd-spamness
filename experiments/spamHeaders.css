@@ -99,6 +99,9 @@ mail-link:hover {
 #rspamdSpamnessNotificationArea.warn:hover {
     background-color: var(--hover-warn);
 }
+.spinner {
+    margin-inline: 4px;
+}
 
 .linkSeparator {
     display: inline-block;

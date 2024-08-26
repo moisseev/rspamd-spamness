@@ -121,12 +121,11 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
                         "info"
                     );
                 }
-            } else {
+            } else if (action !== "bayes") {
                 setNotificationAreaValue(null, `Status: ${response.status}\n${response.statusText}`, "log");
             }
         }
 
-        setNotificationAreaValue();
         browser.spamHeaders.setHeaderHidden(windowId, tabIndex, "expandedRspamdSpamnessRow", false);
         browser.spamHeaders
             .setHeaderValue(windowId, tabIndex, "in-progress-spinner", "classListRemove", "spinner-hidden");
@@ -156,26 +155,30 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
         }
     }
 
+    setNotificationAreaValue();
+
     if (action === "bayes") {
         const bayesRequestSequence = ["check", "bayes", "check"];
-        const responses = [];
-        for (const endpointType of bayesRequestSequence) {
+        let msg = "Bayes: ";
+
+        for (const [index, endpointType] of bayesRequestSequence.entries()) {
             // eslint-disable-next-line no-await-in-loop
             const response = await sendRequestToRspamd(endpointType);
-            if (response && response.status === 200) {
-                responses.push(response);
+            if (!response) break;
+            if (response.status === 200) {
+                if (endpointType === "bayes") {
+                    msg += browser.i18n.getMessage("spamness.alertText.trainedAs") + hamSpam + " 🡆 ";
+                } else {
+                    // eslint-disable-next-line no-await-in-loop
+                    msg += (await handleResponse(response))[1] + (index < bayesRequestSequence.length - 1 ? " 🡆 " : "");
+                }
+                setNotificationAreaValue(null, msg, "info");
             } else {
+                msg += `Status: ${response.status}\n${response.statusText}`;
+                setNotificationAreaValue(null, msg, "log");
                 break;
             }
         }
-
-        if (responses.length < 2) return;
-
-        let msg = "Bayes: " + (await handleResponse(responses[0]))[1] +
-            " 🡆 " + browser.i18n.getMessage("spamness.alertText.trainedAs") + hamSpam;
-        if (responses.length > 2) msg += " 🡆 " + (await handleResponse(responses[2]))[1];
-
-        setNotificationAreaValue(null, msg, "info");
     } else {
         await sendRequestToRspamd(action);
     }
