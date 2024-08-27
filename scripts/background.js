@@ -72,9 +72,11 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
             .sort()
             .map((k) => {
                 const s = symbols[k];
-                return `${s.name} (${s.score.toFixed(2)}) [${s.options[0]}]`;
+                return action === "bayes"
+                    ? `${s.score.toFixed(2)} [${s.score < 0 ? "-" : ""}${s.options[0]}]`
+                    : `${s.name} (${s.score.toFixed(2)}) [${s.options[0]}]`;
             })
-            .join("\n");
+            .join("; ");
     }
 
     async function handleResponse(response) {
