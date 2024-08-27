@@ -328,7 +328,8 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                         }
 
                         // Hide notification area border if content is empty.
-                        if (elementId === "rspamdSpamnessNotificationArea") element.classList.toggle("hidden", !value);
+                        if (elementId === "rspamdSpamnessNotificationArea")
+                            element.classList.toggle("hidden", !value.trim());
                     }
                 },
             },
