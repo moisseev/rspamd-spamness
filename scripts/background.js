@@ -209,11 +209,14 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
     }
 
     async function getDefaultAction() {
-        const localStorage =
-            await browser.storage.local.get(["trainingButtonHam-defaultAction", "trainingButtonSpam-defaultAction"]);
-        return (buttonId === "rspamdSpamnessButtonHam" && localStorage["trainingButtonHam-defaultAction"] === "copy" ||
-            buttonId === "rspamdSpamnessButtonSpam" && localStorage["trainingButtonSpam-defaultAction"] === "copy")
-            ? "copy"
+        const [, buttonType] = buttonId.match(/^rspamdSpamnessButton(Ham|Spam)$/) || [];
+        if (!buttonType) return "move";
+
+        const key = `trainingButton${buttonType}-defaultAction`;
+        const {[key]: defaultAction} = await browser.storage.local.get(key);
+
+        return ["move", "copy", "bayes", "fuzzy", "check"].includes(defaultAction)
+            ? defaultAction
             : "move";
     }
 
