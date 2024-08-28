@@ -116,10 +116,10 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
                     } else {
                         libBackground.displayNotification(messageName, string, logLevel);
                     }
-                } else if (action !== "bayes") {
+                } else if (action === "fuzzy") {
                     setNotificationAreaValue(
                         null,
-                        browser.i18n.getMessage("spamness.alertText.trainedAs") + hamSpam,
+                        "Fuzzy: " + browser.i18n.getMessage("spamness.alertText.trainedAs") + hamSpam,
                         "info"
                     );
                 }
