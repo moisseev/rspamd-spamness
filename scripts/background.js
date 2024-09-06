@@ -76,7 +76,7 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
                     ? `${s.score.toFixed(2)} [${s.score < 0 ? "-" : ""}${s.options[0]}]`
                     : `${s.name} (${s.score.toFixed(2)}) [${s.options[0]}]`;
             })
-            .join("; ");
+            .join("; ") || "∅";
     }
 
     async function handleResponse(response) {

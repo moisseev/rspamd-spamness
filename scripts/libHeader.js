@@ -96,7 +96,7 @@ libHeader.parseHeaders = function (symbols) {
     const parsed = [];
 
     const b = symbols.match(/BAYES_(?:HAM|SPAM)\((([-])?[\d.]+)\)(?:\[([^\]]+?)%\])?/);
-    parsed.bayes = (b) ? b[1] : "undefined";
+    parsed.bayes = (b) ? b[1] : "∅";
     parsed.bayesOptions = (b && b[3]) ? (b[2] || "") + b[3] : "";
 
     const re = /FUZZY_(?:WHITE|PROB|DENIED|UNKNOWN)\(([-\d.]+)\)/g;
@@ -110,6 +110,6 @@ libHeader.parseHeaders = function (symbols) {
     }
     parsed.fuzzy = (parsed.fuzzy)
         ? Number(parseFloat(parsed.fuzzy).toFixed(10))
-        : "undefined";
+        : "∅";
     return {fuzzySymbolsCount, parsed};
 };
