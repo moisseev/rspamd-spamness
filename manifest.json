@@ -4,13 +4,13 @@
     "gecko": {
       "id": "rspamd-spamness@alexander.moisseev",
       "strict_min_version": "78.0",
-      "strict_max_version": "130.*"
+      "strict_max_version": "132.*"
     }
   },
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "author": "Alexander Moisseev (moiseev@mezonplus.ru)",
   "homepage_url": "https://github.com/moisseev/rspamd-spamness",
   "icons": {

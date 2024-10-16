@@ -18,7 +18,7 @@ libHeader.getSymbols = function (headers, header, XPC, window) {
         if (!XPC) return headers[headerName] || null;
 
         const headerStr = headers.getStringProperty(headerName);
-        return headerStr ? [headerStr] : null;
+        return headerStr ? [libCommon.decodeMimeHeader(headerStr, window)] : null;
     }
 
     function getUserHeaderStr() {

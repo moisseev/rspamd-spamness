@@ -102,7 +102,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                         // eslint-disable-next-line no-useless-assignment
                         let score = null;
                         if (column === "spamness") {
-                            score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
+                            score = libCommon.getScoreByHdr(hdr, localStorage.header, true, window);
                         } else {
                             const symbols = libHeader.getSymbols(hdr, localStorage.header, true, window);
                             if (!symbols) return "";
@@ -115,7 +115,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                         // eslint-disable-next-line no-useless-assignment
                         let score = null;
                         if (column === "spamness") {
-                            score = libCommon.getScoreByHdr(hdr, localStorage.header, true);
+                            score = libCommon.getScoreByHdr(hdr, localStorage.header, true, window);
                             if (localStorage["display-columnImageOnlyForPositive"] && score <= 0)
                                 return "";
                         } else {
