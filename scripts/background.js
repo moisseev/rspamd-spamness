@@ -140,7 +140,12 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
                 method: "POST",
             });
 
-            if (response.ok) {
+            if (
+                response.ok ||
+                // This response is not actually an error.
+                (action === "fuzzy" &&
+                response.status === 404 && response.statusText.startsWith("No content to generate fuzzy"))
+            ) {
                 await displayResponseNotification(response);
             } else {
                 libBackground.displayNotification(null, `Status: ${response.status}\n${response.statusText}`);
