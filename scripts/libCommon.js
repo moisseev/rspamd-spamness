@@ -59,6 +59,18 @@ libCommon.decodeMimeHeader = function (headerValue, window) {
             .replace(/[=]([0-9A-F]{2})/g, (match, hex) => String.fromCharCode(parseInt(hex, 16)));
     }
 
+    function safeDecodeURIComponent(text) {
+        try {
+            return decodeURIComponent(escape(text));
+        } catch (e) {
+            if (e instanceof URIError) {
+                libCommon.warn("Malformed URI sequence: " + text);
+                return text;
+            }
+            throw e;
+        }
+    }
+
     function decodeMimeWord(mimeWord) {
         const regex = /^=\?([^?]+)\?([^?]+)\?(.+?)\?=$/i;
         const match = mimeWord.match(regex);
@@ -91,7 +103,7 @@ libCommon.decodeMimeHeader = function (headerValue, window) {
         }
 
         // Convert to UTF-8 string
-        return decodeURIComponent(escape(decodedText));
+        return safeDecodeURIComponent(decodedText);
     }
 
     return headerValue
