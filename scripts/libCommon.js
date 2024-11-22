@@ -109,7 +109,9 @@ libCommon.decodeMimeHeader = function (headerValue, window) {
     return headerValue
         // Unfolding
         .replace(/[\r\n]+[\s]+/g, "")
-        // Find and decode encoded words, removing any spaces between them
+        // Join MIME words
+        .replace(/(\?==\?[^?]+\?[^?]+\?)/gi, "")
+        // Find and decode encoded words
         .replace(/(=\?[^?]+\?[^?]+\?[^?]+\?=)(\s+)?/gi, (_, encodedWord) => decodeMimeWord(encodedWord));
 };
 
