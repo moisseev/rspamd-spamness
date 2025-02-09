@@ -4,10 +4,29 @@
 "use strict";
 
 /* eslint-disable no-var */
-var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
-var {ExtensionSupport} = ChromeUtils.import("resource:///modules/ExtensionSupport.jsm");
 var Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 var [majorVersion, minorVersion] = Services.appinfo.platformVersion.split(".", 2).map((v) => parseInt(v, 10));
+
+/**
+ * Dynamically imports a module based on the Thunderbird version.
+ *
+ * For Thunderbird 136 and above, it imports the ESM version of the module.
+ * For older versions, it imports the JSM version.
+ *
+ * @param {string} name - The name of the module to import.
+ * @returns {*} The exported module object.
+ */
+function importModule(name) {
+    const moduleSubdir = name === "ExtensionSupport" ? "" : "gre";
+    return majorVersion >= 136
+        ? ChromeUtils.importESModule("resource://" + moduleSubdir + "/modules/" + name + ".sys.mjs")[name]
+        : ChromeUtils.import("resource://" + moduleSubdir + "/modules/" + name + ".jsm")[name];
+}
+
+// eslint-disable-next-line vars-on-top
+var ExtensionCommon = importModule("ExtensionCommon");
+// eslint-disable-next-line vars-on-top
+var ExtensionSupport = importModule("ExtensionSupport");
 /* eslint-enable no-var */
 
 const RspamdSpamnessColumn = {};
@@ -19,7 +38,7 @@ const ThreadPaneColumns = SupernovaCC
     ? ChromeUtils.importESModule(ThreadPaneColumnsURI).ThreadPaneColumns
     : null;
 
-// eslint-disable-next-line no-var
+// eslint-disable-next-line no-var, vars-on-top
 var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
     // eslint-disable-next-line class-methods-use-this
     onShutdown(isAppShutdown) {
@@ -37,8 +56,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
 
         const window = Services.wm.getMostRecentWindow("mail:3pane");
 
-        const {ExtensionParent} =
-            ChromeUtils.import("resource://gre/modules/ExtensionParent.jsm");
+        const ExtensionParent = importModule("ExtensionParent");
         const extension = ExtensionParent.GlobalManager
             .getExtension("rspamd-spamness@alexander.moisseev");
         Services.scriptloader.loadSubScript(extension.getURL("scripts/libCommon.js"));

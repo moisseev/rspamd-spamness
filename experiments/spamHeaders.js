@@ -4,16 +4,34 @@
 "use strict";
 
 /* eslint-disable no-var */
-var {ExtensionCommon} = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
 var Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 var [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
+
+/**
+ * Dynamically imports a module based on the Thunderbird version.
+ *
+ * For Thunderbird 136 and above, it imports the ESM version of the module.
+ * For older versions, it imports the JSM version.
+ *
+ * @param {string} name - The name of the module to import.
+ * @returns {*} The exported module object.
+ */
+function importModule(name) {
+    const moduleSubdir = name === "ExtensionSupport" ? "" : "gre";
+    return majorVersion >= 136
+        ? ChromeUtils.importESModule("resource://" + moduleSubdir + "/modules/" + name + ".sys.mjs")[name]
+        : ChromeUtils.import("resource://" + moduleSubdir + "/modules/" + name + ".jsm")[name];
+}
+
+// eslint-disable-next-line vars-on-top
+var ExtensionCommon = importModule("ExtensionCommon");
 /* eslint-enable no-var */
-// eslint-disable-next-line no-var
+
+// eslint-disable-next-line no-var, vars-on-top
 var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
     // eslint-disable-next-line max-lines-per-function
     getAPI(context) {
-        const {ExtensionParent} =
-            ChromeUtils.import("resource://gre/modules/ExtensionParent.jsm");
+        const ExtensionParent = importModule("ExtensionParent");
         const extension = ExtensionParent.GlobalManager
             .getExtension("rspamd-spamness@alexander.moisseev");
         Services.scriptloader.loadSubScript(extension.getURL("experiments/libExperiments.js"));
