@@ -340,9 +340,9 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
                         if (elementId === "rspamdSpamnessActionHeader") {
                             element.style["background-color"] =
-                              ["no action", "rewrite subject", "add header"].includes(value)
-                                  ? "var(--" + value.replace(/\s/g, "-") + ")"
-                                  : null;
+                                ["no action", "rewrite subject", "add header"].includes(value)
+                                    ? "var(--" + value.replace(/\s/g, "-") + ")"
+                                    : null;
                         }
 
                         // Hide notification area border if content is empty.

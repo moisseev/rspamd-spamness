@@ -5,7 +5,7 @@ import stylistic from "@stylistic/eslint-plugin";
 
 export default [
     js.configs.all,
-    stylistic.configs["all-flat"],
+    stylistic.configs.all,
     {ignores: ["**/vendor/i18n.js"]},
     {
         languageOptions: {
