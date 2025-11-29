@@ -10,7 +10,7 @@
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "author": "Alexander Moisseev (moiseev@mezonplus.ru)",
   "homepage_url": "https://github.com/moisseev/rspamd-spamness",
   "icons": {
