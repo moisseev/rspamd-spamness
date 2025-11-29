@@ -196,21 +196,37 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
     let ids = [];
     // eslint-disable-next-line no-useless-assignment
     let message = null;
-    const tabs = await browser.tabs.query({active: true, currentWindow: true});
 
-    // A Thunderbird 3-pane tab or context menu
-    if (windowId === "contextMenuPopup" || tabs[0].mailTab && tabs[0].type === "normal") {
-        const messageList = await browser.mailTabs.getSelectedMessages();
-        if (!messageList.messages.length) return;
-        ids = messageList.messages.map((msg) => msg.id);
-        [message] = messageList.messages;
+    try {
+        const tabs = await browser.tabs.query({active: true, currentWindow: true});
 
-    // A message pane tab or message display window
-    } else {
-        const window = await browser.windows.get(windowId, {populate: true});
-        const tabId = (window.type === "messageDisplay") ? window.tabs[tabIndex].id : tabs[0].id;
-        message = await browser.messageDisplay.getDisplayedMessage(tabId);
-        ids = [message.id];
+        // Defensive check (unlikely but safe)
+        if (!tabs || tabs.length === 0) {
+            libBackground.displayNotification("spamness.alertText.noActiveTab");
+            return;
+        }
+
+        // A Thunderbird 3-pane tab or context menu
+        if (windowId === "contextMenuPopup" || (tabs[0].mailTab && tabs[0].type === "normal")) {
+            const messageList = await browser.mailTabs.getSelectedMessages();
+            if (!messageList.messages.length) return;
+            ids = messageList.messages.map((msg) => msg.id);
+            [message] = messageList.messages;
+
+        // A message pane tab or message display window
+        } else {
+            const window = await browser.windows.get(windowId, {populate: true});
+            const tabId = (window.type === "messageDisplay") ? window.tabs[tabIndex].id : tabs[0].id;
+            message = await browser.messageDisplay.getDisplayedMessage(tabId);
+            ids = [message.id];
+        }
+    } catch (error) {
+        libBackground.error(error);
+        libBackground.displayNotification(
+            "spamness.alertText.failedToProcessMessage",
+            error.message
+        );
+        return;
     }
 
     async function getDefaultAction() {

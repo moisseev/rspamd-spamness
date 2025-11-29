@@ -58,6 +58,12 @@
     "spamness.alertText.trainedAs": {
         "message": "Trained as "
     },
+    "spamness.alertText.noActiveTab": {
+        "message": "No active tab found."
+    },
+    "spamness.alertText.failedToProcessMessage": {
+        "message": "Failed to process message."
+    },
     "spamness.buttonTrainHam.label": {
         "message": "Train ham"
     },

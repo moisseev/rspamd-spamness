@@ -48,6 +48,12 @@
     "spamness.alertText.trainedAs": {
         "message": "Обучено как "
     },
+    "spamness.alertText.noActiveTab": {
+        "message": "Активная вкладка не найдена."
+    },
+    "spamness.alertText.failedToProcessMessage": {
+        "message": "Не удалось обработать сообщение."
+    },
     "spamness.buttonTrainHam.label": {
         "message": "Обучить как не спам"
     },
