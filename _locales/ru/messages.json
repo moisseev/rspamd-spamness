@@ -54,6 +54,9 @@
     "spamness.alertText.failedToProcessMessage": {
         "message": "Не удалось обработать сообщение."
     },
+    "spamness.alertText.failedToMoveOrCopyMessage": {
+        "message": "Не удалось переместить или скопировать сообщение в папку обучения."
+    },
     "spamness.buttonTrainHam.label": {
         "message": "Обучить как не спам"
     },

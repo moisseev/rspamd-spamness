@@ -289,6 +289,11 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
                 "spamness.alertText.error_2147500037_workaround",
                 error.message + "\n\n"
             );
+        } else {
+            libBackground.displayNotification(
+                "spamness.alertText.failedToMoveOrCopyMessage",
+                error.message + "\n\n"
+            );
         }
     });
 }

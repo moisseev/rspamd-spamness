@@ -64,6 +64,9 @@
     "spamness.alertText.failedToProcessMessage": {
         "message": "Failed to process message."
     },
+    "spamness.alertText.failedToMoveOrCopyMessage": {
+        "message": "Failed to move or copy message to training folder."
+    },
     "spamness.buttonTrainHam.label": {
         "message": "Train ham"
     },
