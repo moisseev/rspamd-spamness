@@ -264,6 +264,9 @@
     "spamnessOptions.statusMessage.serverIsWritable": {
         "message": "Сервер доступен для записи."
     },
+    "spamnessOptions.validation.notHttpProtocol": {
+        "message": "URL должен использовать протокол HTTP или HTTPS."
+    },
     "spamnessOptions.statusMessage.corsError": {
         "message": "Ошибка CORS. Проверьте список 'neighbours' в настройках Rspamd."
     },

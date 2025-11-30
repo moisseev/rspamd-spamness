@@ -71,6 +71,15 @@ async function init() {
 async function saveOptions(e) {
     e.preventDefault();
 
+    // Validate URL before saving
+    const serverBaseUrl = document.querySelector("#serverBaseUrl").value;
+    const validation = validateUrl(serverBaseUrl);
+
+    if (!validation.valid) {
+        updateUrlValidationUI(validation);
+        return;
+    }
+
     const localStorage = await browser.storage.local.get(libBackground.defaultOptions.keys);
 
     /* eslint-disable sort-keys */
@@ -118,23 +127,43 @@ async function saveOptions(e) {
     }
 }
 
-function isValidUrl(url) {
+function validateUrl(url) {
+    if (!url || url.trim() === "") {
+        return {valid: true};
+    }
     try {
-        // eslint-disable-next-line no-new
-        new URL(url);
-        return true;
+        const parsed = new URL(url);
+        if (!["http:", "https:"].includes(parsed.protocol)) {
+            return {
+                error: browser.i18n.getMessage("spamnessOptions.validation.notHttpProtocol"),
+                valid: false
+            };
+        }
+        return {valid: true};
     // eslint-disable-next-line no-unused-vars
     } catch (_) {
-        return false;
+        return {
+            error: browser.i18n.getMessage("spamnessOptions.statusMessage.invalidUrl"),
+            valid: false
+        };
     }
 }
 
-function urlInputFeedback(isValid) {
+function updateUrlValidationUI(validation) {
     const urlInput = document.querySelector("#serverBaseUrl");
-    if (isValid) {
-        urlInput.classList.remove("input-invalid");
+    const errorSpan = document.querySelector("#serverBaseUrl-error");
+    const saveButton = document.querySelector("form button[type='submit']");
+
+    if (validation.valid) {
+        urlInput.classList.remove("invalid");
+        errorSpan.style.display = "none";
+        errorSpan.textContent = "";
+        if (saveButton) saveButton.disabled = false;
     } else {
-        urlInput.classList.add("input-invalid");
+        urlInput.classList.add("invalid");
+        errorSpan.textContent = validation.error;
+        errorSpan.style.display = "block";
+        if (saveButton) saveButton.disabled = true;
     }
 }
 
@@ -155,8 +184,9 @@ async function checkServerStatus() {
         statusMessageElement.style.color = color;
     }
 
-    if (!isValidUrl(serverBaseUrl)) {
-        updateStatusMessage("spamnessOptions.statusMessage.invalidUrl");
+    const urlValidation = validateUrl(serverBaseUrl);
+    if (!urlValidation.valid) {
+        updateStatusMessage(null, urlValidation.error);
         return;
     }
 
@@ -228,6 +258,23 @@ document.querySelector("#account-options-button").addEventListener("click", func
 document.querySelector("#advanced-options-button").addEventListener("click", function () {
     libBackground.createPopupWindow("/options/advancedOptions.html");
 });
-document.querySelector("#serverBaseUrl").addEventListener("input", (e) => urlInputFeedback(isValidUrl(e.target.value)));
+
+// Real-time URL validation
+document.querySelector("#serverBaseUrl").addEventListener("input", (e) => {
+    const validation = validateUrl(e.target.value);
+    updateUrlValidationUI(validation);
+});
+
+// Validate on save button hover
+document.addEventListener("DOMContentLoaded", () => {
+    const saveButton = document.querySelector("form button[type='submit']");
+    if (saveButton) {
+        saveButton.addEventListener("mouseenter", () => {
+            const validation = validateUrl(document.querySelector("#serverBaseUrl").value);
+            updateUrlValidationUI(validation);
+        });
+    }
+});
+
 document.addEventListener("DOMContentLoaded", init);
 document.querySelector("form").addEventListener("submit", saveOptions);

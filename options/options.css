@@ -43,8 +43,16 @@ label {
     align-items: center;
 }
 
-.input-invalid {
-    outline: 2px solid var(--in-content-border-invalid) !important;
+.error-message {
+    color: var(--in-content-border-invalid, #ff0039);
+    font-size: smaller;
+    display: none;
+    margin-left: var(--input-text-x-margin, 4px);
+    margin-top: 2px;
+}
+
+input.invalid {
+    outline: 2px solid var(--in-content-border-invalid, #ff0039) !important;
     outline-offset: -1px;
     -moz-outline-radius: 4px;
 }

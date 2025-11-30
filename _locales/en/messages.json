@@ -262,6 +262,9 @@
     "spamnessOptions.statusMessage.invalidUrl": {
         "message": "Invalid server URL."
     },
+    "spamnessOptions.validation.notHttpProtocol": {
+        "message": "URL must use HTTP or HTTPS protocol."
+    },
     "spamnessOptions.statusMessage.pingFailed": {
         "message": "API ping failed:"
     },
