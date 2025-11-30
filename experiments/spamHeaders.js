@@ -260,7 +260,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                             popup.openPopupAtScreen(event.screenX, event.screenY, true);
                         });
                     });
-                    description.innerHTML = displayText;
+                    description.textContent = displayText;
                     link.appendChild(description);
                     const comma = document.createXULElement("description");
                     comma.classList.add("linkSeparator");
