@@ -310,6 +310,8 @@ function addTrainButtonsToWindow(windowId, tabIndex) {
 
 function initMessageHeader(justAddButtons) {
     browser.windows.getAll({populate: true, windowTypes: ["normal", "messageDisplay"]}).then((windows) => {
+        const tabPromises = [];
+
         windows.forEach(function (window) {
             window.tabs
                 .filter((tab) => (window.type === "normal" &&
@@ -317,20 +319,28 @@ function initMessageHeader(justAddButtons) {
                     window.type === "messageDisplay"))
                 .forEach((tab) => {
                     if (justAddButtons) {
-                        addTrainButtonsToWindow(tab.windowId, tab.index);
+                        tabPromises.push(Promise.resolve(addTrainButtonsToWindow(tab.windowId, tab.index)));
                     } else {
-                        browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
-                            if (!message) return;
+                        tabPromises.push(browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
+                            if (!message) return null;
                             addControlsToWindow(tab.windowId, tab.index);
-
-                            browser.messages.getFull(message.id).then(async (messagepart) => {
-                                const {headers} = messagepart;
-                                if (headers) await messageHeader.displayHeaders(false, tab, message, headers);
-                            }).catch((e) => libBackground.error(e));
-                        // Thundebird fails to get messages from external files and attachments.
-                        }).catch((e) => libBackground.error(e));
+                            return browser.messages.getFull(message.id).then(async (messagepart) => {
+                                if (messagepart?.headers) {
+                                    await messageHeader.displayHeaders(false, tab, message, messagepart.headers);
+                                }
+                            });
+                        }));
                     }
                 });
+        });
+
+        // Process all tabs in parallel
+        Promise.allSettled(tabPromises).then((results) => {
+            const failures = results.filter((r) => r.status === "rejected");
+            if (failures.length > 0) {
+                libBackground.error(`Failed to initialize ${failures.length} of ${results.length} tabs`);
+                failures.forEach((f) => libBackground.error(f.reason));
+            }
         });
     });
 }

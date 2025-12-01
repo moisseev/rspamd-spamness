@@ -193,13 +193,21 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
 
 messageHeader.updateHeaders = function () {
     browser.tabs.query({active: true}).then((tabs) => {
-        tabs.forEach(function (tab) {
-            browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
-                browser.messages.getFull(message.id).then(async (messagepart) => {
-                    const {headers} = messagepart;
-                    if (headers) await messageHeader.displayHeaders(true, tab, message, headers);
-                }).catch((e) => libBackground.error(e));
-            }).catch((e) => libBackground.error(e));
+        const tabPromises = tabs.map((tab) => browser.messageDisplay.getDisplayedMessage(tab.id).then((message) => {
+            if (!message) return null;
+            return browser.messages.getFull(message.id).then(async (messagepart) => {
+                if (messagepart?.headers) {
+                    await messageHeader.displayHeaders(true, tab, message, messagepart.headers);
+                }
+            });
+        }));
+
+        Promise.allSettled(tabPromises).then((results) => {
+            const failures = results.filter((r) => r.status === "rejected");
+            if (failures.length > 0) {
+                libBackground.error(`Failed to update ${failures.length} of ${results.length} tabs`);
+                failures.forEach((f) => libBackground.error(f.reason));
+            }
         });
     });
 };
