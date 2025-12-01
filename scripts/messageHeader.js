@@ -111,18 +111,18 @@ messageHeader.displayHeaders = async function (update_rules, tab, message, heade
             );
         }
 
-        let scanTime = headers["x-rspamd-scan-time"] || null;
-        if (!scanTime || !scanTime[0].length) {
-            scanTime = headers["x-spam-scan-time"] || [""];
+        let scanTime = headers["x-rspamd-scan-time"] ?? null;
+        if (!scanTime?.[0]?.length) {
+            scanTime = headers["x-spam-scan-time"] ?? [""];
         }
-        const scanTimeStr = (scanTime[0].length)
+        const scanTimeStr = (scanTime?.[0]?.length)
             ? "Scan time: " + scanTime[0]
             : "";
         browser.spamHeaders
             .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessScanTimeHeader", "headerValue", scanTimeStr);
 
-        const action = headers["x-rspamd-action"] || null;
-        const actionStr = (action && action[0].length) ? action[0] : "";
+        const action = headers["x-rspamd-action"] ?? null;
+        const actionStr = action?.[0] ?? "";
         browser.spamHeaders
             .setHeaderValue(tab.windowId, tab.index, "rspamdSpamnessActionHeader", "headerValue", actionStr);
 

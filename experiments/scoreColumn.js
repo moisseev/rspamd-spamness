@@ -1,10 +1,10 @@
-/* global ChromeUtils, libCommon, libExperiments, libHeader, globalThis */
+/* global ChromeUtils, libCommon, libExperiments, libHeader */
 /* exported scoreColumn */
 
 "use strict";
 
 /* eslint-disable no-var */
-var Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
+var Services = globalThis.Services ?? ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 var [majorVersion, minorVersion] = Services.appinfo.platformVersion.split(".", 2).map((v) => parseInt(v, 10));
 
 /**

@@ -73,7 +73,7 @@ libHeader.getSymbols = function (headers, header, XPC, window) {
     if (libHeader.headerStr) {
         libHeader.headerStr[0] = b64DecodeUnicode(libHeader.headerStr[0], window);
         const json = JSON.parse(libHeader.headerStr[0]);
-        const metric = json.symbols || json.default;
+        const metric = json.symbols ?? json.default;
         let s = "";
         for (const item in metric) {
             if (!{}.hasOwnProperty.call(metric, item)) continue;

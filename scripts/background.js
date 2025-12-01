@@ -201,13 +201,13 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
         const tabs = await browser.tabs.query({active: true, currentWindow: true});
 
         // Defensive check (unlikely but safe)
-        if (!tabs || tabs.length === 0) {
+        if (!tabs?.length) {
             libBackground.displayNotification("spamness.alertText.noActiveTab");
             return;
         }
 
         // A Thunderbird 3-pane tab or context menu
-        if (windowId === "contextMenuPopup" || (tabs[0].mailTab && tabs[0].type === "normal")) {
+        if (windowId === "contextMenuPopup" || (tabs[0]?.mailTab && tabs[0]?.type === "normal")) {
             const messageList = await browser.mailTabs.getSelectedMessages();
             if (!messageList.messages.length) return;
             ids = messageList.messages.map((msg) => msg.id);
@@ -216,7 +216,7 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
         // A message pane tab or message display window
         } else {
             const window = await browser.windows.get(windowId, {populate: true});
-            const tabId = (window.type === "messageDisplay") ? window.tabs[tabIndex].id : tabs[0].id;
+            const tabId = (window.type === "messageDisplay") ? window.tabs[tabIndex]?.id : tabs[0]?.id;
             message = await browser.messageDisplay.getDisplayedMessage(tabId);
             ids = [message.id];
         }
@@ -241,14 +241,14 @@ async function moveMessage(buttonId, windowId, tabIndex, selectedAction) {
             : "move";
     }
 
-    const action = selectedAction || await getDefaultAction();
+    const action = selectedAction ?? await getDefaultAction();
 
     if (["bayes", "fuzzy", "check"].includes(action)) {
         await sendMessageToRspamd(message, buttonId, windowId, tabIndex, action);
         return;
     }
 
-    const accountId = (message.external) ? null : message.folder.accountId;
+    const accountId = (message.external) ? null : message.folder?.accountId;
     const trainFolder = {
         rspamdSpamnessButtonHam: "TrainHam",
         rspamdSpamnessButtonSpam: "TrainSpam"

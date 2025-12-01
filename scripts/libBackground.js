@@ -84,7 +84,7 @@ libBackground.getDestination = async function (accountId, folder) {
             : defaultTrainingFolderAccount,
         defaultTrainingFolderAccount: defaultTrainingFolderAccount,
         isDefault: isDefault,
-        path: path || ""
+        path: path ?? ""
     };
 };
 

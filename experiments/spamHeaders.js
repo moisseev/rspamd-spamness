@@ -1,10 +1,10 @@
-/* global ChromeUtils, libExperiments, globalThis */
+/* global ChromeUtils, libExperiments */
 /* exported spamHeaders */
 
 "use strict";
 
 /* eslint-disable no-var */
-var Services = globalThis.Services || ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
+var Services = globalThis.Services ?? ChromeUtils.import("resource://gre/modules/Services.jsm").Services;
 var [majorVersion] = Services.appinfo.platformVersion.split(".", 1);
 
 /**

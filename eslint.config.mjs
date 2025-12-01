@@ -9,7 +9,7 @@ export default [
     {ignores: ["**/vendor/i18n.js"]},
     {
         languageOptions: {
-            ecmaVersion: 9,
+            ecmaVersion: 2020,
             globals: {
                 ...globals.browser,
             },

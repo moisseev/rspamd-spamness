@@ -51,16 +51,16 @@ async function init() {
     document.querySelector("#colorizeSymbols").checked = localStorage["headers-colorizeSymbols"];
 
     document.querySelector("#trainingButtons-enabled").checked = localStorage["trainingButtons-enabled"];
-    document.querySelector("#folderTrainHam").value = localStorage.folderTrainHam;
-    document.querySelector("#folderTrainSpam").value = localStorage.folderTrainSpam;
+    document.querySelector("#folderTrainHam").value = localStorage.folderTrainHam ?? "";
+    document.querySelector("#folderTrainSpam").value = localStorage.folderTrainSpam ?? "";
 
-    document.querySelector("#serverBaseUrl").value = localStorage.serverBaseUrl;
-    document.querySelector("#serverPassword").value = localStorage.serverPassword;
+    document.querySelector("#serverBaseUrl").value = localStorage.serverBaseUrl ?? "";
+    document.querySelector("#serverPassword").value = localStorage.serverPassword ?? "";
 
-    document.querySelector("#fuzzyFlagHam").value = localStorage.fuzzyFlagHam;
-    document.querySelector("#fuzzyWeightHam").value = localStorage.fuzzyWeightHam;
-    document.querySelector("#fuzzyFlagSpam").value = localStorage.fuzzyFlagSpam;
-    document.querySelector("#fuzzyWeightSpam").value = localStorage.fuzzyWeightSpam;
+    document.querySelector("#fuzzyFlagHam").value = localStorage.fuzzyFlagHam ?? "";
+    document.querySelector("#fuzzyWeightHam").value = localStorage.fuzzyWeightHam ?? "";
+    document.querySelector("#fuzzyFlagSpam").value = localStorage.fuzzyFlagSpam ?? "";
+    document.querySelector("#fuzzyWeightSpam").value = localStorage.fuzzyWeightSpam ?? "";
 
     document.querySelector("#trainingButtonHamDefaultAction").value = localStorage["trainingButtonHam-defaultAction"];
     document.querySelector("#trainingButtonSpamDefaultAction").value = localStorage["trainingButtonSpam-defaultAction"];
