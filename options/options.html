@@ -66,6 +66,7 @@
                 <p>
                     <label for="show_n_lines">__MSG_spamnessOptions.prefShowNLinesBeforeMore.label__</label>
                     <input type="number" id="show_n_lines" size=2>
+                    <span class="error-message" id="show_n_lines-error"></span>
                 </p>
                 <p>
                     <input type="checkbox" id="colorizeSymbols">
@@ -132,8 +133,12 @@
                                 </div>
                                 <div class="fuzzy-group">
                                     <label for="fuzzyWeightHam">__MSG_spamnessOptions.fuzzyWeight.label__</label>
-                                    <input type="number" id="fuzzyWeightHam" size="2" step="1">
+                                    <input type="number" id="fuzzyWeightHam" size="2" step="any">
                                 </div>
+                            </div>
+                            <div class="fuzzy-error-container">
+                                <span class="error-message" id="fuzzyFlagHam-error"></span>
+                                <span class="error-message" id="fuzzyWeightHam-error"></span>
                             </div>
                         </fieldset>
                         <fieldset>
@@ -145,8 +150,12 @@
                                 </div>
                                 <div class="fuzzy-group">
                                     <label for="fuzzyWeightSpam">__MSG_spamnessOptions.fuzzyWeight.label__</label>
-                                    <input type="number" id="fuzzyWeightSpam" size="2" step="1">
+                                    <input type="number" id="fuzzyWeightSpam" size="2" step="any">
                                 </div>
+                            </div>
+                            <div class="fuzzy-error-container">
+                                <span class="error-message" id="fuzzyFlagSpam-error"></span>
+                                <span class="error-message" id="fuzzyWeightSpam-error"></span>
                             </div>
                         </fieldset>
                     </fieldset>

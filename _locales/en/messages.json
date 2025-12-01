@@ -265,6 +265,15 @@
     "spamnessOptions.validation.notHttpProtocol": {
         "message": "URL must use HTTP or HTTPS protocol."
     },
+    "spamnessOptions.validation.nonNegativeInteger": {
+        "message": "Must be a non-negative integer (0 or greater)."
+    },
+    "spamnessOptions.validation.positiveInteger": {
+        "message": "Must be a positive integer (1 or greater)."
+    },
+    "spamnessOptions.validation.validNumber": {
+        "message": "Must be a valid number."
+    },
     "spamnessOptions.statusMessage.pingFailed": {
         "message": "API ping failed:"
     },

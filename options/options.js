@@ -71,14 +71,25 @@ async function init() {
 async function saveOptions(e) {
     e.preventDefault();
 
-    // Validate URL before saving
-    const serverBaseUrl = document.querySelector("#serverBaseUrl").value;
-    const validation = validateUrl(serverBaseUrl);
+    // Validate all fields before saving
+    const validations = [
+        {id: "serverBaseUrl", validator: validateUrl},
+        {id: "show_n_lines", validator: validateNonNegativeInteger},
+        {id: "fuzzyFlagHam", validator: validatePositiveInteger},
+        {id: "fuzzyFlagSpam", validator: validatePositiveInteger},
+        {id: "fuzzyWeightHam", validator: validateNumber},
+        {id: "fuzzyWeightSpam", validator: validateNumber}
+    ];
 
-    if (!validation.valid) {
-        updateUrlValidationUI(validation);
-        return;
-    }
+    let hasErrors = false;
+    validations.forEach(({id, validator}) => {
+        const inputElement = document.querySelector(`#${id}`);
+        const validation = validator(inputElement.value, inputElement);
+        updateValidationUI(id, validation);
+        if (!validation.valid) hasErrors = true;
+    });
+
+    if (hasErrors) return;
 
     const localStorage = await browser.storage.local.get(libBackground.defaultOptions.keys);
 
@@ -149,22 +160,89 @@ function validateUrl(url) {
     }
 }
 
-function updateUrlValidationUI(validation) {
-    const urlInput = document.querySelector("#serverBaseUrl");
-    const errorSpan = document.querySelector("#serverBaseUrl-error");
+function validationResult(isValid, messageKey = null) {
+    return isValid
+        ? {valid: true}
+        : {error: browser.i18n.getMessage(messageKey), valid: false};
+}
+
+function validateNumericField(value, inputElement, messageKey, options) {
+    const {allowEmpty, checkValue, parseFunc} = options;
+
+    if (inputElement && inputElement.validity.badInput) return validationResult(false, messageKey);
+    if (!value || value.trim() === "") return validationResult(allowEmpty, messageKey);
+
+    const num = parseFunc(value, 10);
+    if (!checkValue(num, value.trim())) return validationResult(false, messageKey);
+
+    return validationResult(true);
+}
+
+function validateNonNegativeInteger(value, inputElement) {
+    return validateNumericField(
+        value,
+        inputElement,
+        "spamnessOptions.validation.nonNegativeInteger",
+        {
+            allowEmpty: false,
+            checkValue: (num, str) => !isNaN(num) && num >= 0 && num.toString() === str,
+            parseFunc: parseInt
+        }
+    );
+}
+
+function validatePositiveInteger(value, inputElement) {
+    return validateNumericField(
+        value,
+        inputElement,
+        "spamnessOptions.validation.positiveInteger",
+        {
+            allowEmpty: true,
+            checkValue: (num, str) => !isNaN(num) && num >= 1 && num.toString() === str,
+            parseFunc: parseInt
+        }
+    );
+}
+
+function validateNumber(value, inputElement) {
+    return validateNumericField(
+        value,
+        inputElement,
+        "spamnessOptions.validation.validNumber",
+        {
+            allowEmpty: true,
+            checkValue: (num) => !isNaN(num),
+            parseFunc: parseFloat
+        }
+    );
+}
+
+function updateValidationUI(inputId, validation) {
+    const input = document.querySelector(`#${inputId}`);
+    const errorSpan = document.querySelector(`#${inputId}-error`);
     const saveButton = document.querySelector("form button[type='submit']");
 
     if (validation.valid) {
-        urlInput.classList.remove("invalid");
-        errorSpan.style.display = "none";
-        errorSpan.textContent = "";
-        if (saveButton) saveButton.disabled = false;
+        input.classList.remove("invalid");
+        if (errorSpan) {
+            errorSpan.style.display = "none";
+            errorSpan.textContent = "";
+        }
     } else {
-        urlInput.classList.add("invalid");
-        errorSpan.textContent = validation.error;
-        errorSpan.style.display = "block";
-        if (saveButton) saveButton.disabled = true;
+        input.classList.add("invalid");
+        if (errorSpan) {
+            errorSpan.textContent = validation.error;
+            errorSpan.style.display = "block";
+        }
     }
+
+    // Check if any field is invalid
+    const hasInvalidFields = document.querySelectorAll("input.invalid").length > 0;
+    if (saveButton) saveButton.disabled = hasInvalidFields;
+}
+
+function updateUrlValidationUI(validation) {
+    updateValidationUI("serverBaseUrl", validation);
 }
 
 let abortController = new AbortController();
@@ -259,10 +337,29 @@ document.querySelector("#advanced-options-button").addEventListener("click", fun
     libBackground.createPopupWindow("/options/advancedOptions.html");
 });
 
-// Real-time URL validation
+// Field validation configuration
+const numericFieldValidations = [
+    {id: "show_n_lines", validator: validateNonNegativeInteger},
+    {id: "fuzzyFlagHam", validator: validatePositiveInteger},
+    {id: "fuzzyFlagSpam", validator: validatePositiveInteger},
+    {id: "fuzzyWeightHam", validator: validateNumber},
+    {id: "fuzzyWeightSpam", validator: validateNumber}
+];
+
+function validateFieldById(id, validator) {
+    const inputElement = document.querySelector(`#${id}`);
+    const validation = validator(inputElement.value, inputElement);
+    updateValidationUI(id, validation);
+}
+
+// Real-time validation
 document.querySelector("#serverBaseUrl").addEventListener("input", (e) => {
     const validation = validateUrl(e.target.value);
     updateUrlValidationUI(validation);
+});
+
+numericFieldValidations.forEach(({id, validator}) => {
+    document.querySelector(`#${id}`).addEventListener("input", () => validateFieldById(id, validator));
 });
 
 // Validate on save button hover
@@ -270,8 +367,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveButton = document.querySelector("form button[type='submit']");
     if (saveButton) {
         saveButton.addEventListener("mouseenter", () => {
-            const validation = validateUrl(document.querySelector("#serverBaseUrl").value);
-            updateUrlValidationUI(validation);
+            const urlValidation = validateUrl(document.querySelector("#serverBaseUrl").value);
+            updateUrlValidationUI(urlValidation);
+
+            numericFieldValidations.forEach(({id, validator}) => validateFieldById(id, validator));
         });
     }
 });

@@ -42,6 +42,9 @@ label {
     display: flex;
     align-items: center;
 }
+.fuzzy-error-container {
+    display: flex;
+}
 
 .error-message {
     color: var(--in-content-border-invalid, #ff0039);
@@ -49,6 +52,10 @@ label {
     display: none;
     margin-left: var(--input-text-x-margin, 4px);
     margin-top: 2px;
+}
+.fuzzy-error-container .error-message:last-child {
+    margin-left: auto;
+    text-align: right;
 }
 
 input.invalid {

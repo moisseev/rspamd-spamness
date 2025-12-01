@@ -267,6 +267,15 @@
     "spamnessOptions.validation.notHttpProtocol": {
         "message": "URL должен использовать протокол HTTP или HTTPS."
     },
+    "spamnessOptions.validation.nonNegativeInteger": {
+        "message": "Должно быть неотрицательное целое число (0 или больше)."
+    },
+    "spamnessOptions.validation.positiveInteger": {
+        "message": "Должно быть положительное целое число (1 или больше)."
+    },
+    "spamnessOptions.validation.validNumber": {
+        "message": "Должно быть допустимое число."
+    },
     "spamnessOptions.statusMessage.corsError": {
         "message": "Ошибка CORS. Проверьте список 'neighbours' в настройках Rspamd."
     },
