@@ -373,12 +373,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Validate loaded values
     validateAllFields();
-
-    // Validate on save button hover
-    const saveButton = document.querySelector("form button[type='submit']");
-    if (saveButton) {
-        saveButton.addEventListener("mouseenter", validateAllFields);
-    }
 });
 
 document.querySelector("form").addEventListener("submit", saveOptions);
