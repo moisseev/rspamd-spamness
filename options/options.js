@@ -352,6 +352,12 @@ function validateFieldById(id, validator) {
     updateValidationUI(id, validation);
 }
 
+function validateAllFields() {
+    const urlValidation = validateUrl(document.querySelector("#serverBaseUrl").value);
+    updateUrlValidationUI(urlValidation);
+    numericFieldValidations.forEach(({id, validator}) => validateFieldById(id, validator));
+}
+
 // Real-time validation
 document.querySelector("#serverBaseUrl").addEventListener("input", (e) => {
     const validation = validateUrl(e.target.value);
@@ -362,18 +368,16 @@ numericFieldValidations.forEach(({id, validator}) => {
     document.querySelector(`#${id}`).addEventListener("input", () => validateFieldById(id, validator));
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-    init();
+document.addEventListener("DOMContentLoaded", async () => {
+    await init();
+
+    // Validate loaded values
+    validateAllFields();
 
     // Validate on save button hover
     const saveButton = document.querySelector("form button[type='submit']");
     if (saveButton) {
-        saveButton.addEventListener("mouseenter", () => {
-            const urlValidation = validateUrl(document.querySelector("#serverBaseUrl").value);
-            updateUrlValidationUI(urlValidation);
-
-            numericFieldValidations.forEach(({id, validator}) => validateFieldById(id, validator));
-        });
+        saveButton.addEventListener("mouseenter", validateAllFields);
     }
 });
 
