@@ -362,8 +362,10 @@ numericFieldValidations.forEach(({id, validator}) => {
     document.querySelector(`#${id}`).addEventListener("input", () => validateFieldById(id, validator));
 });
 
-// Validate on save button hover
 document.addEventListener("DOMContentLoaded", () => {
+    init();
+
+    // Validate on save button hover
     const saveButton = document.querySelector("form button[type='submit']");
     if (saveButton) {
         saveButton.addEventListener("mouseenter", () => {
@@ -375,5 +377,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-document.addEventListener("DOMContentLoaded", init);
 document.querySelector("form").addEventListener("submit", saveOptions);
