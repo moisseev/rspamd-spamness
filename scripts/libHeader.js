@@ -71,21 +71,25 @@ libHeader.getSymbols = function (headers, header, XPC, window) {
     // Get symbols from LDA mode header
     libHeader.headerStr = getHeaderStr("x-spam-result");
     if (libHeader.headerStr) {
-        libHeader.headerStr[0] = b64DecodeUnicode(libHeader.headerStr[0], window);
-        const json = JSON.parse(libHeader.headerStr[0]);
-        const metric = json.symbols ?? json.default;
-        let s = "";
-        for (const item in metric) {
-            if (!{}.hasOwnProperty.call(metric, item)) continue;
-            const symbol = metric[item];
-            if (symbol.name) {
-                s += " " + symbol.name +
-                    "(" + symbol.score.toFixed(2) + ")" +
-                    "[" + (symbol.options ? symbol.options.join(", ") : "") + "]";
+        try {
+            libHeader.headerStr[0] = b64DecodeUnicode(libHeader.headerStr[0], window);
+            const json = JSON.parse(libHeader.headerStr[0]);
+            const metric = json.symbols ?? json.default;
+            let s = "";
+            for (const item in metric) {
+                if (!{}.hasOwnProperty.call(metric, item)) continue;
+                const symbol = metric[item];
+                if (symbol.name) {
+                    s += " " + symbol.name +
+                        "(" + symbol.score.toFixed(2) + ")" +
+                        "[" + (symbol.options ? symbol.options.join(", ") : "") + "]";
+                }
             }
-        }
-        if (s) {
-            return s;
+            if (s) {
+                return s;
+            }
+        } catch {
+            // Ignore malformed JSON in x-spam-result header
         }
     }
 
