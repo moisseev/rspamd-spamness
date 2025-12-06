@@ -276,14 +276,17 @@ async function checkServerStatus() {
     const {signal} = abortController;
 
     try {
-        const pingResponse = await fetch(`${serverBaseUrl}/ping`, {signal});
+        const pingResponse = await fetch(libBackground.buildUrl(serverBaseUrl, "/ping"), {signal});
         if (!pingResponse.ok || await pingResponse.text() !== "pong\r\n") {
             updateStatusMessage(
                 "spamnessOptions.statusMessage.pingFailed",
                 `${pingResponse.status} ${pingResponse.statusText}`
             );
         } else {
-            const statResponse = await fetch(`${serverBaseUrl}/stat`, {headers: {Password: serverPassword}, signal});
+            const statResponse = await fetch(
+                libBackground.buildUrl(serverBaseUrl, "/stat"),
+                {headers: {Password: serverPassword}, signal}
+            );
             if (statResponse.ok) {
                 const statData = await statResponse.json();
                 updateStatusMessage(
@@ -313,7 +316,7 @@ async function checkServerStatus() {
 
     async function fetchWithNoCorsCheck() {
         try {
-            await fetch(`${serverBaseUrl}/ping`, {mode: "no-cors"});
+            await fetch(libBackground.buildUrl(serverBaseUrl, "/ping"), {mode: "no-cors"});
             return true;
         // eslint-disable-next-line no-unused-vars
         } catch (_) {

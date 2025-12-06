@@ -132,7 +132,7 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
         browser.spamHeaders
             .setHeaderValue(windowId, tabIndex, "in-progress-spinner", "classListRemove", "spinner-hidden");
 
-        const serverUrl = new URL(endpoint[endpointType], localStorage.serverBaseUrl);
+        const serverUrl = libBackground.buildUrl(localStorage.serverBaseUrl, endpoint[endpointType]);
         try {
             const response = await fetch(serverUrl, {
                 body: file,
