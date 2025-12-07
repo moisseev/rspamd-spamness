@@ -39,8 +39,7 @@ libBackground.createPopupWindow = function (url, width = 480, height = 300) {
 
 libBackground.buildUrl = function (baseUrl, path) {
     const normalizedBase = baseUrl.replace(/\/+$/, "");
-    const normalizedPath = path.replace(/^\/+/, "");
-    return new URL(`${normalizedBase}/${normalizedPath}`);
+    return new URL(`${normalizedBase}${path}`);
 };
 
 libBackground.prepareNotificationDetails = function (messageName, string = "", logLevel = "warn") {
