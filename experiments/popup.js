@@ -1,4 +1,4 @@
-/* global ChromeUtils, libExperiments */
+/* global Cc, ChromeUtils, Ci, libExperiments */
 /* exported popup */
 
 "use strict";
@@ -105,11 +105,14 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                         const copyMenuitem = doc.createXULElement("menuitem");
                         copyMenuitem.id = "copyMenuitem";
                         copyMenuitem.setAttribute("data-l10n-id", "text-action-copy");
-                        copyMenuitem.setAttribute("oncommand", `Cc['@mozilla.org/widget/clipboardhelper;1']
-                            .getService(Ci.nsIClipboardHelper)
-                            .copyString(window.getSelection().isCollapsed ?
-                                event.currentTarget.parentNode.headerField.textContent :
-                                window.getSelection().toString());`);
+                        copyMenuitem.addEventListener("command", (event) => {
+                            const field = event.currentTarget.parentNode.headerField;
+                            const tooltiptext = field.parentElement.getAttribute("tooltiptext") ?? "";
+
+                            Cc["@mozilla.org/widget/clipboardhelper;1"]
+                                .getService(Ci.nsIClipboardHelper)
+                                .copyString(field.textContent + tooltiptext);
+                        });
                         menupopup.appendChild(copyMenuitem);
 
                         menuseparator();
