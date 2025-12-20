@@ -91,10 +91,17 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                         const menupopup = doc.createXULElement("menupopup");
                         menupopup.id = "rspamdSpamnessSymbolPopup";
 
-                        function appendMenuitem(id, label) {
+                        function appendMenuitem(id, label, iconPath) {
                             const menuitem = doc.createXULElement("menuitem");
                             if (id) menuitem.id = id;
                             menuitem.label = context.extension.localeData.localizeMessage(label);
+
+                            if (iconPath) {
+                                const iconUrl = context.extension.getURL(iconPath);
+                                menuitem.setAttribute("image", iconUrl);
+                                menuitem.classList.add("menuitem-iconic");
+                            }
+
                             menupopup.appendChild(menuitem);
                         }
 
@@ -105,6 +112,8 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                         const copyMenuitem = doc.createXULElement("menuitem");
                         copyMenuitem.id = "copyMenuitem";
                         copyMenuitem.setAttribute("data-l10n-id", "text-action-copy");
+                        copyMenuitem.setAttribute("image", context.extension.getURL("images/copy.svg"));
+                        copyMenuitem.classList.add("menuitem-iconic");
                         copyMenuitem.addEventListener("command", (event) => {
                             const field = event.currentTarget.parentNode.headerField;
                             const tooltiptext = field.parentElement.getAttribute("tooltiptext") ?? "";
@@ -118,39 +127,47 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                         menuseparator();
                         appendMenuitem(
                             "rspamdSpamnessSymbolPopupSortByName",
-                            "spamness.popupSortByName.label"
+                            "spamness.popupSortByName.label",
+                            "images/sort-name.svg"
                         );
                         appendMenuitem(
                             "rspamdSpamnessSymbolPopupSortByScore",
-                            "spamness.popupSortByScore.label"
+                            "spamness.popupSortByScore.label",
+                            "images/sort-score.svg"
                         );
                         menuseparator();
                         appendMenuitem(
                             "rspamdSpamnessSymbolPopupGroup",
-                            "spamness.popupGroup.label"
+                            "spamness.popupGroup.label",
+                            "images/group.svg"
                         );
                         appendMenuitem(
                             "rspamdSpamnessSymbolPopupUngroup",
-                            "spamness.popupUngroup.label"
+                            "spamness.popupUngroup.label",
+                            "images/ungroup.svg"
                         );
                         menuseparator();
                         appendMenuitem(
                             "rspamdSpamnessSymbolTrainHam",
-                            "spamness.buttonTrainHam.label"
+                            "spamness.buttonTrainHam.label",
+                            "images/arrow-down.svg"
                         );
                         appendMenuitem(
                             "rspamdSpamnessSymbolTrainSpam",
-                            "spamness.buttonTrainSpam.label"
+                            "spamness.buttonTrainSpam.label",
+                            "images/arrow-up.svg"
                         );
                         menuseparator();
                         appendMenuitem(
                             "rspamdSpamnessSymbolPopupOpenRulesDialog",
-                            "spamness.popupRawExtendedHeader.label"
+                            "spamness.popupRawExtendedHeader.label",
+                            "images/document.svg"
                         );
                         menuseparator();
                         appendMenuitem(
                             "rspamdSpamnessSymbolPopupOptions",
-                            "spamnessOptions.title"
+                            "spamnessOptions.title",
+                            "images/settings.svg"
                         );
 
                         doc.getElementById("mainPopupSet").appendChild(menupopup);

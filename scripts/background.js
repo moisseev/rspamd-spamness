@@ -485,47 +485,58 @@ async function addControlsToWindow(windowId, tabIndex) {
     appendMenuitem(
         "rspamdSpamnessSymbolPopupSortByName",
         "spamness.popupSortByName.label",
-        () => sortSymbols("name")
+        () => sortSymbols("name"),
+        {16: "images/sort-name.svg"}
     );
     appendMenuitem(
         "rspamdSpamnessSymbolPopupSortByScore",
         "spamness.popupSortByScore.label",
-        () => sortSymbols("score")
+        () => sortSymbols("score"),
+        {16: "images/sort-score.svg"}
     );
     menuseparator();
     appendMenuitem(
         "rspamdSpamnessSymbolPopupGroup",
         "spamness.popupGroup.label",
-        () => groupSymbols(true)
+        () => groupSymbols(true),
+        {16: "images/group.svg"}
     );
     appendMenuitem(
         "rspamdSpamnessSymbolPopupUngroup",
         "spamness.popupUngroup.label",
-        () => groupSymbols(false)
+        () => groupSymbols(false),
+        {16: "images/ungroup.svg"}
     );
     menuseparator();
     appendMenuitem(
         "rspamdSpamnessSymbolTrainHam",
         "spamness.buttonTrainHam.label",
         () => moveMessage("rspamdSpamnessButtonHam", "contextMenuPopup"),
-        {16: "images/arrow-down.png"}
+        {16: "images/arrow-down.svg"}
     );
     appendMenuitem(
         "rspamdSpamnessSymbolTrainSpam",
         "spamness.buttonTrainSpam.label",
         () => moveMessage("rspamdSpamnessButtonSpam", "contextMenuPopup"),
-        {16: "images/arrow-up.png"}
+        {16: "images/arrow-up.svg"}
     );
     menuseparator();
     appendMenuitem(
         "open-rules",
         "spamness.popupRawExtendedHeader.label",
-        () => libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200)
+        () => libBackground.createPopupWindow("/content/rulesDialog.html", 200, 200),
+        {16: "images/document.svg"}
     );
     menuseparator();
+
+    /*
+     * Note: Icon may not display when menu item overlaps taskbar due to Thunderbird bug
+     * with lazy loading moz-extension:// resources for items positioned over taskbar.
+     */
     appendMenuitem(
         "open-options",
         "spamnessOptions.title",
-        () => browser.runtime.openOptionsPage()
+        () => browser.runtime.openOptionsPage(),
+        {16: "images/settings.svg"}
     );
 }());

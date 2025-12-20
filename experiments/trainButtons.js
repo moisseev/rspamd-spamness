@@ -68,6 +68,7 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
 
                 const img = document.createElement("img");
                 img.src = imageURL;
+                img.classList.add("toolbarbutton-icon");
                 primaryButton.appendChild(img);
 
                 const label = document.createElement("label");
@@ -105,8 +106,8 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
             }
 
             if (toolbar) {
-                appendToolbarButton("Spam", extension.getURL("images/arrow-up.png"));
-                appendToolbarButton("Ham", extension.getURL("images/arrow-down.png"));
+                appendToolbarButton("Spam", extension.getURL("images/arrow-up-18.svg"));
+                appendToolbarButton("Ham", extension.getURL("images/arrow-down-18.svg"));
             } else {
                 // eslint-disable-next-line no-console
                 console.error("Could not find the header-view-toolbar element");
