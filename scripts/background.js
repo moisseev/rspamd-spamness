@@ -467,7 +467,7 @@ async function addControlsToWindow(windowId, tabIndex) {
 
     function appendMenuitem(id, label, command, icons) {
         browser.menus.create({
-            contexts: ["all"],
+            contexts: ["message_list", "page"],
             icons: icons,
             id: id,
             onclick: command,
@@ -477,7 +477,7 @@ async function addControlsToWindow(windowId, tabIndex) {
 
     function menuseparator() {
         browser.menus.create({
-            contexts: ["all"],
+            contexts: ["message_list", "page"],
             type: "separator"
         }, onCreated);
     }
