@@ -13,7 +13,7 @@ The **Rspamd-spamness** add-on is designed primarily for mail system administrat
 
 ## Supported mail headers
 
-The add-on utilizes the following headers:
+The add-on utilizes the following headers for spam scoring:
 
 - **Extended Rspamd headers** added by the [Rspamd proxy worker](https://rspamd.com/doc/workers/rspamd_proxy.html) (`X-Spamd-Result`).
 - **Headers added by [Haraka](http://haraka.github.io/plugins/rspamd)** (`X-Rspamd-Score` and `X-Rspamd-Report`).
@@ -43,6 +43,16 @@ The add-on also supports SpamAssassin-based spam filters (e.g., `SpamAssassin`, 
 ### Headers processing order
 
 The add-on searches for a spam score header in the message, following this order: user-defined `Additional mail headers` (if specified in the `Advanced options`), then hardcoded default headers (`X-Spamd-Result`, `X-Spam-Score`, `X-Rspamd-Score`, `X-Spam-Status`, `X-MailScanner-SpamCheck`). Once a matched header is found, the add-on will stop searching for additional headers, even if a score cannot be detected in the identified header.
+
+### Fuzzy hashes
+
+The add-on can extract full fuzzy hashes from `X-Rspamd-Fuzzy` headers. When you click on a `FUZZY_*` symbol (including custom storages like `LOCAL_FUZZY_WHITE`), a "Copy full fuzzy hash" option appears in the context menu, allowing you to easily copy the complete 128-character hash(es).
+
+To enable the `X-Rspamd-Fuzzy` header in the [milter headers module](https://docs.rspamd.com/modules/milter_headers/), add the following to `local.d/milter_headers.conf`:
+
+~~~
+use = ["fuzzy-hashes"];
+~~~
 
 ## Installation
 
