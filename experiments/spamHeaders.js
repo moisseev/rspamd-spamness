@@ -238,7 +238,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     addHeadersToWindowById(windowId, tabIndex);
                 },
 
-                addSymbol(windowId, tabIndex, symbolClass, displayText, tooltiptext) {
+                addSymbol(windowId, tabIndex, symbolClass, displayText, tooltiptext, fullFuzzyHashes) {
                     const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     if (!document) return;
 
@@ -253,6 +253,10 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     description.classList.add("linkDisplayButton");
                     description.role = "textbox";
                     description["aria-readonly"] = true;
+                    // Store full fuzzy hashes if available
+                    if (fullFuzzyHashes && fullFuzzyHashes.length > 0) {
+                        description.setAttribute("data-fuzzy-hashes", fullFuzzyHashes.join("\n"));
+                    }
                     ["click", "contextmenu"].forEach((e) => {
                         description.addEventListener(e, (event) => {
                             const popup = document.getElementById("rspamdSpamnessSymbolPopup");

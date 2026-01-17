@@ -109,20 +109,44 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                             menupopup.appendChild(doc.createXULElement("menuseparator"));
                         }
 
-                        const copyMenuitem = doc.createXULElement("menuitem");
-                        copyMenuitem.id = "copyMenuitem";
-                        copyMenuitem.setAttribute("data-l10n-id", "text-action-copy");
-                        copyMenuitem.setAttribute("image", context.extension.getURL("images/copy.svg"));
-                        copyMenuitem.classList.add("menuitem-iconic");
-                        copyMenuitem.addEventListener("command", (event) => {
-                            const field = event.currentTarget.parentNode.headerField;
-                            const tooltiptext = field.parentElement.getAttribute("tooltiptext") ?? "";
+                        function createCopyMenuitem({id, label, l10nId, textExtractor, hidden = false}) {
+                            const menuitem = doc.createXULElement("menuitem");
+                            menuitem.id = id;
+                            if (l10nId) {
+                                menuitem.setAttribute("data-l10n-id", l10nId);
+                            } else {
+                                menuitem.label = label;
+                            }
+                            menuitem.setAttribute("image", context.extension.getURL("images/copy.svg"));
+                            menuitem.classList.add("menuitem-iconic");
+                            menuitem.hidden = hidden;
+                            menuitem.addEventListener("command", (event) => {
+                                const field = event.currentTarget.parentNode.headerField;
+                                const text = textExtractor(field);
+                                if (text) {
+                                    Cc["@mozilla.org/widget/clipboardhelper;1"]
+                                        .getService(Ci.nsIClipboardHelper)
+                                        .copyString(text);
+                                }
+                            });
+                            menupopup.appendChild(menuitem);
+                        }
 
-                            Cc["@mozilla.org/widget/clipboardhelper;1"]
-                                .getService(Ci.nsIClipboardHelper)
-                                .copyString(field.textContent + tooltiptext);
+                        createCopyMenuitem({
+                            id: "copyMenuitem",
+                            l10nId: "text-action-copy",
+                            textExtractor: (field) => {
+                                const tooltiptext = field.parentElement.getAttribute("tooltiptext") ?? "";
+                                return field.textContent + tooltiptext;
+                            }
                         });
-                        menupopup.appendChild(copyMenuitem);
+
+                        createCopyMenuitem({
+                            hidden: true,
+                            id: "copyFuzzyHashMenuitem",
+                            label: context.extension.localeData.localizeMessage("spamness.popupCopyFuzzyHash.label"),
+                            textExtractor: (field) => field.getAttribute("data-fuzzy-hashes")
+                        });
 
                         menuseparator();
                         appendMenuitem(
@@ -169,6 +193,17 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                             "spamnessOptions.title",
                             "images/settings.svg"
                         );
+
+                        // Handle popupshowing to show/hide "Copy full fuzzy hash" menuitem
+                        menupopup.addEventListener("popupshowing", (event) => {
+                            const field = event.currentTarget.headerField;
+                            if (!field) return;
+
+                            const fuzzyHashes = field.getAttribute("data-fuzzy-hashes");
+                            const hasFuzzyHashes = fuzzyHashes && fuzzyHashes.length > 0;
+
+                            doc.getElementById("copyFuzzyHashMenuitem").hidden = !hasFuzzyHashes;
+                        });
 
                         doc.getElementById("mainPopupSet").appendChild(menupopup);
 

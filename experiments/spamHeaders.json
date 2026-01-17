@@ -91,6 +91,11 @@
           {
             "name": "tooltiptext",
             "type": "any"
+          },
+          {
+            "name": "fullFuzzyHashes",
+            "type": "any",
+            "optional": true
           }
         ]
       },

@@ -72,6 +72,9 @@
     "spamness.messageHeader.label": {
         "message": "Оценка"
     },
+    "spamness.popupCopyFuzzyHash.label": {
+        "message": "Копировать полный fuzzy хеш"
+    },
     "spamness.popupGroup.label": {
         "message": "Сгруппировать символы"
     },

@@ -82,6 +82,9 @@
     "spamness.messageHeader.label": {
         "message": "Score"
     },
+    "spamness.popupCopyFuzzyHash.label": {
+        "message": "Copy full fuzzy hash"
+    },
     "spamness.popupGroup.label": {
         "message": "Group symbols"
     },

@@ -429,6 +429,8 @@ async function addControlsToWindow(windowId, tabIndex) {
             switch (id) {
                 case "copyMenuitem":
                     break;
+                case "copyFuzzyHashMenuitem":
+                    break;
                 case "rspamdSpamnessSymbolPopupSortByName":
                     sortSymbols("name");
                     break;
