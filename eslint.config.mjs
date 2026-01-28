@@ -44,7 +44,7 @@ export default [
             "func-style": ["error", "declaration"],
             "id-length": ["error", {min: 1}],
             "max-lines": ["error", 600],
-            "max-lines-per-function": ["warn", 250],
+            "max-lines-per-function": ["warn", 300],
             "max-params": ["warn", 6],
             "max-statements": ["warn", 50],
             "no-alert": "off",

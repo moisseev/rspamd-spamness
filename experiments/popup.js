@@ -148,6 +148,38 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                             textExtractor: (field) => field.getAttribute("data-fuzzy-hashes")
                         });
 
+                        // Create "Request hash delisting" menuitem
+                        const openDelistMenuitem = doc.createXULElement("menuitem");
+                        openDelistMenuitem.id = "openFuzzyDelistMenuitem";
+                        openDelistMenuitem.label =
+                            context.extension.localeData.localizeMessage("spamness.popupOpenFuzzyDelist.label");
+                        openDelistMenuitem.setAttribute("image", context.extension.getURL("images/document.svg"));
+                        openDelistMenuitem.classList.add("menuitem-iconic");
+                        openDelistMenuitem.hidden = true;
+                        openDelistMenuitem.addEventListener("command", (event) => {
+                            const field = event.currentTarget.parentNode.headerField;
+                            const hashesStr = field?.getAttribute("data-fuzzy-hashes");
+                            if (hashesStr) {
+                                // Split hashes by newline, filter empty strings, sanitize
+                                const hashes = hashesStr.split("\n")
+                                    .map((h) => h.trim())
+                                    .filter((h) => h.length > 0)
+                                    // Sanitize: only allow hex characters (0-9, a-f, A-F)
+                                    .filter((h) => (/^[0-9a-fA-F]+$/).test(h));
+
+                                if (hashes.length > 0) {
+                                    const hashParam = encodeURIComponent(hashes.join(","));
+                                    const url = `https://bl.rspamd.com/removal?type=fuzzy&hash=${hashParam}`;
+
+                                    // Open URL in default browser
+                                    Cc["@mozilla.org/uriloader/external-protocol-service;1"]
+                                        .getService(Ci.nsIExternalProtocolService)
+                                        .loadURI(Services.io.newURI(url));
+                                }
+                            }
+                        });
+                        menupopup.appendChild(openDelistMenuitem);
+
                         menuseparator();
                         appendMenuitem(
                             "rspamdSpamnessSymbolPopupSortByName",
@@ -194,7 +226,7 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                             "images/settings.svg"
                         );
 
-                        // Handle popupshowing to show/hide "Copy full fuzzy hash" menuitem
+                        // Handle popupshowing to show/hide fuzzy hash menuitems
                         menupopup.addEventListener("popupshowing", (event) => {
                             const field = event.currentTarget.headerField;
                             if (!field) return;
@@ -203,6 +235,7 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                             const hasFuzzyHashes = fuzzyHashes && fuzzyHashes.length > 0;
 
                             doc.getElementById("copyFuzzyHashMenuitem").hidden = !hasFuzzyHashes;
+                            doc.getElementById("openFuzzyDelistMenuitem").hidden = !hasFuzzyHashes;
                         });
 
                         doc.getElementById("mainPopupSet").appendChild(menupopup);

@@ -85,6 +85,9 @@
     "spamness.popupCopyFuzzyHash.label": {
         "message": "Copy full fuzzy hash"
     },
+    "spamness.popupOpenFuzzyDelist.label": {
+        "message": "Request hash delisting"
+    },
     "spamness.popupGroup.label": {
         "message": "Group symbols"
     },

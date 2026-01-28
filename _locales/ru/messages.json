@@ -75,6 +75,9 @@
     "spamness.popupCopyFuzzyHash.label": {
         "message": "Копировать полный fuzzy хеш"
     },
+    "spamness.popupOpenFuzzyDelist.label": {
+        "message": "Запросить делистинг хеша"
+    },
     "spamness.popupGroup.label": {
         "message": "Сгруппировать символы"
     },
