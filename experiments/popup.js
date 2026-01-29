@@ -153,7 +153,7 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                         openDelistMenuitem.id = "openFuzzyDelistMenuitem";
                         openDelistMenuitem.label =
                             context.extension.localeData.localizeMessage("spamness.popupOpenFuzzyDelist.label");
-                        openDelistMenuitem.setAttribute("image", context.extension.getURL("images/document.svg"));
+                        openDelistMenuitem.setAttribute("image", context.extension.getURL("images/external-link.svg"));
                         openDelistMenuitem.classList.add("menuitem-iconic");
                         openDelistMenuitem.hidden = true;
                         openDelistMenuitem.addEventListener("command", (event) => {
