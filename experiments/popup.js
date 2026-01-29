@@ -109,6 +109,17 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                             menupopup.appendChild(doc.createXULElement("menuseparator"));
                         }
 
+                        function processFuzzyHashes(hashesStr) {
+                            if (!hashesStr) return [];
+                            const hashes = hashesStr.split("\n")
+                                .map((h) => h.trim())
+                                .filter((h) => h.length > 0)
+                                // Sanitize: only allow hex characters (0-9, a-f, A-F)
+                                .filter((h) => (/^[0-9a-fA-F]+$/).test(h));
+                            // Remove duplicates
+                            return [...new Set(hashes)];
+                        }
+
                         function createCopyMenuitem({id, label, l10nId, textExtractor, hidden = false}) {
                             const menuitem = doc.createXULElement("menuitem");
                             menuitem.id = id;
@@ -145,7 +156,11 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                             hidden: true,
                             id: "copyFuzzyHashMenuitem",
                             label: context.extension.localeData.localizeMessage("spamness.popupCopyFuzzyHash.label"),
-                            textExtractor: (field) => field.getAttribute("data-fuzzy-hashes")
+                            textExtractor: (field) => {
+                                const hashesStr = field.getAttribute("data-fuzzy-hashes");
+                                const uniqueHashes = processFuzzyHashes(hashesStr);
+                                return uniqueHashes.join("\n");
+                            }
                         });
 
                         // Create "Request hash delisting" menuitem
@@ -159,23 +174,16 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                         openDelistMenuitem.addEventListener("command", (event) => {
                             const field = event.currentTarget.parentNode.headerField;
                             const hashesStr = field?.getAttribute("data-fuzzy-hashes");
-                            if (hashesStr) {
-                                // Split hashes by newline, filter empty strings, sanitize
-                                const hashes = hashesStr.split("\n")
-                                    .map((h) => h.trim())
-                                    .filter((h) => h.length > 0)
-                                    // Sanitize: only allow hex characters (0-9, a-f, A-F)
-                                    .filter((h) => (/^[0-9a-fA-F]+$/).test(h));
+                            const uniqueHashes = processFuzzyHashes(hashesStr);
 
-                                if (hashes.length > 0) {
-                                    const hashParam = encodeURIComponent(hashes.join(","));
-                                    const url = `https://bl.rspamd.com/removal?type=fuzzy&hash=${hashParam}`;
+                            if (uniqueHashes.length > 0) {
+                                const hashParam = encodeURIComponent(uniqueHashes.join(","));
+                                const url = `https://bl.rspamd.com/removal?type=fuzzy&hash=${hashParam}`;
 
-                                    // Open URL in default browser
-                                    Cc["@mozilla.org/uriloader/external-protocol-service;1"]
-                                        .getService(Ci.nsIExternalProtocolService)
-                                        .loadURI(Services.io.newURI(url));
-                                }
+                                // Open URL in default browser
+                                Cc["@mozilla.org/uriloader/external-protocol-service;1"]
+                                    .getService(Ci.nsIExternalProtocolService)
+                                    .loadURI(Services.io.newURI(url));
                             }
                         });
                         menupopup.appendChild(openDelistMenuitem);
