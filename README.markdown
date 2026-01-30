@@ -46,7 +46,12 @@ The add-on searches for a spam score header in the message, following this order
 
 ### Fuzzy hashes
 
-The add-on can extract full fuzzy hashes from `X-Rspamd-Fuzzy` headers. When you click on a `FUZZY_*` symbol (including custom storages like `LOCAL_FUZZY_WHITE`), a "Copy full fuzzy hash" option appears in the context menu, allowing you to easily copy the complete 128-character hash(es).
+The add-on can extract full fuzzy hashes from `X-Rspamd-Fuzzy` headers. When you click on a `FUZZY_*` symbol (including custom storages like `LOCAL_FUZZY_WHITE`), a context menu appears with fuzzy hash options:
+
+- **Copy full fuzzy hash** — copies the complete 128-character hash(es) to the clipboard.
+- **Request hash delisting** — opens the [Rspamd blacklist removal page](https://bl.rspamd.com/removal) in your default browser with the fuzzy hash(es) as URL parameters, allowing you to request removal from the Rspamd public blocklists.
+
+If a message contains multiple parts with duplicate fuzzy hashes, the add-on automatically removes duplicates before copying or generating the delisting URL.
 
 To enable the `X-Rspamd-Fuzzy` header in the [milter headers module](https://docs.rspamd.com/modules/milter_headers/), add the following to `local.d/milter_headers.conf`:
 
