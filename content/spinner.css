@@ -1,9 +1,9 @@
 :root {
-    --spinner-border-color: rgba(0 0 0 / 0.1);
+    --spinner-border-color: rgb(0 0 0 / 0.1);
 }
 @media (prefers-color-scheme: dark) {
     :root {
-        --spinner-border-color: rgba(255 255 255 / 0.3);
+        --spinner-border-color: rgb(255 255 255 / 0.3);
     }
 }
 
