@@ -56,6 +56,7 @@ async function init() {
 
     document.querySelector("#serverBaseUrl").value = localStorage.serverBaseUrl ?? "";
     document.querySelector("#serverPassword").value = localStorage.serverPassword ?? "";
+    document.querySelector("#bayes-stripNonTextBodies").checked = localStorage["bayes-stripNonTextBodies"];
 
     document.querySelector("#fuzzyFlagHam").value = localStorage.fuzzyFlagHam ?? "";
     document.querySelector("#fuzzyWeightHam").value = localStorage.fuzzyWeightHam ?? "";
@@ -110,6 +111,7 @@ async function saveOptions(e) {
 
         "serverBaseUrl": document.querySelector("#serverBaseUrl").value,
         "serverPassword": document.querySelector("#serverPassword").value,
+        "bayes-stripNonTextBodies": document.querySelector("#bayes-stripNonTextBodies").checked,
 
         "fuzzyFlagHam": document.querySelector("#fuzzyFlagHam").value,
         "fuzzyWeightHam": document.querySelector("#fuzzyWeightHam").value,

@@ -1,4 +1,4 @@
-/* global browser, libBackground, libHeader, messenger, messageHeader */
+/* global browser, libBackground, libHeader, libMimeStrip, messenger, messageHeader */
 
 "use strict";
 
@@ -28,6 +28,7 @@ function sortSymbols(order) {
 
 async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action) {
     const localStorage = await browser.storage.local.get([
+        "bayes-stripNonTextBodies",
         "fuzzyFlagHam",
         "fuzzyWeightHam",
         "fuzzyFlagSpam",
@@ -94,6 +95,11 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
         fuzzy: "/fuzzyadd"
     };
     const file = await browser.messages.getRaw(message.id);
+    let messageBody = file;
+    if (action === "bayes" && localStorage["bayes-stripNonTextBodies"]) {
+        const rawText = typeof file === "string" ? file : await file.text();
+        messageBody = libMimeStrip.stripNonTextBodies(rawText);
+    }
 
     function setNotificationAreaValue(messageName, string = "", logLevel = "warn", playSound = true) {
         const {logMethod, translatedMessage} = libBackground.prepareNotificationDetails(messageName, string, logLevel);
@@ -135,7 +141,7 @@ async function sendMessageToRspamd(message, buttonId, windowId, tabIndex, action
         const serverUrl = libBackground.buildUrl(localStorage.serverBaseUrl, endpoint[endpointType]);
         try {
             const response = await fetch(serverUrl, {
-                body: file,
+                body: messageBody,
                 headers: headers,
                 method: "POST",
             });

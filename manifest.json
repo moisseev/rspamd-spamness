@@ -10,7 +10,7 @@
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
   "default_locale": "en",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "author": "Alexander Moisseev (moiseev@mezonplus.ru)",
   "homepage_url": "https://github.com/moisseev/rspamd-spamness",
   "icons": {
@@ -24,6 +24,7 @@
     "scripts": [
       "scripts/libCommon.js",
       "scripts/libBackground.js",
+      "scripts/libMimeStrip.js",
       "scripts/libHeader.js",
       "scripts/messageHeader.js",
       "scripts/background.js"

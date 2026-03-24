@@ -4,6 +4,7 @@
 
 const libBackground = {
     defaultOptions: {
+        "bayes-stripNonTextBodies": true,
         "defaultTrainingFolderAccount": "",
         "display-column": "both",
         "display-columnImageOnlyForPositive": false,

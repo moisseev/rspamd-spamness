@@ -313,6 +313,12 @@
     "spamnessOptions.prefTrainingButtonsDefaultAction.title": {
         "message": "Training buttons default action"
     },
+    "spamnessOptions.bayesStripNonTextBodies.label": {
+        "message": "Strip non-text attachment bodies for Bayes training"
+    },
+    "spamnessOptions.bayesStripNonTextBodies.note": {
+        "message": "When enabled, bodies of non-text MIME parts (images, PDFs, archives, etc.) are removed or replaced before sending to Rspamd for Bayes training. Small parts (Bayes #ps:N ≤ 7, encoded body ≤ 4 KB) are kept intact to preserve the exact token. Larger parts are replaced with a one-byte stub so that at least a #ps:0 token is emitted for the classifier inclusion threshold. Part headers (filenames, MIME types) are preserved for metadata tokens. Note: message modification changes its hash, which may affect server-side duplicate training protection."
+    },
     "spamnessOptions.title": {
         "message": "Rspamd-spamness options"
     }
