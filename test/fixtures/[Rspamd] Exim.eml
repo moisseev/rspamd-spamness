@@ -1,0 +1,31 @@
+X-Spam-Status: No
+X-Spam-Score: 2.9 (++)
+X-Spam-Report: Action: no action
+ Symbol: MIME_GOOD(-0.10)
+ Symbol: RCPT_COUNT_ONE(0.00)
+ Symbol: HAS_PHPMAILER_SIG(0.00)
+ Symbol: RCVD_NO_TLS_LAST(0.00)
+ Symbol: TO_MATCH_ENVRCPT_ALL(0.00)
+ Symbol: HAS_INTERSPIRE_SIG(1.00)
+ Symbol: HAS_X_POS(0.00)
+ Symbol: ARC_NA(0.00)
+ Symbol: FROM_NEQ_ENVFROM(0.00)
+ Symbol: R_SPF_ALLOW(-0.20)
+ Symbol: DMARC_NA(0.00)
+ Symbol: R_DKIM_NA(0.00)
+ Symbol: HAS_REPLYTO(0.00)
+ Symbol: IP_SCORE(-2.43)
+ Symbol: RCVD_COUNT_TWO(0.00)
+ Symbol: FORGED_SENDER(0.30)
+ Symbol: PHISHING(3.86)
+ Symbol: MID_RHS_WWW(0.50)
+ Symbol: TO_DN_NONE(0.00)
+ Symbol: FROM_HAS_DN(0.00)
+ Symbol: ASN(0.00)
+ Symbol: REPLYTO_ADDR_EQ_FROM(0.00)
+ Message: (SPF): spf allow
+ Message-ID: 0a1b2c3d4e5f60718293a4b5c6d7e8f9@www.example.com
+MIME-Version: 1.0
+Subject: [Rspamd] Exim
+
+Spam filter header sample

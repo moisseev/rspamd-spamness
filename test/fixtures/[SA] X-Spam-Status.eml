@@ -1,0 +1,5 @@
+X-Spam-Status: No, score=-7.01 tagged_above=-100 required=6 tests=[BAYES_00=-1.9, DKIM_SIGNED=0.1, DKIM_VALID=-0.1, DKIM_VALID_AU=-0.1, HTML_MESSAGE=0.001, RCVD_IN_DNSWL_HI=-5, SPF_PASS=-0.001, T_RP_MATCHES_RCVD=-0.01] autolearn=ham autolearn_force=no
+MIME-Version: 1.0
+Subject: [SA] X-Spam-Status
+
+Spam filter header sample

@@ -1,0 +1,8 @@
+X-ORG-MailScanner-SpamScore: sssssss
+X-ORG-MailScanner-SpamCheck: spam, SpamAssassin (not cached, score=7.589, required 4, BAYES_99 3.50, BAYES_999 0.20, FREEMAIL_FORGED_REPLYTO 2.10, HTML_MESSAGE 0.00, KAS_SPAM_DNSBL_NIX 1.00, RDNS_NONE 0.79)
+MIME-Version: 1.0
+Subject: [MailScanner] X-ORG-MailScanner-SpamCheck - unfolded
+
+Spam filter header sample
+
+Score only; symbols not parsed.

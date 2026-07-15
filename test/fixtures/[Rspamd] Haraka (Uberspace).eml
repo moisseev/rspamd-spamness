@@ -1,0 +1,7 @@
+X-Rspamd-Bar: +
+X-Rspamd-Report: R_DKIM_ALLOW(-0.2) R_SPF_ALLOW(-0.2) HTML_SHORT_LINK_IMG_1(2) HAS_LIST_UNSUB(-0.01) MANY_INVISIBLE_PARTS(0.05) DMARC_POLICY_ALLOW(-0.5) MIME_HTML_ONLY(0.2) FORGED_SENDER(0.3) ONCE_RECEIVED(0.1)
+X-Rspamd-Score: 1.74
+MIME-Version: 1.0
+Subject: [Rspamd] Haraka (Uberspace)
+
+Spam filter header sample

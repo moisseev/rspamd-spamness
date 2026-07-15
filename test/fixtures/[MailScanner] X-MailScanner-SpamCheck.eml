@@ -1,0 +1,12 @@
+X-MailScanner-SpamCheck: spam, SpamAssassin (score=6.659, required 5,   ALL_TRUSTED -2.82, BODY_8BITS 1.50, HTML_90_100 0.19,
+	HTML_MESSAGE 0.00, HTTP_77 0.60, HTTP_ESCAPED_HOST 0.09, HTTP_EXCESSIVE_ESCAPES 0.65, MIME_BASE64_TEXT 0.11,
+	UNWANTED_LANGUAGE_BODY 2.80, URIBL_JP_SURBL 1.54,URIBL_OB_SURBL 2.00)
+Received: from etp (unknown [198.51.100.42])
+	by pl2.example.org (Postfix) with ESMTPA id 583E63C0015A;
+	Tue, 18 Dec 2018 14:01:49 +0300 (MSK)
+MIME-Version: 1.0
+Subject: [MailScanner] X-MailScanner-SpamCheck
+
+Spam filter header sample
+
+Score only; symbols not parsed.
