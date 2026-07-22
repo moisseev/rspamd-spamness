@@ -180,10 +180,17 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                                 const hashParam = encodeURIComponent(uniqueHashes.join(","));
                                 const url = `https://bl.rspamd.com/removal?type=fuzzy&hash=${hashParam}`;
 
-                                // Open URL in default browser
+                                /*
+                                 * Open URL in default browser.
+                                 * Thunderbird 153+ rejects a null triggering principal
+                                 * (NS_ERROR_ILLEGAL_VALUE), so pass one explicitly.
+                                 */
                                 Cc["@mozilla.org/uriloader/external-protocol-service;1"]
                                     .getService(Ci.nsIExternalProtocolService)
-                                    .loadURI(Services.io.newURI(url));
+                                    .loadURI(
+                                        Services.io.newURI(url),
+                                        Services.scriptSecurityManager.getSystemPrincipal()
+                                    );
                             }
                         });
                         menupopup.appendChild(openDelistMenuitem);
