@@ -1,0 +1,29 @@
+X-Rspamd-Queue-Id: 0B80716BBB
+X-Spamd-Result: default: False [-4.10 / 15.00];
+	 ARC_NA(0.00)[];
+	 HAS_XOIP(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 R_SPF_ALLOW(-0.20)[+ip4:192.0.2.192/27];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[multipart/related,multipart/alternative,text/plain];
+	 RCPT_COUNT_ONE(0.00)[1];
+	 RCVD_COUNT_THREE(0.00)[4];
+	 WHITELIST_DMARC(-7.00)[example.net:D:+];
+	 DMARC_POLICY_ALLOW(-0.25)[example.net,quarantine];
+	 RCVD_IN_DNSWL_NONE(0.00)[221.2.0.192.list.dnswl.org : 127.0.10.0];
+	 MX_GOOD(-0.01)[mx2.example.net,mx1.example.net];
+	 TO_DN_EQ_ADDR_ALL(0.00)[];
+	 RCVD_NO_TLS_LAST(0.10)[];
+	 FUZZY_DENIED(12.00)[1:6910790067:1.00:txt, 1:c8b91d011a:0.88:txt]
+	 FROM_EQ_ENVFROM(0.00)[];
+	 R_DKIM_NA(0.00)[];
+	 BAYES_HAM(-5.81)[100.00%];
+	 IP_SCORE(3.36)[ip: (4.73), ipnet: 192.0.2.0/24(2.22), asn: 64512(1.55), country: RU(-0.09)];
+	 ASN(0.00)[asn:64512, ipnet:192.0.2.0/24, country:RU]
+X-Rspamd-Fuzzy: 691079006707e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3,
+    c8b91d011a4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907e5c3a18f6d4b2907
+X-Rspamd-Server: mx.example.local
+MIME-Version: 1.0
+Subject: [Rspamd] milter - X-Rspamd-Fuzzy (legacy)
+
+Legacy X-Rspamd-Fuzzy format: bare hashes with no annotation (Rspamd before commit f00d108).
