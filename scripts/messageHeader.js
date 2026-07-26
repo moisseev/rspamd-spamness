@@ -9,7 +9,9 @@ messageHeader.fuzzyHashMap = new Map();
 
 /**
  * Parse X-Rspamd-Fuzzy headers and build fuzzy hash map.
- * Supports both "override" mode (multiple headers) and "compat" mode (comma-separated in one header).
+ * Supports the annotated format ("<hash> (rule=...; flag=...; prob=...)") and the
+ * legacy bare-hash format, in both "override" mode (multiple headers) and
+ * "compat" mode (comma-separated in one header).
  * @param {Object} headers - Email headers object
  * @returns {void}
  */
@@ -20,15 +22,21 @@ messageHeader.parseFuzzyHashes = function (headers) {
     if (!fuzzyHeaders) return;
 
     const fullHashes = [];
+
+    /*
+     * A fuzzy hash is 128 hex characters, optionally followed by a parenthesized
+     * annotation introduced in Rspamd, e.g.:
+     *   <hash> (rule=rspamd.com; flag=1; prob=1.00; queried=<hash>; added=2026-07-23 12:50:55)
+     * For non-exact matches the annotation also carries "queried=<hash>"; consuming the
+     * whole annotation prevents that content hash from being captured as a blocklist hash.
+     */
+    const hashRegex = /([0-9a-f]{128})\s*(?:\([^)]*\))?/gi;
     fuzzyHeaders.forEach((header) => {
-        // Split by comma and trim whitespace
-        header.split(",").forEach((hash) => {
-            const cleaned = hash.trim();
-            // Full fuzzy hash is 128 hex characters
-            if (cleaned && cleaned.length === 128 && (/^[0-9a-f]+$/i).test(cleaned)) {
-                fullHashes.push(cleaned);
-            }
-        });
+        // eslint-disable-next-line no-useless-assignment
+        let match = null;
+        while ((match = hashRegex.exec(header)) !== null) {
+            fullHashes.push(match[1]);
+        }
     });
 
     // Build map: first 10 chars -> full hash
