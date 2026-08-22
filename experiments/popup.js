@@ -32,10 +32,16 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
     getAPI(context) {
         let doc = null;
 
-        const ExtensionParent = importModule("ExtensionParent");
-        const extension = ExtensionParent.GlobalManager
-            .getExtension("rspamd-spamness@alexander.moisseev");
-        Services.scriptloader.loadSubScript(extension.getURL("experiments/libExperiments.js"));
+        const {extension} = context;
+
+        /*
+         * Thunderbird 155 rejects loading of moz-extension:// URIs via
+         * Services.scriptloader ("Trying to load untrusted URI").
+         * ChromeUtils.compileScript with executeInGlobal is the mechanism
+         * the platform itself uses to load experiment scripts.
+         */
+        const scriptsReady = ChromeUtils.compileScript(extension.getURL("experiments/libExperiments.js"))
+            .then((script) => script.executeInGlobal(globalThis));
 
         function disableSymGroupingMenuitem(document, group) {
             document.getElementById("rspamdSpamnessSymbolPopupGroup").disabled = (group);
@@ -82,7 +88,8 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
         context.callOnClose(this);
         return {
             popup: {
-                addPopupToWindowById(windowId, tabIndex, order, group) {
+                async addPopupToWindowById(windowId, tabIndex, order, group) {
+                    await scriptsReady;
                     doc = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     const expandedHeaders2 = doc
                         .getElementById(majorVersion < 100 ? "expandedHeaders2" : "extraHeadersArea");
@@ -269,10 +276,12 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
                     }
                     return false;
                 },
-                disableSymGroupingMenuitem(group) {
+                async disableSymGroupingMenuitem(group) {
+                    await scriptsReady;
                     disableMenuitem("group", group);
                 },
-                disableSymOrderMenuitem(order) {
+                async disableSymOrderMenuitem(order) {
+                    await scriptsReady;
                     disableMenuitem("order", order);
                 },
                 onSymbolPopupCommand: new ExtensionCommon.EventManager({
@@ -295,6 +304,6 @@ var popup = class extends ExtensionCommon.ExtensionAPI {
 
     // eslint-disable-next-line class-methods-use-this
     close() {
-        libExperiments.removeElements(["rspamdSpamnessSymbolPopup"]);
+        globalThis.libExperiments?.removeElements(["rspamdSpamnessSymbolPopup"]);
     }
 };

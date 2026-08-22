@@ -36,10 +36,16 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
     }
 
     getAPI(context) {
-        const ExtensionParent = importModule("ExtensionParent");
-        const extension = ExtensionParent.GlobalManager
-            .getExtension("rspamd-spamness@alexander.moisseev");
-        Services.scriptloader.loadSubScript(extension.getURL("experiments/libExperiments.js"));
+        const {extension} = context;
+
+        /*
+         * Thunderbird 155 rejects loading of moz-extension:// URIs via
+         * Services.scriptloader ("Trying to load untrusted URI").
+         * ChromeUtils.compileScript with executeInGlobal is the mechanism
+         * the platform itself uses to load experiment scripts.
+         */
+        const scriptsReady = ChromeUtils.compileScript(extension.getURL("experiments/libExperiments.js"))
+            .then((script) => script.executeInGlobal(globalThis));
 
         function appendButtons(windowId, tabIndex) {
             const targetIds = [];
@@ -118,7 +124,8 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
         context.callOnClose(this);
         return {
             trainButtons: {
-                addButtonsToWindowById(windowId, tabIndex) {
+                async addButtonsToWindowById(windowId, tabIndex) {
+                    await scriptsReady;
                     return appendButtons(windowId, tabIndex);
                 },
                 onButtonCommand: new ExtensionCommon.EventManager({
@@ -137,7 +144,8 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
                         };
                     }
                 }).api(),
-                removeButtons() {
+                async removeButtons() {
+                    await scriptsReady;
                     removeButtonsFromAllWindows();
                 },
             },
@@ -151,7 +159,7 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
 };
 
 function removeButtonsFromAllWindows() {
-    libExperiments.removeElements([
+    globalThis.libExperiments?.removeElements([
         "rspamdSpamnessButtonHam",
         "rspamdSpamnessButtonSpam"
     ]);
