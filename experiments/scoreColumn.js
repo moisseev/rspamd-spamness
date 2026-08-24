@@ -1,4 +1,4 @@
-/* global ChromeUtils, libCommon, libHeader */
+/* global ChromeUtils, libCommon, libExperiments, libHeader */
 /* exported scoreColumn */
 
 "use strict";
@@ -60,19 +60,19 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
 
         /*
          * Thunderbird 155 rejects loading of moz-extension:// URIs via
-         * Services.scriptloader ("Trying to load untrusted URI").
-         * ChromeUtils.compileScript with executeInGlobal is the mechanism
-         * the platform itself uses to load experiment scripts.
+         * Services.scriptloader ("Trying to load untrusted URI"). Opt in
+         * explicitly using the allowUnsafeURL option. Older Thunderbird
+         * versions ignore unknown options.
          */
         function loadHelperScript(path) {
-            return ChromeUtils.compileScript(extension.getURL(path))
-                .then((script) => script.executeInGlobal(globalThis));
+            Services.scriptloader.loadSubScriptWithOptions(
+                extension.getURL(path),
+                {allowUnsafeURL: true}
+            );
         }
-        const scriptsReady = Promise.all([
-            "scripts/libCommon.js",
-            "experiments/libExperiments.js",
-            "scripts/libHeader.js"
-        ].map(loadHelperScript));
+        loadHelperScript("scripts/libCommon.js");
+        loadHelperScript("experiments/libExperiments.js");
+        loadHelperScript("scripts/libHeader.js");
 
         RspamdSpamnessColumn.handler = {
             getCellProperties: function () {
@@ -117,12 +117,6 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
         };
 
         RspamdSpamnessColumn.addColumnHandler = function () {
-
-            /*
-             * The DB view may not exist yet when the window has just loaded.
-             * The MsgCreateDBView observer fires again once it is created.
-             */
-            if (!window.gDBView) return;
             window.gDBView.addColumnHandler("spamScoreCol", RspamdSpamnessColumn.handler);
         };
 
@@ -132,8 +126,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                 getCharPref(prefName) {
                     return Services.prefs.getCharPref(prefName);
                 },
-                async init() {
-                    await scriptsReady;
+                init() {
                     function getScore(hdr, column) {
                         // eslint-disable-next-line no-useless-assignment
                         let score = null;
@@ -258,8 +251,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
                         }
                     });
                 },
-                async refreshCustomColumn(id) {
-                    await scriptsReady;
+                refreshCustomColumn(id) {
                     ThreadPaneColumns.refreshCustomColumn(id);
                 },
                 savePrefFile() {
@@ -284,7 +276,7 @@ var scoreColumn = class extends ExtensionCommon.ExtensionAPI {
 
         if (majorVersion > 110) return;
 
-        globalThis.libExperiments?.removeElements([
+        libExperiments.removeElements([
             "spamScoreCol",
             "rspamd-spamness-messenger-css"
         ]);

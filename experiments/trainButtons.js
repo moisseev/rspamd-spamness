@@ -40,12 +40,14 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
 
         /*
          * Thunderbird 155 rejects loading of moz-extension:// URIs via
-         * Services.scriptloader ("Trying to load untrusted URI").
-         * ChromeUtils.compileScript with executeInGlobal is the mechanism
-         * the platform itself uses to load experiment scripts.
+         * Services.scriptloader ("Trying to load untrusted URI"). Opt in
+         * explicitly using the allowUnsafeURL option. Older Thunderbird
+         * versions ignore unknown options.
          */
-        const scriptsReady = ChromeUtils.compileScript(extension.getURL("experiments/libExperiments.js"))
-            .then((script) => script.executeInGlobal(globalThis));
+        Services.scriptloader.loadSubScriptWithOptions(
+            extension.getURL("experiments/libExperiments.js"),
+            {allowUnsafeURL: true}
+        );
 
         function appendButtons(windowId, tabIndex) {
             const targetIds = [];
@@ -124,8 +126,7 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
         context.callOnClose(this);
         return {
             trainButtons: {
-                async addButtonsToWindowById(windowId, tabIndex) {
-                    await scriptsReady;
+                addButtonsToWindowById(windowId, tabIndex) {
                     return appendButtons(windowId, tabIndex);
                 },
                 onButtonCommand: new ExtensionCommon.EventManager({
@@ -144,8 +145,7 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
                         };
                     }
                 }).api(),
-                async removeButtons() {
-                    await scriptsReady;
+                removeButtons() {
                     removeButtonsFromAllWindows();
                 },
             },
@@ -159,7 +159,7 @@ var trainButtons = class extends ExtensionCommon.ExtensionAPI {
 };
 
 function removeButtonsFromAllWindows() {
-    globalThis.libExperiments?.removeElements([
+    libExperiments.removeElements([
         "rspamdSpamnessButtonHam",
         "rspamdSpamnessButtonSpam"
     ]);

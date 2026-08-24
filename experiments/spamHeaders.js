@@ -35,12 +35,14 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
         /*
          * Thunderbird 155 rejects loading of moz-extension:// URIs via
-         * Services.scriptloader ("Trying to load untrusted URI").
-         * ChromeUtils.compileScript with executeInGlobal is the mechanism
-         * the platform itself uses to load experiment scripts.
+         * Services.scriptloader ("Trying to load untrusted URI"). Opt in
+         * explicitly using the allowUnsafeURL option. Older Thunderbird
+         * versions ignore unknown options.
          */
-        const scriptsReady = ChromeUtils.compileScript(extension.getURL("experiments/libExperiments.js"))
-            .then((script) => script.executeInGlobal(globalThis));
+        Services.scriptloader.loadSubScriptWithOptions(
+            extension.getURL("experiments/libExperiments.js"),
+            {allowUnsafeURL: true}
+        );
 
         let maxHeight = null;
 
@@ -240,13 +242,11 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
         context.callOnClose(this);
         return {
             spamHeaders: {
-                async addHeadersToWindowById(windowId, tabIndex) {
-                    await scriptsReady;
+                addHeadersToWindowById(windowId, tabIndex) {
                     addHeadersToWindowById(windowId, tabIndex);
                 },
 
-                async addSymbol(windowId, tabIndex, symbolClass, displayText, tooltiptext, fullFuzzyHashes) {
-                    await scriptsReady;
+                addSymbol(windowId, tabIndex, symbolClass, displayText, tooltiptext, fullFuzzyHashes) {
                     const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     if (!document) return;
 
@@ -283,8 +283,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     links.appendChild(link);
                 },
 
-                async clearSymbolsHeader(windowId, tabIndex, show_n_lines) {
-                    await scriptsReady;
+                clearSymbolsHeader(windowId, tabIndex, show_n_lines) {
                     const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     const parent = document.getElementById("links");
                     while (parent.firstChild) {
@@ -304,8 +303,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     }
                 },
 
-                async setHeaderHidden(windowId, tabIndex, elementId, hidden) {
-                    await scriptsReady;
+                setHeaderHidden(windowId, tabIndex, elementId, hidden) {
                     // Ensure that the all visible labels have the same size.
                     function syncGridColumnWidths(document) {
                         const allHeaderLabels = document
@@ -332,8 +330,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
                     }
                 },
 
-                async setHeaderValue(windowId, tabIndex, elementId, prop, value) {
-                    await scriptsReady;
+                setHeaderValue(windowId, tabIndex, elementId, prop, value) {
                     const document = libExperiments.getDocumentByTabIndex(windowId, tabIndex);
                     if (!document) return;
 
@@ -371,7 +368,7 @@ var spamHeaders = class extends ExtensionCommon.ExtensionAPI {
 
     // eslint-disable-next-line class-methods-use-this
     close() {
-        globalThis.libExperiments?.removeElements([
+        libExperiments.removeElements([
             "expandedRspamdSpamnessRow",
             "expandedRspamdSpamnessRulesRow",
             "rspamd-spamness-css-0",
